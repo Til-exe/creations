@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Gruppenprojekt.App.Classes
 {
-    internal class mainEnemy: GameObject
+    internal class Enemy: GameObject
     {
-        public mainEnemy(string name, float x, float y, float z) {
+        public Enemy(string name, float x, float y, float z) {
             this.Name = name;
             this.SetPosition(x, y, z);
             this.SetColor(0f, 0f, 1f);
