@@ -40,7 +40,9 @@ namespace Gruppenprojekt.App
             AddLightObject(light);
 
 
-            
+            //test 
+            mainEnemy e = new mainEnemy("huso" , 1, 2, 1);
+            AddGameObject(e);
         }
     }
 }
