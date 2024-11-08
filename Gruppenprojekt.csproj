@@ -64,6 +64,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="App\Textures\skybox.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="App\Textures\wood1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
