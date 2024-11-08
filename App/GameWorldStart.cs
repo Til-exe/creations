@@ -15,8 +15,8 @@ namespace Gruppenprojekt.App
 
         public override void Prepare()
         {
-           
-          
+
+            SetBackgroundSkybox("./App/Textures/skybox.png");
             SetCameraPosition(0.0f, 2.0f, 15.0f);
             SetCameraTarget(0.0f, 0.0f, 0.0f);
             SetCameraFOV(90);
