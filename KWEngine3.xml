@@ -186,6 +186,21 @@
             Ab 128 Längeneinheiten
             </summary>
         </member>
+        <member name="T:KWEngine3.ProjectionDirection">
+            <summary>
+            Gibt die Projektionsrichtung für die Maperstellungshilfsmethode HelperVector.GetScreenCoordinatesNormalizedFor()
+            </summary>
+        </member>
+        <member name="F:KWEngine3.ProjectionDirection.NegativeY">
+            <summary>
+            Kamera blickt entlang der negativen Y-Achse
+            </summary>
+        </member>
+        <member name="F:KWEngine3.ProjectionDirection.NegativeZ">
+            <summary>
+            Kamera blickt entlang der negativen Z-Achse
+            </summary>
+        </member>
         <member name="T:KWEngine3.DebugMode">
             <summary>
             Debug-Modus für den Viewport
@@ -1018,6 +1033,11 @@
             Oberklasse aller GameObject- und RenderObject-Instanzen
             </summary>
         </member>
+        <member name="P:KWEngine3.GameObjects.EngineObject.IsInCurrentWorld">
+            <summary>
+            Gibt an, ob sich das Objekt aktuell in der Welt befindet
+            </summary>
+        </member>
         <member name="P:KWEngine3.GameObjects.EngineObject.Name">
             <summary>
             Names des Objekts
@@ -1123,6 +1143,16 @@
             (Normalisierter) Blickrichtungsvektor des Objekts
             </summary>
         </member>
+        <member name="P:KWEngine3.GameObjects.EngineObject.LookAtVectorXZ">
+            <summary>
+            (Normalisierter) Blickrichtungsvektor des Objekts auf der XZ-Ebene
+            </summary>
+        </member>
+        <member name="P:KWEngine3.GameObjects.EngineObject.LookAtVectorXY">
+            <summary>
+            (Normalisierter) Blickrichtungsvektor des Objekts auf der XY-Ebene
+            </summary>
+        </member>
         <member name="P:KWEngine3.GameObjects.EngineObject.LookAtVectorLocalUp">
             <summary>
             (Normalisierter) Lokaler Oben-Vektor des Objekts
@@ -1172,6 +1202,18 @@
             Setzt die Sichtbarkeit des Objekts (Standard: 1)
             </summary>
             <param name="o">Sichtbarkeit (0 bis 1)</param>
+        </member>
+        <member name="P:KWEngine3.GameObjects.EngineObject.Color">
+            <summary>
+            Enthält die aktuelle Farbtönung des Objekts
+            </summary>
+            <returns>Farbtönung (normalisierte RGB-Werte) als Vector3-Instanz</returns>
+        </member>
+        <member name="P:KWEngine3.GameObjects.EngineObject.ColorEmissive">
+            <summary>
+            Enthält die aktuelle Leuchtfarbe und -intensität des Objekts
+            </summary>
+            <returns>Leuchtfarbe (normalisierte RGB-Werte) als Vector4-Instanz</returns>
         </member>
         <member name="M:KWEngine3.GameObjects.EngineObject.SetColor(System.Single,System.Single,System.Single)">
             <summary>
@@ -1733,6 +1775,11 @@
             Interne ID des Objekts
             </summary>
         </member>
+        <member name="P:KWEngine3.GameObjects.GameObject.Tag">
+            <summary>
+            Ermöglicht das Anhängen individueller Informationen an das Objekt
+            </summary>
+        </member>
         <member name="P:KWEngine3.GameObjects.GameObject.FlowFieldCost">
             <summary>
             Gibt die Kosten dieser Instanz auf einem (optionalen) Flowfield an (1 = kein Hindernis, 255 = unüberwindbares Hindernis; Standardwert: 1)
@@ -1781,6 +1828,12 @@
             Erfragt die gemittelte Kopfposition der (ggf. rotierten) Objekt-Hitbox
             </summary>
             <returns>Kopfposition (Mittelwert)</returns>
+        </member>
+        <member name="M:KWEngine3.GameObjects.GameObject.ForceUpdate">
+            <summary>
+            Erzwingt das sofortige Aktualisieren des Objekts für den Render-Durchgang
+            </summary>
+            <remarks>Sollte in der Regel nicht verwendet werden</remarks>
         </member>
         <member name="M:KWEngine3.GameObjects.GameObject.SetPosition(System.Single,System.Single,System.Single,KWEngine3.PositionMode)">
             <summary>
@@ -2188,6 +2241,21 @@
             Name der Instanz
             </summary>
         </member>
+        <member name="P:KWEngine3.GameObjects.HUDObject.ZIndex">
+            <summary>
+            Gibt den aktuellen Z-Index des Objekts an (Standard: -10f)
+            </summary>
+            <remarks>
+            Der Z-Index kann verwendet werden, wenn sich HUD-Objekte überlappen. In diesem Fall wird das Objekt mit dem höheren Index im Vordergrund gezeichnet
+            </remarks>
+        </member>
+        <member name="M:KWEngine3.GameObjects.HUDObject.SetZIndex(System.Single)">
+            <summary>
+            Setzt die Draw-Priorität des Objekts (Standardwert: -10f)
+            </summary>
+            <remarks>Der Indexbereich [-2f;2f] ist für Map-Objekte reserviert und darf nicht verwendet werden</remarks>
+            <param name="index">Indexwert (gültige Bereiche: [-100f; -2f] und [2f;100f])</param>
+        </member>
         <member name="M:KWEngine3.GameObjects.HUDObject.SetPosition(System.Single,System.Single)">
             <summary>
             Setzt die Position
@@ -2200,6 +2268,12 @@
             Setzt die Position
             </summary>
             <param name="p">Höhe in Pixeln</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.HUDObject.IsInsideScreenSpace">
+            <summary>
+            Prüft, ob diese Instanz aktuell auf dem Bildschirm zu sehen ist
+            </summary>
+            <returns>true, wenn das Objekt zu sehen ist</returns>
         </member>
         <member name="M:KWEngine3.GameObjects.HUDObject.CenterOnScreen">
             <summary>
@@ -2278,6 +2352,13 @@
             </summary>
             <param name="scale">Größe der Buchstaben bzw. des Bilds (in Pixeln)</param>
         </member>
+        <member name="M:KWEngine3.GameObjects.HUDObject.CompareTo(KWEngine3.GameObjects.HUDObject)">
+            <summary>
+            Vergleicht diese Instanz mit einer anderen hinsichtlich des Z-Index (nur für interne Zwecke benötigt)
+            </summary>
+            <param name="other">andere Instanz</param>
+            <returns>Vergleichsergebnis (-1, 0 oder 1)</returns>
+        </member>
         <member name="T:KWEngine3.GameObjects.HUDObjectImage">
             <summary>
             Klasse zur Anzeige von Bildern im HUD
@@ -2285,7 +2366,7 @@
         </member>
         <member name="M:KWEngine3.GameObjects.HUDObjectImage.#ctor">
             <summary>
-            Standardkonstruktor für bildbasierte HUD-Objekte, der noch keine Bilddatei festlegt
+            Standardkonstruktor für bildbasierte HUD-Objekte, der noch keine Bilddatei festlegt (Standardfarbe: weiß)
             </summary>
         </member>
         <member name="M:KWEngine3.GameObjects.HUDObjectImage.#ctor(System.String)">
@@ -2293,6 +2374,29 @@
             Standardkonstruktor für bildbasierte HUD-Objekte
             </summary>
             <param name="filename">Name der Bilddatei</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.HUDObjectImage.IsInsideScreenSpace">
+            <summary>
+            Prüft, ob diese Instanz aktuell auf dem Bildschirm zu sehen ist
+            </summary>
+            <returns>true, wenn das Objekt zu sehen ist</returns>
+        </member>
+        <member name="P:KWEngine3.GameObjects.HUDObjectImage.TextureRepeat">
+            <summary>
+            Gibt den aktuellen Texturwiederholungsfaktor an
+            </summary>
+        </member>
+        <member name="M:KWEngine3.GameObjects.HUDObjectImage.SetTextureRepeat(System.Single,System.Single)">
+            <summary>
+            Gibt an, wie oft die gewählte Textur im HUDObject wiederholt werden soll
+            </summary>
+            <param name="x">Wiederholungsfaktor in x-Richtung</param>
+            <param name="y">Wiederholungsfaktor in y-Richtung</param>
+        </member>
+        <member name="P:KWEngine3.GameObjects.HUDObjectImage.Scale">
+            <summary>
+            Gibt die aktuelle Skalierung in Pixeln zurück
+            </summary>
         </member>
         <member name="M:KWEngine3.GameObjects.HUDObjectImage.IsMouseCursorOnMe">
             <summary>
@@ -2305,6 +2409,23 @@
             Setzt das anzuzeigende Bild (als Textur) und skaliert das Objekt auf die Originalgröße dieses Bildes
             </summary>
             <param name="filename">Name der Bilddatei</param>
+        </member>
+        <member name="T:KWEngine3.GameObjects.HUDObjectMap">
+            <summary>
+            Klasse zur Anzeige von Bildern im HUD
+            </summary>
+        </member>
+        <member name="M:KWEngine3.GameObjects.HUDObjectMap.#ctor">
+            <summary>
+            Standardkonstruktor für bildbasierte HUD-Objekte, der noch keine Bilddatei festlegt (Standardfarbe: weiß)
+            </summary>
+        </member>
+        <member name="M:KWEngine3.GameObjects.HUDObjectMap.SetTextureRepeat(System.Single,System.Single)">
+            <summary>
+            Gibt an, wie oft die gewählte Textur im HUDObject wiederholt werden soll
+            </summary>
+            <param name="x">Wiederholungsfaktor in x-Richtung</param>
+            <param name="y">Wiederholungsfaktor in y-Richtung</param>
         </member>
         <member name="T:KWEngine3.GameObjects.HUDObjectText">
             <summary>
@@ -2361,6 +2482,12 @@
             <summary>
             Gibt den aktuellen Distanzfaktor für die Abstände zwischen Zeichen an
             </summary>
+        </member>
+        <member name="M:KWEngine3.GameObjects.HUDObjectText.IsInsideScreenSpace">
+            <summary>
+            Prüft, ob diese Instanz aktuell auf dem Bildschirm zu sehen ist
+            </summary>
+            <returns>true, wenn das Objekt zu sehen ist</returns>
         </member>
         <member name="M:KWEngine3.GameObjects.HUDObjectText.IsMouseCursorOnMe">
             <summary>
@@ -2509,7 +2636,7 @@
         </member>
         <member name="M:KWEngine3.GameObjects.LightObject.SetShadowOffset(System.Single)">
             <summary>
-            Feintuning für die Position des Schatteneffekts (Standardwert: 0.001f)
+            Feintuning für die Position des Schatteneffekts (Standardwert: 0.0001f)
             </summary>
             <param name="offset">Erlaubte Werte zwischen 0.0f und 0.1f</param>
         </member>
@@ -2737,6 +2864,11 @@
         <member name="T:KWEngine3.GameObjects.TerrainObject">
             <summary>
             Klasse für Terrain-Objekte
+            </summary>
+        </member>
+        <member name="P:KWEngine3.GameObjects.TerrainObject.IsInCurrentWorld">
+            <summary>
+            Gibt an, ob sich das Objekt aktuell in der Welt befindet
             </summary>
         </member>
         <member name="P:KWEngine3.GameObjects.TerrainObject.ID">
@@ -3280,6 +3412,11 @@
             <param name="windowMode">Art des Fensters (Standard oder rahmenlos)</param>
             <param name="monitorHandle">Handle des Monitors, auf dem das Fenster geöffnet werden soll</param>
         </member>
+        <member name="P:KWEngine3.GLWindow.FPS">
+            <summary>
+            Gibt die aktuelle Anzahl der Frames-Per-Second (FPS) an
+            </summary>
+        </member>
         <member name="P:KWEngine3.GLWindow.IsMouseInWindow">
             <summary>
             Prüft, ob der Mauszeiger aktuell innerhalb des Fensters ist
@@ -3378,6 +3515,11 @@
         <member name="P:KWEngine3.GLWindow.Center">
             <summary>
             Gibt die (relative) Mitte des Fensters in Pixeln an
+            </summary>
+        </member>
+        <member name="P:KWEngine3.GLWindow.MousePosition">
+            <summary>
+            Erfragt die aktuelle Mauscursorposition (relativ zum Fenster)
             </summary>
         </member>
         <member name="M:KWEngine3.GLWindow.SetCursor(System.String)">
@@ -3695,7 +3837,7 @@
         </member>
         <member name="M:KWEngine3.Helper.HelperGeneral.ScaleToRange(System.Single,System.Single,System.Single,System.Single,System.Single)">
             <summary>
-            Skaliert einen Wert dahingehend, dass er in den durch lowerBound und upperBound angegebenen Bereich passt
+            Skaliert einen Wert dahingehend, dass er in den durch outputLow und outputHigh angegebenen Bereich passt
             </summary>
             <param name="inputValue">zu skalierender Wert</param>
             <param name="inputLow">Minimalwert des nicht-skalierten Werts</param>
@@ -4358,6 +4500,31 @@
             <param name="position">Positionsangabe in 3D</param>
             <returns>Normalisierte 2D-Bildschirmkoordinaten als Vector2-Instanz</returns>
         </member>
+        <member name="M:KWEngine3.Helper.HelperVector.ConvertProjectionBoundsToScreenSpace(KWEngine3.Helper.ProjectionBounds,System.Single,System.Int32,System.Int32)">
+            <summary>
+            Konvertiert die normalisierten Projektionsgrenzwerte zu tatsächlichen Bildschirmkoordinaten
+            </summary>
+            <param name="bounds">normalisierte Projektionswerte</param>
+            <param name="scale">Skalierfaktor für die Konvertierung (Standard: 1f)</param>
+            <param name="offsetX">Verchiebung in X-Richtung</param>
+            <param name="offsetY">Verchiebung in Y-Richtung</param>
+            <returns>Pixelkoordinaten</returns>
+        </member>
+        <member name="M:KWEngine3.Helper.HelperVector.GetScreenCoordinatesNormalizedFor(OpenTK.Mathematics.Vector3,System.Single,System.Single,System.Single,OpenTK.Mathematics.Vector3,KWEngine3.ProjectionDirection,System.Single,System.Single,System.Single)">
+            <summary>
+            Ermittelt die Grenzen einer AABB-Hitbox zu der angegebenen Position in normalisierten (frei wählbaren) Bildschirmkoordinaten 
+            </summary>
+            <param name="p">zu projizierende Position</param>
+            <param name="width">Breite des zu projezierenden Kubus</param>
+            <param name="height">Höhe des zu projezierenden Kubus</param>
+            <param name="depth">Tiefe des zu projezierenden Kubus</param>
+            <param name="cameraPosition">Kameraposition für die Projektion</param>
+            <param name="direction">Blickrichtung der Kamera</param>
+            <param name="radius">Radius der Blickweite (ausgehend von der Kameraposition, gültiger Bereich [1;10000])</param>
+            <param name="near">Naheinstellgrenze der Kamera (Standard: 1f, gültiger Bereich [1;far - 1])</param>
+            <param name="far">Blickweite der Kamera in die Ferne (Standard: 100f, gültiger Bereich [near;10000])</param>
+            <returns>Grenzwerte des projizierten Objekts in normalisierter Form</returns>
+        </member>
         <member name="M:KWEngine3.Helper.HelperVector.SmoothStep(System.Single,System.Single,System.Single)">
             <summary>
             Erzeugt einen weichen Übergang des Wertes wenn er innerhalb der Unter-/Obergrenze liegt
@@ -4393,6 +4560,121 @@
             <param name="upperBound">Wertobergrenze</param>
             <param name="value">Zu überblendender Wert</param>
             <returns>Weichgezeichneter Wert</returns>
+        </member>
+        <member name="T:KWEngine3.Helper.ProjectionBounds">
+            <summary>
+            Gibt die aktuellen Grenzen einer AABB-Hitbox für die aktuelle Projektion an
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.ProjectionBounds.Center">
+            <summary>
+            Mitte der Projektion
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.ProjectionBounds.Top">
+            <summary>
+            Obere Grenzkoordinate
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.ProjectionBounds.Bottom">
+            <summary>
+            Untere Grenzkoordinate
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.ProjectionBounds.Left">
+            <summary>
+            Linke Grenzkoordinate
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.ProjectionBounds.Right">
+            <summary>
+            Rechte Grenzkoordinate
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.ProjectionBounds.Back">
+            <summary>
+            Hintere Grenzkoordinate
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.ProjectionBounds.Front">
+            <summary>
+            Vordere Grenzkoordinate
+            </summary>
+        </member>
+        <member name="M:KWEngine3.Helper.ProjectionBounds.IsVisibleOnMap">
+            <summary>
+            Prüft ob die Projektion auf der Map sichtbar wäre
+            </summary>
+            <returns>true, wenn das Objekt sichtbar wäre</returns>
+        </member>
+        <member name="T:KWEngine3.Helper.ProjectionBoundsScreen">
+            <summary>
+            Gibt die aktuellen Grenzen einer AABB-Hitbox für die aktuelle Projektion an
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.ProjectionBoundsScreen.Center">
+            <summary>
+            Mitte der Projektion
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.ProjectionBoundsScreen.Width">
+            <summary>
+            Breite des Grenzbereichs
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.ProjectionBoundsScreen.Height">
+            <summary>
+            Höhe des Grenzbereichs
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.ProjectionBoundsScreen.Top">
+            <summary>
+            Obere Grenzkoordinate
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.ProjectionBoundsScreen.Bottom">
+            <summary>
+            Untere Grenzkoordinate
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.ProjectionBoundsScreen.Left">
+            <summary>
+            Linke Grenzkoordinate
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.ProjectionBoundsScreen.Right">
+            <summary>
+            Rechte Grenzkoordinate
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.ProjectionBoundsScreen.Back">
+            <summary>
+            Hintere Grenzkoordinate
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.ProjectionBoundsScreen.Front">
+            <summary>
+            Vordere Grenzkoordinate
+            </summary>
+        </member>
+        <member name="M:KWEngine3.Helper.ProjectionBoundsScreen.#ctor(KWEngine3.Helper.ProjectionBounds,System.Single,System.Int32,System.Int32)">
+            <summary>
+            Konstruktormethode
+            </summary>
+            <param name="bounds">uu konvertierende Koordinaten</param>
+            <param name="scale">Skalierungsfaktor</param>
+            <param name="offsetX">Verschiebung in X-Richtung (in Pixeln)</param>
+            <param name="offsetY">Verschiebung in Y-Richtung (in Pixeln)</param>
+        </member>
+        <member name="M:KWEngine3.Helper.ProjectionBoundsScreen.IsInsideRectangle(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Prüft ob die Projektion innerhalb der festgelegten Grenzen liegt
+            </summary>
+            <param name="left">Linke Grenze (in relativen Pixelkoordinaten)</param>
+            <param name="right">Rechte Grenze (in relativen Pixelkoordinaten)</param>
+            <param name="top">Obere Grenze (in relativen Pixelkoordinaten)</param>
+            <param name="bottom">Untere Grenze (in relativen Pixelkoordinaten)</param>
+            <returns>true, wenn das Objekt innerhalb des Bereichs liegt</returns>
         </member>
         <member name="T:KWEngine3.Helper.RayIntersection">
             <summary>
@@ -4735,7 +5017,7 @@
         </member>
         <member name="P:KWEngine3.KWEngine.SweepAndPruneTolerance">
             <summary>
-            Zusätzliches Padding für die Kollisionsvorhersage (Standard: 1.0f)
+            Zusätzliches Padding für die Kollisionsvorhersage (Standard: 2.0f)
             </summary>
         </member>
         <member name="P:KWEngine3.KWEngine.SSAO_Enabled">
@@ -4761,6 +5043,11 @@
         <member name="P:KWEngine3.KWEngine.ApplicationTime">
             <summary>
             Gibt an, wie lange die Anwendung bereits aktiv ist
+            </summary>
+        </member>
+        <member name="P:KWEngine3.KWEngine.FPS">
+            <summary>
+            Gibt die aktuelle Anzahl der Frames-Per-Second (FPS) an
             </summary>
         </member>
         <member name="M:KWEngine3.KWEngine.LogWriteLine(System.Object)">
@@ -5047,6 +5334,11 @@
             Basisklasse für Spielwelten
             </summary>
         </member>
+        <member name="P:KWEngine3.World.Map">
+            <summary>
+            Gibt die Referenz auf die (optionale) Karte zurück
+            </summary>
+        </member>
         <member name="P:KWEngine3.World.FadeColor">
             <summary>
             Gibt die globale Mischfarbe an, mit der der Bildschirminhalt gemischt wird, wenn FadeFactor kleiner als 1.0 ist
@@ -5329,6 +5621,12 @@
             </summary>
             <param name="renderDistance">neue Renderdistanz (muss größer oder gleich 1 sein)</param>
         </member>
+        <member name="M:KWEngine3.World.ForceCameraUpdate">
+            <summary>
+            Erzwing die sofortige Aktualisierung der Kamera hinsichtlich Position und Ziel
+            </summary>
+            <remarks>Sollte nur dann verwendet werden, wenn die Kamera direkt durch den Mauscursor verändert wird (ausgenommen: First-Person-Mode)</remarks>
+        </member>
         <member name="M:KWEngine3.World.SetCameraPosition(System.Single,System.Single,System.Single,System.Single)">
             <summary>
             Setzt die Kameraposition
@@ -5427,6 +5725,20 @@
             <typeparam name="T">Klasse des gesuchten Objekts</typeparam>
             <param name="name">Name des gesuchten Objekts</param>
             <returns>Gesuchtes Objekt oder null (falls nicht gefunden)</returns>
+        </member>
+        <member name="M:KWEngine3.World.GetRenderObjectByName``1(System.String)">
+            <summary>
+            Durchsucht die Liste der RenderObject-Instanzen nach einem Objekt des gegebenen Typs mit dem gegebenen Namen
+            </summary>
+            <typeparam name="T">Klasse des gesuchten Objekts</typeparam>
+            <param name="name">Name des gesuchten Objekts</param>
+            <returns>Gesuchtes Objekt oder null (falls nicht gefunden)</returns>
+        </member>
+        <member name="M:KWEngine3.World.GetRenderObjects">
+            <summary>
+            Liefert eine Liste aller sich aktuell in der Welt befindenden RenderObject-Instanzen
+            </summary>
+            <returns>Liste aller RenderObject-Instanzen</returns>
         </member>
         <member name="M:KWEngine3.World.GetGameObjectByName(System.String)">
             <summary>
@@ -5655,6 +5967,161 @@
             </summary>
             <param name="other">Vergleichsereignis</param>
             <returns>Vergleichsergebnis (-1, 0 oder 1)</returns>
+        </member>
+        <member name="T:KWEngine3.WorldMap">
+            <summary>
+            Klasse zur Organisation eines Map-Overlays (kann maximal 1024 Gegenstände anzeigen)
+            </summary>
+        </member>
+        <member name="P:KWEngine3.WorldMap.Enabled">
+            <summary>
+            Aktiviert/Deaktiviert das Overlay der Map
+            </summary>
+        </member>
+        <member name="M:KWEngine3.WorldMap.ResetBackground">
+            <summary>
+            Löscht das ggf. gesetzte Hintergrundobjekt der Map
+            </summary>
+        </member>
+        <member name="M:KWEngine3.WorldMap.SetBackground(System.String,System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Setzt das Hintergrundbild der Map
+            </summary>
+            <param name="filename">Dateiname (inkl. relativem Pfad)</param>
+            <param name="width">Weite der Map (in Weltkoordinaten)</param>
+            <param name="height">Höhe der Map (in Weltkoordinaten)</param>
+            <param name="opacity">Sichtbarkeit (zwischen 0f und 1f)</param>
+            <param name="textureRepeatX">Texturwiederholung in x-Richtung</param>
+            <param name="textureRepeatY">Texturwiederholung in y-Richtung</param>
+        </member>
+        <member name="M:KWEngine3.WorldMap.SetViewport(OpenTK.Mathematics.Vector2i,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Gibt die Position und Größe der Map an
+            </summary>
+            <param name="center">Mittelpunkt der Map in Fensterpixelkoordinaten</param>
+            <param name="width">Breite der Map auf dem Bildschirm (in Pixeln, Mindestwert: 32)</param>
+            <param name="height">Höhe der Map auf dem Bildschirm (in Pixeln, Mindestwert: 32)</param>
+            <param name="drawAsCircle">Zeichnet die Map kreisrund statt quadratisch</param>
+        </member>
+        <member name="M:KWEngine3.WorldMap.SetViewport(OpenTK.Mathematics.Vector2,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Gibt die Position und Größe der Map an
+            </summary>
+            <param name="center">Mittelpunkt der Map in Fensterpixelkoordinaten</param>
+            <param name="width">Breite der Map auf dem Bildschirm (in Pixeln, Mindestwert: 32)</param>
+            <param name="height">Höhe der Map auf dem Bildschirm (in Pixeln, Mindestwert: 32)</param>
+            <param name="drawAsCircle">Zeichnet die Map kreisrund statt quadratisch</param>
+        </member>
+        <member name="M:KWEngine3.WorldMap.SetViewport(System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Gibt die Position und Größe der Map an
+            </summary>
+            <param name="centerX">Mittelpunkt (x-Achse) der Map in Fensterpixelkoordinaten</param>
+            <param name="centerY">Mittelpunkt (y-Achse) der Map in Fensterpixelkoordinaten</param>
+            <param name="width">Breite der Map auf dem Bildschirm (in Pixeln, Mindestwert: 32)</param>
+            <param name="height">Höhe der Map auf dem Bildschirm (in Pixeln, Mindestwert: 32)</param>
+            <param name="drawAsCircle">Zeichnet die Map kreisrund statt quadratisch</param>
+        </member>
+        <member name="M:KWEngine3.WorldMap.SetCamera(OpenTK.Mathematics.Vector3,KWEngine3.ProjectionDirection,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Setzt die Kameraeinstellungen für die Map-Kamera
+            </summary>
+            <param name="position">Position der Kamera</param>
+            <param name="direction">Blickrichtung der Kamera</param>
+            <param name="width">Sichtbreite der Kamera (Mindestwert: 1f, Maximalwert: 10000f)</param>
+            <param name="height">Sichthöhe der Kamera (Mindestwert: 1f, Maximalwert: 10000f)</param>
+            <param name="near">Naheinstellgrenze (Mindestwert: 1f)</param>
+            <param name="far">Ferneinstellgrenze (Maximalwert: 10000f)</param>
+        </member>
+        <member name="M:KWEngine3.WorldMap.UpdateCameraRotation(OpenTK.Mathematics.Vector3)">
+            <summary>
+            Rotiert die Kamera um ihre Blickachse gemäß des angegebenen Look-At-Vector
+            </summary>
+            <param name="lookAtVector">Look-At-Vector der die Rotation enthält</param>
+        </member>
+        <member name="M:KWEngine3.WorldMap.SetCamera(System.Single,System.Single,System.Single,KWEngine3.ProjectionDirection,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Setzt die Kameraeinstellungen für die Map-Kamera
+            </summary>
+            <param name="x">Kameraposition auf der X-Achse</param>
+            <param name="y">Kameraposition auf der Y-Achse</param>
+            <param name="z">Kameraposition auf der Z-Achse</param>
+            <param name="direction">Blickrichtung der Kamera</param>
+            <param name="width">Sichtbreite der Kamera (Mindestwert: 1f, Maximalwert: 10000f)</param>
+            <param name="height">Sichtbreite der Kamera (Mindestwert: 1f, Maximalwert: 10000f)</param>
+            <param name="near">Naheinstellgrenze</param>
+            <param name="far">Ferneinstellgrenze</param>
+        </member>
+        <member name="M:KWEngine3.WorldMap.UpdateCamera(System.Single,System.Single,System.Single)">
+            <summary>
+            Setzt die Kameraeinstellungen (hier nur: Position) für die Map-Kamera
+            </summary>
+            <param name="x">Kameraposition auf der X-Achse</param>
+            <param name="y">Kameraposition auf der Y-Achse</param>
+            <param name="z">Kameraposition auf der Z-Achse</param>
+        </member>
+        <member name="M:KWEngine3.WorldMap.UpdateCamera(OpenTK.Mathematics.Vector3)">
+            <summary>
+            Setzt die Kameraeinstellungen (hier nur: Position) für die Map-Kamera
+            </summary>
+            <param name="position">Kameraposition</param>
+        </member>
+        <member name="M:KWEngine3.WorldMap.Add(KWEngine3.GameObjects.GameObject,System.Single,OpenTK.Mathematics.Vector3,OpenTK.Mathematics.Vector3,System.Single,System.Single,System.Single,System.String,System.Single,System.Single)">
+            <summary>
+            Fügt die aktuelle Projektion der Map für den aktuellen Frame hinzu
+            </summary>
+            <param name="go">Zu zeichnendes Objekt</param>
+            <param name="zIndex">Z-Index für das Objekt (darf zwischen -2f und +2f liegen)</param>
+            <param name="color">Färbung (jeder Wert zwischen 0f und 1f)</param>
+            <param name="colorEmissive">Leuchtfärbung jeder Wert zwischen 0f und 1f)</param>
+            <param name="emissiveIntensity">Leuchtintensität (zwischen 0f und 1f)</param>
+            <param name="opacity">Sichtbarkeit (zwischen 0f und 1f)</param>
+            <param name="scaleOverride">Wenn > 0, wird die Skalierung des eigentlichen Objekts mit dem angegebenen Wert überschrieben (deaktiviert zusätzlich die Rotation des Objekts)</param>
+            <param name="texture">Texturdateiname (darf null sein, wenn keine Textur verwendet werden soll)</param>
+            <param name="textureRepeatX">Texturwiederholung in X-Richtung (Standard: 1f)</param>
+            <param name="textureRepeatY">Texturwiederholung in Y-Richtung (Standard: 1f)</param>
+        </member>
+        <member name="M:KWEngine3.WorldMap.AddAsRealModel(KWEngine3.GameObjects.GameObject,System.Single,OpenTK.Mathematics.Vector3,OpenTK.Mathematics.Vector3,System.Single,System.Single,System.String,System.Single,System.Single)">
+            <summary>
+            Fügt die aktuelle Projektion der Map für den aktuellen Frame hinzu
+            </summary>
+            <param name="go">Zu zeichnendes Objekt</param>
+            <param name="zIndex">Z-Index für das Objekt (darf zwischen -2f und +2f liegen)</param>
+            <param name="color">Färbung (jeder Wert zwischen 0f und 1f)</param>
+            <param name="colorEmissive">Leuchtfärbung jeder Wert zwischen 0f und 1f)</param>
+            <param name="emissiveIntensity">Leuchtintensität (zwischen 0f und 1f)</param>
+            <param name="opacity">Sichtbarkeit (zwischen 0f und 1f)</param>
+            <param name="texture">Texturdateiname (darf null sein, wenn keine Textur verwendet werden soll)</param>
+            <param name="textureRepeatX">Texturwiederholung in X-Richtung (Standard: 1f)</param>
+            <param name="textureRepeatY">Texturwiederholung in Y-Richtung (Standard: 1f)</param>
+        </member>
+        <member name="M:KWEngine3.WorldMap.Add(KWEngine3.GameObjects.TerrainObject,System.Single,OpenTK.Mathematics.Vector3,System.Single,System.String,System.Single,System.Single)">
+            <summary>
+            Fügt die Instanz des TerrainObject der Map für den aktuellen Frame hinzu
+            </summary>
+            <param name="t">Zu zeichnendes Terrain</param>
+            <param name="zIndex">Z-Index für das Objekt (darf zwischen -2f und +2f liegen)</param>
+            <param name="color">Färbung (jeder Wert zwischen 0f und 1f)</param>
+            <param name="opacity">Sichtbarkeit (zwischen 0f und 1f)</param>
+            <param name="texture">Texturdateiname (darf null sein, wenn keine Textur verwendet werden soll)</param>
+            <param name="textureRepeatX">Texturwiederholung in X-Richtung (Standard: 1f)</param>
+            <param name="textureRepeatY">Texturwiederholung in Y-Richtung (Standard: 1f)</param>
+        </member>
+        <member name="M:KWEngine3.WorldMap.Add(OpenTK.Mathematics.Vector3,System.Single,System.Single,System.Single,OpenTK.Mathematics.Vector3,OpenTK.Mathematics.Vector3,System.Single,System.Single,System.String,System.Single,System.Single)">
+            <summary>
+            Fügt die aktuelle Projektion der Map für den aktuellen Frame hinzu
+            </summary>
+            <param name="position">Position des zu zeichnenden Objekts</param>
+            <param name="width">Breite des zu zeichnenden Objekts</param>
+            <param name="height">Breite des zu zeichnenden Objekts</param>
+            <param name="zIndex">Z-Index für das Objekt (darf zwischen -2f und +2f liegen)</param>
+            <param name="color">Färbung (jeder Wert zwischen 0f und 1f)</param>
+            <param name="colorEmissive">Leuchtfärbung jeder Wert zwischen 0f und 1f)</param>
+            <param name="emissiveIntensity">Leuchtintensität (zwischen 0f und 1f)</param>
+            <param name="opacity">Sichtbarkeit (zwischen 0f und 1f)</param>
+            <param name="texture">Texturdateiname (darf null sein, wenn keine Textur verwendet werden soll)</param>
+            <param name="textureRepeatX">Texturwiederholung in X-Richtung (Standard: 1f)</param>
+            <param name="textureRepeatY">Texturwiederholung in Y-Richtung (Standard: 1f)</param>
         </member>
     </members>
 </doc>
