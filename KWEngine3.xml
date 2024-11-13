@@ -2296,12 +2296,12 @@
             Aktuelle Sichtbarkeit des Objekts
             </summary>
         </member>
-        <member name="P:KWEngine3.GameObjects.HUDObject.GlowColor">
+        <member name="P:KWEngine3.GameObjects.HUDObject.ColorEmissive">
             <summary>
             AKtuelle Glühfarbe des Objekts
             </summary>
         </member>
-        <member name="P:KWEngine3.GameObjects.HUDObject.GlowIntensity">
+        <member name="P:KWEngine3.GameObjects.HUDObject.ColorEmissiveIntensity">
             <summary>
             Aktuelle Glühintensität des Objekts
             </summary>
@@ -2337,7 +2337,7 @@
             <summary>
             Setzt die Glühintensität des Objekts
             </summary>
-            <param name="intensity">Intensität (zwischen 0 und 1)</param>
+            <param name="intensity">Intensität (zwischen 0 und 10)</param>
         </member>
         <member name="M:KWEngine3.GameObjects.HUDObject.SetScale(System.Single,System.Single)">
             <summary>
