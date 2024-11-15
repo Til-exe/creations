@@ -14,10 +14,9 @@ namespace Gruppenprojekt.App.Classes
             this.Name = Name;
             this.SetPosition(x, y, z);
             IsCollisionObject = true;
-            IsAffectedByLight = true;         
+            IsAffectedByLight = true;
+            IsShadowCaster = true; 
             this.SetScale(150,1 ,150 );
-            SetTexture("./Textures/wood1.jpg");
-            SetTextureRepeat(100f, 100f);
         }
 
 

@@ -23,7 +23,7 @@ namespace Gruppenprojekt.App
             SetColorAmbient(0.75f, 0.75f, 0.75f);
             Floor f = new Floor("floor", 1f, 1f, 1f);
             f.SetTexture("./app/Textures/wood1.png");
-            f.SetTextureRepeat(10f, 10f);
+            f.SetTextureRepeat(100f, 100f);
             AddGameObject(f);
             Player p = new Player("Yasin", 1f, 2f, 1f);
             AddGameObject(p);
