@@ -3,13 +3,15 @@ using KWEngine3.Audio;
 using KWEngine3.GameObjects;
 using Gruppenprojekt.App.Classes;
 using OpenTK.Mathematics;
+using System;
 
 namespace Gruppenprojekt.App
 {
     public class GameWorldStart : World
     {
+        private float _HUDLastUpdate = 0;
         
-        public override void Act()
+        public float GetHUDLastUpdateTime()
         {
             return _HUDLastUpdate;
         }
@@ -25,11 +27,13 @@ namespace Gruppenprojekt.App
             // _HUDLastUpdate ist 2.2
             // deltat = 0.3
 
-            float deltat = Math.Clamp((WorldTime - _HUDLastUpdate) * 0.5f, 0, 1);
+            float deltat = Math.Clamp((WorldTime - _HUDLastUpdate) * 0.4f, 0, 1);
             HUDObjectText t = GetHUDObjectTextByName("BLA");
             t.SetOpacity(1 - deltat);
 
         }
+
+
 
         public override void Prepare()
         {

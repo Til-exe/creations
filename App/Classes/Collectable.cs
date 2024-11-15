@@ -27,6 +27,23 @@ namespace Gruppenprojekt.App.Classes
             CurrentWorld.AddLightObject(l);
         }
 
+        public void KillMe()
+        {
+            CurrentWorld.RemoveGameObject(this);
+            CurrentWorld.RemoveLightObject(l);
+
+            ExplosionObject ex = new ExplosionObject(128, 0.5f, 4f, 2.0f, ExplosionType.Skull);
+            ex.SetAlgorithm(ExplosionAnimation.WindUp);
+            ex.SetColorEmissive(0, 1, 0, 2);
+            ex.SetPosition(this.Position);
+            CurrentWorld.AddExplosionObject(ex);
+
+            if(CurrentWorld is GameWorldStart)
+            {
+                (CurrentWorld as GameWorldStart).UpdateHUDLastUpdateTime();
+            }
+        }
+
         public override void Act()
         {
            

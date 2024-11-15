@@ -19,6 +19,14 @@ namespace Gruppenprojekt.App.Classes
             this.SetPosition(x, y, z);
             this.SetColor(1, 0, 0);
             this.IsCollisionObject = true;
+            
+            colCount = new HUDObjectText("Sie haben kein Licht");
+            colCount.Name = "BLA";
+            colCount.SetPosition(350f, 32f);
+            colCount.SetFont(FontFace.NovaMono);
+            colCount.SetScale(30f);
+            colCount.SetOpacity(0);
+            CurrentWorld.AddHUDObject(colCount);
         }
 
         float speed = 0.05f;
@@ -51,6 +59,24 @@ namespace Gruppenprojekt.App.Classes
                 }
                 Vector3 mtv = i.MTV;
                 MoveOffset(mtv);
+                if (collider is Collectable)
+                {
+                    (collider as Collectable).KillMe();
+                    counter = counter + 1;
+                    
+                    
+                        
+                    
+                     if(counter == 1)
+                    {
+                        colCount.SetText("Sie haben " + counter + "Licht");
+                    }
+                    else if (counter > 1)
+                    {
+                        colCount.SetText("Sie haben " + counter + "Lichter");
+                    }
+                    
+                }
             }
         }
         public void Camera(int forward, int strafe)
