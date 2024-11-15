@@ -55,7 +55,7 @@ namespace Gruppenprojekt.App
             f.SetTexture("./app/Textures/wood1.png");
             f.SetTextureRepeat(100f, 100f);
             AddGameObject(f);
-            Player p = new Player("Yasin", 1f, 2f, 1f);
+            Player p = new Player("Yasin", -13f, 2f, -4f);
             AddGameObject(p);
            
             SetCameraToFirstPersonGameObject(p, 2f);
@@ -73,15 +73,40 @@ namespace Gruppenprojekt.App
             //test 
             Enemy e = new Enemy("huso" , 1, 2, 1);
             AddGameObject(e);
-            Collectable c1 = new Collectable("1", 3f, 3f, 20f);
+            Collectable c1 = new Collectable("1", 3f, 3f, 20f); 
             Collectable c2 = new Collectable("2", 10f, 3f, 20f);
             Collectable c3 = new Collectable("3", 20f, 3f, 20f);
             AddGameObject(c1);
             AddGameObject(c2);
             AddGameObject(c3);
-            Wall w1 = new Wall("1", 30f, 2f, 50f);
-            w1.SetScale(10f, 15f, 5f);
+            Wall w1 = new Wall("1", 0f, 4f, 5f);
+            Wall w2 = new Wall("2", -5f, 4f, 0f);
+            Wall w3 = new Wall("3", -5f, 4f, 10f);
+            Wall w4 = new Wall("4", 0f, 4f, 15f);
+            Wall w5 = new Wall("5", 10f, 4f, 10f);
+            Wall w6 = new Wall("6", -15f, 4f, 10f);
+            Wall w7 = new Wall("7", -15f, 4f, 0f);
+            Wall w8 = new Wall("8", 10f, 4f, 0f);
+            Wall w9 = new Wall("9", 0f, 4f, -5f);
+            w5.SetRotation(0, 90, 0);
+            w5.SetScale(10f, 5f, 1f);
+            w6.SetRotation(0, 90, 0);
+            w6.SetScale(10f, 5f, 1f);
+            w7.SetRotation(0, 90, 0);
+            w7.SetScale(10f, 5f, 1f);
+            w8.SetRotation(0, 90, 0);
+            w8.SetScale(10f, 5f, 1f);
+
+
             AddGameObject(w1);
+            AddGameObject(w2);
+            AddGameObject(w3);
+            AddGameObject(w4);
+            AddGameObject(w5);
+            AddGameObject(w6);
+            AddGameObject(w7);
+            AddGameObject(w8);
+            AddGameObject(w9);
         }
     }
 }
