@@ -11,21 +11,24 @@ namespace Gruppenprojekt.App
         
         public override void Act()
         {
-            HUDObjectText h = GetHUDObjectTextByName("MyHUDObject");
-            
-            // Wenn ein Objekt dieses Typs und dieses Namens gefunden werden
-            // konnte, ist die Variable h nicht 'leer', also 'nicht null':
-            if (h != null)
-            {
-                if (h.IsMouseCursorOnMe() == true)
-                {
-                    h.SetColorEmissiveIntensity(1.5f);
-                }
-                else
-                {
-                    h.SetColorEmissiveIntensity(0.0f);
-                }
-            }
+            return _HUDLastUpdate;
+        }
+
+        public void UpdateHUDLastUpdateTime()
+        {
+            _HUDLastUpdate = WorldTime;
+        }
+
+        public override void Act()
+        {
+            // WorldTime ist 2.5
+            // _HUDLastUpdate ist 2.2
+            // deltat = 0.3
+
+            float deltat = Math.Clamp((WorldTime - _HUDLastUpdate) * 0.5f, 0, 1);
+            HUDObjectText t = GetHUDObjectTextByName("BLA");
+            t.SetOpacity(1 - deltat);
+
         }
 
         public override void Prepare()
