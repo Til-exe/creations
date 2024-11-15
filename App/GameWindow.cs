@@ -14,7 +14,8 @@ namespace Gruppenprojekt.App
             //this.Title = "My infamous game title";
             
             GameWorldStart gws = new GameWorldStart();
-            this.SetWorld(gws);
+            GameWorldStartMenu sm = new GameWorldStartMenu();
+            this.SetWorld(sm);
         }
     }
 }

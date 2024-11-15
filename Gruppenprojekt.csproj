@@ -64,6 +64,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="App\GameWorldStartMenu.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="App\Textures\skybox.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

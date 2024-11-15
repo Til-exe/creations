@@ -3,16 +3,17 @@ using KWEngine3.Audio;
 using KWEngine3.GameObjects;
 using Gruppenprojekt.App.Classes;
 using OpenTK.Mathematics;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace Gruppenprojekt.App
 {
-    public class GameWorldStart : World
+    public class GameWorldStartMenu : World
     {
-        
+
         public override void Act()
         {
             HUDObjectText h = GetHUDObjectTextByName("MyHUDObject");
-            
+
             // Wenn ein Objekt dieses Typs und dieses Namens gefunden werden
             // konnte, ist die Variable h nicht 'leer', also 'nicht null':
             if (h != null)
@@ -26,6 +27,7 @@ namespace Gruppenprojekt.App
                     h.SetColorEmissiveIntensity(0.0f);
                 }
             }
+            if (Keyboard.IsKeyDown(Keys.W)) { }
         }
 
         public override void Prepare()
@@ -54,7 +56,7 @@ namespace Gruppenprojekt.App
             AddGameObject(f);
             Player p = new Player("Yasin", 1f, 2f, 1f);
             AddGameObject(p);
-           
+
             SetCameraToFirstPersonGameObject(p, 2f);
             KWEngine.MouseSensitivity = 0.05f;
             MouseCursorGrab();
@@ -68,10 +70,10 @@ namespace Gruppenprojekt.App
 
 
             //test 
-            Enemy e = new Enemy("huso" , 1, 2, 1);
+            Enemy e = new Enemy("huso", 1, 2, 1);
             AddGameObject(e);
 
-            
+
         }
     }
 }
