@@ -20,6 +20,7 @@ namespace Gruppenprojekt.App.Classes
             this.Name = name;
             this.SetPosition(x, y, z);
             this.SetColor(1, 0, 0);
+            this.SetScale(1, 2, 1);
             this.IsCollisionObject = true;
             
             colCount = new HUDObjectText("Sie haben kein Licht");

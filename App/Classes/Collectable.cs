@@ -16,7 +16,7 @@ namespace Gruppenprojekt.App.Classes
             this.SetModel("KWSphere"); // KWCube
             this.Name = name;
             this.SetPosition(x, y, z);
-            this.IsCollisionObject = false;
+            this.IsCollisionObject = true;
             this.IsShadowCaster = true;
             this.SetColor(0, 1, 0);
 
