@@ -13,6 +13,8 @@ namespace Gruppenprojekt.App.Classes
 {
     public class Player : GameObject
     {
+        private HUDObjectText colCount;
+        private int counter = 0;
         public Player(string name, float x, float y, float z)
         {
             this.Name = name;

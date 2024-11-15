@@ -10,6 +10,7 @@ namespace Gruppenprojekt.App.Classes
 {
     internal class Collectable : GameObject
     {
+        private LightObject l;
         public Collectable(string name, float x, float y, float z) 
         {
             this.SetModel("KWSphere"); // KWCube
@@ -19,7 +20,7 @@ namespace Gruppenprojekt.App.Classes
             this.IsShadowCaster = true;
             this.SetColor(0, 1, 0);
 
-            LightObject l = new LightObject(LightType.Point, ShadowQuality.NoShadow);
+            l = new LightObject(LightType.Point, ShadowQuality.NoShadow);
             l.Name = name;
             l.SetPosition(x, y, z);
             l.SetNearFar(0.1f, 25f);
