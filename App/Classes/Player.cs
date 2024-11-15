@@ -1,5 +1,4 @@
-﻿//CODE
-using KWEngine3;
+﻿using KWEngine3;
 using KWEngine3.Audio;
 using KWEngine3.GameObjects;
 using KWEngine3.Helper;
@@ -19,6 +18,7 @@ namespace Gruppenprojekt.App.Classes
             this.Name = name;
             this.SetPosition(x, y, z);
             this.SetColor(1, 0, 0);
+            this.IsCollisionObject = true;
         }
 
         float speed = 0.05f;
@@ -50,6 +50,17 @@ namespace Gruppenprojekt.App.Classes
 
             //Die Methode ist da um den Code übersichtlicher zu machen
             Camera(forward, strafe);
+            List<Intersection> intersections = GetIntersections();
+            foreach (Intersection i in intersections)
+            {
+                GameObject collider = i.Object;
+                if (collider is Enemy)
+                {
+                    KWEngine.LogWriteLine("Jeremy");
+                }
+                Vector3 mtv = i.MTV;
+                MoveOffset(mtv);
+            }
         }
         public void Camera(int forward, int strafe)
         {

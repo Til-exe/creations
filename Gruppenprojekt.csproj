@@ -73,7 +73,7 @@
     <None Update="App\Textures\skybox.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="App\Textures\wood1.jpg">
+    <None Update="App\Textures\wood1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="assimp.dll">
