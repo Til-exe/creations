@@ -9,71 +9,132 @@ namespace Gruppenprojekt.App
 {
     public class GameWorldStartMenu : World
     {
-
         public override void Act()
         {
-            HUDObjectText h = GetHUDObjectTextByName("MyHUDObject");
-
-            // Wenn ein Objekt dieses Typs und dieses Namens gefunden werden
-            // konnte, ist die Variable h nicht 'leer', also 'nicht null':
-            if (h != null)
+            HUDObjectImage background = GetHUDObjectImageByName("MyHUDObject");
+            if (background != null)
             {
-                if (h.IsMouseCursorOnMe() == true)
+                if (background.IsMouseCursorOnMe() == true)
                 {
-                    h.SetColorEmissiveIntensity(1.5f);
+                    background.SetColorEmissiveIntensity(1.5f);
                 }
                 else
                 {
-                    h.SetColorEmissiveIntensity(0.0f);
+                    background.SetColorEmissiveIntensity(0.0f);
                 }
             }
-            if (Keyboard.IsKeyDown(Keys.W)) { }
+            HUDObjectText h1 = GetHUDObjectTextByName("MyHUDObject1");
+            HUDObjectText h2 = GetHUDObjectTextByName("MyHUDObject2");
+            HUDObjectText h3 = GetHUDObjectTextByName("MyHUDObject3");
+
+            // Wenn ein Objekt dieses Typs und dieses Namens gefunden werden
+            // konnte, ist die Variable h nicht 'leer', also 'nicht null':
+            if (h1 != null)
+            {
+                if (h1.IsMouseCursorOnMe() == true)
+                {
+                    h1.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    h1.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && h1.IsMouseCursorOnMe() == true)
+                {
+                    GameWorldStart gws = new GameWorldStart();
+                    Window.SetWorld(gws);
+                }
+            }
+            if (h2 != null)
+            {
+                if (h2.IsMouseCursorOnMe() == true)
+                {
+                    h2.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    h2.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && h2.IsMouseCursorOnMe() == true)
+                {
+                    
+                    HUDObjectText h4 = new HUDObjectText("Still in progress...");
+                    h4.SetPosition(400f, 250f);
+                    h4.Name = "MyHUDObject4";
+                    h4.SetCharacterDistanceFactor(1.0f);
+                    h4.SetColor(1.0f, 0.0f, 0.0f);
+
+
+                    AddHUDObject(h4);
+                }
+            }
+            if (h3 != null)
+            {
+                    if (h3.IsMouseCursorOnMe() == true)
+                {
+                    h3.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    h3.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && h3.IsMouseCursorOnMe() == true)
+                {
+                    Window.Close();
+                }
+            }
         }
 
+        
         public override void Prepare()
         {
+            
+            /*
+            // Platziere ein bildbasiertes HUD-Objekt:
+            HUDObject screen = new HUDObjectImage("./App/Textures/Screen.png");
+            screen.SetPosition(640f, 370f);               // Position in Pixeln (von links oben des Bildschirms aus gesehen)
+            screen.Name = "MyHUDObject";                // Interner Name des Objekts
+            screen.SetScale(128f, 128f);                // Skalierung des Bildes
+            screen.SetColorEmissive(1.0f, 1.0f, 1.0f);  // Glühfarbe (RGB), die Intensität wird separat geregelt
+            //AddHUDObject(screen);
+            */
             // Platziere ein textbasiertes HUD-Objekt:
-            HUDObjectText h = new HUDObjectText("HUD");
-            h.SetPosition(64, 32);                // 64 Pixel von links und 
-                                                  // 32 Pixel von oben auf dem Bildschirm 
-            h.Name = "MyHUDObject";               // Interner Name des Objekts, damit es später 
-                                                  // von anderen Objekten gefunden werden kann
-            h.SetCharacterDistanceFactor(1.0f);   // Abstandsmultiplikator (der Buchstaben zueinander)
-            h.SetColor(1.0f, 0.0f, 0.0f);         // Reguläre Färbung (hier: rot)
-            h.SetColorEmissive(1.0f, 1.0f, 1.0f); // Glühfarbe (RGB), die Intensität wird separat geregelt
+            HUDObjectText h1 = new HUDObjectText("START GAME");
+            h1.SetPosition(160f, 200f);            
+                                                  
+            h1.Name = "MyHUDObject1";               
+                                                  
+            h1.SetCharacterDistanceFactor(1.0f);   
+            h1.SetColor(1.0f, 0.0f, 0.0f);         
+            h1.SetColorEmissive(1.0f, 1.0f, 1.0f); 
 
-            AddHUDObject(h);
-
-
-            SetBackgroundSkybox("./App/Textures/skybox.png");
-            SetCameraPosition(0.0f, 2.0f, 15.0f);
-            SetCameraTarget(0.0f, 0.0f, 0.0f);
-            SetCameraFOV(100);
-            SetColorAmbient(0.75f, 0.75f, 0.75f);
-            Floor f = new Floor("floor", 1f, 1f, 1f);
-            f.SetTexture("./app/Textures/wood1.jpg");
-            f.SetTextureRepeat(10f, 10f);
-            AddGameObject(f);
-            Player p = new Player("Yasin", 1f, 2f, 1f);
-            AddGameObject(p);
-
-            SetCameraToFirstPersonGameObject(p, 2f);
-            KWEngine.MouseSensitivity = 0.05f;
-            MouseCursorGrab();
+            AddHUDObject(h1);
 
 
-            LightObject light = new LightObject(LightType.Sun, ShadowQuality.Low);
-            light.Name = ("scheiß auf den Namen");
-            light.SetNearFar(0.1f, 25f);
-            light.SetPosition(0f, 5f, 0);
-            AddLightObject(light);
+            HUDObjectText h2 = new HUDObjectText("OPTION");
+            h2.SetPosition(160f, 250f);
+             
+            h2.Name = "MyHUDObject2";
+             
+            h2.SetCharacterDistanceFactor(1.0f);
+            h2.SetColor(1.0f, 0.0f, 0.0f);
+            h2.SetColorEmissive(1.0f, 1.0f, 1.0f);
 
 
-            //test 
-            Enemy e = new Enemy("huso", 1, 2, 1);
-            AddGameObject(e);
+            AddHUDObject(h2);
 
 
+            HUDObjectText h3 = new HUDObjectText("LEAVE");
+            h3.SetPosition(160f, 300f);
+            h3.Name = "MyHUDObject3";
+            h3.SetCharacterDistanceFactor(1.0f);
+            h3.SetColor(1.0f, 0.0f, 0.0f);
+            h3.SetColorEmissive(1.0f, 1.0f, 1.0f);
+
+            AddHUDObject(h3);
+
+            
+            
         }
     }
 }

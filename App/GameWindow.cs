@@ -15,7 +15,7 @@ namespace Gruppenprojekt.App
             
             GameWorldStart gws = new GameWorldStart();
             GameWorldStartMenu sm = new GameWorldStartMenu();
-            this.SetWorld(gws);
+            this.SetWorld(sm);
         }
     }
 }
