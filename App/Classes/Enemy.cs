@@ -13,8 +13,8 @@ namespace Gruppenprojekt.App.Classes
             this.Name = name;
             this.SetPosition(x, y, z);
             this.SetColor(0f, 0f, 1f);
-            IsCollisionObject = true;
-            IsShadowCaster = true;
+            this.IsCollisionObject = true;
+            this.IsShadowCaster = true;
 
         
         

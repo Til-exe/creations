@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Gruppenprojekt.App.Classes
 {
@@ -18,6 +19,7 @@ namespace Gruppenprojekt.App.Classes
             this.Name = name;
             this.SetPosition(x, y, z);
             this.SetColor(1, 0, 0);
+            this.IsCollisionObject = true;
         }
 
 
@@ -48,6 +50,17 @@ namespace Gruppenprojekt.App.Classes
 
             //Die Methode ist da um den Code übersichtlicher zu machen
             Camera(forward, strafe);
+            List<Intersection> intersections = GetIntersections();
+            foreach (Intersection i in intersections)
+            {
+                GameObject collider = i.Object;
+                if (collider is Enemy)
+                {
+                    KWEngine.LogWriteLine("Jeremy");
+                }
+                Vector3 mtv = i.MTV;
+                MoveOffset(mtv);
+            }
         }
         public void Camera(int forward, int strafe)
         {
@@ -57,6 +70,9 @@ namespace Gruppenprojekt.App.Classes
             TurnTowardsXZ(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVector);
         }
 
-    }
+        
+
+      
+}
 
 }

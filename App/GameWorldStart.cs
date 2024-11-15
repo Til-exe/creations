@@ -49,6 +49,9 @@ namespace Gruppenprojekt.App
             AddGameObject(c1);
             AddGameObject(c2);
             AddGameObject(c3);
+            Wall w1 = new Wall("1", 30f, 2f, 50f);
+            w1.SetScale(10f, 15f, 5f);
+            AddGameObject(w1);
         }
     }
 }
