@@ -17,6 +17,7 @@ namespace Gruppenprojekt.App.Classes
             IsAffectedByLight = true;         
             this.SetScale(150,1 ,150 );
             SetTexture("./Textures/wood1.jpg");
+            SetTextureRepeat(100f, 100f);
         }
 
 
