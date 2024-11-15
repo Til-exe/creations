@@ -22,17 +22,8 @@ namespace Gruppenprojekt.App.Classes
         }
 
         float speed = 0.05f;
-        private string _status = "stand";   // Drei Status für stehen, springen, fallen
-        private float _velocity = 0;        // Sprungkraft der Figur (wird verändert)
-        private float _gravity = 0.001f;    // Gravitation (bleibt immer gleich)
         public override void Act()
         {
-            /*Console.WriteLine(Position);
-            if (this.Position.Y !< 1)
-            {
-                SetPosition(this.Position.X, this.Position.Y - 0.04f, this.Position.Z);
-            }*/
-
             //Sprinting
             if (Keyboard.IsKeyDown(Keys.LeftShift)) { speed = 0.105f; }
             else { speed = 0.05f; }
