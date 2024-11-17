@@ -166,6 +166,21 @@
             Frees all graphics resources used by the renderer.
             </summary>
         </member>
+        <member name="T:KWEngine3.ShakeMode">
+            <summary>
+            Gibt an, ob die für das Kamerazittern festgelegten Werte zusätzlich zum ggf. bestehenden Zittern addiert werden oder die bisherigen Werte ersetzen.
+            </summary>
+        </member>
+        <member name="F:KWEngine3.ShakeMode.Additive">
+            <summary>
+            Addiert die Werte zu ggf. gerade aktiven Werten
+            </summary>
+        </member>
+        <member name="F:KWEngine3.ShakeMode.Absolute">
+            <summary>
+            Ersetzt bisher ggf. festgelegte Werte
+            </summary>
+        </member>
         <member name="T:KWEngine3.TerrainThresholdValue">
             <summary>
             Gibt an, ab welcher Entfernung Terrain-Objekte weniger detailliert gezeichnet werden
@@ -3437,12 +3452,6 @@
             Standard-Initialisierungen
             </summary>
         </member>
-        <member name="M:KWEngine3.GLWindow.OnUpdateFrame(OpenTK.Windowing.Common.FrameEventArgs)">
-            <summary>
-            Wird für Änderungen der Tastatureingaben und Mauseingaben verwendet
-            </summary>
-            <param name="args">aktuelle Angaben</param>
-        </member>
         <member name="M:KWEngine3.GLWindow.OnResize(OpenTK.Windowing.Common.ResizeEventArgs)">
             <summary>
             Wird ausgeführt, wenn sich das Fenster vergrößert/verkleinert
@@ -4145,15 +4154,24 @@
             <param name="includeNonCollisionObjects">Sollen das Objekt auch dann untersucht werden, wenn es kein Kollisionsobjekt ist?</param>
             <returns>true, wenn der Mauszeiger auf dem Objekt liegt</returns>
         </member>
+        <member name="T:KWEngine3.Helper.HelperPerlinNoise">
+            <summary>
+            Taken from: https://github.com/krubbles/Icaria-Noise
+            </summary>
+        </member>
         <member name="T:KWEngine3.Helper.HelperRandom">
             <summary>
             Helferklasse für Zufallszahlen
             </summary>
         </member>
-        <member name="F:KWEngine3.Helper.HelperRandom.generator">
+        <member name="M:KWEngine3.Helper.HelperRandom.GetRandomNumberFromPerlinNoise(System.Single,System.Single,System.Single)">
             <summary>
-            Generatorfeldvariable
+            Generiert eine Zufallszahl nach Ken Perlins Noise Generator
             </summary>
+            <param name="speed">Steigung der Zufallszahlenänderung</param>
+            <param name="min">Untergrenze</param>
+            <param name="max">Obergrenze</param>
+            <returns>Zufallszahl</returns>
         </member>
         <member name="M:KWEngine3.Helper.HelperRandom.GetRandomNumber(System.Single,System.Single)">
             <summary>
@@ -4972,6 +4990,11 @@
             Kernbibliothek der Engine
             </summary>
         </member>
+        <member name="P:KWEngine3.KWEngine.ViewSpaceGameObjectShakeFactor">
+            <summary>
+            Gibt an oder setzt den Faktor, der bei der Berechnung des Kameraschüttelns einer ViewSpaceGameObject-Instanz zugerechnet wird (Standard: 0.1f, gültiger Wertebereich liegt zwischen 0f und 1f)
+            </summary>
+        </member>
         <member name="P:KWEngine3.KWEngine.TerrainTessellationThreshold">
             <summary>
             Gibt an, ab welcher Entfernung Terrain-Geometrie weniger detailliert dargestellt werden soll (Standard: 32 Einheiten)
@@ -5636,6 +5659,17 @@
             <param name="z">z</param>
             <param name="offsetY">(optional: Verschiebung in y-Richtung)</param>
         </member>
+        <member name="M:KWEngine3.World.StartCameraShake(System.Single,System.Single,System.Single,System.Single,System.Single,KWEngine3.ShakeMode)">
+            <summary>
+            Startet ein zeitbegrenztes Schütteln der Kamera
+            </summary>
+            <param name="shakeX">Stärke der Verschiebung relativ zur lokalen x-Achse der Kamera</param>
+            <param name="shakeY">Stärke der Verschiebung relativ zur lokalen y-Achse der Kamera</param>
+            <param name="shakeZ">Stärke der Verschiebung relativ zur lokalen z-Achse der Kamera</param>
+            <param name="duration">Dauer des Effekts (in Sekunden, Standard: 1f)</param>
+            <param name="speed">Geschwindigkeit des Effekts (Standard: 100f)</param>
+            <param name="mode">Modus, der festlegt, wie mit den neuen Werten umgegangen wird</param>
+        </member>
         <member name="M:KWEngine3.World.SetCameraPosition(OpenTK.Mathematics.Vector3,System.Single)">
             <summary>
             Setzt die Kameraposition
@@ -5643,12 +5677,13 @@
             <param name="position">Positionswert in 3D</param>
             <param name="offsetY">(optional: Verschiebung in y-Richtung)</param>
         </member>
-        <member name="M:KWEngine3.World.UpdateCameraPositionForFirstPersonView(OpenTK.Mathematics.Vector3,System.Single)">
+        <member name="M:KWEngine3.World.UpdateCameraPositionForFirstPersonView(OpenTK.Mathematics.Vector3,System.Single,System.Single)">
             <summary>
             Aktualisiert die Kameraperspektive für den First-Person-Modus
             </summary>
             <param name="position">Zielposition</param>
             <param name="offsetY">optionaler vertikaler Offset</param>
+            <param name="offsetX">optionaler horizontaler Offset</param>
         </member>
         <member name="M:KWEngine3.World.SetCameraTarget(System.Single,System.Single,System.Single)">
             <summary>
