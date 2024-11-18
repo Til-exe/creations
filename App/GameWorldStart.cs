@@ -3,6 +3,7 @@ using KWEngine3.Audio;
 using KWEngine3.GameObjects;
 using Gruppenprojekt.App.Classes;
 using OpenTK.Mathematics;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace Gruppenprojekt.App
 {
@@ -11,53 +12,53 @@ namespace Gruppenprojekt.App
         
         public override void Act()
         {
-            HUDObjectText h = GetHUDObjectTextByName("MyHUDObject");
             
+            HUDObjectText h = GetHUDObjectTextByName("MyHUDObject");
+            HUDObjectText h1 = GetHUDObjectTextByName("Weiter");
             // Wenn ein Objekt dieses Typs und dieses Namens gefunden werden
             // konnte, ist die Variable h nicht 'leer', also 'nicht null':
-            if (h != null)
+            
+            
+            if (h1 != null)
             {
-                if (h.IsMouseCursorOnMe() == true)
+                if (h1.IsMouseCursorOnMe() == true)
                 {
-                    h.SetColorEmissiveIntensity(1.5f);
+                    h1.SetColorEmissiveIntensity(1.5f);
                 }
                 else
                 {
-                    h.SetColorEmissiveIntensity(0.0f);
+                    h1.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && h1.IsMouseCursorOnMe() == true)
+                {
+                    MouseCursorGrab();
+                    
                 }
             }
+
         }
 
         public override void Prepare()
         {
-            // Platziere ein textbasiertes HUD-Objekt:
-            HUDObjectText h = new HUDObjectText("HUD");
-            h.SetPosition(64, 32);                // 64 Pixel von links und 
-                                                  // 32 Pixel von oben auf dem Bildschirm 
-            h.Name = "MyHUDObject";               // Interner Name des Objekts, damit es später 
-                                                  // von anderen Objekten gefunden werden kann
-            h.SetCharacterDistanceFactor(1.0f);   // Abstandsmultiplikator (der Buchstaben zueinander)
-            h.SetColor(1.0f, 0.0f, 0.0f);         // Reguläre Färbung (hier: rot)
-            h.SetColorEmissive(1.0f, 1.0f, 1.0f); // Glühfarbe (RGB), die Intensität wird separat geregelt
-
-            AddHUDObject(h);
-
-
+            
             SetBackgroundSkybox("./App/Textures/skybox.png");
             SetCameraPosition(0.0f, 2.0f, 15.0f);
             SetCameraTarget(0.0f, 0.0f, 0.0f);
             SetCameraFOV(100);
             SetColorAmbient(0.75f, 0.75f, 0.75f);
             Floor f = new Floor("floor", 1f, 1f, 1f);
-            f.SetTexture("./app/Textures/wood1.png");
+            if (GwStartMenuOption.ReturnCode == 0) { f.SetTexture("./app/Textures/wood1.png"); }
+            if (GwStartMenuOption.ReturnCode == 1) { f.SetTexture("./app/Textures/wood11.png"); GwStartMenuOption.ReturnCode = 0; }
+            
             f.SetTextureRepeat(100f, 100f);
             AddGameObject(f);
             Player p = new Player("Yasin", 1f, 2f, 1f);
             AddGameObject(p);
            
             SetCameraToFirstPersonGameObject(p, 2f);
-            KWEngine.MouseSensitivity = 0.05f;
+            KWEngine.MouseSensitivity = 0.07f;
             MouseCursorGrab();
+            
 
 
             LightObject light = new LightObject(LightType.Sun, ShadowQuality.Low);

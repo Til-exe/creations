@@ -7,7 +7,7 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace Gruppenprojekt.App
 {
-    public class GameWorldStartMenu : World
+    public class PauseMenu : World
     {
         public override void Act()
         {
@@ -56,14 +56,14 @@ namespace Gruppenprojekt.App
                     h2.SetColorEmissiveIntensity(0.0f);
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && h2.IsMouseCursorOnMe() == true)
-                {                                                        
+                {
                     GwStartMenuOption GwSmOption = new GwStartMenuOption();
-                    Window.SetWorld(GwSmOption);                                 
+                    Window.SetWorld(GwSmOption);
                 }
             }
             if (h3 != null)
             {
-                    if (h3.IsMouseCursorOnMe() == true)
+                if (h3.IsMouseCursorOnMe() == true)
                 {
                     h3.SetColorEmissiveIntensity(1.5f);
                 }
@@ -78,7 +78,7 @@ namespace Gruppenprojekt.App
             }
         }
 
-        
+
         public override void Prepare()
         {
 
@@ -94,36 +94,31 @@ namespace Gruppenprojekt.App
             // Platziere ein textbasiertes HUD-Objekt:
 
 
-            HUDObjectText hName = new HUDObjectText("DOMINIK PASCAL TIL GAME");
-            hName.SetPosition(400f, 50f);
-            hName.Name = "GameText";
-            hName.SetCharacterDistanceFactor(1.0f);
-            hName.SetColor(1.0f, 0.0f, 0.0f);
-            
             
 
 
-            AddHUDObject(hName);
+
+            
 
 
 
             HUDObjectText h1 = new HUDObjectText("START GAME");
-            h1.SetPosition(160f, 200f);            
-                                                  
-            h1.Name = "MyHUDObject1";               
-                                                  
-            h1.SetCharacterDistanceFactor(1.0f);   
-            h1.SetColor(1.0f, 0.0f, 0.0f);         
-            h1.SetColorEmissive(1.0f, 1.0f, 1.0f); 
+            h1.SetPosition(160f, 200f);
+
+            h1.Name = "MyHUDObject1";
+
+            h1.SetCharacterDistanceFactor(1.0f);
+            h1.SetColor(1.0f, 0.0f, 0.0f);
+            h1.SetColorEmissive(1.0f, 1.0f, 1.0f);
 
             AddHUDObject(h1);
 
 
             HUDObjectText h2 = new HUDObjectText("OPTION");
             h2.SetPosition(160f, 250f);
-             
+
             h2.Name = "MyHUDObject2";
-             
+
             h2.SetCharacterDistanceFactor(1.0f);
             h2.SetColor(1.0f, 0.0f, 0.0f);
             h2.SetColorEmissive(1.0f, 1.0f, 1.0f);
@@ -141,8 +136,8 @@ namespace Gruppenprojekt.App
 
             AddHUDObject(h3);
 
-            
-            
+
+
         }
     }
 }
