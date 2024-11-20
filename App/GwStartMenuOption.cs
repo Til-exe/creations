@@ -7,6 +7,7 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 using static System.Net.Mime.MediaTypeNames;
 using System;
 using static Assimp.Metadata;
+using System.Linq.Expressions;
 
 namespace Gruppenprojekt.App
 {
@@ -15,6 +16,7 @@ namespace Gruppenprojekt.App
         int value1 = 0;
         int value2 = 0;
         int value3 = 0;
+        bool codeEnterd = true;
 
         public static int ReturnCode;
         public override void Act()
@@ -72,8 +74,8 @@ namespace Gruppenprojekt.App
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && enter.IsMouseCursorOnMe() == true)
                 {
-                    if (value1 == 1 && value2 == 1 && value3 == 1)
-                    { code.SetText("YOU ENTERD THE RIGHT CODE!"); }
+                    if (value1 == 1 && value2 == 1 && value3 == 1 && codeEnterd)
+                    { code.SetText("CODE AKTIVIERT"); codeEnterd = false; }
                     else { code.SetText(""); }
                     ReturnCode = 1;
                         
@@ -221,7 +223,7 @@ namespace Gruppenprojekt.App
         public override void Prepare()
         {
             HUDObjectText h1 = new HUDObjectText("BACK");
-            h1.SetPosition(160f, 200f);
+            h1.SetPosition(50f, 80f);
             h1.Name = "back";
             h1.SetCharacterDistanceFactor(1.0f);
             h1.SetColor(1.0f, 0.0f, 0.0f);
@@ -230,7 +232,7 @@ namespace Gruppenprojekt.App
 
 
             HUDObjectText Enter = new HUDObjectText("ENTER CODE");
-            Enter.SetPosition(160f, 400f);
+            Enter.SetPosition(160f, 200f);
             Enter.Name = "Enter";
             Enter.SetCharacterDistanceFactor(1.0f);
             Enter.SetColor(1.0f, 0.0f, 0.0f);
@@ -242,11 +244,14 @@ namespace Gruppenprojekt.App
             code.SetPosition(160f, 500f);
             code.Name = "code";
             code.SetCharacterDistanceFactor(1.0f);
-            code.SetColor(1.0f, 0.0f, 0.0f);
-            code.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            code.SetColor(1.0f, 1.0f, 1.0f);
             AddHUDObject(code);
 
             
+
+
+
+
 
 
             HUDObjectText minus1 = new HUDObjectText("| - |");
@@ -278,6 +283,8 @@ namespace Gruppenprojekt.App
             plus1.SetColorEmissive(1.0f, 1.0f, 1.0f);
 
             AddHUDObject(plus1);
+
+
 
 
 
@@ -348,9 +355,6 @@ namespace Gruppenprojekt.App
             plus3.SetColorEmissive(1.0f, 1.0f, 1.0f);
 
             AddHUDObject(plus3);
-
-
-
         }
         public string transelateCode(string text)
         {

@@ -26,6 +26,7 @@ namespace Gruppenprojekt.App
             HUDObjectText h1 = GetHUDObjectTextByName("MyHUDObject1");
             HUDObjectText h2 = GetHUDObjectTextByName("MyHUDObject2");
             HUDObjectText h3 = GetHUDObjectTextByName("MyHUDObject3");
+            HUDObjectText credits = GetHUDObjectTextByName("credits");
 
             // Wenn ein Objekt dieses Typs und dieses Namens gefunden werden
             // konnte, ist die Variable h nicht 'leer', also 'nicht null':
@@ -74,6 +75,22 @@ namespace Gruppenprojekt.App
                 if (Mouse.IsButtonPressed(MouseButton.Left) && h3.IsMouseCursorOnMe() == true)
                 {
                     Window.Close();
+                }
+            }
+            if (credits != null)
+            {
+                if (credits.IsMouseCursorOnMe() == true)
+                {
+                    credits.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    credits.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && credits.IsMouseCursorOnMe() == true)
+                {
+                    CreditsMenu creditsMenu = new CreditsMenu();
+                    Window.SetWorld(creditsMenu);
                 }
             }
         }
@@ -132,17 +149,26 @@ namespace Gruppenprojekt.App
             AddHUDObject(h2);
 
 
-            HUDObjectText h3 = new HUDObjectText("LEAVE");
-            h3.SetPosition(160f, 300f);
-            h3.Name = "MyHUDObject3";
-            h3.SetCharacterDistanceFactor(1.0f);
-            h3.SetColor(1.0f, 0.0f, 0.0f);
-            h3.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            HUDObjectText credits = new HUDObjectText("CREDITS");
+            credits.SetPosition(160f, 300f);
+            credits.Name = "credits";
+            credits.SetCharacterDistanceFactor(1.0f);
+            credits.SetColor(1.0f, 0.0f, 0.0f);
+            credits.SetColorEmissive(1.0f, 1.0f, 1.0f);
 
-            AddHUDObject(h3);
+            AddHUDObject(credits);
 
-            
-            
+            HUDObjectText leave = new HUDObjectText("LEAVE");
+            leave.SetPosition(160f, 350f);
+            leave.Name = "MyHUDObject3";
+            leave.SetCharacterDistanceFactor(1.0f);
+            leave.SetColor(1.0f, 0.0f, 0.0f);
+            leave.SetColorEmissive(1.0f, 1.0f, 1.0f);
+
+            AddHUDObject(leave);
+
+
+
         }
     }
 }
