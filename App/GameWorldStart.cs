@@ -75,7 +75,7 @@ namespace Gruppenprojekt.App
 
 
             //test 
-            Enemy e = new Enemy("huso" , 1, 2, 1);
+            Enemy e = new Enemy("huso" , 10, 2, 1);
             AddGameObject(e);
             Collectable c1 = new Collectable("1", 3f, 3f, 20f); 
             Collectable c2 = new Collectable("2", 10f, 3f, 20f);
