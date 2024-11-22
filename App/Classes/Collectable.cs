@@ -30,6 +30,7 @@ namespace Gruppenprojekt.App.Classes
 
         public void KillMe()
         {
+            Player.Score+=100;
             CurrentWorld.RemoveGameObject(this);
             CurrentWorld.RemoveLightObject(l);
 

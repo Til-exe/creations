@@ -4,32 +4,30 @@ using KWEngine3.GameObjects;
 using Gruppenprojekt.App.Classes;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using System.Linq;
 
 namespace Gruppenprojekt.App
 {
     public class GameWorldStartMenu : World
     {
+        float[] scores = new float[9];
         public override void Act()
-        {
-            HUDObjectImage background = GetHUDObjectImageByName("MyHUDObject");
-            if (background != null)
-            {
-                if (background.IsMouseCursorOnMe() == true)
-                {
-                    background.SetColorEmissiveIntensity(1.5f);
-                }
-                else
-                {
-                    background.SetColorEmissiveIntensity(0.0f);
-                }
-            }
+        {            
             HUDObjectText h1 = GetHUDObjectTextByName("MyHUDObject1");
             HUDObjectText h2 = GetHUDObjectTextByName("MyHUDObject2");
             HUDObjectText h3 = GetHUDObjectTextByName("MyHUDObject3");
             HUDObjectText credits = GetHUDObjectTextByName("credits");
-
-            // Wenn ein Objekt dieses Typs und dieses Namens gefunden werden
-            // konnte, ist die Variable h nicht 'leer', also 'nicht null':
+            HUDObjectText s1 = GetHUDObjectTextByName("score1");
+            HUDObjectText s2 = GetHUDObjectTextByName("score2");
+            HUDObjectText s3 = GetHUDObjectTextByName("score3");
+            HUDObjectText s4 = GetHUDObjectTextByName("score4");
+            HUDObjectText s5 = GetHUDObjectTextByName("score5");
+            HUDObjectText s6 = GetHUDObjectTextByName("score6");
+            HUDObjectText s7 = GetHUDObjectTextByName("score7");
+            HUDObjectText s8 = GetHUDObjectTextByName("score8");
+            HUDObjectText s9 = GetHUDObjectTextByName("score9");
+            HUDObjectText s10 = GetHUDObjectTextByName("score10");
+            
             if (h1 != null)
             {
                 if (h1.IsMouseCursorOnMe() == true)
@@ -93,6 +91,8 @@ namespace Gruppenprojekt.App
                     Window.SetWorld(creditsMenu);
                 }
             }
+            
+
         }
 
         
@@ -111,6 +111,9 @@ namespace Gruppenprojekt.App
             // Platziere ein textbasiertes HUD-Objekt:
 
 
+
+           
+            
             HUDObjectText hName = new HUDObjectText("DOMINIK PASCAL TIL GAME");
             hName.SetPosition(400f, 50f);
             hName.Name = "GameText";
@@ -185,7 +188,7 @@ namespace Gruppenprojekt.App
 
             HUDObjectText s1 = new HUDObjectText("1#");
             s1.SetPosition(700f, 220f);
-            s1.Name = "scoreboard";
+            s1.Name = "score1";
             s1.SetCharacterDistanceFactor(1.0f);
             s1.SetColor(1.0f, 0.0f, 0.0f);
 
@@ -193,7 +196,7 @@ namespace Gruppenprojekt.App
 
             HUDObjectText s2 = new HUDObjectText("2#");
             s2.SetPosition(700f, 260f);
-            s2.Name = "scoreboard";
+            s2.Name = "score2";
             s2.SetCharacterDistanceFactor(1.0f);
             s2.SetColor(1.0f, 0.0f, 0.0f);
 
@@ -202,7 +205,7 @@ namespace Gruppenprojekt.App
 
             HUDObjectText s3 = new HUDObjectText("3#");
             s3.SetPosition(700f, 300f);
-            s3.Name = "scoreboard";
+            s3.Name = "score3";
             s3.SetCharacterDistanceFactor(1.0f);
             s3.SetColor(1.0f, 0.0f, 0.0f);
 
@@ -211,7 +214,7 @@ namespace Gruppenprojekt.App
 
             HUDObjectText s4 = new HUDObjectText("4#");
             s4.SetPosition(700f, 340f);
-            s4.Name = "scoreboard";
+            s4.Name = "score4";
             s4.SetCharacterDistanceFactor(1.0f);
             s4.SetColor(1.0f, 0.0f, 0.0f);
 
@@ -220,7 +223,7 @@ namespace Gruppenprojekt.App
 
             HUDObjectText s5 = new HUDObjectText("5#");
             s5.SetPosition(700f, 380f);
-            s5.Name = "scoreboard";
+            s5.Name = "score5";
             s5.SetCharacterDistanceFactor(1.0f);
             s5.SetColor(1.0f, 0.0f, 0.0f);
 
@@ -228,7 +231,7 @@ namespace Gruppenprojekt.App
 
             HUDObjectText s6 = new HUDObjectText("6#");
             s6.SetPosition(700f, 420f);
-            s6.Name = "scoreboard";
+            s6.Name = "score6";
             s6.SetCharacterDistanceFactor(1.0f);
             s6.SetColor(1.0f, 0.0f, 0.0f);
 
@@ -236,7 +239,7 @@ namespace Gruppenprojekt.App
 
             HUDObjectText s7 = new HUDObjectText("7#");
             s7.SetPosition(700f, 460f);
-            s7.Name = "scoreboard";
+            s7.Name = "scpre7";
             s7.SetCharacterDistanceFactor(1.0f);
             s7.SetColor(1.0f, 0.0f, 0.0f);
 
@@ -245,7 +248,7 @@ namespace Gruppenprojekt.App
 
             HUDObjectText s8 = new HUDObjectText("8#");
             s8.SetPosition(700f, 500f);
-            s8.Name = "scoreboard";
+            s8.Name = "score8";
             s8.SetCharacterDistanceFactor(1.0f);
             s8.SetColor(1.0f, 0.0f, 0.0f);
 
@@ -254,7 +257,7 @@ namespace Gruppenprojekt.App
 
             HUDObjectText s9 = new HUDObjectText("9#");
             s9.SetPosition(700f, 540f);
-            s9.Name = "scoreboard";
+            s9.Name = "score9";
             s9.SetCharacterDistanceFactor(1.0f);
             s9.SetColor(1.0f, 0.0f, 0.0f);
 
@@ -263,12 +266,15 @@ namespace Gruppenprojekt.App
 
             HUDObjectText s10 = new HUDObjectText("1O#");
             s10.SetPosition(678f, 580f);
-            s10.Name = "scoreboard";
+            s10.Name = "score10";
             s10.SetCharacterDistanceFactor(1.0f);
             s10.SetColor(1.0f, 0.0f, 0.0f);
 
             AddHUDObject(s10);
 
+            scores[0] = Player.Score;
+
+            s1.SetText(s1.Text + " " + scores[0]);
 
 
 

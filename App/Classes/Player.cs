@@ -14,9 +14,11 @@ namespace Gruppenprojekt.App.Classes
 {
     public class Player : GameObject
     {
+        public static int Score;
         HUDObjectText m1 = new HUDObjectText("Zurück zum Spiel");
         HUDObjectText m2 = new HUDObjectText("Hauptmenu");
         HUDObjectText m3 = new HUDObjectText("LEAVE");
+        HUDObjectImage bg = new HUDObjectImage("./Textures/blackscreen.png");
         private HUDObjectText colCount;
         private int counter = 0;
         public Player(string name, float x, float y, float z)
@@ -35,6 +37,11 @@ namespace Gruppenprojekt.App.Classes
             colCount.SetScale(30f);
             colCount.SetOpacity(0);
             CurrentWorld.AddHUDObject(colCount);
+
+            bg.SetPosition(500, 500);
+            bg.Name = "background";
+            bg.SetScale(128f,128f);
+            bg.SetColor(0, 0, 0);
 
             m1.SetPosition(160f, 200f);
             m1.Name = "Weiter";
@@ -62,6 +69,7 @@ namespace Gruppenprojekt.App.Classes
         bool gameRunning = true;
         bool Sprinting = false;
         int k = 0;
+        public static int Trys;
         public override void Act()
         {
             
@@ -139,6 +147,7 @@ namespace Gruppenprojekt.App.Classes
                 {
                     GameWorldStartMenu gm = new GameWorldStartMenu();
                     Window.SetWorld(gm);
+                    Trys++;
 
                 }
             }
@@ -169,7 +178,7 @@ namespace Gruppenprojekt.App.Classes
                 GameObject collider = i.Object;
                 if (collider is Enemy)
                 {
-                    KWEngine.LogWriteLine("Jeremy");
+                    //spieler kollidiert mit Enemy
                 }
                 Vector3 mtv = i.MTV;
                 MoveOffset(mtv);
@@ -214,6 +223,7 @@ namespace Gruppenprojekt.App.Classes
             CurrentWorld.RemoveHUDObject(m1);
             CurrentWorld.RemoveHUDObject(m2);
             CurrentWorld.RemoveHUDObject(m3);
+            CurrentWorld.RemoveHUDObject(bg);
         }
         public void stop()
         {
@@ -223,6 +233,7 @@ namespace Gruppenprojekt.App.Classes
             CurrentWorld.AddHUDObject(m1);
             CurrentWorld.AddHUDObject(m2);
             CurrentWorld.AddHUDObject(m3);
+            CurrentWorld.AddHUDObject(bg);
         }
         public void weiter()
         {
@@ -230,7 +241,7 @@ namespace Gruppenprojekt.App.Classes
             CurrentWorld.MouseCursorGrab();
             removeAllHUD();
         }
-
+        
 
 
     }
