@@ -38,7 +38,7 @@ namespace Gruppenprojekt.App
                 }
             }
 
-        }
+        
             return _HUDLastUpdate;
         }
 
@@ -63,7 +63,7 @@ namespace Gruppenprojekt.App
 
         public override void Prepare()
         {
-            
+
             SetBackgroundSkybox("./App/Textures/skybox.png");
             SetCameraPosition(0.0f, 2.0f, 15.0f);
             SetCameraTarget(0.0f, 0.0f, 0.0f);
@@ -72,16 +72,16 @@ namespace Gruppenprojekt.App
             Floor f = new Floor("floor", 1f, 1f, 1f);
             if (GwStartMenuOption.ReturnCode == 0) { f.SetTexture("./app/Textures/wood1.png"); }
             if (GwStartMenuOption.ReturnCode == 1) { f.SetTexture("./app/Textures/wood11.png"); GwStartMenuOption.ReturnCode = 0; }
-            
+
             f.SetTextureRepeat(100f, 100f);
             AddGameObject(f);
             Player p = new Player("Yasin", -13f, 2f, -4f);
             AddGameObject(p);
-           
+
             SetCameraToFirstPersonGameObject(p, 2f);
             KWEngine.MouseSensitivity = 0.07f;
             MouseCursorGrab();
-            
+
 
 
             LightObject light = new LightObject(LightType.Sun, ShadowQuality.Low);
@@ -92,9 +92,9 @@ namespace Gruppenprojekt.App
 
 
             //test 
-            Enemy e = new Enemy("huso" , 1, 2, 1);
+            Enemy e = new Enemy("huso", 1, 2, 1);
             AddGameObject(e);
-            Collectable c1 = new Collectable("1", 3f, 3f, 20f); 
+            Collectable c1 = new Collectable("1", 3f, 3f, 20f);
             Collectable c2 = new Collectable("2", 10f, 3f, 20f);
             Collectable c3 = new Collectable("3", 20f, 3f, 20f);
             AddGameObject(c1);
@@ -128,6 +128,7 @@ namespace Gruppenprojekt.App
             AddGameObject(w7);
             AddGameObject(w8);
             AddGameObject(w9);
+        
         }
     }
 }
