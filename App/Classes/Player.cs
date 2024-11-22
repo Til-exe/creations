@@ -95,7 +95,7 @@ namespace Gruppenprojekt.App.Classes
                 if (Keyboard.IsKeyDown(Keys.S)) { forward -= 1; speed = 0.05f; }
             }
             
-            if (Keyboard.IsKeyDown(Keys.Escape) || Keyboard.IsKeyDown(Keys.Tab))
+            if (Keyboard.IsKeyPressed(Keys.Escape) || Keyboard.IsKeyPressed(Keys.Tab))
             {
                 stop();
             }
@@ -109,7 +109,7 @@ namespace Gruppenprojekt.App.Classes
                 {
                     m1.SetColorEmissiveIntensity(0.0f);
                 }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && m1.IsMouseCursorOnMe() == true)
+                if ((Mouse.IsButtonPressed(MouseButton.Left) && m1.IsMouseCursorOnMe() == true))
                 {
                     weiter();
                 }

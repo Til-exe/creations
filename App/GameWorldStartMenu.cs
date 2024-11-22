@@ -135,6 +135,10 @@ namespace Gruppenprojekt.App
 
             AddHUDObject(h1);
 
+            
+
+
+            
 
             HUDObjectText h2 = new HUDObjectText("OPTION");
             h2.SetPosition(160f, 250f);
@@ -166,6 +170,107 @@ namespace Gruppenprojekt.App
             leave.SetColorEmissive(1.0f, 1.0f, 1.0f);
 
             AddHUDObject(leave);
+
+            HUDObjectText sb = new HUDObjectText("SCORE BOARD");
+            sb.SetPosition(750f, 170f);
+            sb.Name = "scoreboard";
+            sb.SetCharacterDistanceFactor(1.0f);
+            sb.SetColor(1.0f, 0.0f, 0.0f);
+            
+
+            AddHUDObject(sb);
+
+
+
+
+            HUDObjectText s1 = new HUDObjectText("1#");
+            s1.SetPosition(700f, 220f);
+            s1.Name = "scoreboard";
+            s1.SetCharacterDistanceFactor(1.0f);
+            s1.SetColor(1.0f, 0.0f, 0.0f);
+
+            AddHUDObject(s1);
+
+            HUDObjectText s2 = new HUDObjectText("2#");
+            s2.SetPosition(700f, 260f);
+            s2.Name = "scoreboard";
+            s2.SetCharacterDistanceFactor(1.0f);
+            s2.SetColor(1.0f, 0.0f, 0.0f);
+
+            AddHUDObject(s2);
+
+
+            HUDObjectText s3 = new HUDObjectText("3#");
+            s3.SetPosition(700f, 300f);
+            s3.Name = "scoreboard";
+            s3.SetCharacterDistanceFactor(1.0f);
+            s3.SetColor(1.0f, 0.0f, 0.0f);
+
+            AddHUDObject(s3);
+
+
+            HUDObjectText s4 = new HUDObjectText("4#");
+            s4.SetPosition(700f, 340f);
+            s4.Name = "scoreboard";
+            s4.SetCharacterDistanceFactor(1.0f);
+            s4.SetColor(1.0f, 0.0f, 0.0f);
+
+            AddHUDObject(s4);
+
+
+            HUDObjectText s5 = new HUDObjectText("5#");
+            s5.SetPosition(700f, 380f);
+            s5.Name = "scoreboard";
+            s5.SetCharacterDistanceFactor(1.0f);
+            s5.SetColor(1.0f, 0.0f, 0.0f);
+
+            AddHUDObject(s5);
+
+            HUDObjectText s6 = new HUDObjectText("6#");
+            s6.SetPosition(700f, 420f);
+            s6.Name = "scoreboard";
+            s6.SetCharacterDistanceFactor(1.0f);
+            s6.SetColor(1.0f, 0.0f, 0.0f);
+
+            AddHUDObject(s6);
+
+            HUDObjectText s7 = new HUDObjectText("7#");
+            s7.SetPosition(700f, 460f);
+            s7.Name = "scoreboard";
+            s7.SetCharacterDistanceFactor(1.0f);
+            s7.SetColor(1.0f, 0.0f, 0.0f);
+
+            AddHUDObject(s7);
+
+
+            HUDObjectText s8 = new HUDObjectText("8#");
+            s8.SetPosition(700f, 500f);
+            s8.Name = "scoreboard";
+            s8.SetCharacterDistanceFactor(1.0f);
+            s8.SetColor(1.0f, 0.0f, 0.0f);
+
+            AddHUDObject(s8);
+
+
+            HUDObjectText s9 = new HUDObjectText("9#");
+            s9.SetPosition(700f, 540f);
+            s9.Name = "scoreboard";
+            s9.SetCharacterDistanceFactor(1.0f);
+            s9.SetColor(1.0f, 0.0f, 0.0f);
+
+            AddHUDObject(s9);
+
+
+            HUDObjectText s10 = new HUDObjectText("1O#");
+            s10.SetPosition(678f, 580f);
+            s10.Name = "scoreboard";
+            s10.SetCharacterDistanceFactor(1.0f);
+            s10.SetColor(1.0f, 0.0f, 0.0f);
+
+            AddHUDObject(s10);
+
+
+
 
 
 
