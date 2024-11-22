@@ -225,7 +225,7 @@ namespace Gruppenprojekt.App.Classes
                     
                 }
             }
-            _flashlight.SetPosition(this.Position.X + 3, this.Position.Y, this.Position.Z + 2);
+            _flashlight.SetPosition(this.Position.X + 0.3f, 3, this.Position.Z + 1);
         }
 
 
