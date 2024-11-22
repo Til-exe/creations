@@ -3658,6 +3658,13 @@
             <param name="position">aktuelle Position</param>
             <returns>bestmögliche Bewegungsrichtung</returns>
         </member>
+        <member name="M:KWEngine3.Helper.FlowField.GetCellForWorldPosition(OpenTK.Mathematics.Vector3)">
+            <summary>
+            Erfragt Details zu der FlowField-Zelle, die der übergebenen Weltposition entspricht
+            </summary>
+            <param name="position">Position in Weltkoordinaten</param>
+            <returns>Zell-Instanz falls das FlowField diese Position abdeckt - null, falls die Position außerhalb des FlowFields liegt</returns>
+        </member>
         <member name="M:KWEngine3.Helper.FlowField.IsPositionInsideDestinationCell(OpenTK.Mathematics.Vector3)">
             <summary>
             Gibt an, ob die übergebene Position in der Zielzelle liegt (falls festgelegt)
@@ -3673,6 +3680,39 @@
         <member name="M:KWEngine3.Helper.FlowField.UnsetTarget">
             <summary>
             Löscht ein aktuell festgesetztes Ziel im FlowField
+            </summary>
+        </member>
+        <member name="T:KWEngine3.Helper.FlowFieldCell">
+            <summary>
+            Bildet eine einzelne Zelle einer FlowField-Instanz ab
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.FlowFieldCell.Position">
+            <summary>
+            Gibt die Position der Zelle in Weltkoordinaten an
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.FlowFieldCell.IndexX">
+            <summary>
+            Gibt den horizontalen Index der Zelle im FlowField an (nullbasiert)
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.FlowFieldCell.IndexZ">
+            <summary>
+            Gibt den vertikalen Index der Zelle im FlowField an (nullbasiert)
+            </summary>
+        </member>
+        <member name="M:KWEngine3.Helper.FlowFieldCell.GetNeighbourCellAtOffset(System.Int32,System.Int32)">
+            <summary>
+            Erfragt die Zelle, die von der aktuellen Zelle ausgehend am angegebenen Offset liegt
+            </summary>
+            <param name="offsetX">Offset in X-Richtung</param>
+            <param name="offsetZ">Offset in Z-Richtung</param>
+            <returns>Benachbarte Zelle gemäß Offset. Gibt null zurück, falls es keine benachbarte Zelle für den angegebenen Offset gibt.</returns>
+        </member>
+        <member name="P:KWEngine3.Helper.FlowFieldCell.Cost">
+            <summary>
+            Gibt die aktuell gemessenen Kosten der Zelle an
             </summary>
         </member>
         <member name="P:KWEngine3.Helper.HelperDDS.BitmapImage">
@@ -5921,6 +5961,13 @@
             <summary>
             Setze den Mauszeiger in die Mitte des Fensters
             </summary>
+        </member>
+        <member name="M:KWEngine3.World.MouseCursorResetPosition(System.Int32,System.Int32)">
+            <summary>
+            Setzt den Mauszeiger in seiner Position auf die angegebene Koordinate (relativ zum Fenster)
+            </summary>
+            <param name="x">X-Position im Fenster</param>
+            <param name="y">Y-Position im Fenster</param>
         </member>
         <member name="M:KWEngine3.World.SetCameraFOV(System.Single)">
             <summary>
