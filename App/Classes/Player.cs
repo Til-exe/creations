@@ -17,13 +17,24 @@ namespace Gruppenprojekt.App.Classes
         HUDObjectText m1 = new HUDObjectText("Zurück zum Spiel");
         HUDObjectText m2 = new HUDObjectText("Hauptmenu");
         HUDObjectText m3 = new HUDObjectText("LEAVE");
+        private HUDObjectText colCount;
+        private int counter = 0;
         public Player(string name, float x, float y, float z)
         {
             
             this.Name = name;
             this.SetPosition(x, y, z);
             this.SetColor(1, 0, 0);
+            this.SetScale(1, 2, 1);
             this.IsCollisionObject = true;
+            
+            colCount = new HUDObjectText("Sie haben kein Licht");
+            colCount.Name = "BLA";
+            colCount.SetPosition(350f, 32f);
+            colCount.SetFont(FontFace.NovaMono);
+            colCount.SetScale(30f);
+            colCount.SetOpacity(0);
+            CurrentWorld.AddHUDObject(colCount);
 
             m1.SetPosition(160f, 200f);
             m1.Name = "Weiter";
@@ -162,6 +173,24 @@ namespace Gruppenprojekt.App.Classes
                 }
                 Vector3 mtv = i.MTV;
                 MoveOffset(mtv);
+                if (collider is Collectable)
+                {
+                    (collider as Collectable).KillMe();
+                    counter = counter + 1;
+                    
+                    
+                        
+                    
+                     if(counter == 1)
+                    {
+                        colCount.SetText("Sie haben " + counter + "Licht");
+                    }
+                    else if (counter > 1)
+                    {
+                        colCount.SetText("Sie haben " + counter + "Lichter");
+                    }
+                    
+                }
             }
 
 
