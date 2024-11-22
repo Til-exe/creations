@@ -4,6 +4,8 @@ using KWEngine3.GameObjects;
 using Gruppenprojekt.App.Classes;
 using OpenTK.Mathematics;
 using System;
+using KWEngine3.Helper;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace Gruppenprojekt.App
 {
@@ -30,7 +32,6 @@ namespace Gruppenprojekt.App
             float deltat = Math.Clamp((WorldTime - _HUDLastUpdate) * 0.4f, 0, 1);
             HUDObjectText t = GetHUDObjectTextByName("BLA");
             t.SetOpacity(1 - deltat);
-
         }
 
 
@@ -100,8 +101,6 @@ namespace Gruppenprojekt.App
             w7.SetScale(10f, 5f, 1f);
             w8.SetRotation(0, 90, 0);
             w8.SetScale(10f, 5f, 1f);
-
-
             AddGameObject(w1);
             AddGameObject(w2);
             AddGameObject(w3);
@@ -111,6 +110,11 @@ namespace Gruppenprojekt.App
             AddGameObject(w7);
             AddGameObject(w8);
             AddGameObject(w9);
+
+            FlowField pathfinding = new FlowField(0,2.5f,0,100, 100, 0.5f, 5, FlowFieldMode.Simple, typeof(Wall));
+            pathfinding.IsVisible = true;
+            SetFlowField(pathfinding);
+            
         }
     }
 }

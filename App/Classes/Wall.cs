@@ -15,6 +15,7 @@ namespace Gruppenprojekt.App.Classes
         this.IsCollisionObject = true;
         this.IsShadowCaster = true;
         this.SetScale(20f, 5f, 1f);
+        this.FlowFieldCost = 255;
         }
 
         public override void Act()
