@@ -5,12 +5,17 @@ using Gruppenprojekt.App.Classes;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using System;
+using System.Collections.Generic;
 
 namespace Gruppenprojekt.App
 {
     public class GameWorldStart : World
     {
+        private Player p;
+        
         private float _HUDLastUpdate = 0;
+       
+
         
         public float GetHUDLastUpdateTime()
         {
@@ -57,13 +62,54 @@ namespace Gruppenprojekt.App
             HUDObjectText t = GetHUDObjectTextByName("BLA");
             t.SetOpacity(1 - deltat);
 
+            if(Keyboard.IsKeyPressed(Keys.R) == true ) {
+            
+                Map.Enabled = !Map.Enabled;
+                
+            }
+            
+           
+          
+
+            if (Map.Enabled == true)
+            {
+                // Optional: Map gemäß der Spielerposition verschieben und rotieren
+                Map.UpdateCameraRotation(CameraLookAtVectorXZ);
+                Map.UpdateCamera(
+                    new Vector3(
+                        p.Position.X,
+                        p.Position.Y + 10,
+                        p.Position.Z)
+                );
+
+            
+            }
+
+            List<Collectable> list = GetGameObjectsByType<Collectable>();
+            for (int C_count = 0; C_count < list.Count; C_count++)
+            {
+                Map.Add(list[C_count], 0f, new Vector3(0, 1, 0), new Vector3(0, 1, 0), 1f, 0.6f, 3f, "./App/Textures/green.png");
+            }
+            List<Wall> wlist = GetGameObjectsByType<Wall>();
+            for (int W_count = 0; W_count < wlist.Count;W_count++)
+            {
+                Map.Add(wlist[W_count], 0f, new Vector3(0,0,1), new Vector3(0,0,1),1f, 0.6f, 0f,"./App/Textures/bl_wall.jpg");
+            }
+            
+            List<Player> plist = GetGameObjectsByType<Player>();    
+            for(int p_count = 0; p_count < plist.Count; p_count++)
+            {
+                Map.Add(p, 0f, new Vector3(1, 0, 0), new Vector3(1, 0, 0), 1f, 0.6f, 3f);
+            }
+                
+            
         }
 
 
 
         public override void Prepare()
         {
-
+           
             SetBackgroundSkybox("./App/Textures/skybox.png");
             SetCameraPosition(0.0f, 2.0f, 15.0f);
             SetCameraTarget(0.0f, 0.0f, 0.0f);
@@ -75,8 +121,10 @@ namespace Gruppenprojekt.App
 
             f.SetTextureRepeat(100f, 100f);
             AddGameObject(f);
-            Player p = new Player("Yasin", -13f, 2f, -4f);
+
+            p = new Player("Yasin", -13f, 2f, -4f);
             AddGameObject(p);
+
 
             SetCameraToFirstPersonGameObject(p, 2f);
             KWEngine.MouseSensitivity = 0.07f;
@@ -128,7 +176,36 @@ namespace Gruppenprojekt.App
             AddGameObject(w7);
             AddGameObject(w8);
             AddGameObject(w9);
-        
+        createMap();
+        }
+        public void createMap()
+        {
+            Map.SetCamera(
+                 0f, 50f, 0f,                   // Position der Map-Kamera
+                 ProjectionDirection.NegativeY, // Blickrichtung der Kamera (in diesem Beispiel nach unten)
+                 80,                            // Sichtfeld der Kamera (in z.B. Metern) in der Breite
+                 80,                            // Sichtfeld der Kamera (in z.B. Metern) in der Höhe
+                 1,                             // Naheinstellgrenze (Objekte näher als 1 Einheit werden ignoriert)
+                 100);                          // Ferneinstellgrenze (Weiter als 100 Einheiten entfernte Objekte werden ignoriert)
+
+            // Position der Map auf dem Bildschirm konfigurieren:
+            Map.SetViewport(
+                Window.Width -1280/2,        // X-Position der Mitte der Map auf dem Bildschirm
+                Window.Height - 720/2,       // Y-Position der Mitte der Map auf dem Bildschirm
+                1280,                           // Breite der Map auf dem Bildschirm
+               720,                           // Höhe der Map auf dem Bildschirm
+               false);                         // Map soll als Kreis dargestellt werden
+
+            // Optional: Hintergrund der Map konfigurieren
+            Map.SetBackground(
+                "./App/Textures/black.jpg",       // Hintergrundtextur
+                10000,                           // Wie viele Einheiten der Spielwelt deckt der Hintergrund ab? (Breite)
+                10000,                           // Wie viele Einheiten der Spielwelt deckt der Hintergrund ab? (Höhe)
+                1f,                          // Sichtbarkeit 0 bis 1
+                100.0f,                          // Texturwiederholung  X
+                100.0f);                         // Texturwiederholung Y
+
+                      
         }
     }
 }

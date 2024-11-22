@@ -1,4 +1,5 @@
 ﻿using KWEngine3;
+using System.Runtime.CompilerServices;
 
 namespace Gruppenprojekt.App
 {
@@ -12,10 +13,11 @@ namespace Gruppenprojekt.App
             WindowMode.Default)                 // Fensterdekorationsmodus
         {
             //this.Title = "My infamous game title";
-            
-            GameWorldStart gws = new GameWorldStart();
-            GameWorldStartMenu sm = new GameWorldStartMenu();
-            this.SetWorld(sm);
+
+              GameWorldStart gws = new GameWorldStart();
+            //  GameWorldStartMenu sm = new GameWorldStartMenu();
+            //  this.SetWorld(sm);
+            this.SetWorld(gws);
         }
     }
 }
