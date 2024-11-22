@@ -9,16 +9,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using OpenTK.Windowing.Common.Input;
+using Assimp;
 
 namespace Gruppenprojekt.App.Classes
 {
     public class Player : GameObject
     {
-        public static int Score;
+        
         HUDObjectText m1 = new HUDObjectText("Zurück zum Spiel");
         HUDObjectText m2 = new HUDObjectText("Hauptmenu");
         HUDObjectText m3 = new HUDObjectText("LEAVE");
-        HUDObjectImage bg = new HUDObjectImage("./Textures/blackscreen.png");
+        HUDObjectImage bg = new HUDObjectImage("./App/Textures/blackscreen.png");
         private HUDObjectText colCount;
         private int counter = 0;
         public Player(string name, float x, float y, float z)
@@ -38,10 +39,13 @@ namespace Gruppenprojekt.App.Classes
             colCount.SetOpacity(0);
             CurrentWorld.AddHUDObject(colCount);
 
-            bg.SetPosition(500, 500);
+            
             bg.Name = "background";
-            bg.SetScale(128f,128f);
+            bg.SetScale(Window.Width,Window.Height);
             bg.SetColor(0, 0, 0);
+            bg.CenterOnScreen();
+            bg.SetZIndex(-100);
+            bg.SetOpacity(0.65f);
 
             m1.SetPosition(160f, 200f);
             m1.Name = "Weiter";
@@ -66,10 +70,14 @@ namespace Gruppenprojekt.App.Classes
 
 
         float speed = 0.05f;
-        bool gameRunning = true;
+        
+
         bool Sprinting = false;
         int k = 0;
-        public static int Trys;
+        
+
+
+
         public override void Act()
         {
             
@@ -82,7 +90,8 @@ namespace Gruppenprojekt.App.Classes
             {
                 if (Keyboard.IsKeyDown(Keys.LeftShift)) { Sprinting = true; }
                 else { Sprinting = false; }
-            }           
+            }        
+            //Sprint Toggle
             if (Keyboard.IsKeyPressed(Keys.CapsLock))
             {
                 if (k == 0)
@@ -94,6 +103,7 @@ namespace Gruppenprojekt.App.Classes
                 Sprinting = true;
                 
             }
+            //Player speed regeln
             if(Sprinting)
             {
                 speed = 0.105f;
@@ -106,18 +116,25 @@ namespace Gruppenprojekt.App.Classes
             //Movement
             int forward = 0;
             int strafe = 0;
-            if (gameRunning)
+            if (Globals.gameRunning)
             {
                 if (Keyboard.IsKeyDown(Keys.W)) { forward += 1; }
                 if (Keyboard.IsKeyDown(Keys.D)) { strafe += 1; }
                 if (Keyboard.IsKeyDown(Keys.A)) { strafe -= 1; }
                 if (Keyboard.IsKeyDown(Keys.S)) { forward -= 1; speed = 0.05f; }
+                
             }
-            
+
+            //pause Menu
             if (Keyboard.IsKeyPressed(Keys.Escape) || Keyboard.IsKeyPressed(Keys.Tab))
             {
                 stop();
             }
+
+            //minimap
+            if (Keyboard.IsKeyDown(Keys.R)) { /*Minimap*/ }
+
+            //pause Menu Button Use
             if (m1 != null)
             {
                 if (m1.IsMouseCursorOnMe() == true)
@@ -147,7 +164,7 @@ namespace Gruppenprojekt.App.Classes
                 {
                     GameWorldStartMenu gm = new GameWorldStartMenu();
                     Window.SetWorld(gm);
-                    Trys++;
+                    Globals.Trys++;
 
                 }
             }
@@ -168,10 +185,10 @@ namespace Gruppenprojekt.App.Classes
                 }
             }
 
-
-
             //Die Methode ist da um den Code übersichtlicher zu machen
             Camera(forward, strafe);
+
+            //Einsammeln von Collectable's
             List<Intersection> intersections = GetIntersections();
             foreach (Intersection i in intersections)
             {
@@ -192,11 +209,11 @@ namespace Gruppenprojekt.App.Classes
                     
                      if(counter == 1)
                     {
-                        colCount.SetText("Sie haben " + counter + "Licht");
+                        colCount.SetText("Sie haben " + counter + " Licht");
                     }
                     else if (counter > 1)
                     {
-                        colCount.SetText("Sie haben " + counter + "Lichter");
+                        colCount.SetText("Sie haben " + counter + " Lichter");
                     }
                     
                 }
@@ -208,7 +225,7 @@ namespace Gruppenprojekt.App.Classes
 
         public void Camera(int forward, int strafe)
         {
-            if (gameRunning)
+            if (Globals.gameRunning)
             {
                 CurrentWorld.AddCameraRotationFromMouseDelta();
                 CurrentWorld.UpdateCameraPositionForFirstPersonView(Center, 2f);
@@ -220,14 +237,15 @@ namespace Gruppenprojekt.App.Classes
         }
         public void removeAllHUD() 
         {
+            CurrentWorld.RemoveHUDObject(bg);
             CurrentWorld.RemoveHUDObject(m1);
             CurrentWorld.RemoveHUDObject(m2);
             CurrentWorld.RemoveHUDObject(m3);
-            CurrentWorld.RemoveHUDObject(bg);
+            
         }
         public void stop()
         {
-            gameRunning = false;
+            Globals.gameRunning = false;
             CurrentWorld.MouseCursorReset();
             CurrentWorld.MouseCursorResetPosition();
             CurrentWorld.AddHUDObject(m1);
@@ -237,7 +255,7 @@ namespace Gruppenprojekt.App.Classes
         }
         public void weiter()
         {
-            gameRunning = true;
+            Globals.gameRunning = true;
             CurrentWorld.MouseCursorGrab();
             removeAllHUD();
         }

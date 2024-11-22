@@ -23,14 +23,14 @@ namespace Gruppenprojekt.App.Classes
             l = new LightObject(LightType.Point, ShadowQuality.NoShadow);
             l.Name = name;
             l.SetPosition(x, y, z);
-            l.SetNearFar(0.1f, 25f);
+            l.SetNearFar(0.1f, 8f);
             l.SetColor(0f, 1f, 0f, 10f);
             CurrentWorld.AddLightObject(l);
         }
 
         public void KillMe()
         {
-            Player.Score+=100;
+            Globals.Score+=100;
             CurrentWorld.RemoveGameObject(this);
             CurrentWorld.RemoveLightObject(l);
 
@@ -45,10 +45,35 @@ namespace Gruppenprojekt.App.Classes
                 (CurrentWorld as GameWorldStart).UpdateHUDLastUpdateTime();
             }
         }
-
+        bool movingUp = true;
+        float ColMovementSpeed = 0.007f;
         public override void Act()
         {
-           
+            
+            if(Globals.gameRunning)
+            {
+                this.SetRotation(this.Rotation.X + 0.01f,0,0);
+                if (movingUp && this.Position.Y < 4)
+                {
+                    if (this.Position.Y > 4) { }
+                    this.MoveOffset(0, ColMovementSpeed, 0) ;
+                    
+                }
+                if (this.Position.Y >= 4)
+                {
+                    movingUp = false;
+                }
+                if (movingUp == false && this.Position.Y > 2)
+                {
+                    this.MoveOffset(0, -ColMovementSpeed, 0);
+                }
+                if (this.Position.Y <= 2)
+                {
+                    movingUp = true;
+                }
+            }
+            
+
         }
     }
 }
