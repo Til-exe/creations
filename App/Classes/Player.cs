@@ -15,6 +15,7 @@ namespace Gruppenprojekt.App.Classes
 {
     public class Player : GameObject
     {
+        private LightObject _flashlight;
         
         HUDObjectText m1 = new HUDObjectText("Zurück zum Spiel");
         HUDObjectText m2 = new HUDObjectText("Hauptmenu");
@@ -31,6 +32,12 @@ namespace Gruppenprojekt.App.Classes
             this.SetScale(1, 2, 1);
             this.IsCollisionObject = true;
             
+            //Taschenlampe
+            _flashlight = new LightObject(LightType.Directional, ShadowQuality.Low);
+            _flashlight.Name = "flashlight";
+            _flashlight.SetNearFar(0.1f, 25f);
+            CurrentWorld.AddLightObject(_flashlight);
+
             colCount = new HUDObjectText("Sie haben kein Licht");
             colCount.Name = "BLA";
             colCount.SetPosition(350f, 32f);
@@ -218,8 +225,7 @@ namespace Gruppenprojekt.App.Classes
                     
                 }
             }
-
-
+            _flashlight.SetPosition(this.Position.X + 3, this.Position.Y, this.Position.Z + 2);
         }
 
 
