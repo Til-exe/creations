@@ -271,6 +271,11 @@
             Zeige Tiefenpuffer für die dritte Shadow-Map (falls vorhanden)
             </summary>
         </member>
+        <member name="F:KWEngine3.DebugMode.TerrainCollisionModel">
+            <summary>
+            Zeige Kollisionsmodell aller TerrainObjekt-Instanzen (falls vorhanden)
+            </summary>
+        </member>
         <member name="T:KWEngine3.WindowMode">
             <summary>
             Fenstermodus der Anwendung
@@ -1873,20 +1878,22 @@
             <param name="y">Position auf y-Achse</param>
             <param name="mode">Bestimmt, auf welchen Fixpunkt des Objekts sich die Positionsangaben beziehen sollen</param>
         </member>
-        <member name="M:KWEngine3.GameObjects.GameObject.RaytraceTerrainBelowPosition(OpenTK.Mathematics.Vector3)">
+        <member name="M:KWEngine3.GameObjects.GameObject.RaytraceTerrainBelowPosition(OpenTK.Mathematics.Vector3,System.Boolean)">
             <summary>
             Prüft auf eine Strahlenkollision mit einem Terrain-Objekt direkt unterhalb der angegebenen Position
             </summary>
             <param name="position">Startposition des nach unten gerichteten Teststrahls</param>
+            <param name="scanBothDirections">Soll ein weiterer Teststrahl nach oben geschossen werden, falls ein nach unten gerichteter Strahl keinen Treffer findet? (Standard: false)</param>
             <returns>Ergebnis der Strahlenkollisionsmessung</returns>
         </member>
-        <member name="M:KWEngine3.GameObjects.GameObject.RaytraceTerrainBelowPositionExt(OpenTK.Mathematics.Vector3,KWEngine3.RayMode,System.Single)">
+        <member name="M:KWEngine3.GameObjects.GameObject.RaytraceTerrainBelowPositionExt(OpenTK.Mathematics.Vector3,KWEngine3.RayMode,System.Single,System.Boolean)">
             <summary>
             Prüft auf eine Strahlenkollision mit einem Terrain-Objekt direkt unterhalb der angegebenen Position
             </summary>
             <param name="position">Startposition des nach unten gerichteten Teststrahls</param>
             <param name="rayMode">Art der Messung (Standard: SingleY)</param>
             <param name="sizeFactor">Skalierungsfaktor der Strahlen (falls mehrere Strahlen verwendet werden)</param>
+            <param name="scanBothDirections">Soll ein weiterer Teststrahl nach oben geschossen werden, falls ein nach unten gerichteter Strahl keinen Treffer findet? (Standard: false)</param>
             <returns>Ergebnis der Strahlenkollisionsmessung</returns>
         </member>
         <member name="M:KWEngine3.GameObjects.GameObject.GetIntersection(KWEngine3.IntersectionTestMode)">
@@ -5174,15 +5181,13 @@
             Empfindlichkeit des Mauszeigers im First-Person-Modus (Standard: 0.05f, negative Werte für die Invertierung der y-Achse)
             </summary>
         </member>
-        <member name="M:KWEngine3.KWEngine.BuildTerrainModel(System.String,System.String,System.Int32,System.Int32,System.Int32)">
+        <member name="M:KWEngine3.KWEngine.BuildTerrainModel(System.String,System.String,System.Int32)">
             <summary>
             Baut ein Terrain-Modell
             </summary>
             <param name="name">Name des Modells</param>
-            <param name="heightmap">Heightmap Textur</param>
-            <param name="width">Breite (x-Achse, gültige Werte in 16er-Schritten bis max. 1024)</param>
-            <param name="depth">Tiefe (z-Achse, gültige Werte in 16er-Schritten bis max. 1024)</param>
-            <param name="height">Höhe (y-Achse, gültige Werte von 0 bis 64)</param>
+            <param name="heightmap">Heightmap Textur (maximal: 1024x1024px)</param>
+            <param name="height">Höhe (y-Achse, gültige Werte von 0 bis 128)</param>
         </member>
         <member name="M:KWEngine3.KWEngine.LoadAnimationIntoModel(System.String,System.String)">
             <summary>
