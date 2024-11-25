@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Threading;
 using OpenTK.Windowing.Common.Input;
 using Assimp;
+using System.IO;
 
 namespace Gruppenprojekt.App.Classes
 {
@@ -24,16 +25,16 @@ namespace Gruppenprojekt.App.Classes
         private int counter = 0;
         public Player(string name, float x, float y, float z)
         {
-            
+            Globals.gameRunning = true;
             this.Name = name;
             this.SetPosition(x, y, z);
             this.SetColor(1, 0, 0);
             this.SetScale(1, 2, 1);
             this.IsCollisionObject = true;
             
-            colCount = new HUDObjectText("Sie haben kein Licht");
-            colCount.Name = "BLA";
-            colCount.SetPosition(350f, 32f);
+            colCount = new HUDObjectText("");
+            colCount.Name = "ORBS";
+            colCount.SetPosition(290f, 20f);
             colCount.SetFont(FontFace.NovaMono);
             colCount.SetScale(30f);
             colCount.SetOpacity(0);
@@ -131,12 +132,19 @@ namespace Gruppenprojekt.App.Classes
                 stop();
             }
 
+
+            if (Keyboard.IsKeyPressed(Keys.Q))
+            {
+                weiter();
+            }
+
+
             //minimap
             if (Keyboard.IsKeyDown(Keys.R)) { /*Minimap*/ }
 
             //pause Menu Button Use
             if (m1 != null)
-            {
+            {   //Weiter spielen
                 if (m1.IsMouseCursorOnMe() == true)
                 {
                     m1.SetColorEmissiveIntensity(1.5f);
@@ -147,11 +155,13 @@ namespace Gruppenprojekt.App.Classes
                 }
                 if ((Mouse.IsButtonPressed(MouseButton.Left) && m1.IsMouseCursorOnMe() == true))
                 {
+                    CurrentWorld.MouseCursorResetPosition();
+                    
                     weiter();
                 }
             }
             if (m2!= null)
-            {
+            {   //Hauptmenu
                 if (m2.IsMouseCursorOnMe() == true)
                 {
                     m2.SetColorEmissiveIntensity(1.5f);
@@ -165,11 +175,13 @@ namespace Gruppenprojekt.App.Classes
                     GameWorldStartMenu gm = new GameWorldStartMenu();
                     Window.SetWorld(gm);
                     Globals.Trys++;
-
+                    string path = @"F:\.Programming\Repositys\Gruppenprojekt\App\data\data.txt";
+                    string appendText = Convert.ToString(Globals.Score) + "\n";
+                    File.AppendAllText(path, appendText);
                 }
             }
             if (m3 != null)
-            {
+            {   //Anwendung Verlassen / schließen
                 if (m3.IsMouseCursorOnMe() == true)
                 {
                     m3.SetColorEmissiveIntensity(1.5f);
@@ -181,7 +193,6 @@ namespace Gruppenprojekt.App.Classes
                 if (Mouse.IsButtonPressed(MouseButton.Left) && m3.IsMouseCursorOnMe() == true)
                 {
                     Window.Close();
-
                 }
             }
 
@@ -203,11 +214,9 @@ namespace Gruppenprojekt.App.Classes
                 {
                     (collider as Collectable).KillMe();
                     counter = counter + 1;
-                    
-                    
-                        
-                    
-                     if(counter == 1)
+                    colCount.SetText("Gesammelte Orbs: " + counter);
+                    /*
+                    if (counter == 1)
                     {
                         colCount.SetText("Sie haben " + counter + " Licht");
                     }
@@ -215,7 +224,7 @@ namespace Gruppenprojekt.App.Classes
                     {
                         colCount.SetText("Sie haben " + counter + " Lichter");
                     }
-                    
+                    */
                 }
             }
 
@@ -255,7 +264,7 @@ namespace Gruppenprojekt.App.Classes
         }
         public void weiter()
         {
-            Globals.gameRunning = true;
+            Globals.gameRunning = true;            
             CurrentWorld.MouseCursorGrab();
             removeAllHUD();
         }

@@ -54,7 +54,7 @@ namespace Gruppenprojekt.App
             // deltat = 0.3
 
             float deltat = Math.Clamp((WorldTime - _HUDLastUpdate) * 0.4f, 0, 1);
-            HUDObjectText t = GetHUDObjectTextByName("BLA");
+            HUDObjectText t = GetHUDObjectTextByName("ORBS");
             t.SetOpacity(1 - deltat);
 
         }

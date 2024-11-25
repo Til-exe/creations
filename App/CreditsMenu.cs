@@ -60,7 +60,7 @@ namespace Gruppenprojekt.App
             HUDObjectText h3 = new HUDObjectText("Text2");
             h3.SetPosition(160f, 300f);
             h3.Name = "MyHUDObject3";
-            h3.SetCharacterDistanceFactor(1.0f);
+            h3.SetCharacterDistanceFactor(  1.0f);
             h3.SetColor(1.0f, 0.0f, 0.0f);
 
             AddHUDObject(h3);

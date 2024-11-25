@@ -9,6 +9,8 @@ using System.IO;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Diagnostics.Metrics;
+using System.Collections.Generic;
+using System.Collections.Immutable;
 
 namespace Gruppenprojekt.App
 {
@@ -46,6 +48,7 @@ namespace Gruppenprojekt.App
                 {
                     GameWorldStart gws = new GameWorldStart();
                     Window.SetWorld(gws);
+                    Globals.Score = 0;
                 }
             }
             if (h2 != null)
@@ -74,9 +77,9 @@ namespace Gruppenprojekt.App
                 {
                     h3.SetColorEmissiveIntensity(0.0f);
                 }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && h3.IsMouseCursorOnMe() == true)
+                if (Mouse.IsButtonPressed(MouseButton.Left) && h3.IsMouseCursorOnMe() == true) 
                 {
-                    Window.Close();
+                    Window.Close();                    
                 }
             }
             if (credits != null)
@@ -102,11 +105,13 @@ namespace Gruppenprojekt.App
         
         public override void Prepare()
         {
-            HUDObjectText hName = new HUDObjectText("ITS STOLEN | by PLUG-INC");
-            hName.SetPosition(400f, 50f);
+            File.Create("Test.txt");
+            HUDObjectText hName = new HUDObjectText("ITS STOLEN | By PLUG-INC");
+            hName.SetPosition(40f, 50f);
             hName.Name = "GameText";
             hName.SetCharacterDistanceFactor(1.0f);
             hName.SetColor(1.0f, 0.0f, 0.0f);
+            hName.SetScale(50.0f);
             
             AddHUDObject(hName);
 
@@ -238,15 +243,79 @@ namespace Gruppenprojekt.App
             AddHUDObject(s9);
             AddHUDObject(s10);
 
+            string dateiPfad = @"F:\.Programming\Repositys\Gruppenprojekt\App\data\data.txt";
 
 
+            string[] readText = File.ReadAllLines(dateiPfad);
+            int[] allNumbers = new int[readText.Length];
+            for(int  i = 0; i < readText.Length; i++)
+            {
+                try { allNumbers[i] = Convert.ToInt32(readText[i]); }
+                catch(Exception e)                 
+                {
+                    string path = @"F:\.Programming\Repositys\Gruppenprojekt\App\data\data.txt";
+                    string appendText = Convert.ToString(Globals.Score) + "\n";
+                    File.AppendAllText(path, appendText);
+                }
+                
+            }
+
+            /*
+            // 1. Zeilen aus der Datei lesen
+            List<int> zahlenListe = LeseZeilenUndParsiere(dateiPfad);
             
-            
+            // 2. Liste sortieren
+            zahlenListe.Sort();
+            */
+            Array.Sort(allNumbers);
+            try
+            {
+                s1.SetText("1# " + Convert.ToString(allNumbers[9]));
+                s2.SetText("2# " + Convert.ToString(allNumbers[8]));
+                s3.SetText("3# " + Convert.ToString(allNumbers[7]));
+                s4.SetText("4# " + Convert.ToString(allNumbers[6]));
+                s5.SetText("5# " + Convert.ToString(allNumbers[5]));
+                s6.SetText("6# " + Convert.ToString(allNumbers[4]));
+                s7.SetText("7# " + Convert.ToString(allNumbers[3]));
+                s8.SetText("8# " + Convert.ToString(allNumbers[2]));
+                s9.SetText("9# " + Convert.ToString(allNumbers[1]));
+                s10.SetText("10# " + Convert.ToString(allNumbers[0]));
+            }
+            catch
+            {
+                s1.SetText("1# " );
+                s2.SetText("2# " );
+                s3.SetText("3# " );
+                s4.SetText("4# " );
+                s5.SetText("5# " );
+                s6.SetText("6# " );
+                s7.SetText("7# " );
+                s8.SetText("8# " );
+                s9.SetText("9# " );
+                s10.SetText("10# ");
+            }
+
 
         }
-        
-        
-        
+        /*
+        static List<int> LeseZeilenUndParsiere(string dateiPfad)
+        {
+            // Liste zum Speichern der Zahlen
+            List<int> zahlen = new List<int>();
 
+            string[] zeilen = File.ReadAllLines(dateiPfad);
+
+            foreach (string zeile in zeilen)
+            {
+                if (int.TryParse(zeile, out int zahl)) // Prüfen, ob Zeile eine Zahl enthält
+                {
+                    zahlen.Add(zahl);
+                }                
+            }
+
+            return zahlen;
+        }*/
     }
+        
 }
+
