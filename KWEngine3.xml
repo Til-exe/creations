@@ -3510,7 +3510,13 @@
             <summary>
             Event-Handler, der ausgelöst wird, wenn eine Taste im Fenster gedrückt wird
             </summary>
-            <param name="e"></param>
+            <param name="e">Event-Infos</param>
+        </member>
+        <member name="M:KWEngine3.GLWindow.OnKeyUp(OpenTK.Windowing.Common.KeyboardKeyEventArgs)">
+            <summary>
+            Event-Handler, der ausgelöst wird, wenn eine Taste im Fenster losgelassen wird
+            </summary>
+            <param name="e">Event-Infos</param>
         </member>
         <member name="M:KWEngine3.GLWindow.SetWorld(KWEngine3.World)">
             <summary>
