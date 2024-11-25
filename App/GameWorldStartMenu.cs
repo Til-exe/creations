@@ -31,7 +31,7 @@ namespace Gruppenprojekt.App
             HUDObjectText s8 = GetHUDObjectTextByName("score8");
             HUDObjectText s9 = GetHUDObjectTextByName("score9");
             HUDObjectText s10 = GetHUDObjectTextByName("score10");
-            
+            //penisTest
             if (h1 != null)
             {
                 if (h1.IsMouseCursorOnMe() == true)
