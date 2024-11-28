@@ -106,58 +106,79 @@ namespace Gruppenprojekt.App
         public override void Prepare()
         {
             File.Create("Test.txt");
-            HUDObjectText hName = new HUDObjectText("ITS STOLEN | By PLUG-INC");
-            hName.SetPosition(40f, 50f);
-            hName.Name = "GameText";
-            hName.SetCharacterDistanceFactor(1.0f);
-            hName.SetColor(1.0f, 0.0f, 0.0f);
-            hName.SetScale(50.0f);
+
+            HUDObjectText hTitle = new HUDObjectText("ITS STOLEN");
+            hTitle.SetPosition(375f, 50f);
+            hTitle.Name = "GameTitle";
+            hTitle.SetCharacterDistanceFactor(1.0f);
+            hTitle.SetColor(1.0f, 0.0f, 0.0f);
+            hTitle.SetScale(50.0f);
             
-            AddHUDObject(hName);
+            AddHUDObject(hTitle);
 
+            HUDObjectText hSubtitle = new HUDObjectText("By PLUG-INC");
+            hSubtitle.SetPosition(500f, 100f);
+            hSubtitle.Name = "GameSubTitle";
+            hSubtitle.SetCharacterDistanceFactor(1.0f);
+            hSubtitle.SetColor(1.0f, 0.0f, 0.0f);
 
+            AddHUDObject(hSubtitle);
+
+            int posWert = 0;
+            
+
+            
+            
+            
+            
+            
+
+            
             HUDObjectText h1 = new HUDObjectText("START GAME");
             h1.SetPosition(160f, 200f);                                                              
             h1.Name = "MyHUDObject1";                                                  
             h1.SetCharacterDistanceFactor(1.0f);   
             h1.SetColor(1.0f, 0.0f, 0.0f);         
-            h1.SetColorEmissive(1.0f, 1.0f, 1.0f); 
+            h1.SetColorEmissive(1.0f, 1.0f, 1.0f);
 
-            AddHUDObject(h1);
+            if (Globals.DisplayStartGameButton) { posWert += 50; }
 
-            
+
             HUDObjectText h2 = new HUDObjectText("OPTION");
-            h2.SetPosition(160f, 250f);             
+            h2.SetPosition(160f, 200f + posWert);             
             h2.Name = "MyHUDObject2";             
             h2.SetCharacterDistanceFactor(1.0f);
             h2.SetColor(1.0f, 0.0f, 0.0f);
             h2.SetColorEmissive(1.0f, 1.0f, 1.0f);
 
-            AddHUDObject(h2);
+            if (Globals.DisplayOptionButton) { posWert += 50; }
 
 
             HUDObjectText credits = new HUDObjectText("CREDITS");
-            credits.SetPosition(160f, 300f);
+            credits.SetPosition(160f, 200f + posWert);
             credits.Name = "credits";
             credits.SetCharacterDistanceFactor(1.0f);
             credits.SetColor(1.0f, 0.0f, 0.0f);
             credits.SetColorEmissive(1.0f, 1.0f, 1.0f);
 
-            AddHUDObject(credits);
+            if (Globals.DisplayCreditsButton) { posWert += 50; }
 
 
             HUDObjectText leave = new HUDObjectText("LEAVE");
-            leave.SetPosition(160f, 350f);
+            leave.SetPosition(160f, 200f + posWert);
             leave.Name = "MyHUDObject3";
             leave.SetCharacterDistanceFactor(1.0f);
             leave.SetColor(1.0f, 0.0f, 0.0f);
             leave.SetColorEmissive(1.0f, 1.0f, 1.0f);
 
-            AddHUDObject(leave);
-
+            
+            if (Globals.DisplayStartGameButton) { AddHUDObject(h1); } 
+            if (Globals.DisplayOptionButton) { AddHUDObject(h2); }
+            if (Globals.DisplayCreditsButton) { AddHUDObject(credits); }
+            if (Globals.DisplayLeaveButton) { AddHUDObject(leave); }
 
             HUDObjectText sb = new HUDObjectText("SCORE BOARD");
-            sb.SetPosition(750f, 170f);
+            sb.SetPosition(750f, 200f);
             sb.Name = "scoreboard";
             sb.SetCharacterDistanceFactor(1.0f);
             sb.SetColor(1.0f, 0.0f, 0.0f);
@@ -166,61 +187,61 @@ namespace Gruppenprojekt.App
 
 
             HUDObjectText s1 = new HUDObjectText("1#");
-            s1.SetPosition(700f, 220f);
+            s1.SetPosition(700f, 250f);
             s1.Name = "score1";
             s1.SetCharacterDistanceFactor(1.0f);
             s1.SetColor(1.0f, 0.0f, 0.0f);            
 
             HUDObjectText s2 = new HUDObjectText("2#");
-            s2.SetPosition(700f, 260f);
+            s2.SetPosition(700f, 290f);
             s2.Name = "score2";
             s2.SetCharacterDistanceFactor(1.0f);
             s2.SetColor(1.0f, 0.0f, 0.0f);
 
             HUDObjectText s3 = new HUDObjectText("3#");
-            s3.SetPosition(700f, 300f);
+            s3.SetPosition(700f, 330f);
             s3.Name = "score3";
             s3.SetCharacterDistanceFactor(1.0f);
             s3.SetColor(1.0f, 0.0f, 0.0f);            
 
             HUDObjectText s4 = new HUDObjectText("4#");
-            s4.SetPosition(700f, 340f);
+            s4.SetPosition(700f, 370f);
             s4.Name = "score4";
             s4.SetCharacterDistanceFactor(1.0f);
             s4.SetColor(1.0f, 0.0f, 0.0f);
 
             HUDObjectText s5 = new HUDObjectText("5#");
-            s5.SetPosition(700f, 380f);
+            s5.SetPosition(700f, 410f);
             s5.Name = "score5";
             s5.SetCharacterDistanceFactor(1.0f);
             s5.SetColor(1.0f, 0.0f, 0.0f);            
 
             HUDObjectText s6 = new HUDObjectText("6#");
-            s6.SetPosition(700f, 420f);
+            s6.SetPosition(700f, 450f);
             s6.Name = "score6";
             s6.SetCharacterDistanceFactor(1.0f);
             s6.SetColor(1.0f, 0.0f, 0.0f);            
 
             HUDObjectText s7 = new HUDObjectText("7#");
-            s7.SetPosition(700f, 460f);
+            s7.SetPosition(700f, 490f);
             s7.Name = "scpre7";
             s7.SetCharacterDistanceFactor(1.0f);
             s7.SetColor(1.0f, 0.0f, 0.0f);
 
             HUDObjectText s8 = new HUDObjectText("8#");
-            s8.SetPosition(700f, 500f);
+            s8.SetPosition(700f, 530f);
             s8.Name = "score8";
             s8.SetCharacterDistanceFactor(1.0f);
             s8.SetColor(1.0f, 0.0f, 0.0f);
 
             HUDObjectText s9 = new HUDObjectText("9#");
-            s9.SetPosition(700f, 540f);
+            s9.SetPosition(700f, 570f);
             s9.Name = "score9";
             s9.SetCharacterDistanceFactor(1.0f);
             s9.SetColor(1.0f, 0.0f, 0.0f);
 
             HUDObjectText s10 = new HUDObjectText("1O#");
-            s10.SetPosition(678f, 580f);
+            s10.SetPosition(678f, 610f);
             s10.Name = "score10";
             s10.SetCharacterDistanceFactor(1.0f);
             s10.SetColor(1.0f, 0.0f, 0.0f);
@@ -244,13 +265,24 @@ namespace Gruppenprojekt.App
             AddHUDObject(s10);
 
             string dateiPfad = @"F:\.Programming\Repositys\Gruppenprojekt\App\data\data.txt";
+            string content = File.ReadAllText(dateiPfad);
 
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                for(int i = 0; i < 10; i++)
+                {
+                    File.AppendAllText(dateiPfad, "0" + Environment.NewLine);
+                }
+            }
 
             string[] readText = File.ReadAllLines(dateiPfad);
-            int[] allNumbers = new int[readText.Length];
+            int[] allNumbers = new int[readText.Length] ;            
             for(int  i = 0; i < readText.Length; i++)
             {
-                try { allNumbers[i] = Convert.ToInt32(readText[i]); }
+                try
+                { 
+                    allNumbers[i] = Convert.ToInt32(readText[i]);
+                }
                 catch(Exception e)                 
                 {
                     string path = @"F:\.Programming\Repositys\Gruppenprojekt\App\data\data.txt";
@@ -259,27 +291,20 @@ namespace Gruppenprojekt.App
                 }
                 
             }
-
-            /*
-            // 1. Zeilen aus der Datei lesen
-            List<int> zahlenListe = LeseZeilenUndParsiere(dateiPfad);
             
-            // 2. Liste sortieren
-            zahlenListe.Sort();
-            */
-            Array.Sort(allNumbers);
+            Array.Sort(allNumbers);/*
             try
-            {
-                s1.SetText("1# " + Convert.ToString(allNumbers[9]));
-                s2.SetText("2# " + Convert.ToString(allNumbers[8]));
-                s3.SetText("3# " + Convert.ToString(allNumbers[7]));
-                s4.SetText("4# " + Convert.ToString(allNumbers[6]));
-                s5.SetText("5# " + Convert.ToString(allNumbers[5]));
-                s6.SetText("6# " + Convert.ToString(allNumbers[4]));
-                s7.SetText("7# " + Convert.ToString(allNumbers[3]));
-                s8.SetText("8# " + Convert.ToString(allNumbers[2]));
-                s9.SetText("9# " + Convert.ToString(allNumbers[1]));
-                s10.SetText("10# " + Convert.ToString(allNumbers[0]));
+            {*/
+                s1.SetText("1# " + Convert.ToString(allNumbers[allNumbers.Length - 1]));
+                s2.SetText("2# " + Convert.ToString(allNumbers[allNumbers.Length - 2]));
+                s3.SetText("3# " + Convert.ToString(allNumbers[allNumbers.Length - 3]));
+                s4.SetText("4# " + Convert.ToString(allNumbers[allNumbers.Length - 4]));
+                s5.SetText("5# " + Convert.ToString(allNumbers[allNumbers.Length - 5]));
+                s6.SetText("6# " + Convert.ToString(allNumbers[allNumbers.Length - 6]));
+                s7.SetText("7# " + Convert.ToString(allNumbers[allNumbers.Length - 7]));
+                s8.SetText("8# " + Convert.ToString(allNumbers[allNumbers.Length - 8]));
+                s9.SetText("9# " + Convert.ToString(allNumbers[allNumbers.Length - 9]));
+                s10.SetText("10# " + Convert.ToString(allNumbers[allNumbers.Length - 10]));/*
             }
             catch
             {
@@ -293,7 +318,7 @@ namespace Gruppenprojekt.App
                 s8.SetText("8# " );
                 s9.SetText("9# " );
                 s10.SetText("10# ");
-            }
+            }*/
 
 
         }

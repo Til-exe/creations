@@ -70,8 +70,9 @@ namespace Gruppenprojekt.App
             SetCameraFOV(100);
             SetColorAmbient(0.75f, 0.75f, 0.75f);
             Floor f = new Floor("floor", 1f, 1f, 1f);
-            if (GwStartMenuOption.ReturnCode == 0) { f.SetTexture("./app/Textures/wood1.png"); }
-            if (GwStartMenuOption.ReturnCode == 1) { f.SetTexture("./app/Textures/wood11.png"); GwStartMenuOption.ReturnCode = 0; }
+            f.SetTexture("./app/Textures/wood1.png");
+            if (Globals.ReturnCode == 0) {  }
+            if (Globals.ReturnCode == 1) { Globals.ReturnCode = 0; Globals.Score += 500; }
 
             f.SetTextureRepeat(100f, 100f);
             AddGameObject(f);

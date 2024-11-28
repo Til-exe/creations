@@ -18,7 +18,7 @@ namespace Gruppenprojekt.App
         int value3 = 0;
         bool codeEnterd = true;
 
-        public static int ReturnCode;
+        
         public override void Act()
         {
             
@@ -37,6 +37,7 @@ namespace Gruppenprojekt.App
             HUDObjectText score3 = GetHUDObjectTextByName("score3");
 
             HUDObjectText code = GetHUDObjectTextByName("code");
+            HUDObjectText EnableCredits = GetHUDObjectTextByName("EnableCredits");
 
 
 
@@ -77,7 +78,7 @@ namespace Gruppenprojekt.App
                     if (value1 == 1 && value2 == 1 && value3 == 1 && codeEnterd)
                     { code.SetText("CODE AKTIVIERT"); codeEnterd = false; }
                     else { code.SetText(""); }
-                    ReturnCode = 1;
+                    Globals.ReturnCode = 1;
                         
                         
                 }
@@ -206,6 +207,36 @@ namespace Gruppenprojekt.App
                 }
             }   //leave
 
+            if (EnableCredits != null)
+            {
+                //Leave game
+
+                if (EnableCredits.IsMouseCursorOnMe() == true)
+                {
+                    EnableCredits.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    EnableCredits.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && EnableCredits.IsMouseCursorOnMe() == true)
+                {
+                    if (Globals.DisplayCreditsButton == true)
+                    {
+                        EnableCredits.SetText("CREDITS: DISABLED");
+                        Globals.DisplayCreditsButton = false;
+                    }
+                    else
+                    {
+                        EnableCredits.SetText("CREDITS: ENABLED");
+                        Globals.DisplayCreditsButton = true;
+                    }
+                    
+
+
+                }
+            }   //Enter
+
 
             string text1 = transelateCode(Convert.ToString(value1));
             string text2 = transelateCode(Convert.ToString(value2));
@@ -230,6 +261,24 @@ namespace Gruppenprojekt.App
             h1.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(h1);
 
+            HUDObjectText credits = new HUDObjectText("CREDITS:");
+            credits.SetPosition(160f, 500f);
+            credits.Name = "EnableCredits";
+            credits.SetCharacterDistanceFactor(1.0f);
+            credits.SetColor(1.0f, 0.0f, 0.0f);
+            credits.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(credits);
+            if (Globals.DisplayCreditsButton == false)
+            {
+                credits.SetText("CREDITS: DISABLED");
+                Globals.DisplayCreditsButton = false;
+            }
+            else
+            {
+                credits.SetText("CREDITS: ENABLED");
+                Globals.DisplayCreditsButton = true;
+            }
+
 
             HUDObjectText Enter = new HUDObjectText("ENTER CODE");
             Enter.SetPosition(160f, 200f);
@@ -241,7 +290,7 @@ namespace Gruppenprojekt.App
 
 
             HUDObjectText code = new HUDObjectText("");
-            code.SetPosition(160f, 500f);
+            code.SetPosition(160f, 400f);
             code.Name = "code";
             code.SetCharacterDistanceFactor(1.0f);
             code.SetColor(1.0f, 1.0f, 1.0f);

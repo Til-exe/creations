@@ -15,6 +15,11 @@ namespace Gruppenprojekt.App.Classes
         public static float[] scores = new float[9];
         public static int Trys;
         public static int Score;
+        public static int ReturnCode;
+        public static bool DisplayStartGameButton = true;
+        public static bool DisplayOptionButton = true;
+        public static bool DisplayCreditsButton = true;
+        public static bool DisplayLeaveButton = true;
         public static string getInfoFromFile()
         {
             return null;

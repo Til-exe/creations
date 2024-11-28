@@ -70,6 +70,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="App\data\credits.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="App\data\data.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="App\Textures\blackscreen.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
