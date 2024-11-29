@@ -15,11 +15,11 @@ namespace Gruppenprojekt.App.Classes
             this.SetColor(0f, 0f, 1f);
             this.IsCollisionObject = true;
             this.IsShadowCaster = true;
+            this.SetScale(1, 5, 1);
 
-        
-        
-        
-        
+
+
+
         }
 
         public override void Act()

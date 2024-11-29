@@ -4,6 +4,7 @@ using KWEngine3.GameObjects;
 using Gruppenprojekt.App.Classes;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using System;
 
 namespace Gruppenprojekt.App
 {
@@ -72,7 +73,7 @@ namespace Gruppenprojekt.App
 
             AddHUDObject(h4);
 
-            h2.SetText("Vielen Dank an:");
+            h2.SetText("<text hier einsetzen>");
             h3.SetText("Dominik, Pascal, Til");
             h4.SetText("Für das Entwickeln dieses Spieles!");
 

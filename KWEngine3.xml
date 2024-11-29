@@ -271,6 +271,11 @@
             Zeige Tiefenpuffer für die dritte Shadow-Map (falls vorhanden)
             </summary>
         </member>
+        <member name="F:KWEngine3.DebugMode.TerrainCollisionModel">
+            <summary>
+            Zeige Kollisionsmodell aller TerrainObjekt-Instanzen (falls vorhanden)
+            </summary>
+        </member>
         <member name="T:KWEngine3.WindowMode">
             <summary>
             Fenstermodus der Anwendung
@@ -1873,20 +1878,22 @@
             <param name="y">Position auf y-Achse</param>
             <param name="mode">Bestimmt, auf welchen Fixpunkt des Objekts sich die Positionsangaben beziehen sollen</param>
         </member>
-        <member name="M:KWEngine3.GameObjects.GameObject.RaytraceTerrainBelowPosition(OpenTK.Mathematics.Vector3)">
+        <member name="M:KWEngine3.GameObjects.GameObject.RaytraceTerrainBelowPosition(OpenTK.Mathematics.Vector3,System.Boolean)">
             <summary>
             Prüft auf eine Strahlenkollision mit einem Terrain-Objekt direkt unterhalb der angegebenen Position
             </summary>
             <param name="position">Startposition des nach unten gerichteten Teststrahls</param>
+            <param name="scanBothDirections">Soll ein weiterer Teststrahl nach oben geschossen werden, falls ein nach unten gerichteter Strahl keinen Treffer findet? (Standard: false)</param>
             <returns>Ergebnis der Strahlenkollisionsmessung</returns>
         </member>
-        <member name="M:KWEngine3.GameObjects.GameObject.RaytraceTerrainBelowPositionExt(OpenTK.Mathematics.Vector3,KWEngine3.RayMode,System.Single)">
+        <member name="M:KWEngine3.GameObjects.GameObject.RaytraceTerrainBelowPositionExt(OpenTK.Mathematics.Vector3,KWEngine3.RayMode,System.Single,System.Boolean)">
             <summary>
             Prüft auf eine Strahlenkollision mit einem Terrain-Objekt direkt unterhalb der angegebenen Position
             </summary>
             <param name="position">Startposition des nach unten gerichteten Teststrahls</param>
             <param name="rayMode">Art der Messung (Standard: SingleY)</param>
             <param name="sizeFactor">Skalierungsfaktor der Strahlen (falls mehrere Strahlen verwendet werden)</param>
+            <param name="scanBothDirections">Soll ein weiterer Teststrahl nach oben geschossen werden, falls ein nach unten gerichteter Strahl keinen Treffer findet? (Standard: false)</param>
             <returns>Ergebnis der Strahlenkollisionsmessung</returns>
         </member>
         <member name="M:KWEngine3.GameObjects.GameObject.GetIntersection(KWEngine3.IntersectionTestMode)">
@@ -3503,7 +3510,13 @@
             <summary>
             Event-Handler, der ausgelöst wird, wenn eine Taste im Fenster gedrückt wird
             </summary>
-            <param name="e"></param>
+            <param name="e">Event-Infos</param>
+        </member>
+        <member name="M:KWEngine3.GLWindow.OnKeyUp(OpenTK.Windowing.Common.KeyboardKeyEventArgs)">
+            <summary>
+            Event-Handler, der ausgelöst wird, wenn eine Taste im Fenster losgelassen wird
+            </summary>
+            <param name="e">Event-Infos</param>
         </member>
         <member name="M:KWEngine3.GLWindow.SetWorld(KWEngine3.World)">
             <summary>
@@ -3658,6 +3671,13 @@
             <param name="position">aktuelle Position</param>
             <returns>bestmögliche Bewegungsrichtung</returns>
         </member>
+        <member name="M:KWEngine3.Helper.FlowField.GetCellForWorldPosition(OpenTK.Mathematics.Vector3)">
+            <summary>
+            Erfragt Details zu der FlowField-Zelle, die der übergebenen Weltposition entspricht
+            </summary>
+            <param name="position">Position in Weltkoordinaten</param>
+            <returns>Zell-Instanz falls das FlowField diese Position abdeckt - null, falls die Position außerhalb des FlowFields liegt</returns>
+        </member>
         <member name="M:KWEngine3.Helper.FlowField.IsPositionInsideDestinationCell(OpenTK.Mathematics.Vector3)">
             <summary>
             Gibt an, ob die übergebene Position in der Zielzelle liegt (falls festgelegt)
@@ -3673,6 +3693,39 @@
         <member name="M:KWEngine3.Helper.FlowField.UnsetTarget">
             <summary>
             Löscht ein aktuell festgesetztes Ziel im FlowField
+            </summary>
+        </member>
+        <member name="T:KWEngine3.Helper.FlowFieldCell">
+            <summary>
+            Bildet eine einzelne Zelle einer FlowField-Instanz ab
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.FlowFieldCell.Position">
+            <summary>
+            Gibt die Position der Zelle in Weltkoordinaten an
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.FlowFieldCell.IndexX">
+            <summary>
+            Gibt den horizontalen Index der Zelle im FlowField an (nullbasiert)
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.FlowFieldCell.IndexZ">
+            <summary>
+            Gibt den vertikalen Index der Zelle im FlowField an (nullbasiert)
+            </summary>
+        </member>
+        <member name="M:KWEngine3.Helper.FlowFieldCell.GetNeighbourCellAtOffset(System.Int32,System.Int32)">
+            <summary>
+            Erfragt die Zelle, die von der aktuellen Zelle ausgehend am angegebenen Offset liegt
+            </summary>
+            <param name="offsetX">Offset in X-Richtung</param>
+            <param name="offsetZ">Offset in Z-Richtung</param>
+            <returns>Benachbarte Zelle gemäß Offset. Gibt null zurück, falls es keine benachbarte Zelle für den angegebenen Offset gibt.</returns>
+        </member>
+        <member name="P:KWEngine3.Helper.FlowFieldCell.Cost">
+            <summary>
+            Gibt die aktuell gemessenen Kosten der Zelle an
             </summary>
         </member>
         <member name="P:KWEngine3.Helper.HelperDDS.BitmapImage">
@@ -5134,15 +5187,13 @@
             Empfindlichkeit des Mauszeigers im First-Person-Modus (Standard: 0.05f, negative Werte für die Invertierung der y-Achse)
             </summary>
         </member>
-        <member name="M:KWEngine3.KWEngine.BuildTerrainModel(System.String,System.String,System.Int32,System.Int32,System.Int32)">
+        <member name="M:KWEngine3.KWEngine.BuildTerrainModel(System.String,System.String,System.Int32)">
             <summary>
             Baut ein Terrain-Modell
             </summary>
             <param name="name">Name des Modells</param>
-            <param name="heightmap">Heightmap Textur</param>
-            <param name="width">Breite (x-Achse, gültige Werte in 16er-Schritten bis max. 1024)</param>
-            <param name="depth">Tiefe (z-Achse, gültige Werte in 16er-Schritten bis max. 1024)</param>
-            <param name="height">Höhe (y-Achse, gültige Werte von 0 bis 64)</param>
+            <param name="heightmap">Heightmap Textur (maximal: 1024x1024px)</param>
+            <param name="height">Höhe (y-Achse, gültige Werte von 0 bis 128)</param>
         </member>
         <member name="M:KWEngine3.KWEngine.LoadAnimationIntoModel(System.String,System.String)">
             <summary>
@@ -5921,6 +5972,13 @@
             <summary>
             Setze den Mauszeiger in die Mitte des Fensters
             </summary>
+        </member>
+        <member name="M:KWEngine3.World.MouseCursorResetPosition(System.Int32,System.Int32)">
+            <summary>
+            Setzt den Mauszeiger in seiner Position auf die angegebene Koordinate (relativ zum Fenster)
+            </summary>
+            <param name="x">X-Position im Fenster</param>
+            <param name="y">Y-Position im Fenster</param>
         </member>
         <member name="M:KWEngine3.World.SetCameraFOV(System.Single)">
             <summary>

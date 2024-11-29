@@ -5,6 +5,8 @@ using Gruppenprojekt.App.Classes;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using System;
+using KWEngine3.Helper;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using System.Collections.Generic;
 
 namespace Gruppenprojekt.App
@@ -140,7 +142,7 @@ namespace Gruppenprojekt.App
 
 
             //test 
-            Enemy e = new Enemy("huso", 1, 2, 1);
+            Enemy e = new Enemy("huso" , 10, 2, 1);
             AddGameObject(e);
             Collectable c1 = new Collectable("1", 3f, 3f, 20f);
             Collectable c2 = new Collectable("2", 10f, 3f, 20f);
@@ -165,8 +167,6 @@ namespace Gruppenprojekt.App
             w7.SetScale(10f, 5f, 1f);
             w8.SetRotation(0, 90, 0);
             w8.SetScale(10f, 5f, 1f);
-
-
             AddGameObject(w1);
             AddGameObject(w2);
             AddGameObject(w3);
@@ -206,6 +206,11 @@ namespace Gruppenprojekt.App
                 100.0f);                         // Texturwiederholung Y
 
                       
+
+            FlowField pathfinding = new FlowField(0,2.5f,0,100, 100, 0.5f, 5, FlowFieldMode.Simple, typeof(Wall));
+            pathfinding.IsVisible = false; //FLOWFIELD DEBUG VISIBILTY
+            SetFlowField(pathfinding);
+            
         }
     }
 }
