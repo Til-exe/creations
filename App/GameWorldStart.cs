@@ -114,7 +114,7 @@ namespace Gruppenprojekt.App
             SetCameraPosition(0.0f, 2.0f, 15.0f);
             SetCameraTarget(0.0f, 0.0f, 0.0f);
             SetCameraFOV(100);
-            SetColorAmbient(0.45f, 0.25f, 0.25f);
+            SetColorAmbient(0.05f, 0.02f, 0.02f);
             Floor f = new Floor("floor", 1f, 1f, 1f);
             if (GwStartMenuOption.ReturnCode == 0) { f.SetTexture("./app/Textures/wood1.png"); }
             if (GwStartMenuOption.ReturnCode == 1) { f.SetTexture("./app/Textures/wood11.png"); GwStartMenuOption.ReturnCode = 0; }

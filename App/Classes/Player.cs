@@ -10,12 +10,13 @@ using System.Diagnostics;
 using System.Threading;
 using OpenTK.Windowing.Common.Input;
 using Assimp;
+using System.Threading.Tasks;
 
 namespace Gruppenprojekt.App.Classes
 {
     public class Player : GameObject
     {
-        bool flashlight = true;
+        bool flashlight = false;
         private LightObject _flashlight;
         
         HUDObjectText m1 = new HUDObjectText("Zurück zum Spiel");
@@ -36,9 +37,9 @@ namespace Gruppenprojekt.App.Classes
             //Taschenlampe
             _flashlight = new LightObject(LightType.Directional, ShadowQuality.Low);
             _flashlight.Name = "flashlight";
-            _flashlight.SetNearFar(0.1f, 25f);
-
-            
+            _flashlight.SetNearFar(0.1f, 18f);
+            _flashlight.SetColor(0, 0, 0, 0);
+            _flashlight.SetFOV(140);
             CurrentWorld.AddLightObject(_flashlight);
             
 
@@ -85,18 +86,67 @@ namespace Gruppenprojekt.App.Classes
 
         bool Sprinting = false;
         int k = 0;
-        
+        int l = 0;
+        int r = 0;
+
+        float nextTimeFlicker = -1;
 
 
 
         public override void Act()
         {
+            if(nextTimeFlicker > 0)
+            {
+                if(WorldTime >= nextTimeFlicker)
+                {
+                    _flashlight.SetColor(0, 0, 0, 0);
+                }
+            }
+                
+
+
+            Random rnd = new Random();
+            int random = rnd.Next(20000);
             _flashlight.SetPosition(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVectorLocalRight);
             _flashlight.SetTarget(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVector * 100); // KAR: Taschenlampe muss weiiiiit in die Ferne schauen
+            if (random == 69 || Keyboard.IsKeyPressed(Keys.Space))
+            {
+                Console.WriteLine("TASCHENLAMPE AUS IN EINER SEKUNDE");
+                nextTimeFlicker = WorldTime + 1f; // Beispiel: nächster Zeitpunkt 2.018
 
+                /*
+                Random timer = new Random();
+                int delay = timer.Next(100);
+                _flashlight.SetColor(0, 0, 0, 0);
+                if (delay == 50)
+                {
+
+                }
+                if (delay == 1)
+                {
+                    _flashlight.SetColor(1, 1, 1, 4);
+                }
+                */
+
+                /*
+                await Task.Delay(18);
+                
+                await Task.Delay(6);
+                _flashlight.SetColor(0, 0, 0, 0);
+                await Task.Delay(21);
+                _flashlight.SetColor(1, 1, 1, 4);
+                await Task.Delay(9);
+                _flashlight.SetColor(0, 0, 0, 0);
+                await Task.Delay(13);
+                _flashlight.SetColor(1, 1, 1, 4);
+                await Task.Delay(10);
+                _flashlight.SetColor(0, 0, 0, 0);
+                flashlight = false;
+                */
+            }
             if (Keyboard.IsKeyPressed(Keys.F) && flashlight == false)
             {
-                _flashlight.SetColor(1, 1, 1, 5);
+                _flashlight.SetColor(1, 1, 1, 4);
                 flashlight = true;
                 Console.WriteLine("Penis an");
             }
