@@ -168,9 +168,9 @@ namespace Gruppenprojekt.App.Classes
                 flashlight = false;
                 Console.WriteLine("Penis aus");
             }
-           
-            
 
+
+            bool k = false;
             //Sprinting
             if (k == false) 
             {
