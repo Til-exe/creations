@@ -100,6 +100,7 @@ namespace Gruppenprojekt.App.Classes
                 if(WorldTime >= nextTimeFlicker)
                 {
                     _flashlight.SetColor(0, 0, 0, 0);
+
                 }
             }
                 
