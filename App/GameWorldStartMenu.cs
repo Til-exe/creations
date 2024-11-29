@@ -33,15 +33,18 @@ namespace Gruppenprojekt.App
             HUDObjectText s8 = GetHUDObjectTextByName("score8");
             HUDObjectText s9 = GetHUDObjectTextByName("score9");
             HUDObjectText s10 = GetHUDObjectTextByName("score10");
+            HUDObjectImage bg = GetHUDObjectImageByName("./App/Textures/MenuHintergrund.jpg");
             //penisTest
             if (h1 != null)
             {
                 if (h1.IsMouseCursorOnMe() == true)
                 {
-                    h1.SetColorEmissiveIntensity(1.5f);
+                    h1.SetColor(1, 1, 1);
+                    h1.SetColorEmissiveIntensity(0.5f);
                 }
                 else
                 {
+                    h1.SetColor(1, 0, 0);
                     h1.SetColorEmissiveIntensity(0.0f);
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && h1.IsMouseCursorOnMe() == true)
@@ -105,7 +108,8 @@ namespace Gruppenprojekt.App
         
         public override void Prepare()
         {
-            File.WriteAllText(Globals.Cpath, "true");
+            
+            /*File.WriteAllText(Globals.Cpath, "true");
             if (Globals.Clines[0] == "true")
             {
                 Globals.DisplayCreditsButton = true;
@@ -113,16 +117,18 @@ namespace Gruppenprojekt.App
             else if (Globals.Clines[0] == "false")
             {
                 Globals.DisplayCreditsButton = false;
+            }*/
+            if(true) {
+                HUDObjectText hTitle = new HUDObjectText("ITS STOLEN");
+                hTitle.SetPosition(200f, 50f);
+                hTitle.Name = "GameTitle";
+                hTitle.SetCharacterDistanceFactor(1.0f);
+                hTitle.SetColor(1.0f, 0.0f, 0.0f);
+                hTitle.SetScale(80.0f);
+
+                AddHUDObject(hTitle);
             }
             
-            HUDObjectText hTitle = new HUDObjectText("ITS STOLEN");
-            hTitle.SetPosition(375f, 50f);
-            hTitle.Name = "GameTitle";
-            hTitle.SetCharacterDistanceFactor(1.0f);
-            hTitle.SetColor(1.0f, 0.0f, 0.0f);
-            hTitle.SetScale(50.0f);
-            
-            AddHUDObject(hTitle);
 
             HUDObjectText hSubtitle = new HUDObjectText("By PLUG-INC");
             hSubtitle.SetPosition(500f, 100f);
@@ -132,48 +138,54 @@ namespace Gruppenprojekt.App
 
             AddHUDObject(hSubtitle);
 
-            int posWert = 0;
-            
+            HUDObjectImage bg = new HUDObjectImage("./App/Textures/MenuHintergrund.jpg");
+            bg.Name = "background";
+            bg.SetScale(Window.Width, Window.Height);            
+            bg.CenterOnScreen();
+            bg.SetZIndex(-100);
+            bg.SetOpacity(0.65f);
+            //AddHUDObject(bg);
 
-            
-            
-            
-            
-            
 
+
+
+
+            Globals.posWert = 10;
+            Globals.posYWert = 120;
             
-            HUDObjectText h1 = new HUDObjectText("START GAME");
-            h1.SetPosition(160f, 200f);                                                              
+            HUDObjectText h1 = new HUDObjectText("START");
+            h1.SetPosition(Globals.posYWert, 200f);                                                              
             h1.Name = "MyHUDObject1";                                                  
             h1.SetCharacterDistanceFactor(1.0f);   
-            h1.SetColor(1.0f, 0.0f, 0.0f);         
+            h1.SetColor(1.0f, 0.0f, 0.0f);
             h1.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            h1.SetScale(50.0f);
 
-            if (Globals.DisplayStartGameButton) { posWert += 50; }
+            if (Globals.DisplayStartGameButton) { Globals.posWert += 50; }
 
 
             HUDObjectText h2 = new HUDObjectText("OPTION");
-            h2.SetPosition(160f, 200f + posWert);             
+            h2.SetPosition(Globals.posYWert, 200f + Globals.posWert);             
             h2.Name = "MyHUDObject2";             
             h2.SetCharacterDistanceFactor(1.0f);
             h2.SetColor(1.0f, 0.0f, 0.0f);
             h2.SetColorEmissive(1.0f, 1.0f, 1.0f);
 
-            if (Globals.DisplayOptionButton) { posWert += 50; }
+            if (Globals.DisplayOptionButton) { Globals.posWert += 50; }
 
 
             HUDObjectText credits = new HUDObjectText("CREDITS");
-            credits.SetPosition(160f, 200f + posWert);
+            credits.SetPosition(Globals.posYWert, 200f + Globals.posWert);
             credits.Name = "credits";
             credits.SetCharacterDistanceFactor(1.0f);
             credits.SetColor(1.0f, 0.0f, 0.0f);
             credits.SetColorEmissive(1.0f, 1.0f, 1.0f);
 
-            if (Globals.DisplayCreditsButton) { posWert += 50; }
-
+            if (Globals.DisplayCreditsButton) { Globals.posWert += 50; }
+            
 
             HUDObjectText leave = new HUDObjectText("LEAVE");
-            leave.SetPosition(160f, 200f + posWert);
+            leave.SetPosition(Globals.posYWert, 200f + Globals.posWert);
             leave.Name = "MyHUDObject3";
             leave.SetCharacterDistanceFactor(1.0f);
             leave.SetColor(1.0f, 0.0f, 0.0f);
@@ -304,25 +316,49 @@ namespace Gruppenprojekt.App
             
             Array.Sort(allNumbers);
 
-            try{s1.SetText("1# " + Convert.ToString(allNumbers[allNumbers.Length - 1]));}
-            catch{s1.SetText("1# " );}
-            try { s2.SetText("2# " + Convert.ToString(allNumbers[allNumbers.Length - 2])); }
+            try
+            {
+                s1.SetText("1# " + Convert.ToString(allNumbers[allNumbers.Length - 1]));
+                if (allNumbers[allNumbers.Length - 1] >= 1000)
+                {
+                    s1.SetColor(1.0f, 1.0f, 1.0f);
+                }
+                else if (allNumbers[allNumbers.Length-1] >= 500)
+                {
+                    s1.SetColor(1.0f, 1.0f, 0.2f);
+                }
+                
+            }
+            catch
+            {
+                s1.SetText("1# " );
+            }
+            try { s2.SetText("2# " + Convert.ToString(allNumbers[allNumbers.Length - 2]));
+            }
             catch { s2.SetText("2# "); }
-            try { s3.SetText("3# " + Convert.ToString(allNumbers[allNumbers.Length - 3])); }
+            try { s3.SetText("3# " + Convert.ToString(allNumbers[allNumbers.Length - 3]));
+            }
             catch { s3.SetText("3# "); }
-            try { s4.SetText("4# " + Convert.ToString(allNumbers[allNumbers.Length - 4])); }
+            try { s4.SetText("4# " + Convert.ToString(allNumbers[allNumbers.Length - 4])); 
+            }
             catch { s4.SetText("4# "); }
-            try { s5.SetText("5# " + Convert.ToString(allNumbers[allNumbers.Length - 5])); }
+            try { s5.SetText("5# " + Convert.ToString(allNumbers[allNumbers.Length - 5])); 
+            }
             catch {s5.SetText("5# "); }
-            try { s6.SetText("6# " + Convert.ToString(allNumbers[allNumbers.Length - 6])); }
+            try { s6.SetText("6# " + Convert.ToString(allNumbers[allNumbers.Length - 6])); 
+            }
             catch { s6.SetText("6# "); }
-            try { s7.SetText("7# " + Convert.ToString(allNumbers[allNumbers.Length - 7])); }
+            try { s7.SetText("7# " + Convert.ToString(allNumbers[allNumbers.Length - 7])); 
+            }
             catch { s7.SetText("7# "); }
-            try { s8.SetText("8# " + Convert.ToString(allNumbers[allNumbers.Length - 8])); }
+            try { s8.SetText("8# " + Convert.ToString(allNumbers[allNumbers.Length - 8]));
+            }
             catch { s8.SetText("8# "); }
-            try { s9.SetText("9# " + Convert.ToString(allNumbers[allNumbers.Length - 9])); }
+            try { s9.SetText("9# " + Convert.ToString(allNumbers[allNumbers.Length - 9]));
+            }
             catch { s9.SetText("9# "); }
-            try { s10.SetText("10# " + Convert.ToString(allNumbers[allNumbers.Length - 10])); }
+            try { s10.SetText("10# " + Convert.ToString(allNumbers[allNumbers.Length - 10]));
+            }
             catch { s10.SetText("10# "); }
 
             

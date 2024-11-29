@@ -21,7 +21,7 @@ namespace Gruppenprojekt.App.Classes
         HUDObjectText m2 = new HUDObjectText("Hauptmenu");
         HUDObjectText m3 = new HUDObjectText("Verlassen");
         HUDObjectImage bg = new HUDObjectImage("./App/Textures/blackscreen.png");
-        HUDObjectText mtitle = new HUDObjectText("Game Pausiert");
+        HUDObjectText mtitle = new HUDObjectText("Pausiert");
         private HUDObjectText colCount;
         private int counter = 0;
         public Player(string name, float x, float y, float z)
@@ -44,7 +44,7 @@ namespace Gruppenprojekt.App.Classes
 
             mtitle.Name = "PAUSE";                       
             mtitle.SetPosition(160f, 100f);          
-            mtitle.SetScale(120f);                       
+            mtitle.SetScale(100f);                       
             mtitle.SetCharacterDistanceFactor(1.0f);            
             mtitle.SetColor(1.0f, 0.0f, 0.0f);
 
@@ -73,19 +73,7 @@ namespace Gruppenprojekt.App.Classes
             m3.SetColor(1.0f, 0.0f, 0.0f);
             m3.SetColorEmissive(1.0f, 1.0f, 1.0f);
         }
-
-        
-
-
-        float speed = 0.05f;
-        
-
-        bool Sprinting = false;
-        int k = 0;
-        
-
-
-
+        bool k = false;
         public override void Act()
         {
             
@@ -94,31 +82,31 @@ namespace Gruppenprojekt.App.Classes
 
 
             //Sprinting
-            if (k == 0) 
+            if (k == false) 
             {
-                if (Keyboard.IsKeyDown(Keys.LeftShift)) { Sprinting = true; }
-                else { Sprinting = false; }
+                if (Keyboard.IsKeyDown(Keys.LeftShift)) { Globals.Sprinting = true; }
+                else { Globals.Sprinting = false; }
             }        
             //Sprint Toggle
             if (Keyboard.IsKeyPressed(Keys.CapsLock))
             {
-                if (k == 0)
+                if (k == false)
                 {
-                    k = 1;
+                    k = true;
                 }
                 else
-                {  k = 0;}
-                Sprinting = true;
+                {  k = false;}
+                Globals.Sprinting = true;
                 
             }
             //Player speed regeln
-            if(Sprinting)
+            if(Globals.Sprinting)
             {
-                speed = 0.105f;
+                Globals.speed = 0.105f;
             }
             else
             {
-                speed = 0.05f;
+                Globals.speed = 0.05f;
             }
 
             //Movement
@@ -129,7 +117,7 @@ namespace Gruppenprojekt.App.Classes
                 if (Keyboard.IsKeyDown(Keys.W)) { forward += 1; }
                 if (Keyboard.IsKeyDown(Keys.D)) { strafe += 1; }
                 if (Keyboard.IsKeyDown(Keys.A)) { strafe -= 1; }
-                if (Keyboard.IsKeyDown(Keys.S)) { forward -= 1; speed = 0.05f; }
+                if (Keyboard.IsKeyDown(Keys.S)) { forward -= 1; Globals.speed = 0.05f; }
                 
             }
 
@@ -247,7 +235,7 @@ namespace Gruppenprojekt.App.Classes
             {
                 CurrentWorld.AddCameraRotationFromMouseDelta();
                 CurrentWorld.UpdateCameraPositionForFirstPersonView(Center, 2f);
-                MoveAndStrafeAlongCameraXZ(forward, strafe, speed);
+                MoveAndStrafeAlongCameraXZ(forward, strafe, Globals.speed);
                 TurnTowardsXZ(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVector);
             }
             

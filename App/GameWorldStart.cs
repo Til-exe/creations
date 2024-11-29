@@ -63,9 +63,7 @@ namespace Gruppenprojekt.App
 
         public override void Prepare()
         {
-            var GameTimer = new System.Timers.Timer(); // use a timer
-            GameTimer.Interval = 1000; // Sets the timer interval to tick every 2 seconds
-
+            
 
 
             SetBackgroundSkybox("./App/Textures/skybox.png");
@@ -76,7 +74,7 @@ namespace Gruppenprojekt.App
             Floor f = new Floor("floor", 1f, 1f, 1f);
             f.SetTexture("./app/Textures/wood1.png");
             if (Globals.ReturnCode == 0) {  }
-            if (Globals.ReturnCode == 1) { Globals.ReturnCode = 0; Globals.Score += 500; }
+            if (Globals.ReturnCode == 1) { Globals.ReturnCode = 0; Globals.Score += 1000; }
 
             f.SetTextureRepeat(100f, 100f);
             AddGameObject(f);
