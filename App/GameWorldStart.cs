@@ -114,7 +114,7 @@ namespace Gruppenprojekt.App
             SetCameraPosition(0.0f, 2.0f, 15.0f);
             SetCameraTarget(0.0f, 0.0f, 0.0f);
             SetCameraFOV(100);
-            SetColorAmbient(0.75f, 0.75f, 0.75f);
+            SetColorAmbient(0.45f, 0.25f, 0.25f);
             Floor f = new Floor("floor", 1f, 1f, 1f);
             if (GwStartMenuOption.ReturnCode == 0) { f.SetTexture("./app/Textures/wood1.png"); }
             if (GwStartMenuOption.ReturnCode == 1) { f.SetTexture("./app/Textures/wood11.png"); GwStartMenuOption.ReturnCode = 0; }
@@ -136,7 +136,7 @@ namespace Gruppenprojekt.App
             light.Name = ("scheiß auf den Namen");
             light.SetNearFar(0.1f, 25f);
             light.SetPosition(0f, 5f, 0);
-            AddLightObject(light);
+            //AddLightObject(light);
 
 
             //test 
@@ -157,6 +157,7 @@ namespace Gruppenprojekt.App
             Wall w7 = new Wall("7", -15f, 4f, 0f);
             Wall w8 = new Wall("8", 10f, 4f, 0f);
             Wall w9 = new Wall("9", 0f, 4f, -5f);
+            Wall w10 = new Wall("10", -2.5f, 6.9f, 5);
             w5.SetRotation(0, 90, 0);
             w5.SetScale(10f, 5f, 1f);
             w6.SetRotation(0, 90, 0);
@@ -165,6 +166,7 @@ namespace Gruppenprojekt.App
             w7.SetScale(10f, 5f, 1f);
             w8.SetRotation(0, 90, 0);
             w8.SetScale(10f, 5f, 1f);
+            w10.SetScale(25f, 1f, 20f);
             AddGameObject(w1);
             AddGameObject(w2);
             AddGameObject(w3);
@@ -174,6 +176,7 @@ namespace Gruppenprojekt.App
             AddGameObject(w7);
             AddGameObject(w8);
             AddGameObject(w9);
+            AddGameObject(w10);
         createMap();
         }
         public void createMap()

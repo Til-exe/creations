@@ -15,6 +15,7 @@ namespace Gruppenprojekt.App.Classes
 {
     public class Player : GameObject
     {
+        bool flashlight = true;
         private LightObject _flashlight;
         
         HUDObjectText m1 = new HUDObjectText("Zurück zum Spiel");
@@ -91,8 +92,21 @@ namespace Gruppenprojekt.App.Classes
         public override void Act()
         {
             _flashlight.SetPosition(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVectorLocalRight);
-            _flashlight.SetTarget(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVector * 5); // KAR: Taschenlampe muss weiiiiit in die Ferne schauen
-            //_flashlight.SetPosition(this.Position.X + 0.3f, 3, this.Position.Z + 1);
+            _flashlight.SetTarget(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVector * 100); // KAR: Taschenlampe muss weiiiiit in die Ferne schauen
+
+            if (Keyboard.IsKeyPressed(Keys.F) && flashlight == false)
+            {
+                _flashlight.SetColor(1, 1, 1, 5);
+                flashlight = true;
+                Console.WriteLine("Penis an");
+            }
+            else if (Keyboard.IsKeyPressed(Keys.F) && flashlight == true)
+            {
+                _flashlight.SetColor(0, 0, 0, 0);
+                flashlight = false;
+                Console.WriteLine("Penis aus");
+            }
+           
             
 
             //Sprinting
