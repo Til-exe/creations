@@ -166,6 +166,41 @@
             Frees all graphics resources used by the renderer.
             </summary>
         </member>
+        <member name="T:KWEngine3.KeyboardCursorType">
+            <summary>
+            Listet die Anzeigemöglichkeiten für Eingabecursor auf
+            </summary>
+        </member>
+        <member name="F:KWEngine3.KeyboardCursorType.Pipe">
+            <summary>
+            Vertikaler Trennstrich (Standard)
+            </summary>
+        </member>
+        <member name="F:KWEngine3.KeyboardCursorType.Underscore">
+            <summary>
+            Unterstrich
+            </summary>
+        </member>
+        <member name="F:KWEngine3.KeyboardCursorType.Block">
+            <summary>
+            Block
+            </summary>
+        </member>
+        <member name="T:KWEngine3.KeyboardCursorBehaviour">
+            <summary>
+            Listet die Blinkmodi für Eingabecursor auf
+            </summary>
+        </member>
+        <member name="F:KWEngine3.KeyboardCursorBehaviour.Blink">
+            <summary>
+            Blendet den Cursor abwechselnd ein und aus
+            </summary>
+        </member>
+        <member name="F:KWEngine3.KeyboardCursorBehaviour.Fade">
+            <summary>
+            Blendet den Cursor langsam ein und aus
+            </summary>
+        </member>
         <member name="T:KWEngine3.ShakeMode">
             <summary>
             Gibt an, ob die für das Kamerazittern festgelegten Werte zusätzlich zum ggf. bestehenden Zittern addiert werden oder die bisherigen Werte ersetzen.
@@ -2516,6 +2551,93 @@
             Prüft, ob der Mauszeiger auf dem Textobjekt liegt
             </summary>
             <returns>true, wenn Mauszeiger über dem Textobjekt liegt</returns>
+        </member>
+        <member name="T:KWEngine3.GameObjects.HUDObjectTextInput">
+            <summary>
+            Oberklasse für alle Eingabe-HUDObject-Klassen
+            </summary>
+        </member>
+        <member name="P:KWEngine3.GameObjects.HUDObjectTextInput.CursorBehaviour">
+            <summary>
+            Regelt das Blinkverhalten des Eingabecursors
+            </summary>
+        </member>
+        <member name="P:KWEngine3.GameObjects.HUDObjectTextInput.HasFocus">
+            <summary>
+            Gibt an, ob die Instanz gerade den Eingabefokus besitzt
+            </summary>
+        </member>
+        <member name="M:KWEngine3.GameObjects.HUDObjectTextInput.GetFocus(System.Boolean)">
+            <summary>
+            Sorgt dafür, dass die Instanz den Eingabefokus erhält
+            </summary>
+            <param name="moveCursorToEnd">gibt an, ob der Cursor beim Erlangen des Fokus an das Ende der Zeichenkette gesetzt werden soll (Standard: true)</param> 
+        </member>
+        <member name="M:KWEngine3.GameObjects.HUDObjectTextInput.SetText(System.String,System.Boolean)">
+            <summary>
+            Setzt den Text für die Instanz
+            </summary>
+            <param name="text">zu setzender Text</param>
+            <param name="trim">wenn true, werden Leerzeichen zu Beginn und Ende des Texts automatisch abgeschnitten</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.HUDObjectTextInput.ReleaseFocus(System.String)">
+            <summary>
+            Gibt den Eingabefokus für den kommenden Simulatiosschritt wieder frei
+            </summary>
+            <param name="reason">Gibt optional den Grund für das Verlassen des Fokus an. Dieser wird der Event-Beschreibung angehängt.</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.HUDObjectTextInput.ConfirmAndReleaseFocus">
+            <summary>
+            Bestätigt die aktuelle Eingabe und gibt den Eingabefokus für den kommenden Simulatiosschritt wieder frei
+            </summary>
+        </member>
+        <member name="M:KWEngine3.GameObjects.HUDObjectTextInput.AbortAndReleaseFocus">
+            <summary>
+            Bricht die aktuelle Eingabe ab und gibt den Eingabefokus für den kommenden Simulatiosschritt wieder frei
+            </summary>
+        </member>
+        <member name="P:KWEngine3.GameObjects.HUDObjectTextInput.CursorPosition">
+            <summary>
+            Erfragt oder setzt die Position des Eingabecursors
+            </summary>
+        </member>
+        <member name="M:KWEngine3.GameObjects.HUDObjectTextInput.MoveCursorToEnd">
+            <summary>
+            Bewegt den Cursor an den Anfang des Texts
+            </summary>
+        </member>
+        <member name="M:KWEngine3.GameObjects.HUDObjectTextInput.MoveCursorToStart">
+            <summary>
+            Bewegt den Cursor an den Anfang des Texts
+            </summary>
+        </member>
+        <member name="M:KWEngine3.GameObjects.HUDObjectTextInput.#ctor(System.String)">
+            <summary>
+            Erstellt eine Instanz der Klasse mit einem Text
+            </summary>
+            <param name="text">Anzuzeigender Text</param>
+        </member>
+        <member name="P:KWEngine3.GameObjects.HUDObjectTextInput.CursorType">
+            <summary>
+            Regelt den Anzeigemodus für den Eingabecursor bei Keyboardeingaben (Standard: Pipe)
+            </summary>
+        </member>
+        <member name="P:KWEngine3.GameObjects.HUDObjectTextInput.CursorBlinkSpeed">
+            <summary>
+            Gibt die Blinkgeschwindigkeit des Eingabecursors an
+            </summary>
+        </member>
+        <member name="M:KWEngine3.GameObjects.HUDObjectTextInput.AddCharacters(System.String)">
+            <summary>
+            Fügt die angegebenen Zeichen dem Text ab der Cursorposition hinzu
+            </summary>
+            <param name="characters">Hinzuzufügende Zeichen</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.HUDObjectTextInput.MoveCursor(System.Int32)">
+            <summary>
+            Bewegt den Cursor relativ zu seiner jetztigen Position
+            </summary>
+            <param name="offset"></param>
         </member>
         <member name="T:KWEngine3.GameObjects.Intersection">
             <summary>
@@ -5345,6 +5467,12 @@
             <param name="button">zu prüfende Taste</param>
             <returns>true, wenn die Taste gedrückt und im vorherigen Frame nicht gedrückt wurde</returns>
         </member>
+        <member name="M:KWEngine3.MouseExt.GetDelta">
+            <summary>
+            Gibt die Mausbewegung als Delta-Wert für beide Achsen zurück (Unterschied der Mausposition zum letzten Frame)
+            </summary>
+            <returns>Delta-Wert der Mauszeigerbewegung (Unterschied zum letzten Frame)</returns>
+        </member>
         <member name="T:KWEngine3.ScreenInfo">
             <summary>
             Informationen über die angeschlossenen Monitore
@@ -5882,6 +6010,19 @@
             <param name="name">Zu suchende Zeichenkette</param>
             <returns>Liste der gefundenen Objekte</returns>
         </member>
+        <member name="M:KWEngine3.World.GetHUDObjectTextInputWithFocus">
+            <summary>
+            Erfragt die HUDObjectTextInput-Instanz, die gerade den Eingabefokus hat
+            </summary>
+            <returns>Instanz (oder null, falls gerade kein Objekt den Eingabefokus hat)</returns>
+        </member>
+        <member name="M:KWEngine3.World.GetHUDObjectTextInputByName(System.String)">
+            <summary>
+            Durchsucht die Liste der HUDObject-Instanzen nach einem Textobjekt mit Eingabefunktion und dem angegebenen Namen
+            </summary>
+            <param name="name">Name des gesuchten Objekts</param>
+            <returns>Gesuchtes Objekt oder null (falls nicht gefunden)</returns>
+        </member>
         <member name="P:KWEngine3.World.ApplicationTime">
             <summary>
             Zeit in Sekunden, die die Applikation bereits geöffnet ist
@@ -6026,9 +6167,19 @@
             </summary>
             <param name="e">Hinzufügendes Ereignisobjekt</param>
         </member>
+        <member name="P:KWEngine3.World.HasObjectWithActiveInputFocus">
+            <summary>
+            Gibt an, ob es gerade eine HUDObject-Instanz gibt, die den Eingabefokus hat
+            </summary>
+        </member>
         <member name="T:KWEngine3.WorldEvent">
             <summary>
             Ereignisklasse für World-Instanzen
+            </summary>
+        </member>
+        <member name="P:KWEngine3.WorldEvent.GeneratedByInputFocusLost">
+            <summary>
+            Gibt an, ob das Event durch ein Eingabeelement (Texteingabefeld) ausgelöst wurde
             </summary>
         </member>
         <member name="P:KWEngine3.WorldEvent.Timestamp">
