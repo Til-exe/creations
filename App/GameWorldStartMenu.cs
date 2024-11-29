@@ -11,12 +11,13 @@ using System.Security.Cryptography.X509Certificates;
 using System.Diagnostics.Metrics;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Xml.Linq;
 
 namespace Gruppenprojekt.App
 {
     public class GameWorldStartMenu : World
     {
-        
+        int l = 0;
         public override void Act()
         {            
             HUDObjectText h1 = GetHUDObjectTextByName("MyHUDObject1");
@@ -102,13 +103,80 @@ namespace Gruppenprojekt.App
                 }
             }
             
+            SetCameraPosition(Globals.moveCameraX, 4, Globals.moveCameraY);
+            SetCameraTarget(CameraPosition.X, CameraPosition.Y + 2, CameraPosition.Z);
 
+            do
+            {
+                SetCameraPosition(CameraPosition.X - 400, CameraPosition.Y, CameraPosition.Z);
+                
+            }
+            while(CameraPosition.X > 130);
+            
+                
+            
+            
+            Globals.moveCameraX += 0.02f;
+            if (l == 240*5)
+            {
+                
+            }
+            else if(l < 240*5)
+            {
+                l++;
+            }
+            else
+            {
+                l = 0;
+            }
         }
 
         
         public override void Prepare()
         {
+            Wall w1 = new Wall("1", 0f, 4f, 5f);
+            Wall w2 = new Wall("2", 0f, 4f, 0f);
+            w1.SetTexture("./app/Textures/wood1.png");
+            w1.SetTextureRepeat(500f, 5f);
+            w1.SetScale(1000,10,1);
+            w2.SetTexture("./app/Textures/wood1.png");
+            w2.SetTextureRepeat(500f, 5f);
+            w2.SetScale(1000,10,1);
             
+
+            Floor f = new Floor("floor", 1f, 1f, 1f); 
+            f.SetTexture("./app/Textures/wood1.png");
+            f.SetTextureRepeat(500f, 5f);
+            f.SetScale(1000,1,10);
+            Floor f1 = new Floor("floor", 1f, 10f, 1f);
+            f1.SetTexture("./app/Textures/wood1.png");
+            f1.SetTextureRepeat(500f, 5f);
+            f1.SetScale(1000,1,10);
+            SetCameraPosition(0.0f, 5.0f, 15.0f);
+
+            LightObject light = new LightObject(LightType.Sun, ShadowQuality.Low);
+            light.Name = ("scheiß auf den Namen");
+            light.SetNearFar(10000f, 2500f);
+            light.SetPosition(1f, 1f, 1);
+            AddLightObject(light);
+
+            Collectable c1 = new Collectable("1", 100f, 2.5f, 2.5f);
+            AddGameObject(c1);
+            AddGameObject(w1);
+            AddGameObject(w2);
+            AddGameObject(f);
+            AddGameObject(f1);
+
+            HUDObjectImage bbg = new HUDObjectImage("./App/Textures/blackscreen.png");
+            bbg.Name = "background";
+            bbg.SetScale(Window.Width, Window.Height);
+            bbg.SetColor(0, 0, 0);
+            bbg.CenterOnScreen();
+            bbg.SetZIndex(-100);
+            bbg.SetOpacity(0.75f);
+            AddHUDObject(bbg);
+
+
             /*File.WriteAllText(Globals.Cpath, "true");
             if (Globals.Clines[0] == "true")
             {
@@ -118,7 +186,7 @@ namespace Gruppenprojekt.App
             {
                 Globals.DisplayCreditsButton = false;
             }*/
-            if(true) {
+            if (true) {
                 HUDObjectText hTitle = new HUDObjectText("ITS STOLEN");
                 hTitle.SetPosition(200f, 50f);
                 hTitle.Name = "GameTitle";
@@ -151,7 +219,7 @@ namespace Gruppenprojekt.App
 
 
             Globals.posWert = 10;
-            Globals.posYWert = 120;
+            Globals.posYWert = 100;
             
             HUDObjectText h1 = new HUDObjectText("START");
             h1.SetPosition(Globals.posYWert, 200f);                                                              
@@ -331,35 +399,35 @@ namespace Gruppenprojekt.App
             }
             catch
             {
-                s1.SetText("1# " );
+                s1.SetText("1# 0" );
             }
             try { s2.SetText("2# " + Convert.ToString(allNumbers[allNumbers.Length - 2]));
             }
-            catch { s2.SetText("2# "); }
+            catch { s2.SetText("2# 0"); }
             try { s3.SetText("3# " + Convert.ToString(allNumbers[allNumbers.Length - 3]));
             }
-            catch { s3.SetText("3# "); }
+            catch { s3.SetText("3# 0"); }
             try { s4.SetText("4# " + Convert.ToString(allNumbers[allNumbers.Length - 4])); 
             }
-            catch { s4.SetText("4# "); }
+            catch { s4.SetText("4# 0"); }
             try { s5.SetText("5# " + Convert.ToString(allNumbers[allNumbers.Length - 5])); 
             }
-            catch {s5.SetText("5# "); }
+            catch {s5.SetText("5# 0"); }
             try { s6.SetText("6# " + Convert.ToString(allNumbers[allNumbers.Length - 6])); 
             }
-            catch { s6.SetText("6# "); }
+            catch { s6.SetText("6# 0"); }
             try { s7.SetText("7# " + Convert.ToString(allNumbers[allNumbers.Length - 7])); 
             }
-            catch { s7.SetText("7# "); }
+            catch { s7.SetText("7# 0"); }
             try { s8.SetText("8# " + Convert.ToString(allNumbers[allNumbers.Length - 8]));
             }
-            catch { s8.SetText("8# "); }
+            catch { s8.SetText("8# 0"); }
             try { s9.SetText("9# " + Convert.ToString(allNumbers[allNumbers.Length - 9]));
             }
-            catch { s9.SetText("9# "); }
+            catch { s9.SetText("9# 0"); }
             try { s10.SetText("10# " + Convert.ToString(allNumbers[allNumbers.Length - 10]));
             }
-            catch { s10.SetText("10# "); }
+            catch { s10.SetText("10# 0"); }
 
             
             

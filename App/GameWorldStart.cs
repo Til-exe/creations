@@ -74,7 +74,7 @@ namespace Gruppenprojekt.App
             Floor f = new Floor("floor", 1f, 1f, 1f);
             f.SetTexture("./app/Textures/wood1.png");
             if (Globals.ReturnCode == 0) {  }
-            if (Globals.ReturnCode == 1) { Globals.ReturnCode = 0; Globals.Score += 1000; }
+            if (Globals.ReturnCode == 1) { Globals.ReturnCode = 0; Globals.multiplikator = 2; }
 
             f.SetTextureRepeat(100f, 100f);
             AddGameObject(f);

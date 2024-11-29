@@ -16,7 +16,7 @@ namespace Gruppenprojekt.App.Classes
             IsCollisionObject = true;
             IsAffectedByLight = true;
             IsShadowCaster = true; 
-            this.SetScale(150,1 ,150 );
+            this.SetScale(200,1 ,200 );
         }
 
 

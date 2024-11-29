@@ -25,7 +25,9 @@ namespace Gruppenprojekt.App.Classes
         public static int ReturnCode;
         public static float speed = 0.05f;
         public static bool Sprinting = false;
-
+        public static int multiplikator = 1;
+        public static float moveCameraX = 0;
+        public static float moveCameraY = 2.5f;
 
 
         //public static string Cpath = @"F:\.Programming\Repositys\Gruppenprojekt\App\data\credits.txt";
