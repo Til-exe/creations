@@ -60,7 +60,7 @@ namespace Gruppenprojekt.App
             // deltat = 0.3
 
             float deltat = Math.Clamp((WorldTime - _HUDLastUpdate) * 0.4f, 0, 1);
-            HUDObjectText t = GetHUDObjectTextByName("BLA");
+            HUDObjectText t = GetHUDObjectTextByName("ORBS");
             t.SetOpacity(1 - deltat);
 
             if (Keyboard.IsKeyPressed(Keys.R) == true)
@@ -116,8 +116,9 @@ namespace Gruppenprojekt.App
             SetCameraFOV(100);
             SetColorAmbient(0.05f, 0.02f, 0.02f);
             Floor f = new Floor("floor", 1f, 1f, 1f);
-            if (GwStartMenuOption.ReturnCode == 0) { f.SetTexture("./app/Textures/wood1.png"); }
-            if (GwStartMenuOption.ReturnCode == 1) { f.SetTexture("./app/Textures/wood11.png"); GwStartMenuOption.ReturnCode = 0; }
+            f.SetTexture("./app/Textures/wood1.png");
+            if (Globals.ReturnCode == 0) {  }
+            if (Globals.ReturnCode == 1) { Globals.ReturnCode = 0; Globals.multiplikator = 2; }
 
             f.SetTextureRepeat(100f, 100f);
             AddGameObject(f);

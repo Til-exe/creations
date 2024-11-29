@@ -30,7 +30,7 @@ namespace Gruppenprojekt.App.Classes
 
         public void KillMe()
         {
-            Globals.Score+=100;
+            Globals.Score+=100 * Globals.multiplikator;
             CurrentWorld.RemoveGameObject(this);
             CurrentWorld.RemoveLightObject(l);
 
@@ -57,7 +57,7 @@ namespace Gruppenprojekt.App.Classes
                 {
                     if (this.Position.Y > 4) { }
                     this.MoveOffset(0, ColMovementSpeed, 0) ;
-                    
+                    l.MoveOffset(0, ColMovementSpeed, 0);
                 }
                 if (this.Position.Y >= 4)
                 {
@@ -66,6 +66,7 @@ namespace Gruppenprojekt.App.Classes
                 if (movingUp == false && this.Position.Y > 2)
                 {
                     this.MoveOffset(0, -ColMovementSpeed, 0);
+                    l.MoveOffset(0, -ColMovementSpeed, 0);
                 }
                 if (this.Position.Y <= 2)
                 {
