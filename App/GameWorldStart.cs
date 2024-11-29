@@ -13,10 +13,9 @@ namespace Gruppenprojekt.App
     public class GameWorldStart : World
     {
         private Player p;
-        
+        float finalPos = 0f;
         private float _HUDLastUpdate = 0;
-       
-
+        float counterPos = 0f;
         
         public float GetHUDLastUpdateTime()
         {
@@ -25,6 +24,7 @@ namespace Gruppenprojekt.App
             HUDObjectText h1 = GetHUDObjectTextByName("Weiter");
             // Wenn ein Objekt dieses Typs und dieses Namens gefunden werden
             // konnte, ist die Variable h nicht 'leer', also 'nicht null':
+            
             
             
             if (h1 != null)
@@ -55,6 +55,8 @@ namespace Gruppenprojekt.App
 
         public override void Act()
         {
+           
+
             // WorldTime ist 2.5
             // _HUDLastUpdate ist 2.2
             // deltat = 0.3
@@ -65,24 +67,57 @@ namespace Gruppenprojekt.App
 
             if (Keyboard.IsKeyPressed(Keys.R) == true)
             {
-
+                
                 Map.Enabled = !Map.Enabled;
-
+               Globals.gameRunning = !Globals.gameRunning;
+                // Optional: Map gemäß der Spielerposition verschieben und rotieren
+                
+                finalPos = 0f;
+                counterPos = 0f;
+               
             }
-
+          
 
 
 
             if (Map.Enabled == true)
             {
+                Console.WriteLine(finalPos);
+                Console.WriteLine(counterPos);
+                if (finalPos < 80 && counterPos > 80f)
+                {
+
+                    Map.SetCamera(
+                p.Position.X, p.Position.Y, p.Position.Z,                   // Position der Map-Kamera
+                ProjectionDirection.NegativeY, // Blickrichtung der Kamera (in diesem Beispiel nach unten)
+                10 + finalPos,                            // Sichtfeld der Kamera (in z.B. Metern) in der Breite
+                10 + finalPos,                            // Sichtfeld der Kamera (in z.B. Metern) in der Höhe
+                1,                             // Naheinstellgrenze (Objekte näher als 1 Einheit werden ignoriert)
+                100);
+
+                    
+                    
+                        finalPos = finalPos + 0.8f;
+                    
+
+                   
+                    
+                       
+
+                        Map.UpdateCamera(
+                            new Vector3(
+                                p.Position.X,
+                                p.Position.Y,
+                                p.Position.Z));
+                    
+                   
+                    
+                }
+              counterPos= counterPos + 0.8f;
                 // Optional: Map gemäß der Spielerposition verschieben und rotieren
                 Map.UpdateCameraRotation(CameraLookAtVectorXZ);
-                Map.UpdateCamera(
-                    new Vector3(
-                        p.Position.X,
-                        p.Position.Y + 10,
-                        p.Position.Z)
-                );
+              
+                AddCameraRotationFromMouseDelta();
 
 
                 List<Collectable> list = GetGameObjectsByType<Collectable>();
@@ -102,6 +137,9 @@ namespace Gruppenprojekt.App
                     Map.Add(p, 0f, new Vector3(1, 0, 0), new Vector3(1, 0, 0), 1f, 0.6f, 3f);
                 }
 
+
+               
+
             }
         }
 
@@ -109,7 +147,9 @@ namespace Gruppenprojekt.App
 
         public override void Prepare()
         {
-           
+            
+            SetFadeColor(0, 0, 0);
+
             SetBackgroundSkybox("./App/Textures/skybox.png");
             SetCameraPosition(0.0f, 2.0f, 15.0f);
             SetCameraTarget(0.0f, 0.0f, 0.0f);
@@ -179,10 +219,10 @@ namespace Gruppenprojekt.App
         public void createMap()
         {
             Map.SetCamera(
-                 0f, 50f, 0f,                   // Position der Map-Kamera
+                 p.Position.X, p.Position.Y, p.Position.Z,                   // Position der Map-Kamera
                  ProjectionDirection.NegativeY, // Blickrichtung der Kamera (in diesem Beispiel nach unten)
                  80,                            // Sichtfeld der Kamera (in z.B. Metern) in der Breite
-                 80,                            // Sichtfeld der Kamera (in z.B. Metern) in der Höhe
+                 10,                            // Sichtfeld der Kamera (in z.B. Metern) in der Höhe
                  1,                             // Naheinstellgrenze (Objekte näher als 1 Einheit werden ignoriert)
                  100);                          // Ferneinstellgrenze (Weiter als 100 Einheiten entfernte Objekte werden ignoriert)
 
@@ -196,14 +236,17 @@ namespace Gruppenprojekt.App
 
             // Optional: Hintergrund der Map konfigurieren
             Map.SetBackground(
-                "./App/Textures/black.jpg",       // Hintergrundtextur
-                10000,                           // Wie viele Einheiten der Spielwelt deckt der Hintergrund ab? (Breite)
-                10000,                           // Wie viele Einheiten der Spielwelt deckt der Hintergrund ab? (Höhe)
+                "./App/Textures/bgmap2.png",       // Hintergrundtextur
+                1000,                           // Wie viele Einheiten der Spielwelt deckt der Hintergrund ab? (Breite)
+                1000,                           // Wie viele Einheiten der Spielwelt deckt der Hintergrund ab? (Höhe)
                 1f,                          // Sichtbarkeit 0 bis 1
-                100.0f,                          // Texturwiederholung  X
-                100.0f);                         // Texturwiederholung Y
+                50.0f,                          // Texturwiederholung  X
+                50.0f);                         // Texturwiederholung Y
 
-                      
+
+          
+
+
 
             FlowField pathfinding = new FlowField(0,2.5f,0,100, 100, 0.5f, 5, FlowFieldMode.Simple, typeof(Wall));
             pathfinding.IsVisible = false; //FLOWFIELD DEBUG VISIBILTY

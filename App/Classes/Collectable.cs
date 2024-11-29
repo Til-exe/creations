@@ -25,6 +25,7 @@ namespace Gruppenprojekt.App.Classes
             l.SetPosition(x, y, z);
             l.SetNearFar(0.1f, 8f);
             l.SetColor(0f, 1f, 0f, 10f);
+            
             CurrentWorld.AddLightObject(l);
         }
 
