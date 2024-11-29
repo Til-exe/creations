@@ -19,8 +19,9 @@ namespace Gruppenprojekt.App.Classes
         
         HUDObjectText m1 = new HUDObjectText("Zurück zum Spiel");
         HUDObjectText m2 = new HUDObjectText("Hauptmenu");
-        HUDObjectText m3 = new HUDObjectText("LEAVE");
+        HUDObjectText m3 = new HUDObjectText("Verlassen");
         HUDObjectImage bg = new HUDObjectImage("./App/Textures/blackscreen.png");
+        HUDObjectText mtitle = new HUDObjectText("Game Pausiert");
         private HUDObjectText colCount;
         private int counter = 0;
         public Player(string name, float x, float y, float z)
@@ -40,9 +41,15 @@ namespace Gruppenprojekt.App.Classes
             colCount.SetOpacity(0);
             CurrentWorld.AddHUDObject(colCount);
 
-            
+
+            mtitle.Name = "PAUSE";                       
+            mtitle.SetPosition(160f, 100f);          
+            mtitle.SetScale(120f);                       
+            mtitle.SetCharacterDistanceFactor(1.0f);            
+            mtitle.SetColor(1.0f, 0.0f, 0.0f);
+
             bg.Name = "background";
-            bg.SetScale(Window.Width,Window.Height);
+            bg.SetScale(Window.Width, Window.Height);
             bg.SetColor(0, 0, 0);
             bg.CenterOnScreen();
             bg.SetZIndex(-100);
@@ -175,7 +182,9 @@ namespace Gruppenprojekt.App.Classes
                     GameWorldStartMenu gm = new GameWorldStartMenu();
                     Window.SetWorld(gm);
                     Globals.Trys++;
-                    string path = @"F:\.Programming\Repositys\Gruppenprojekt\App\data\data.txt";
+                    string path = @"F:\.Programming\Repositys\Gruppenprojekt\App\data\data.txt";    //Zuhause
+                    path = @"C:\Users\Til.Stuckenberg\source\GAME\App\data\data.txt";    //Schule
+
                     string appendText = Convert.ToString(Globals.Score) + "\n";
                     File.AppendAllText(path, appendText);
                 }
@@ -250,7 +259,8 @@ namespace Gruppenprojekt.App.Classes
             CurrentWorld.RemoveHUDObject(m1);
             CurrentWorld.RemoveHUDObject(m2);
             CurrentWorld.RemoveHUDObject(m3);
-            
+            CurrentWorld.RemoveHUDObject(mtitle);
+
         }
         public void stop()
         {
@@ -261,6 +271,7 @@ namespace Gruppenprojekt.App.Classes
             CurrentWorld.AddHUDObject(m2);
             CurrentWorld.AddHUDObject(m3);
             CurrentWorld.AddHUDObject(bg);
+            CurrentWorld.AddHUDObject(mtitle);
         }
         public void weiter()
         {

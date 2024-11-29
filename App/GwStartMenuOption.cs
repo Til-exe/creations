@@ -8,6 +8,7 @@ using static System.Net.Mime.MediaTypeNames;
 using System;
 using static Assimp.Metadata;
 using System.Linq.Expressions;
+using System.IO;
 
 namespace Gruppenprojekt.App
 {
@@ -39,7 +40,11 @@ namespace Gruppenprojekt.App
             HUDObjectText code = GetHUDObjectTextByName("code");
             HUDObjectText EnableCredits = GetHUDObjectTextByName("EnableCredits");
 
+            
 
+            
+
+            
 
 
 
@@ -206,7 +211,6 @@ namespace Gruppenprojekt.App
                     }
                 }
             }   //leave
-
             if (EnableCredits != null)
             {
                 //Leave game
@@ -221,15 +225,22 @@ namespace Gruppenprojekt.App
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && EnableCredits.IsMouseCursorOnMe() == true)
                 {
+                    
                     if (Globals.DisplayCreditsButton == true)
                     {
                         EnableCredits.SetText("CREDITS: DISABLED");
                         Globals.DisplayCreditsButton = false;
+                        File.WriteAllText(Globals.Cpath, "false");
+                        
                     }
                     else
                     {
                         EnableCredits.SetText("CREDITS: ENABLED");
                         Globals.DisplayCreditsButton = true;
+                        File.WriteAllText(Globals.Cpath, "true");
+
+
+
                     }
                     
 

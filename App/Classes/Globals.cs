@@ -1,10 +1,16 @@
-﻿using KWEngine3.GameObjects;
-using System;
-using System.IO;
-using System.Collections.Generic;
+﻿using KWEngine3;
+using KWEngine3.Audio;
+using KWEngine3.GameObjects;
+using Gruppenprojekt.App.Classes;
+using OpenTK.Mathematics;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System;
+using System.Security.Cryptography.X509Certificates;
+using System.Diagnostics.Metrics;
+using System.Collections.Generic;
+using System.Collections.Immutable;
 
 namespace Gruppenprojekt.App.Classes
 {
@@ -16,16 +22,20 @@ namespace Gruppenprojekt.App.Classes
         public static int Trys;
         public static int Score;
         public static int ReturnCode;
+
+        //public static string Cpath = @"F:\.Programming\Repositys\Gruppenprojekt\App\data\credits.txt";
+        public static string Cpath = @"C:\Users\Til.Stuckenberg\source\GAME\App\data\credits.txt";
+        public static string path = @"C:\Users\Til.Stuckenberg\source\GAME\App\data\data.txt";
+        public static string[] Clines = File.ReadAllLines(Cpath);
+        
         public static bool DisplayStartGameButton = true;
         public static bool DisplayOptionButton = true;
         public static bool DisplayCreditsButton = true;
         public static bool DisplayLeaveButton = true;
-        public static string getInfoFromFile()
-        {
-            return null;
-        }
         
-            
+
+                  
         
     }
+    
 }

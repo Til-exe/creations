@@ -105,8 +105,16 @@ namespace Gruppenprojekt.App
         
         public override void Prepare()
         {
-            File.Create("Test.txt");
-
+            File.WriteAllText(Globals.Cpath, "true");
+            if (Globals.Clines[0] == "true")
+            {
+                Globals.DisplayCreditsButton = true;
+            }
+            else if (Globals.Clines[0] == "false")
+            {
+                Globals.DisplayCreditsButton = false;
+            }
+            
             HUDObjectText hTitle = new HUDObjectText("ITS STOLEN");
             hTitle.SetPosition(375f, 50f);
             hTitle.Name = "GameTitle";
@@ -264,7 +272,8 @@ namespace Gruppenprojekt.App
             AddHUDObject(s9);
             AddHUDObject(s10);
 
-            string dateiPfad = @"F:\.Programming\Repositys\Gruppenprojekt\App\data\data.txt";
+            string dateiPfad = @"F:\.Programming\Repositys\Gruppenprojekt\App\data\data.txt";   //Zuhause
+            dateiPfad = @"C:\Users\Til.Stuckenberg\source\GAME\App\data\data.txt";              //Schule
             string content = File.ReadAllText(dateiPfad);
 
             if (string.IsNullOrWhiteSpace(content))
@@ -283,63 +292,45 @@ namespace Gruppenprojekt.App
                 { 
                     allNumbers[i] = Convert.ToInt32(readText[i]);
                 }
-                catch(Exception e)                 
+                catch                 
                 {
                     string path = @"F:\.Programming\Repositys\Gruppenprojekt\App\data\data.txt";
+                    path = @"C:\Users\Til.Stuckenberg\source\GAME\App\data\data.txt";
                     string appendText = Convert.ToString(Globals.Score) + "\n";
                     File.AppendAllText(path, appendText);
                 }
                 
             }
             
-            Array.Sort(allNumbers);/*
-            try
-            {*/
-                s1.SetText("1# " + Convert.ToString(allNumbers[allNumbers.Length - 1]));
-                s2.SetText("2# " + Convert.ToString(allNumbers[allNumbers.Length - 2]));
-                s3.SetText("3# " + Convert.ToString(allNumbers[allNumbers.Length - 3]));
-                s4.SetText("4# " + Convert.ToString(allNumbers[allNumbers.Length - 4]));
-                s5.SetText("5# " + Convert.ToString(allNumbers[allNumbers.Length - 5]));
-                s6.SetText("6# " + Convert.ToString(allNumbers[allNumbers.Length - 6]));
-                s7.SetText("7# " + Convert.ToString(allNumbers[allNumbers.Length - 7]));
-                s8.SetText("8# " + Convert.ToString(allNumbers[allNumbers.Length - 8]));
-                s9.SetText("9# " + Convert.ToString(allNumbers[allNumbers.Length - 9]));
-                s10.SetText("10# " + Convert.ToString(allNumbers[allNumbers.Length - 10]));/*
-            }
-            catch
-            {
-                s1.SetText("1# " );
-                s2.SetText("2# " );
-                s3.SetText("3# " );
-                s4.SetText("4# " );
-                s5.SetText("5# " );
-                s6.SetText("6# " );
-                s7.SetText("7# " );
-                s8.SetText("8# " );
-                s9.SetText("9# " );
-                s10.SetText("10# ");
-            }*/
+            Array.Sort(allNumbers);
 
+            try{s1.SetText("1# " + Convert.ToString(allNumbers[allNumbers.Length - 1]));}
+            catch{s1.SetText("1# " );}
+            try { s2.SetText("2# " + Convert.ToString(allNumbers[allNumbers.Length - 2])); }
+            catch { s2.SetText("2# "); }
+            try { s3.SetText("3# " + Convert.ToString(allNumbers[allNumbers.Length - 3])); }
+            catch { s3.SetText("3# "); }
+            try { s4.SetText("4# " + Convert.ToString(allNumbers[allNumbers.Length - 4])); }
+            catch { s4.SetText("4# "); }
+            try { s5.SetText("5# " + Convert.ToString(allNumbers[allNumbers.Length - 5])); }
+            catch {s5.SetText("5# "); }
+            try { s6.SetText("6# " + Convert.ToString(allNumbers[allNumbers.Length - 6])); }
+            catch { s6.SetText("6# "); }
+            try { s7.SetText("7# " + Convert.ToString(allNumbers[allNumbers.Length - 7])); }
+            catch { s7.SetText("7# "); }
+            try { s8.SetText("8# " + Convert.ToString(allNumbers[allNumbers.Length - 8])); }
+            catch { s8.SetText("8# "); }
+            try { s9.SetText("9# " + Convert.ToString(allNumbers[allNumbers.Length - 9])); }
+            catch { s9.SetText("9# "); }
+            try { s10.SetText("10# " + Convert.ToString(allNumbers[allNumbers.Length - 10])); }
+            catch { s10.SetText("10# "); }
+
+            
+            
+            
 
         }
-        /*
-        static List<int> LeseZeilenUndParsiere(string dateiPfad)
-        {
-            // Liste zum Speichern der Zahlen
-            List<int> zahlen = new List<int>();
 
-            string[] zeilen = File.ReadAllLines(dateiPfad);
-
-            foreach (string zeile in zeilen)
-            {
-                if (int.TryParse(zeile, out int zahl)) // Prüfen, ob Zeile eine Zahl enthält
-                {
-                    zahlen.Add(zahl);
-                }                
-            }
-
-            return zahlen;
-        }*/
     }
         
 }

@@ -63,6 +63,10 @@ namespace Gruppenprojekt.App
 
         public override void Prepare()
         {
+            var GameTimer = new System.Timers.Timer(); // use a timer
+            GameTimer.Interval = 1000; // Sets the timer interval to tick every 2 seconds
+
+
 
             SetBackgroundSkybox("./App/Textures/skybox.png");
             SetCameraPosition(0.0f, 2.0f, 15.0f);
