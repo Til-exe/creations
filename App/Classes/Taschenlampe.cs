@@ -13,7 +13,6 @@ namespace Gruppenprojekt.App.Classes
         public Taschenlampe(string name, float x, float y, float z) 
         {
             this.Name = name;
-            this.SetPosition(x, y, z);
         }
         public override void Act()
         {

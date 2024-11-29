@@ -36,7 +36,10 @@ namespace Gruppenprojekt.App.Classes
             _flashlight = new LightObject(LightType.Directional, ShadowQuality.Low);
             _flashlight.Name = "flashlight";
             _flashlight.SetNearFar(0.1f, 25f);
+
+            
             CurrentWorld.AddLightObject(_flashlight);
+            
 
             colCount = new HUDObjectText("Sie haben kein Licht");
             colCount.Name = "BLA";
@@ -87,10 +90,10 @@ namespace Gruppenprojekt.App.Classes
 
         public override void Act()
         {
+            _flashlight.SetPosition(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVectorLocalRight);
+            _flashlight.SetTarget(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVector * 5); // KAR: Taschenlampe muss weiiiiit in die Ferne schauen
+            //_flashlight.SetPosition(this.Position.X + 0.3f, 3, this.Position.Z + 1);
             
-
-
-
 
             //Sprinting
             if (k == 0) 
@@ -225,7 +228,7 @@ namespace Gruppenprojekt.App.Classes
                     
                 }
             }
-            _flashlight.SetPosition(this.Position.X + 0.3f, 3, this.Position.Z + 1);
+            
         }
 
 

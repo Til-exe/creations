@@ -6,7 +6,6 @@ using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using System;
 using KWEngine3.Helper;
-using OpenTK.Windowing.GraphicsLibraryFramework;
 using System.Collections.Generic;
 
 namespace Gruppenprojekt.App
@@ -64,14 +63,15 @@ namespace Gruppenprojekt.App
             HUDObjectText t = GetHUDObjectTextByName("BLA");
             t.SetOpacity(1 - deltat);
 
-            if(Keyboard.IsKeyPressed(Keys.R) == true ) {
-            
+            if (Keyboard.IsKeyPressed(Keys.R) == true)
+            {
+
                 Map.Enabled = !Map.Enabled;
-                
+
             }
-            
-           
-          
+
+
+
 
             if (Map.Enabled == true)
             {
@@ -84,27 +84,25 @@ namespace Gruppenprojekt.App
                         p.Position.Z)
                 );
 
-            
-            }
 
-            List<Collectable> list = GetGameObjectsByType<Collectable>();
-            for (int C_count = 0; C_count < list.Count; C_count++)
-            {
-                Map.Add(list[C_count], 0f, new Vector3(0, 1, 0), new Vector3(0, 1, 0), 1f, 0.6f, 3f, "./App/Textures/green.png");
+                List<Collectable> list = GetGameObjectsByType<Collectable>();
+                for (int C_count = 0; C_count < list.Count; C_count++)
+                {
+                    Map.Add(list[C_count], 0f, new Vector3(0, 1, 0), new Vector3(0, 1, 0), 1f, 0.6f, 3f, "./App/Textures/green.png");
+                }
+                List<Wall> wlist = GetGameObjectsByType<Wall>();
+                for (int W_count = 0; W_count < wlist.Count; W_count++)
+                {
+                    Map.Add(wlist[W_count], 0f, new Vector3(0, 0, 1), new Vector3(0, 0, 1), 1f, 0.6f, 0f, "./App/Textures/bl_wall.jpg");
+                }
+
+                List<Player> plist = GetGameObjectsByType<Player>();
+                for (int p_count = 0; p_count < plist.Count; p_count++)
+                {
+                    Map.Add(p, 0f, new Vector3(1, 0, 0), new Vector3(1, 0, 0), 1f, 0.6f, 3f);
+                }
+
             }
-            List<Wall> wlist = GetGameObjectsByType<Wall>();
-            for (int W_count = 0; W_count < wlist.Count;W_count++)
-            {
-                Map.Add(wlist[W_count], 0f, new Vector3(0,0,1), new Vector3(0,0,1),1f, 0.6f, 0f,"./App/Textures/bl_wall.jpg");
-            }
-            
-            List<Player> plist = GetGameObjectsByType<Player>();    
-            for(int p_count = 0; p_count < plist.Count; p_count++)
-            {
-                Map.Add(p, 0f, new Vector3(1, 0, 0), new Vector3(1, 0, 0), 1f, 0.6f, 3f);
-            }
-                
-            
         }
 
 
