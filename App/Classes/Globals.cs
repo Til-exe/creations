@@ -20,15 +20,12 @@ namespace Gruppenprojekt.App.Classes
         //public static int GamesCounter;
         public static bool gameRunning = true;
         public static float[] scores = new float[9];
-#pragma warning disable CS0649 // Dem Feld "Globals.GamesCounter" wird nie etwas zugewiesen, und es hat immer seinen Standardwert von "0".
-        public static int GamesCounter;
-#pragma warning restore CS0649 // Dem Feld "Globals.GamesCounter" wird nie etwas zugewiesen, und es hat immer seinen Standardwert von "0".
         public static int Trys;
-        public static int Score;
+        public static float Score;
         public static int ReturnCode;
         public static float speed = 0.05f;
         public static bool Sprinting = false;
-        public static int multiplikator = 1;
+        public static float multiplikator = 1;
         public static float moveCameraX = 0;
         public static float moveCameraY = 2.5f;
         public static float moveCameraMultiplier = 1;
