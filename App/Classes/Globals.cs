@@ -30,9 +30,10 @@ namespace Gruppenprojekt.App.Classes
         public static float moveCameraY = 2.5f;
 
 
-        //public static string Cpath = @"F:\.Programming\Repositys\Gruppenprojekt\App\data\credits.txt";
-        public static string Cpath = @"C:\Users\Til.Stuckenberg\source\GAME\App\data\credits.txt";
-        public static string path = @"C:\Users\Til.Stuckenberg\source\GAME\App\data\data.txt";
+        public static string Cpath = @"F:\.Programming\Repositys\Gruppenprojekt\App\data\credits.txt";
+        //public static string Cpath = @"C:\Users\Til.Stuckenberg\source\GAME\App\data\credits.txt";
+        public static string path = @"F:\.Programming\Repositys\Gruppenprojekt\App\data\data.txt";
+        //public static string path = @"C:\Users\Til.Stuckenberg\source\GAME\App\data\data.txt";
         public static string[] Clines = File.ReadAllLines(Cpath);
         
 
@@ -40,10 +41,20 @@ namespace Gruppenprojekt.App.Classes
 
         public static bool DisplayStartGameButton = true;
         public static bool DisplayOptionButton = true;
+        public static bool DisplayLanguageButton = true;
         public static bool DisplayCreditsButton = true;
-        public static bool DisplayLeaveButton = true;
+        public static bool DisplayScoreboardButton = true;
+        public static bool DisplayLeaveButton = true;       
         public static int posWert;
         public static int posYWert;
+
+        public static string StartButtonText = "";
+        public static string OptionButtonText = "";
+        public static string LanguageButtonText = "";
+        public static string CreditsButtonText = "";
+        public static string ScoreboardButtonText = "";
+        public static string LeaveButtonText = "";
+        public static string SetLanguage = "English";
 
 
 
