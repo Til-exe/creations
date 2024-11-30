@@ -89,73 +89,59 @@ namespace Gruppenprojekt.App.Classes
             m3.SetColorEmissive(1.0f, 1.0f, 1.0f);
         }
 
-        
 
 
         float speed = 0.05f;
-        
-
         bool Sprinting = false;
         int k = 0;
         int l = 0;
         int r = 0;
-
         float nextTimeFlicker = -1;
-
+        private float _flickerVorbei = 0f; 
+        private bool _flickering = false; 
+        private float _nextFlicker = 0f; 
+        private Random _random = new Random();
 
 
         public override void Act()
         {
-            if(nextTimeFlicker > 0)
-            {
-                if(WorldTime >= nextTimeFlicker)
-                {
-                    _flashlight.SetColor(0, 0, 0, 0);
-
-                }
-            }
-                
-
-
             Random rnd = new Random();
             int random = rnd.Next(20000);
             _flashlight.SetPosition(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVectorLocalRight);
             _flashlight.SetTarget(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVector * 100); // KAR: Taschenlampe muss weiiiiit in die Ferne schauen
-            if (random == 69 || Keyboard.IsKeyPressed(Keys.Space))
+            if (random == 69 && flashlight == true || Keyboard.IsKeyPressed(Keys.Space) && flashlight == true)
             {
-                Console.WriteLine("TASCHENLAMPE AUS IN EINER SEKUNDE");
-                nextTimeFlicker = WorldTime + 1f; // Beispiel: nächster Zeitpunkt 2.018
-
-                /*
-                Random timer = new Random();
-                int delay = timer.Next(100);
-                _flashlight.SetColor(0, 0, 0, 0);
-                if (delay == 50)
-                {
-
-                }
-                if (delay == 1)
-                {
-                    _flashlight.SetColor(1, 1, 1, 4);
-                }
-                */
-
-                /*
-                await Task.Delay(18);
-                
-                await Task.Delay(6);
-                _flashlight.SetColor(0, 0, 0, 0);
-                await Task.Delay(21);
-                _flashlight.SetColor(1, 1, 1, 4);
-                await Task.Delay(9);
-                _flashlight.SetColor(0, 0, 0, 0);
-                await Task.Delay(13);
-                _flashlight.SetColor(1, 1, 1, 4);
-                await Task.Delay(10);
-                _flashlight.SetColor(0, 0, 0, 0);
-                flashlight = false;
-                */
+                _flickering = true;
+                _flickerVorbei = WorldTime + 0.5f;
+                _nextFlicker = WorldTime + GetRandomFlickerDelay(); 
+                Console.WriteLine("penis flackern");
             }
+            if (_flickering)
+            {
+                if (WorldTime >= _nextFlicker)
+                {
+                    if (_flashlight.Color.W > 0) 
+                    { 
+                        _flashlight.SetColor(0,0,0,0); 
+                    }
+                    else
+                    {
+                        _flashlight.SetColor(1, 1, 1, 4); 
+                    }
+                    _nextFlicker = WorldTime + GetRandomFlickerDelay();
+                }
+                if (WorldTime >= _flickerVorbei)
+                {
+                    flashlight = false;
+                    _flickering = false;
+                    _flashlight.SetColor(0,0, 0, 0); 
+                    Console.WriteLine("penis flacker vorbei");
+                    Console.WriteLine("Penis aus");
+                }
+            }
+           
+
+
             if (Keyboard.IsKeyPressed(Keys.F) && flashlight == false)
             {
                 _flashlight.SetColor(1, 1, 1, 4);
@@ -327,8 +313,6 @@ namespace Gruppenprojekt.App.Classes
                 MoveAndStrafeAlongCameraXZ(forward, strafe, Globals.speed);
                 TurnTowardsXZ(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVector);
             }
-            
-
         }
         public void removeAllHUD() 
         {
@@ -337,7 +321,6 @@ namespace Gruppenprojekt.App.Classes
             CurrentWorld.RemoveHUDObject(m2);
             CurrentWorld.RemoveHUDObject(m3);
             CurrentWorld.RemoveHUDObject(mtitle);
-
         }
         public void stop()
         {
@@ -356,9 +339,10 @@ namespace Gruppenprojekt.App.Classes
             CurrentWorld.MouseCursorGrab();
             removeAllHUD();
         }
-        
-
-
+        private float GetRandomFlickerDelay()
+        {
+            return (float)_random.NextDouble() * 0.08f + 0.02f;
+        }
     }
 
 }
