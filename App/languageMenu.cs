@@ -154,7 +154,7 @@ namespace Gruppenprojekt.App
                 Globals.OptionButtonText = "Optionen";
                 Globals.LanguageButtonText = "Sprache";
                 Globals.CreditsButtonText = "Vielen Dank an:";
-                Globals.ScoreboardButtonText = "Scoreboard";
+                Globals.ScoreboardButtonText = "Admin";
                 Globals.LeaveButtonText = "Verlassen";
             }
             if(Globals.SetLanguage == "English") 
@@ -163,7 +163,7 @@ namespace Gruppenprojekt.App
                 Globals.OptionButtonText = "Options";
                 Globals.LanguageButtonText = "Language";
                 Globals.CreditsButtonText = "Credits";
-                Globals.ScoreboardButtonText = "Scoreboard";
+                Globals.ScoreboardButtonText = "Admin";
                 Globals.LeaveButtonText = "Leave";
             }
             if(Globals.SetLanguage == "Spanisch") 
@@ -172,7 +172,7 @@ namespace Gruppenprojekt.App
                 Globals.OptionButtonText = "Opciones";
                 Globals.LanguageButtonText = "Idioma";
                 Globals.CreditsButtonText = "Créditos";
-                Globals.ScoreboardButtonText = "Scoreboard";
+                Globals.ScoreboardButtonText = "Admin";
                 Globals.LeaveButtonText = "Dejar";
             }
         }

@@ -17,13 +17,17 @@ namespace Gruppenprojekt.App
 {
     public class scoreboardMenu : World
     {
+        bool delete = false;
+        bool deleted = false;
+        int speed = 0;
         public override void Act()
         {
 
             HUDObjectText leave = GetHUDObjectTextByName("leave");
             HUDObjectText clear = GetHUDObjectTextByName("clear");
-            HUDObjectText English = GetHUDObjectTextByName("English");
-            HUDObjectText Spanisch = GetHUDObjectTextByName("Spanisch");
+            HUDObjectText text1 = GetHUDObjectTextByName("text1");
+            HUDObjectText text2 = GetHUDObjectTextByName("text2");
+            HUDObjectText bgSpeed = GetHUDObjectTextByName("bgSpeed");
             if (leave != null)
             {
                 if (leave.IsMouseCursorOnMe() == true)
@@ -42,55 +46,142 @@ namespace Gruppenprojekt.App
             }
             if (clear != null)
             {
-                if (clear.IsMouseCursorOnMe() == true)
+                if(delete && deleted)
                 {
+                    clear.SetColor(1, 0, 0);
+                    clear.SetColorEmissiveIntensity(0.0f);
+                }
+                else if(clear.IsMouseCursorOnMe() == true && delete)
+                {
+                    clear.SetColorEmissiveIntensity(0.5f);
+                    clear.SetColor(1, 1, 1);
+                }
+                else if (clear.IsMouseCursorOnMe() == true && !deleted)
+                {
+                    clear.SetColor(1, 0, 0);
                     clear.SetColorEmissiveIntensity(1.5f);
+                    clear.SetText("clear Scores ?");
                 }
                 else
                 {
+                    clear.SetColor(1, 0, 0);
                     clear.SetColorEmissiveIntensity(0.0f);
+                    clear.SetText("clear");
+
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && clear.IsMouseCursorOnMe() == true)
                 {
+                    if(deleted)
+                    {
+                        GameWorldStartMenu gm = new GameWorldStartMenu();
+                        Window.SetWorld(gm);
+                        return;
+                    }
+                    if(delete)
+                    {
+                        string filePath = @"./App/data/data.txt";
+                        
+                        StreamWriter writer = new StreamWriter(filePath);
+                        writer.Close();
+                        // Datei löschen, falls sie existiert
+                        if (File.Exists(filePath))
+                        {
+                            File.Delete(filePath);
+                        }
+                        File.Create(filePath);
+                        clear.SetText("cleared file");
+                        deleted = true;
+                    }
+                    else if (!delete)
+                    {
+                        clear.SetText("Are you Sure you want to delete all Scores ?");
+                        delete = true;
+                    }
+                    
+                    
                     
                 }
             }
-            if (English != null)
+            if (text1 != null)
             {
-                if (English.IsMouseCursorOnMe() == true)
+                if (text1.IsMouseCursorOnMe() == true)
                 {
-                    English.SetColorEmissiveIntensity(1.5f);
+                    text1.SetColorEmissiveIntensity(1.5f);
                 }
                 else
                 {
-                    English.SetColorEmissiveIntensity(0.0f);
+                    text1.SetColorEmissiveIntensity(0.0f);
                 }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && English.IsMouseCursorOnMe() == true)
+                if (Mouse.IsButtonPressed(MouseButton.Left) && text1.IsMouseCursorOnMe() == true)
                 {
                     
                 }
             }
-            if (Spanisch != null)
+            if (text2 != null)
             {
-                if (Spanisch.IsMouseCursorOnMe() == true)
+                if (text2.IsMouseCursorOnMe() == true)
                 {
-                    Spanisch.SetColorEmissiveIntensity(1.5f);
+                    text2.SetColorEmissiveIntensity(1.5f);
                 }
                 else
                 {
-                    Spanisch.SetColorEmissiveIntensity(0.0f);
+                    text2.SetColorEmissiveIntensity(0.0f);
                 }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && Spanisch.IsMouseCursorOnMe() == true)
+                if (Mouse.IsButtonPressed(MouseButton.Left) && text2.IsMouseCursorOnMe() == true)
                 {
                     
                 }
-            }            
+            }
+            if (bgSpeed != null)
+            {
+                if (bgSpeed.IsMouseCursorOnMe() == true)
+                {
+                    bgSpeed.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    bgSpeed.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && bgSpeed.IsMouseCursorOnMe() == true)
+                {
+                    if(Globals.moveCameraMultiplier == 1)
+                    { 
+                        Globals.moveCameraMultiplier = 2;
+                    }
+                    else if (Globals.moveCameraMultiplier == 2)
+                    {
+                        Globals.moveCameraMultiplier = 4;
+                    }
+                    else if (Globals.moveCameraMultiplier == 4) 
+                    {
+                        Globals.moveCameraMultiplier = 0.25f;
+                    }
+                    else if (Globals.moveCameraMultiplier == 0.25f) 
+                    {
+                        Globals.moveCameraMultiplier = 0.5f;
+                    }
+                    else if (Globals.moveCameraMultiplier == 0.5f) 
+                    {
+                        Globals.moveCameraMultiplier = 1;
+                    }
+                    
+                    
+                    
+                    
+                    
+                }
+            }
+            if (Globals.moveCameraMultiplier == 1f) { bgSpeed.SetText("Scoreboard Settings: x1"); }
+            if (Globals.moveCameraMultiplier == 2f) { bgSpeed.SetText("Scoreboard Settings: x2"); }
+            if (Globals.moveCameraMultiplier == 4f) { bgSpeed.SetText("Scoreboard Settings: x4"); }
+            if (Globals.moveCameraMultiplier == 0.25f) { bgSpeed.SetText("Scoreboard Settings: x0.25"); }
+            if (Globals.moveCameraMultiplier == 0.5f) { bgSpeed.SetText("Scoreboard Settings: x0.5"); }
         }
 
 
         public override void Prepare()
         {
-
+            int pos = 120;
 
 
             HUDObjectText h1 = new HUDObjectText("BACK");
@@ -100,11 +191,21 @@ namespace Gruppenprojekt.App
             h1.SetColor(1.0f, 0.0f, 0.0f);
             h1.SetColorEmissive(1.0f, 1.0f, 1.0f);
 
-            AddHUDObject(h1);
+            AddHUDObject(h1);  
+            
+
+
+            HUDObjectText sbTitle = new HUDObjectText("Scoreboard Settings");
+            sbTitle.SetPosition(130f, pos);            
+            sbTitle.SetCharacterDistanceFactor(1.0f);
+            sbTitle.SetColor(1.0f, 0.0f, 0.0f);
+            sbTitle.SetScale(30.0f);            
+
+            AddHUDObject(sbTitle);
 
 
             HUDObjectText clear = new HUDObjectText("clear");
-            clear.SetPosition(160f, 250f);
+            clear.SetPosition(160f, pos + 50f);
             clear.Name = "clear";
             clear.SetCharacterDistanceFactor(1.0f);
             clear.SetColor(1.0f, 0.0f, 0.0f);
@@ -113,28 +214,51 @@ namespace Gruppenprojekt.App
             AddHUDObject(clear);
 
 
-            HUDObjectText English = new HUDObjectText("English");
-            English.SetPosition(160f, 300f);
-            English.Name = "English";
-            English.SetCharacterDistanceFactor(1.0f);
-            English.SetColor(1.0f, 0.0f, 0.0f);
-            English.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            HUDObjectText text1 = new HUDObjectText("");
+            text1.SetPosition(160f, pos + 100f);
+            text1.Name = "text1";
+            text1.SetCharacterDistanceFactor(1.0f);
+            text1.SetColor(1.0f, 0.0f, 0.0f);
+            text1.SetColorEmissive(1.0f, 1.0f, 1.0f);
 
-            AddHUDObject(English);
-
-            HUDObjectText Spanisch = new HUDObjectText("Spanisch");
-            Spanisch.SetPosition(160f, 350f);
-            Spanisch.Name = "Spanisch";
-            Spanisch.SetCharacterDistanceFactor(1.0f);
-            Spanisch.SetColor(1.0f, 0.0f, 0.0f);
-            Spanisch.SetColorEmissive(1.0f, 1.0f, 1.0f);
-
-            AddHUDObject(Spanisch);
+            AddHUDObject(text1);
 
 
-            /*
-            string filePath = @"F:\.Programming\Repositys\Gruppenprojekt\App\data\scoreboardSettings.txt";
-            //filePath = @"C:\Users\Til.Stuckenberg\source\GAME\App\data\data.txt";
+            HUDObjectText text2 = new HUDObjectText("");
+            text2.SetPosition(160f, pos + 150f);
+            text2.Name = "text2";
+            text2.SetCharacterDistanceFactor(1.0f);
+            text2.SetColor(1.0f, 0.0f, 0.0f);
+            text2.SetColorEmissive(1.0f, 1.0f, 1.0f);
+
+            AddHUDObject(text2);
+
+
+
+            
+            HUDObjectText bgTitle = new HUDObjectText("Background Settings");
+            bgTitle.SetPosition(130f, pos + 250f);
+            bgTitle.SetCharacterDistanceFactor(1.0f);
+            bgTitle.SetColor(1.0f, 0.0f, 0.0f);
+            bgTitle.SetScale(30.0f);
+
+            AddHUDObject(bgTitle);
+
+
+            HUDObjectText bgSpeed = new HUDObjectText("Background Speed:");
+            bgSpeed.SetPosition(160f, pos + 300f);
+            bgSpeed.Name = "bgSpeed";
+            bgSpeed.SetCharacterDistanceFactor(1.0f);
+            bgSpeed.SetColor(1.0f, 0.0f, 0.0f);
+            bgSpeed.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            
+            AddHUDObject(bgSpeed);
+
+
+
+
+
+            string filePath = @"./App/data/scoreboardSettings.txt";
             try
             {
                 // Datei löschen, falls sie existiert
@@ -151,14 +275,10 @@ namespace Gruppenprojekt.App
                 }
 
                 // Methode 1: Ganze Datei als Text einlesen
-                Console.WriteLine("Inhalt der Datei (als Ganzes):");
                 string fileContent = File.ReadAllText(filePath);
-                Console.WriteLine(fileContent);
 
-                Console.WriteLine("\n---\n");
 
                 // Methode 2: Datei zeilenweise einlesen
-                Console.WriteLine("Inhalt der Datei (zeilenweise):");
                 string[] lines = File.ReadAllLines(filePath);
                 foreach (string line in lines)
                 {
@@ -168,7 +288,7 @@ namespace Gruppenprojekt.App
             catch (Exception ex)
             {
 
-            }*/
+            }
 
 
 

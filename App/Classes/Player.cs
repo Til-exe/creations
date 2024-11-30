@@ -170,8 +170,7 @@ namespace Gruppenprojekt.App.Classes
                     GameWorldStartMenu gm = new GameWorldStartMenu();
                     Window.SetWorld(gm);
                     Globals.Trys++;
-                    string path = @"F:\.Programming\Repositys\Gruppenprojekt\App\data\data.txt";    //Zuhause
-                    //path = @"C:\Users\Til.Stuckenberg\source\GAME\App\data\data.txt";    //Schule
+                    string path = @"./App/data/data.txt";
 
                     string appendText = Convert.ToString(Globals.Score) + "\n";
                     File.AppendAllText(path, appendText);
