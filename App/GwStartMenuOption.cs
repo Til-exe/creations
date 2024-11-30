@@ -39,14 +39,8 @@ namespace Gruppenprojekt.App
 
             HUDObjectText code = GetHUDObjectTextByName("code");
             HUDObjectText EnableCredits = GetHUDObjectTextByName("EnableCredits");
-
-            
-
-            
-
-            
-
-
+            HUDObjectText EnableLanguage = GetHUDObjectTextByName("EnableLanguage"); 
+            HUDObjectText EnableScoreboard = GetHUDObjectTextByName("EnableScoreboard"); 
 
             if (back != null)                                                                     
             {
@@ -213,8 +207,6 @@ namespace Gruppenprojekt.App
             }   //leave
             if (EnableCredits != null)
             {
-                //Leave game
-
                 if (EnableCredits.IsMouseCursorOnMe() == true)
                 {
                     EnableCredits.SetColorEmissiveIntensity(1.5f);
@@ -224,29 +216,74 @@ namespace Gruppenprojekt.App
                     EnableCredits.SetColorEmissiveIntensity(0.0f);
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && EnableCredits.IsMouseCursorOnMe() == true)
-                {
-                    
+                {                    
                     if (Globals.DisplayCreditsButton == true)
                     {
                         EnableCredits.SetText("CREDITS: DISABLED");
                         Globals.DisplayCreditsButton = false;
-                        File.WriteAllText(Globals.Cpath, "false");
-                        
+                        File.WriteAllText(Globals.Cpath, "false");                        
                     }
                     else
                     {
                         EnableCredits.SetText("CREDITS: ENABLED");
                         Globals.DisplayCreditsButton = true;
                         File.WriteAllText(Globals.Cpath, "true");
-
-
-
                     }
-                    
-
-
                 }
-            }   //Enter
+            }
+            if (EnableLanguage != null)
+            {
+                if (EnableLanguage.IsMouseCursorOnMe() == true)
+                {
+                    EnableLanguage.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    EnableLanguage.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && EnableLanguage.IsMouseCursorOnMe() == true)
+                {
+                    if (Globals.DisplayLanguageButton == true)
+                    {
+                        EnableLanguage.SetText("LANGUAGE: DISABLED");
+                        Globals.DisplayLanguageButton = false;
+                        File.WriteAllText(Globals.Cpath, "false");
+                    }
+                    else
+                    {
+                        EnableLanguage.SetText("LANGUAGE: ENABLED");
+                        Globals.DisplayLanguageButton = true;
+                        File.WriteAllText(Globals.Cpath, "true");
+                    }
+                }
+            }
+            if (EnableScoreboard != null)
+            {
+                if (EnableScoreboard.IsMouseCursorOnMe() == true)
+                {
+                    EnableScoreboard.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    EnableScoreboard.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && EnableScoreboard.IsMouseCursorOnMe() == true)
+                {
+                    if (Globals.DisplayScoreboardButton == true)
+                    {
+                        EnableScoreboard.SetText("ADMIN: DISABLED");
+                        Globals.DisplayScoreboardButton = false;
+                        File.WriteAllText(Globals.Cpath, "false");
+                    }
+                    else
+                    {
+                        EnableScoreboard.SetText("ADMIN: ENABLED");
+                        Globals.DisplayScoreboardButton = true;
+                        File.WriteAllText(Globals.Cpath, "true");
+                    }
+                }
+            }
+
 
 
             string text1 = transelateCode(Convert.ToString(value1));
@@ -273,7 +310,7 @@ namespace Gruppenprojekt.App
             AddHUDObject(h1);
 
             HUDObjectText credits = new HUDObjectText("CREDITS:");
-            credits.SetPosition(160f, 500f);
+            credits.SetPosition(700f, 200f);
             credits.Name = "EnableCredits";
             credits.SetCharacterDistanceFactor(1.0f);
             credits.SetColor(1.0f, 0.0f, 0.0f);
@@ -289,6 +326,56 @@ namespace Gruppenprojekt.App
                 credits.SetText("CREDITS: ENABLED");
                 Globals.DisplayCreditsButton = true;
             }
+
+            HUDObjectText language = new HUDObjectText("LANGUAGE:");
+            language.SetPosition(700f, 250f);
+            language.Name = "EnableLanguage";
+            language.SetCharacterDistanceFactor(1.0f);
+            language.SetColor(1.0f, 0.0f, 0.0f);
+            language.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(language);
+            if (Globals.DisplayLanguageButton == false)
+            {
+                language.SetText("LANGUAGE: DISABLED");
+                Globals.DisplayLanguageButton = false;
+            }
+            else
+            {
+                language.SetText("LANGUAGE: ENABLED");
+                Globals.DisplayLanguageButton = true;
+            }
+
+            HUDObjectText scoreboard = new HUDObjectText("ADMIN:");
+            scoreboard.SetPosition(700f, 300f);
+            scoreboard.Name = "EnableScoreboard";
+            scoreboard.SetCharacterDistanceFactor(1.0f);
+            scoreboard.SetColor(1.0f, 0.0f, 0.0f);
+            scoreboard.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(scoreboard);
+            if (Globals.DisplayScoreboardButton == false)
+            {
+                scoreboard.SetText("ADMIN: DISABLED");
+                Globals.DisplayScoreboardButton = false;
+            }
+            else
+            {
+                scoreboard.SetText("ADMIN: ENABLED");
+                Globals.DisplayScoreboardButton = true;
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             HUDObjectText Enter = new HUDObjectText("ENTER CODE");
