@@ -33,9 +33,12 @@ namespace Gruppenprojekt.App.Classes
         public static float moveCameraY = 2.5f;
 
 
+        //public static string Cpath = @"C:\Users\Til.Stuckenberg\source\GAME\App\data\credits.txt";
         //public static string Cpath = @"F:\.Programming\Repositys\Gruppenprojekt\App\data\credits.txt";
-        public static string Cpath = @"C:\Users\Til.Stuckenberg\source\GAME\App\data\credits.txt";
-        public static string path = @"C:\Users\Til.Stuckenberg\source\GAME\App\data\data.txt";
+        public static string Cpath = @"./App/data/credits.txt";
+        //public static string path = @"C:\Users\Til.Stuckenberg\source\GAME\App\data\data.txt";
+        //public static string path = @"F:\.Programming\Repositys\Gruppenprojekt\App\data\data.txt";
+        public static string path = @"./App/data/data.txt";
         public static string[] Clines = File.ReadAllLines(Cpath);
         
 

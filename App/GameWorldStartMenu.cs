@@ -352,8 +352,9 @@ namespace Gruppenprojekt.App
             AddHUDObject(s9);
             AddHUDObject(s10);
 
-            string dateiPfad = @"F:\.Programming\Repositys\Gruppenprojekt\App\data\data.txt";   //Zuhause
-            dateiPfad = @"C:\Users\Til.Stuckenberg\source\GAME\App\data\data.txt";              //Schule
+            //string dateiPfad = @"F:\.Programming\Repositys\Gruppenprojekt\App\data\data.txt";   //Zuhause
+            //dateiPfad = @"C:\Users\Til.Stuckenberg\source\GAME\App\data\data.txt";              //Schule
+            string dateiPfad = @"./App/data/data.txt";
             string content = File.ReadAllText(dateiPfad);
 
             if (string.IsNullOrWhiteSpace(content))
@@ -374,8 +375,9 @@ namespace Gruppenprojekt.App
                 }
                 catch                 
                 {
-                    string path = @"F:\.Programming\Repositys\Gruppenprojekt\App\data\data.txt";
-                    path = @"C:\Users\Til.Stuckenberg\source\GAME\App\data\data.txt";
+                    //string path = @"F:\.Programming\Repositys\Gruppenprojekt\App\data\data.txt";
+                    // path = @"C:\Users\Til.Stuckenberg\source\GAME\App\data\data.txt";
+                    string path = @"./App/data/data.txt";
                     string appendText = Convert.ToString(Globals.Score) + "\n";
                     File.AppendAllText(path, appendText);
                 }
