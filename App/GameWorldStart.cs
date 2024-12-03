@@ -89,7 +89,7 @@ namespace Gruppenprojekt.App
                
                 if(finalPos < 0.01f )
                 {
-                    Console.WriteLine(finalPos);
+                   
                     finalPos = finalPos + 0.0001f;
                    
                     Map.SetCamera(
@@ -125,11 +125,14 @@ namespace Gruppenprojekt.App
 
                 }
                
+                if(finalPos >= 80f)
+                {
+                    // Optional: Map gemäß der Spielerposition verschieben und rotieren
+                    Map.UpdateCameraRotation(CameraLookAtVectorXZ);
 
-                // Optional: Map gemäß der Spielerposition verschieben und rotieren
-                Map.UpdateCameraRotation(CameraLookAtVectorXZ);
-
-                AddCameraRotationFromMouseDelta();
+                    AddCameraRotationFromMouseDelta();
+                }
+              
 
                 Wall dach = (Wall)GetGameObjectByName("10");
 
