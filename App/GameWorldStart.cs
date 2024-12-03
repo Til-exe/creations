@@ -15,7 +15,7 @@ namespace Gruppenprojekt.App
         private Player p;
         float finalPos = 0f;
         private float _HUDLastUpdate = 0;
-        float counterPos = 0f;
+       
         
         public float GetHUDLastUpdateTime()
         {
@@ -65,15 +65,19 @@ namespace Gruppenprojekt.App
             HUDObjectText t = GetHUDObjectTextByName("ORBS");
             t.SetOpacity(1 - deltat);
 
-            if (Keyboard.IsKeyPressed(Keys.R) == true)
+            if (Keyboard.IsKeyPressed(Keys.R) == true )
             {
                 
                 Map.Enabled = !Map.Enabled;
                Globals.gameRunning = !Globals.gameRunning;
                 // Optional: Map gemäß der Spielerposition verschieben und rotieren
-                
-                finalPos = 0f;
-                counterPos = 0f;
+                if(Map.Enabled == false && finalPos >= 80f)
+                {
+                    finalPos = 0f;
+                   
+                  
+                }
+               
                
             }
           
@@ -82,9 +86,23 @@ namespace Gruppenprojekt.App
 
             if (Map.Enabled == true)
             {
-                Console.WriteLine(finalPos);
-                Console.WriteLine(counterPos);
-                if (finalPos < 80 && counterPos > 80f)
+               
+                if(finalPos < 0.01f )
+                {
+                    Console.WriteLine(finalPos);
+                    finalPos = finalPos + 0.0001f;
+                   
+                    Map.SetCamera(
+                      p.Position.X, p.Position.Y, p.Position.Z,                   // Position der Map-Kamera
+                     ProjectionDirection.NegativeY, // Blickrichtung der Kamera (in diesem Beispiel nach unten)
+                     10 + finalPos,                            // Sichtfeld der Kamera (in z.B. Metern) in der Breite
+                        10 + finalPos,                            // Sichtfeld der Kamera (in z.B. Metern) in der Höhe
+                     1,                             // Naheinstellgrenze (Objekte näher als 1 Einheit werden ignoriert)
+                        100);
+                }
+                
+               
+                else if (finalPos < 80 )
                 {
 
                     Map.SetCamera(
@@ -95,31 +113,25 @@ namespace Gruppenprojekt.App
                 1,                             // Naheinstellgrenze (Objekte näher als 1 Einheit werden ignoriert)
                 100);
 
-                    
-                    
-                        finalPos = finalPos + 0.8f;
-                    
+                finalPos = finalPos + 0.8f;
+                  
 
-                   
-                    
-                       
+                  
 
-                        Map.UpdateCamera(
-                            new Vector3(
-                                p.Position.X,
-                                p.Position.Y,
-                                p.Position.Z));
-                    
-                   
-                    
+
+
+
+
+
                 }
-              counterPos= counterPos + 0.8f;
+               
+
                 // Optional: Map gemäß der Spielerposition verschieben und rotieren
                 Map.UpdateCameraRotation(CameraLookAtVectorXZ);
-              
+
                 AddCameraRotationFromMouseDelta();
 
-              Wall dach = (Wall)GetGameObjectByName("10");
+                Wall dach = (Wall)GetGameObjectByName("10");
 
                 List<Collectable> list = GetGameObjectsByType<Collectable>();
                 for (int C_count = 0; C_count < list.Count; C_count++)
@@ -231,7 +243,7 @@ namespace Gruppenprojekt.App
             Map.SetCamera(
                  p.Position.X, p.Position.Y, p.Position.Z,                   // Position der Map-Kamera
                  ProjectionDirection.NegativeY, // Blickrichtung der Kamera (in diesem Beispiel nach unten)
-                 80,                            // Sichtfeld der Kamera (in z.B. Metern) in der Breite
+                 10,                            // Sichtfeld der Kamera (in z.B. Metern) in der Breite
                  10,                            // Sichtfeld der Kamera (in z.B. Metern) in der Höhe
                  1,                             // Naheinstellgrenze (Objekte näher als 1 Einheit werden ignoriert)
                  100);                          // Ferneinstellgrenze (Weiter als 100 Einheiten entfernte Objekte werden ignoriert)
