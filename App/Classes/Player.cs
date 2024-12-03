@@ -89,14 +89,6 @@ namespace Gruppenprojekt.App.Classes
             m3.SetColorEmissive(1.0f, 1.0f, 1.0f);
         }
 
-
-
-        float speed = 0.05f;
-        bool Sprinting = false;
-        int k = 0;
-        int l = 0;
-        int r = 0;
-        float nextTimeFlicker = -1;
         private float _flickerVorbei = 0f; 
         private bool _flickering = false; 
         private float _nextFlicker = 0f; 
