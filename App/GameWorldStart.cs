@@ -119,6 +119,7 @@ namespace Gruppenprojekt.App
               
                 AddCameraRotationFromMouseDelta();
 
+              Wall dach = (Wall)GetGameObjectByName("10");
 
                 List<Collectable> list = GetGameObjectsByType<Collectable>();
                 for (int C_count = 0; C_count < list.Count; C_count++)
@@ -128,8 +129,13 @@ namespace Gruppenprojekt.App
                 List<Wall> wlist = GetGameObjectsByType<Wall>();
                 for (int W_count = 0; W_count < wlist.Count; W_count++)
                 {
-                    Map.Add(wlist[W_count], 0f, new Vector3(0, 0, 1), new Vector3(0, 0, 1), 1f, 0.6f, 0f, "./App/Textures/bl_wall.jpg");
-                }
+                    if (wlist[W_count].Name != "10")
+                    {
+
+
+                        Map.Add(wlist[W_count], 0f, new Vector3(0, 0, 1), new Vector3(0, 0, 1), 1f, 0.6f, 0f, "./App/Textures/bl_wall.jpg");
+                    }
+                    }
 
                 List<Player> plist = GetGameObjectsByType<Player>();
                 for (int p_count = 0; p_count < plist.Count; p_count++)
