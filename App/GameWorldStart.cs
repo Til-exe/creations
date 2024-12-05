@@ -16,7 +16,8 @@ namespace Gruppenprojekt.App
         float finalPos = 0f;
         private float _HUDLastUpdate = 0;
         float counterPos = 0f;
-        
+
+
         public float GetHUDLastUpdateTime()
         {
             
@@ -153,7 +154,10 @@ namespace Gruppenprojekt.App
 
         public override void Prepare()
         {
-            
+            Audio.PreloadSound(@"./App/Sounds/shortsound.wav");
+            Audio.PreloadSound(@"./App/Sounds/flashlight_click.wav");
+            Audio.PreloadSound(@"./App/Sounds/flashlightexplode.wav");
+
             SetFadeColor(0, 0, 0);
 
             SetBackgroundSkybox("./App/Textures/skybox.png");
@@ -224,7 +228,7 @@ namespace Gruppenprojekt.App
             AddGameObject(w8);
             AddGameObject(w9);
             AddGameObject(w10);
-        createMap();
+            createMap();
         }
         public void createMap()
         {

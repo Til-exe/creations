@@ -17,6 +17,7 @@ namespace Gruppenprojekt.App.Classes
 {
     public class Player : GameObject
     {
+
         bool flashlight = false;
         private LightObject _flashlight;
         
@@ -93,20 +94,36 @@ namespace Gruppenprojekt.App.Classes
         private bool _flickering = false; 
         private float _nextFlicker = 0f; 
         private Random _random = new Random();
-
-
+        public double WorldTimeVar = 0;
+        public int timedpenisboom = 0;
+        public bool BOOM = false;
         public override void Act()
         {
+            if (timedpenisboom < 50 && BOOM)
+            {
+                timedpenisboom++;
+            }
+            if (timedpenisboom == 50)
+            {
+                
+                timedpenisboom = 0;
+                BOOM = false;
+                _flashlight.SetColor(0, 0, 0, 0);
+            }
+
             Random rnd = new Random();
             int random = rnd.Next(20000);
             _flashlight.SetPosition(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVectorLocalRight);
             _flashlight.SetTarget(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVector * 100); // KAR: Taschenlampe muss weiiiiit in die Ferne schauen
             if (random == 69 && flashlight == true || Keyboard.IsKeyPressed(Keys.Space) && flashlight == true)
             {
+                
+                
                 _flickering = true;
                 _flickerVorbei = WorldTime + 0.5f;
                 _nextFlicker = WorldTime + GetRandomFlickerDelay(); 
                 Console.WriteLine("penis flackern");
+                Audio.PlaySound(@"./App/Sounds/shortsound.wav", false, (float)0.1);
             }
             if (_flickering)
             {
@@ -119,15 +136,18 @@ namespace Gruppenprojekt.App.Classes
                     }
                     else
                     {
-                        _flashlight.SetColor(1, 1, 1, 4); 
+                        _flashlight.SetColor(1, 1, 1, 8); 
                     }
                     _nextFlicker = WorldTime + GetRandomFlickerDelay();
                 }
                 if (WorldTime >= _flickerVorbei)
                 {
+                    BOOM = true;
+                    timedpenisboom = 0;
                     flashlight = false;
                     _flickering = false;
-                    _flashlight.SetColor(0,0, 0, 0); 
+                    _flashlight.SetColor(1, 1, 1, 13);
+                    Audio.PlaySound(@"./App/Sounds/flashlightexplode.wav", false, (float)0.1);
                     Console.WriteLine("penis flacker vorbei");
                     Console.WriteLine("Penis aus");
                 }
@@ -140,12 +160,14 @@ namespace Gruppenprojekt.App.Classes
                 _flashlight.SetColor(1, 1, 1, 4);
                 flashlight = true;
                 Console.WriteLine("Penis an");
+                Audio.PlaySound(@"./App/Sounds/flashlight_click.wav", false, (float)0.1);
             }
             else if (Keyboard.IsKeyPressed(Keys.F) && flashlight == true)
             {
                 _flashlight.SetColor(0, 0, 0, 0);
                 flashlight = false;
                 Console.WriteLine("Penis aus");
+                Audio.PlaySound(@"./App/Sounds/flashlight_click.wav", false, (float)0.1);
             }
 
 
