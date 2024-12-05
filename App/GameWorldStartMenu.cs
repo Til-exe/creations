@@ -160,6 +160,8 @@ namespace Gruppenprojekt.App
         
         public override void Prepare()
         {
+
+            Globals.gameRunning = true;
             Wall w1 = new Wall("1", 0f, 4f, 5f);
             Wall w2 = new Wall("2", 0f, 4f, 0f);
             Floor f = new Floor("floor", 1f, 1f, 1f);
@@ -313,7 +315,17 @@ namespace Gruppenprojekt.App
             SetCameraPosition(0.0f, 5.0f, 15.0f);
 
             string dateiPfad = @"./App/data/data.txt";
-            string content = File.ReadAllText(dateiPfad);
+            string content;
+            try
+            {
+                content = File.ReadAllText(dateiPfad);
+            }
+            catch
+            {
+                File.AppendAllText(dateiPfad, "0" + Environment.NewLine);
+                content = File.ReadAllText(dateiPfad);
+            }
+            
 
             if (string.IsNullOrWhiteSpace(content))
             {
@@ -335,7 +347,8 @@ namespace Gruppenprojekt.App
                 {
                     string path = @"./App/data/data.txt";                    
                     string appendText = Convert.ToString(Globals.Score) + "\n";
-                    File.AppendAllText(path, appendText);
+                    File.WriteAllText(path, appendText);
+                    
                 }                
             }    
             

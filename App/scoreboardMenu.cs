@@ -89,9 +89,10 @@ namespace Gruppenprojekt.App
                         {
                             File.Delete(filePath);
                         }
-                        File.Create(filePath);
+                        File.WriteAllText(filePath, "");
                         clear.SetText("cleared file");
                         deleted = true;
+                        
                     }
                     else if (!delete)
                     {
@@ -216,11 +217,11 @@ namespace Gruppenprojekt.App
             }
 
 
-            if (Globals.moveCameraMultiplier == 1f) { bgSpeed.SetText("Scoreboard Settings: x1"); }
-            if (Globals.moveCameraMultiplier == 2f) { bgSpeed.SetText("Scoreboard Settings: x2"); }
-            if (Globals.moveCameraMultiplier == 4f) { bgSpeed.SetText("Scoreboard Settings: x4"); }
-            if (Globals.moveCameraMultiplier == 0.25f) { bgSpeed.SetText("Scoreboard Settings: x0.25"); }
-            if (Globals.moveCameraMultiplier == 0.5f) { bgSpeed.SetText("Scoreboard Settings: x0.5"); }
+            if (Globals.moveCameraMultiplier == 1f) { bgSpeed.SetText("Background Speed: x1"); }
+            if (Globals.moveCameraMultiplier == 2f) { bgSpeed.SetText("Background Speed: x2"); }
+            if (Globals.moveCameraMultiplier == 4f) { bgSpeed.SetText("Background Speed: x4"); }
+            if (Globals.moveCameraMultiplier == 0.25f) { bgSpeed.SetText("Background Speed: x0.25"); }
+            if (Globals.moveCameraMultiplier == 0.5f) { bgSpeed.SetText("Background Speed: x0.5"); }
 
             if (Globals.multiplikator == 1f) { scoreMultiplier.SetText("Score Multiplier: x1"); }
             if (Globals.multiplikator == 2f) { scoreMultiplier.SetText("Score Multiplier: x2"); }
@@ -325,43 +326,6 @@ namespace Gruppenprojekt.App
             scoreMultiplier.SetColorEmissive(1.0f, 1.0f, 1.0f);
 
             AddHUDObject(scoreMultiplier);
-
-
-            string filePath = @"./App/data/scoreboardSettings.txt";
-            try
-            {
-                // Datei löschen, falls sie existiert
-                if (File.Exists(filePath))
-                {
-                    File.Delete(filePath);
-                }
-
-                // Datei neu erstellen und beschreiben
-                using (StreamWriter writer = File.CreateText(filePath))
-                {
-                    writer.WriteLine("Dies ist eine neu erstellte Datei.");
-                    writer.WriteLine("Hier ist eine zweite Zeile Text.");
-                }
-
-                // Methode 1: Ganze Datei als Text einlesen
-                string fileContent = File.ReadAllText(filePath);
-
-
-                // Methode 2: Datei zeilenweise einlesen
-                string[] lines = File.ReadAllLines(filePath);
-                foreach (string line in lines)
-                {
-                    Console.WriteLine(line);
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-
-
-
-
         }        
     }
 }
