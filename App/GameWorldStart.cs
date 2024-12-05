@@ -274,6 +274,7 @@ namespace Gruppenprojekt.App
 
 
             FlowField pathfinding = new FlowField(0,2.5f,0,100, 100, 0.5f, 5, FlowFieldMode.Simple, typeof(Wall));
+            
             pathfinding.IsVisible = false; //FLOWFIELD DEBUG VISIBILTY
             SetFlowField(pathfinding);
             
