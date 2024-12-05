@@ -49,7 +49,6 @@ namespace Gruppenprojekt.App.Classes
         }
         bool movingUp = true;
         float ColMovementSpeed = 0.007f;
-        
         public override void Act()
         {
             

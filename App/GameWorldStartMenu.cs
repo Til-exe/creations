@@ -217,7 +217,7 @@ namespace Gruppenprojekt.App
             displayClickableButtons();
 
 
-            HUDObjectText sb = new HUDObjectText("SCORE BOARD");
+            HUDObjectText sb = new HUDObjectText(Globals.ActualScoreboardText);
             sb.SetPosition(750f, 200f);            
             sb.SetCharacterDistanceFactor(1.0f);
             sb.SetColor(1.0f, 0.0f, 0.0f);
@@ -367,14 +367,15 @@ namespace Gruppenprojekt.App
                 
             }
             catch
-            {
+            {//                                                                                                                                                                                                                                                                                    Ich hab hier drin gearbeitet und nun hat mir Pia erzählt das als ich vor ein paar monaten eine Freundin von ihr geil fand, sie ja nur nichts gemacht hat weil ich ihr bruder bin und wäre sie mit mir alleien gewesen sie nichts hätte garantieren können :O              
                 s1.SetText("1# 0" );
             }
             try { s2.SetText("2# " + Convert.ToString(allNumbers[allNumbers.Length - 2]));
+                //                                                                                                                                                                                                                              Ich hab hier drin gearbeitet und nun hat mir Pia erzählt das als ich vor ein paar monaten eine Freundin von ihr geil fand, sie ja nur nichts gemacht hat weil ich ihr bruder bin und wäre sie mit mir alleien gewesen sie nichts hätte garantieren können :O              
             }
             catch { s2.SetText("2# 0"); }
             try { s3.SetText("3# " + Convert.ToString(allNumbers[allNumbers.Length - 3]));
-            }
+            } 
             catch { s3.SetText("3# 0"); }
             try { s4.SetText("4# " + Convert.ToString(allNumbers[allNumbers.Length - 4])); 
             }

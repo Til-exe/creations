@@ -371,9 +371,9 @@ namespace Gruppenprojekt.App.Classes
             CurrentWorld.MouseCursorGrab();
             removeAllHUD();
         }
+
+
         
-
-
     }
 
 }

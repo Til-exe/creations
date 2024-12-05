@@ -25,6 +25,7 @@ namespace Gruppenprojekt.App
             
             HUDObjectText back = GetHUDObjectTextByName("back");
             HUDObjectText enter = GetHUDObjectTextByName("Enter");
+            HUDObjectText reset = GetHUDObjectTextByName("Reset");
             HUDObjectText plus1 = GetHUDObjectTextByName("plus1");
             HUDObjectText minus1 = GetHUDObjectTextByName("minus1");
             HUDObjectText score1 = GetHUDObjectTextByName("score1");
@@ -80,6 +81,27 @@ namespace Gruppenprojekt.App
                     Globals.ReturnCode = 1;
                         
                         
+                }
+            }   //Enter
+            if (reset != null)
+            {
+                //Leave game
+
+                if (reset.IsMouseCursorOnMe() == true)
+                {
+                    reset.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    reset.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && reset.IsMouseCursorOnMe() == true)
+                {
+                    value1 = 0;
+                    value2 = 0;
+                    value3 = 0;
+
+
                 }
             }   //Enter
             if (plus1 != null)
@@ -386,6 +408,14 @@ namespace Gruppenprojekt.App
             Enter.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(Enter);
 
+            HUDObjectText Reset = new HUDObjectText("Reset");
+            Reset.SetPosition(450f, 200f);
+            Reset.Name = "Reset";
+            Reset.SetCharacterDistanceFactor(1.0f);
+            Reset.SetColor(1.0f, 0.0f, 0.0f);
+            Reset.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(Reset);
+            
 
             HUDObjectText code = new HUDObjectText("");
             code.SetPosition(160f, 400f);

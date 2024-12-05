@@ -54,6 +54,7 @@ namespace Gruppenprojekt.App.Classes
         public static string CreditsButtonText = "";
         public static string ScoreboardButtonText = "";
         public static string LeaveButtonText = "";
+        public static string ActualScoreboardText = "";
         public static string SetLanguage = "English";
 
 
