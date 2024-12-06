@@ -19,6 +19,7 @@ namespace Gruppenprojekt.App.Classes
             this.IsCollisionObject = true;
             this.IsShadowCaster = true;
             this.SetColor(0, 1, 0);
+            this.SetColorEmissive(0, 1, 0, 10);
 
             l = new LightObject(LightType.Point, ShadowQuality.NoShadow);
             l.Name = name;
