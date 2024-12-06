@@ -169,7 +169,7 @@ namespace Gruppenprojekt.App
         public override void Prepare()
         {
             FlowField pathfinding = new FlowField(0, 2.5f, 0, 100, 100, 0.5f, 5, FlowFieldMode.Simple, typeof(Wall));
-            pathfinding.IsVisible = true; //FLOWFIELD DEBUG VISIBILTY
+            pathfinding.IsVisible = false; //FLOWFIELD DEBUG VISIBILTY
             SetFlowField(pathfinding);
             Audio.PreloadSound(@"./App/Sounds/shortsound.wav");
             Audio.PreloadSound(@"./App/Sounds/flashlight_click.wav");
