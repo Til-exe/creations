@@ -52,10 +52,11 @@ namespace Gruppenprojekt.App.Classes
 
             colCount = new HUDObjectText("Sie haben kein Licht");
             colCount.Name = "BLA";
-            colCount.SetPosition(350f, 32f);
+            colCount.SetPosition(Globals.fensterBreite/2, 32f);
             colCount = new HUDObjectText("");
             colCount.Name = "ORBS";
-            colCount.SetPosition(290f, 20f);
+            colCount.SetPosition(Globals.fensterBreite/2, 20f);
+            colCount.SetTextAlignment(TextAlignMode.Center);
             colCount.SetFont(FontFace.NovaMono);
             colCount.SetScale(30f);
             colCount.SetOpacity(0);
@@ -63,7 +64,8 @@ namespace Gruppenprojekt.App.Classes
 
 
             mtitle.Name = "PAUSE";                       
-            mtitle.SetPosition(160f, 100f);          
+            mtitle.SetPosition(Globals.fensterBreite/2, 100f);   
+            mtitle.SetTextAlignment(TextAlignMode.Center);
             mtitle.SetScale(100f);                       
             mtitle.SetCharacterDistanceFactor(1.0f);            
             mtitle.SetColor(1.0f, 0.0f, 0.0f);
@@ -86,6 +88,7 @@ namespace Gruppenprojekt.App.Classes
             displayTimer.SetCharacterDistanceFactor(1.0f);
             displayTimer.SetColor(1.0f, 0.0f, 0.0f);
             CurrentWorld.AddHUDObject(displayTimer);
+            
 
 
             m2.SetPosition(160f, 250f);
@@ -119,11 +122,31 @@ namespace Gruppenprojekt.App.Classes
         public double WorldTimeVar = 0;
         public int timedpenisboom = 0;
         public bool BOOM = false;
+        public bool FirstAct = true;
+        static int yolo = 0;
+        static int removedTime = 0;
+        static int sek = 0;
+        static int min = 0;
+        int stnd = 0;
+        
         public override void Act()
         {
+            string ActualTimeDisplay = min + "m " + sek + "s";
+            sek = Convert.ToInt32(CurrentWorld.WorldTime) - removedTime;
+            if (sek == 60)
+            {
+                removedTime += 60;
+                min++;
+            }
+            if(Convert.ToInt32(WorldTime) < 60)
+            {
+                ActualTimeDisplay = sek + "s";
+
+            }
             
-            displayTimer.SetText("Timer: " + Math.Round(WorldTime));  
-            
+
+            displayTimer.SetText("Timer: " + ActualTimeDisplay);
+
 
             if (timedpenisboom < 50 && BOOM)
             {
@@ -362,6 +385,7 @@ namespace Gruppenprojekt.App.Classes
             {
                 CurrentWorld.AddCameraRotationFromMouseDelta();
                 CurrentWorld.UpdateCameraPositionForFirstPersonView(Center, 2f);
+                
                 MoveAndStrafeAlongCameraXZ(forward, strafe, Globals.speed);
                 TurnTowardsXZ(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVector);
             }

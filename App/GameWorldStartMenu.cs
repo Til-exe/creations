@@ -142,9 +142,14 @@ namespace Gruppenprojekt.App
                 Globals.posWert = 10;
                 displayClickableButtons();
             }
-                  
+            if (Keyboard.IsKeyPressed(Keys.Enter))
+            {
+                GameWorldStart gws = new GameWorldStart();
+                Window.SetWorld(gws);
+                Globals.Score = 0;
+            }
 
-            SetCameraPosition(Globals.moveCameraX, 4, Globals.moveCameraY);
+                SetCameraPosition(Globals.moveCameraX, 4, Globals.moveCameraY);
             SetCameraTarget(CameraPosition.X, CameraPosition.Y + 2, CameraPosition.Z);
 
             do { SetCameraPosition(CameraPosition.X - 400, CameraPosition.Y, CameraPosition.Z); }
@@ -199,13 +204,19 @@ namespace Gruppenprojekt.App
             bbg.SetZIndex(-100);
             bbg.SetOpacity(0.75f);
 
-            hSubtitle.SetPosition(500f, 100f);
+
+            int fb = Globals.fensterBreite;
+            int fh = Globals.fensterHoehe;
+
+            hSubtitle.SetPosition(fb/2, 100f);
             hSubtitle.Name = "a";
             hSubtitle.SetCharacterDistanceFactor(1.0f);
-            hSubtitle.SetColor(1.0f, 0.0f, 0.0f);            
-            
-            hTitle.SetPosition(200f, 50f);
+            hSubtitle.SetTextAlignment(TextAlignMode.Center);
+            hSubtitle.SetColor(1.0f, 0.0f, 0.0f);
+
+            hTitle.SetPosition(fb/2, 50f);
             hTitle.Name = "GameTitle";
+            hTitle.SetTextAlignment(TextAlignMode.Center);
             hTitle.SetCharacterDistanceFactor(1.0f);
             hTitle.SetColor(1.0f, 0.0f, 0.0f);
             hTitle.SetScale(80.0f);         
@@ -218,66 +229,66 @@ namespace Gruppenprojekt.App
 
 
             HUDObjectText sb = new HUDObjectText(Globals.ActualScoreboardText);
-            sb.SetPosition(750f, 200f);            
+            sb.SetPosition(fb/2 + fb/6, 200f);            
             sb.SetCharacterDistanceFactor(1.0f);
             sb.SetColor(1.0f, 0.0f, 0.0f);
 
             HUDObjectText s1 = new HUDObjectText("1#");
-            s1.SetPosition(700f, 250f);
+            s1.SetPosition(fb / 2 + fb / 6, 250f);
             s1.Name = "score1";
             s1.SetCharacterDistanceFactor(1.0f);
             s1.SetColor(1.0f, 0.0f, 0.0f);            
 
             HUDObjectText s2 = new HUDObjectText("2#");
-            s2.SetPosition(700f, 290f);
+            s2.SetPosition(fb / 2 + fb / 6, 290f);
             s2.Name = "score2";
             s2.SetCharacterDistanceFactor(1.0f);
             s2.SetColor(1.0f, 0.0f, 0.0f);
 
             HUDObjectText s3 = new HUDObjectText("3#");
-            s3.SetPosition(700f, 330f);
+            s3.SetPosition(fb / 2 + fb / 6, 330f);
             s3.Name = "score3";
             s3.SetCharacterDistanceFactor(1.0f);
             s3.SetColor(1.0f, 0.0f, 0.0f);            
 
             HUDObjectText s4 = new HUDObjectText("4#");
-            s4.SetPosition(700f, 370f);
+            s4.SetPosition(fb / 2 + fb / 6, 370f);
             s4.Name = "score4";
             s4.SetCharacterDistanceFactor(1.0f);
             s4.SetColor(1.0f, 0.0f, 0.0f);
 
             HUDObjectText s5 = new HUDObjectText("5#");
-            s5.SetPosition(700f, 410f);
+            s5.SetPosition(fb / 2 + fb / 6, 410f);
             s5.Name = "score5";
             s5.SetCharacterDistanceFactor(1.0f);
             s5.SetColor(1.0f, 0.0f, 0.0f);            
 
             HUDObjectText s6 = new HUDObjectText("6#");
-            s6.SetPosition(700f, 450f);
+            s6.SetPosition(fb / 2 + fb / 6, 450f);
             s6.Name = "score6";
             s6.SetCharacterDistanceFactor(1.0f);
             s6.SetColor(1.0f, 0.0f, 0.0f);            
 
             HUDObjectText s7 = new HUDObjectText("7#");
-            s7.SetPosition(700f, 490f);
+            s7.SetPosition(fb / 2 + fb / 6, 490f);
             s7.Name = "scpre7";
             s7.SetCharacterDistanceFactor(1.0f);
             s7.SetColor(1.0f, 0.0f, 0.0f);
 
             HUDObjectText s8 = new HUDObjectText("8#");
-            s8.SetPosition(700f, 530f);
+            s8.SetPosition(fb / 2 + fb / 6, 530f);
             s8.Name = "score8";
             s8.SetCharacterDistanceFactor(1.0f);
             s8.SetColor(1.0f, 0.0f, 0.0f);
 
             HUDObjectText s9 = new HUDObjectText("9#");
-            s9.SetPosition(700f, 570f);
+            s9.SetPosition(fb / 2 + fb / 6, 570f);
             s9.Name = "score9";
             s9.SetCharacterDistanceFactor(1.0f);
             s9.SetColor(1.0f, 0.0f, 0.0f);
 
             HUDObjectText s10 = new HUDObjectText("1O#");
-            s10.SetPosition(678f, 610f);
+            s10.SetPosition(fb / 2 + fb /6 - 23, 610f);
             s10.Name = "score10";
             s10.SetCharacterDistanceFactor(1.0f);
             s10.SetColor(1.0f, 0.0f, 0.0f);
@@ -310,52 +321,72 @@ namespace Gruppenprojekt.App
             SetCameraPosition(0.0f, 5.0f, 15.0f);
 
             string dateiPfad = @"./App/data/data.txt";
-            string TimePfad = @"./App/data/time.txt";
-            string content;
-            try
-            {
-                content = File.ReadAllText(dateiPfad);
-            }
-            catch
-            {
-                File.AppendAllText(dateiPfad, "0" + Environment.NewLine);
-                content = File.ReadAllText(dateiPfad);
-            }
-            
+            string TimePfad = @"./App/data/time.txt";            
 
-            if (string.IsNullOrWhiteSpace(content))
-            {
-                for(int i = 0; i < 10; i++)
-                {
-                    File.AppendAllText(dateiPfad, "0" + Environment.NewLine);
-                }
-            }
+            string[] readScores = File.ReadAllLines(dateiPfad);
+            string[] readTime = File.ReadAllLines(TimePfad);
 
-            string[] readText = File.ReadAllLines(dateiPfad);
-            int[] allNumbers = new int[readText.Length] ;            
-            for(int  i = 0; i < readText.Length; i++)
+
+
+
+            int[] allNumbers = new int[readScores.Length] ;            
+            int[] allTime = new int[readTime.Length];
+
+
+
+
+
+            for (int  i = 0; i < readScores.Length; i++)
             {
                 try
                 { 
-                    allNumbers[i] = Convert.ToInt32(readText[i]);
+                    allNumbers[i] = Convert.ToInt32(readScores[i]);
                 }
                 catch                 
                 {
                     string path = @"./App/data/data.txt";                    
                     string appendText = Convert.ToString(Globals.Score) + "\n";
                     File.WriteAllText(path, appendText);
-
-                    string pathT = @"./App/data/time.txt";
-                    string appendTextT = Globals.displayCounter + "\n";
-                    File.WriteAllText(pathT, appendTextT);
-
+                    
                 }                
-            }    
+            }
+            for (int i = 0; i < readTime.Length; i++)
+            {
+                try
+                {
+                    allTime[i] = Convert.ToInt32(readTime[i]);
+                }
+                catch
+                {
+                    string path = @"./App/data/time.txt";
+                    string appendText = Globals.displayCounter + "\n";
+                    File.WriteAllText(path, appendText);
+                }
+            }
+            //Array.Sort(allNumbers);
+            List<Result> res = new List<Result>();
             
-            Array.Sort(allNumbers);
+            
+            for (int i = 0;i < allNumbers.Length; i++) 
+            {
+                Result r = new Result();
+                //r.Time = allTime[i];
+                r.Score = allNumbers[i];
+                res.Add(r);
+                
+            }
+            List<Result> SortedList = res.OrderBy(o => o.Score).ToList();
+
+            
+            
+
+
+
+            
             try
             {
-                s1.SetText("1# " + Convert.ToString(allNumbers[allNumbers.Length - 1]));
+                //s1.SetText("1# " + Convert.ToString(allNumbers[allNumbers.Length - 1]));
+                s1.SetText("1# " + Convert.ToString(allNumbers[SortedList.Count-1]));
                 if (allNumbers[allNumbers.Length - 1] >= 2500)
                 {
                     s1.SetColor(1.0f, 1.0f, 1.0f);
@@ -370,32 +401,32 @@ namespace Gruppenprojekt.App
             {//                                                                                                                                                                                                                                                                                    Ich hab hier drin gearbeitet und nun hat mir Pia erzählt das als ich vor ein paar monaten eine Freundin von ihr geil fand, sie ja nur nichts gemacht hat weil ich ihr bruder bin und wäre sie mit mir alleien gewesen sie nichts hätte garantieren können :O              
                 s1.SetText("1# 0" );
             }
-            try { s2.SetText("2# " + Convert.ToString(allNumbers[allNumbers.Length - 2]));
+            try { s2.SetText("2# " + Convert.ToString(allNumbers[SortedList.Count - 2]));
                 //                                                                                                                                                                                                                              Ich hab hier drin gearbeitet und nun hat mir Pia erzählt das als ich vor ein paar monaten eine Freundin von ihr geil fand, sie ja nur nichts gemacht hat weil ich ihr bruder bin und wäre sie mit mir alleien gewesen sie nichts hätte garantieren können :O              
             }
             catch { s2.SetText("2# 0"); }
-            try { s3.SetText("3# " + Convert.ToString(allNumbers[allNumbers.Length - 3]));
+            try { s3.SetText("3# " + Convert.ToString(allNumbers[SortedList.Count - 3]));
             } 
             catch { s3.SetText("3# 0"); }
-            try { s4.SetText("4# " + Convert.ToString(allNumbers[allNumbers.Length - 4])); 
-            }
-            catch { s4.SetText("4# 0"); }
-            try { s5.SetText("5# " + Convert.ToString(allNumbers[allNumbers.Length - 5])); 
-            }
-            catch {s5.SetText("5# 0"); }
-            try { s6.SetText("6# " + Convert.ToString(allNumbers[allNumbers.Length - 6])); 
-            }
-            catch { s6.SetText("6# 0"); }
-            try { s7.SetText("7# " + Convert.ToString(allNumbers[allNumbers.Length - 7])); 
-            }
-            catch { s7.SetText("7# 0"); }
-            try { s8.SetText("8# " + Convert.ToString(allNumbers[allNumbers.Length - 8]));
-            }
-            catch { s8.SetText("8# 0"); }
-            try { s9.SetText("9# " + Convert.ToString(allNumbers[allNumbers.Length - 9]));
+            try { s4.SetText("4# " + Convert.ToString(allNumbers[SortedList.Count-4])); 
+            }                                                    
+            catch { s4.SetText("4# 0"); }                        
+            try { s5.SetText("5# " + Convert.ToString(allNumbers[SortedList.Count-5])); 
+            }                                                    
+            catch {s5.SetText("5# 0"); }                         
+            try { s6.SetText("6# " + Convert.ToString(allNumbers[SortedList.Count-6])); 
+            }                                                    
+            catch { s6.SetText("6# 0"); }                        
+            try { s7.SetText("7# " + Convert.ToString(allNumbers[SortedList.Count-7])); 
+            }                                                    
+            catch { s7.SetText("7# 0"); }                        
+            try { s8.SetText("8# " + Convert.ToString(allNumbers[SortedList.Count-8]));
+            }                                                    
+            catch { s8.SetText("8# 0"); }                        
+            try { s9.SetText("9# " + Convert.ToString(allNumbers[SortedList.Count - 9]));
             }
             catch { s9.SetText("9# 0"); }
-            try { s10.SetText("10# " + Convert.ToString(allNumbers[allNumbers.Length - 10]));
+            try { s10.SetText("10# " + Convert.ToString(allNumbers[SortedList.Count - 10]));
             }
             catch { s10.SetText("10# 0"); }
         }

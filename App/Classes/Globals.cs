@@ -59,9 +59,14 @@ namespace Gruppenprojekt.App.Classes
         public static string ActualScoreboardText = "";
         public static string SetLanguage = "English";
         public static string displayCounter = "";
-        
-        
-        
+
+        //public static int fensterBreite = 1280;     
+        public static int fensterBreite = 1920;
+        //public static int fensterHoehe = 720;
+        public static int fensterHoehe = 1080;
+
+
+
 
     }
     
