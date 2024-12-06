@@ -67,7 +67,10 @@ namespace Gruppenprojekt.App
 
             if (Keyboard.IsKeyPressed(Keys.R) == true )
             {
-                
+                Map.UpdateCameraRotation(CameraLookAtVectorXZ);
+
+                AddCameraRotationFromMouseDelta();
+
                 Map.Enabled = !Map.Enabled;
                Globals.gameRunning = !Globals.gameRunning;
                 // Optional: Map gemäß der Spielerposition verschieben und rotieren
@@ -87,7 +90,7 @@ namespace Gruppenprojekt.App
             if (Map.Enabled == true)
             {
                
-                if(finalPos < 0.01f )
+                if(finalPos < 0.03f )
                 {
                    
                     finalPos = finalPos + 0.0001f;
@@ -155,7 +158,10 @@ namespace Gruppenprojekt.App
                 List<Player> plist = GetGameObjectsByType<Player>();
                 for (int p_count = 0; p_count < plist.Count; p_count++)
                 {
-                    Map.Add(p, 0f, new Vector3(1, 0, 0), new Vector3(1, 0, 0), 1f, 0.6f, 3f);
+                    if (finalPos >= 0.02f) {
+                        Map.Add(p, 0f, new Vector3(1, 0, 0), new Vector3(1, 0, 0), 1f, 0.6f, 3f);
+                    }
+                    
                 }
 
 
