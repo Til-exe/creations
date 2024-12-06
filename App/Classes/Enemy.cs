@@ -3,7 +3,20 @@ using KWEngine3.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using KWEngine3;
+using KWEngine3.Audio;
+using KWEngine3.GameObjects;
+using KWEngine3.Helper;
+using OpenTK.Windowing.GraphicsLibraryFramework;
+using OpenTK.Mathematics;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading;
+using OpenTK.Windowing.Common.Input;
+using Assimp;
+using System.Threading.Tasks;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -89,7 +102,7 @@ namespace Gruppenprojekt.App.Classes
                     
                 }
             }
-            else if (timestampLastSighting + 5 > WorldTime && timestampLastSighting != 0)
+            else if (timestampLastSighting + 4f > WorldTime && timestampLastSighting != 0)
             {
                 Console.WriteLine("else");
                                  
@@ -103,18 +116,25 @@ namespace Gruppenprojekt.App.Classes
 
 
 
-
-
-
-
-
-
-
-
                 List<Intersection> intersections = GetIntersections();
                 foreach (Intersection intersection in intersections)
                 {
                     MoveOffset(intersection.MTV);
+
+                GameObject collider = intersection.Object; 
+
+                if (collider is Player) {
+
+                    Console.WriteLine("gefahr");
+                    GameWorldStartMenu gm = new GameWorldStartMenu();
+                    Window.SetWorld(gm);
+                    Globals.Trys++;
+                    string path = @"./App/data/data.txt";
+
+                    string appendText = Convert.ToString(Globals.Score) + "\n";
+                    File.AppendAllText(path, appendText);
+
+                }
                 }
             
         }
