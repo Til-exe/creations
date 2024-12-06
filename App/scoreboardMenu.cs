@@ -81,7 +81,8 @@ namespace Gruppenprojekt.App
                     if(delete)
                     {
                         string filePath = @"./App/data/data.txt";
-                        
+                        string filePathTime = @"./App/data/time.txt";
+
                         StreamWriter writer = new StreamWriter(filePath);
                         writer.Close();
                         // Datei löschen, falls sie existiert
@@ -90,6 +91,16 @@ namespace Gruppenprojekt.App
                             File.Delete(filePath);
                         }
                         File.WriteAllText(filePath, "");
+
+
+                        StreamWriter writer1 = new StreamWriter(filePathTime);
+                        writer1.Close();
+                        // Datei löschen, falls sie existiert
+                        if (File.Exists(filePathTime))
+                        {
+                            File.Delete(filePathTime);
+                        }
+                        File.WriteAllText(filePathTime, "");
                         clear.SetText("cleared file");
                         deleted = true;
                         

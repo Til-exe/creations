@@ -70,6 +70,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="App\data\time.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="App\Sounds\flashlightexplode.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

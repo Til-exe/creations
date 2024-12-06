@@ -34,6 +34,8 @@ namespace Gruppenprojekt.App.Classes
         
         public static string Cpath = @"./App/data/credits.txt";        
         public static string path = @"./App/data/data.txt";
+        public static string timePath = @"./App/data/time.txt";
+
         public static string[] Clines = File.ReadAllLines(Cpath);
         
 
@@ -56,8 +58,10 @@ namespace Gruppenprojekt.App.Classes
         public static string LeaveButtonText = "";
         public static string ActualScoreboardText = "";
         public static string SetLanguage = "English";
-
-
+        public static string displayCounter = "";
+        
+        
+        
 
     }
     

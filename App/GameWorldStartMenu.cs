@@ -283,11 +283,6 @@ namespace Gruppenprojekt.App
             s10.SetColor(1.0f, 0.0f, 0.0f);
 
 
-            Globals.scores[0] = Globals.Score;
-            s1.SetText(s1.Text + " " + Globals.scores[0]);
-
-
-
             AddLightObject(light);
             AddGameObject(c1);
             AddGameObject(w1);
@@ -315,6 +310,7 @@ namespace Gruppenprojekt.App
             SetCameraPosition(0.0f, 5.0f, 15.0f);
 
             string dateiPfad = @"./App/data/data.txt";
+            string TimePfad = @"./App/data/time.txt";
             string content;
             try
             {
@@ -348,7 +344,11 @@ namespace Gruppenprojekt.App
                     string path = @"./App/data/data.txt";                    
                     string appendText = Convert.ToString(Globals.Score) + "\n";
                     File.WriteAllText(path, appendText);
-                    
+
+                    string pathT = @"./App/data/time.txt";
+                    string appendTextT = Globals.displayCounter + "\n";
+                    File.WriteAllText(pathT, appendTextT);
+
                 }                
             }    
             

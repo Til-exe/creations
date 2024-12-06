@@ -20,7 +20,7 @@ namespace Gruppenprojekt.App.Classes
 
         bool flashlight = false;
         private LightObject _flashlight;
-        
+        HUDObjectText displayTimer = new HUDObjectText("Timer: ");
         HUDObjectText m1 = new HUDObjectText("Zurück zum Spiel");
         HUDObjectText m2 = new HUDObjectText("Hauptmenu");
         HUDObjectText m3 = new HUDObjectText("Verlassen");
@@ -29,8 +29,11 @@ namespace Gruppenprojekt.App.Classes
         HUDObjectText mtitle = new HUDObjectText("Pausiert");
         private HUDObjectText colCount;
         private int counter = 0;
+
         public Player(string name, float x, float y, float z)
         {
+            
+            
             Globals.gameRunning = true;
             this.Name = name;
             this.SetPosition(x, y, z);
@@ -78,6 +81,13 @@ namespace Gruppenprojekt.App.Classes
             m1.SetColor(1.0f, 0.0f, 0.0f);
             m1.SetColorEmissive(1.0f, 1.0f, 1.0f);
 
+            displayTimer.SetPosition(50f, 50f);
+            displayTimer.Name = "displayTimer";
+            displayTimer.SetCharacterDistanceFactor(1.0f);
+            displayTimer.SetColor(1.0f, 0.0f, 0.0f);
+            CurrentWorld.AddHUDObject(displayTimer);
+
+
             m2.SetPosition(160f, 250f);
             m2.Name = "Menu";
             m2.SetCharacterDistanceFactor(1.0f);
@@ -97,6 +107,11 @@ namespace Gruppenprojekt.App.Classes
 
         }
 
+
+
+        
+        
+
         private float _flickerVorbei = 0f; 
         private bool _flickering = false; 
         private float _nextFlicker = 0f; 
@@ -106,6 +121,10 @@ namespace Gruppenprojekt.App.Classes
         public bool BOOM = false;
         public override void Act()
         {
+            
+            displayTimer.SetText("Timer: " + Math.Round(WorldTime));  
+            
+
             if (timedpenisboom < 50 && BOOM)
             {
                 timedpenisboom++;
@@ -265,13 +284,19 @@ namespace Gruppenprojekt.App.Classes
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && m2.IsMouseCursorOnMe() == true)
                 {
-                    GameWorldStartMenu gm = new GameWorldStartMenu();
-                    Window.SetWorld(gm);
+                    
                     Globals.Trys++;
                     string path = @"./App/data/data.txt";
+                    string timePath = @"./App/data/time.txt";
 
+                    Globals.displayCounter = Convert.ToString(CurrentWorld.WorldTime) + "\n";
                     string appendText = Convert.ToString(Globals.Score) + "\n";
+                                       
+                    File.AppendAllText(timePath, Globals.displayCounter);
                     File.AppendAllText(path, appendText);
+
+                    GameWorldStartMenu gm = new GameWorldStartMenu();
+                    Window.SetWorld(gm);
                 }
             }
             if (m3 != null)
@@ -349,6 +374,8 @@ namespace Gruppenprojekt.App.Classes
             CurrentWorld.RemoveHUDObject(m3);
             CurrentWorld.RemoveHUDObject(mtitle);
             CurrentWorld.RemoveHUDObject(score);
+            displayTimer.SetPosition(50f, 50f);
+
 
         }
         public void stop()
@@ -362,6 +389,7 @@ namespace Gruppenprojekt.App.Classes
             CurrentWorld.AddHUDObject(bg);
             CurrentWorld.AddHUDObject(mtitle);
             CurrentWorld.AddHUDObject(score);
+            displayTimer.SetPosition(700f,250f);
             score.SetText("Punktestand: " + Globals.Score);
         }
         public void weiter()

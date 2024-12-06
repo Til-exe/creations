@@ -164,10 +164,10 @@ namespace Gruppenprojekt.App
             }
         }
 
-
-
         public override void Prepare()
         {
+
+
             Audio.PreloadSound(@"./App/Sounds/shortsound.wav");
             Audio.PreloadSound(@"./App/Sounds/flashlight_click.wav");
             Audio.PreloadSound(@"./App/Sounds/flashlightexplode.wav");
@@ -276,10 +276,7 @@ namespace Gruppenprojekt.App
 
 
 
-            FlowField pathfinding = new FlowField(0,2.5f,0,100, 100, 0.5f, 5, FlowFieldMode.Simple, typeof(Wall));
             
-            pathfinding.IsVisible = false; //FLOWFIELD DEBUG VISIBILTY
-            SetFlowField(pathfinding);
             
         }
     }
