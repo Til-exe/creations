@@ -46,7 +46,7 @@ namespace Gruppenprojekt.App.Classes
             FlowField f = CurrentWorld.GetFlowField();
             TurnTowardsXZ(playerPos);
 
-            List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 6f, true, this, typeof(Wall), typeof(Player));
+            List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 14f, true, this, typeof(Wall), typeof(Player));
 
             if(results.Count > 0)
             {
