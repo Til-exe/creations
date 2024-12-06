@@ -27,7 +27,8 @@ namespace Gruppenprojekt.App
             HUDObjectText clear = GetHUDObjectTextByName("clear");
             HUDObjectText text1 = GetHUDObjectTextByName("text1");
             HUDObjectText text2 = GetHUDObjectTextByName("text2");
-            HUDObjectText bgSpeed = GetHUDObjectTextByName("bgSpeed");
+            HUDObjectText bgSpeed = GetHUDObjectTextByName("bgSpeed"); 
+            HUDObjectText scoreMultiplier = GetHUDObjectTextByName("scoreMultiplier");
             if (leave != null)
             {
                 if (leave.IsMouseCursorOnMe() == true)
@@ -88,9 +89,10 @@ namespace Gruppenprojekt.App
                         {
                             File.Delete(filePath);
                         }
-                        File.Create(filePath);
+                        File.WriteAllText(filePath, "");
                         clear.SetText("cleared file");
                         deleted = true;
+                        
                     }
                     else if (!delete)
                     {
@@ -171,11 +173,63 @@ namespace Gruppenprojekt.App
                     
                 }
             }
-            if (Globals.moveCameraMultiplier == 1f) { bgSpeed.SetText("Scoreboard Settings: x1"); }
-            if (Globals.moveCameraMultiplier == 2f) { bgSpeed.SetText("Scoreboard Settings: x2"); }
-            if (Globals.moveCameraMultiplier == 4f) { bgSpeed.SetText("Scoreboard Settings: x4"); }
-            if (Globals.moveCameraMultiplier == 0.25f) { bgSpeed.SetText("Scoreboard Settings: x0.25"); }
-            if (Globals.moveCameraMultiplier == 0.5f) { bgSpeed.SetText("Scoreboard Settings: x0.5"); }
+            if (scoreMultiplier != null)
+            {
+                if (scoreMultiplier.IsMouseCursorOnMe() == true)
+                {
+                    scoreMultiplier.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    scoreMultiplier.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && scoreMultiplier.IsMouseCursorOnMe() == true)
+                {
+                    if (Globals.multiplikator == 1)
+                    {
+                        Globals.multiplikator = 2;
+                    }
+                    else if (Globals.multiplikator == 2)
+                    {
+                        Globals.multiplikator = 5;
+                    }
+                    else if (Globals.multiplikator == 5)
+                    {
+                        Globals.multiplikator = 10;
+                    }
+                    else if (Globals.multiplikator == 10)
+                    {
+                        Globals.multiplikator = 0.1f;
+                    }
+                    else if (Globals.multiplikator == 0.1f)
+                    {
+                        Globals.multiplikator = 0.05f;
+                    }
+                    else if (Globals.multiplikator == 0.05f)
+                    {
+                        Globals.multiplikator = 0.01f;
+                    }
+                    else if (Globals.multiplikator == 0.01f)
+                    {
+                        Globals.multiplikator = 1f;
+                    }
+                }
+            }
+
+
+            if (Globals.moveCameraMultiplier == 1f) { bgSpeed.SetText("Background Speed: x1"); }
+            if (Globals.moveCameraMultiplier == 2f) { bgSpeed.SetText("Background Speed: x2"); }
+            if (Globals.moveCameraMultiplier == 4f) { bgSpeed.SetText("Background Speed: x4"); }
+            if (Globals.moveCameraMultiplier == 0.25f) { bgSpeed.SetText("Background Speed: x0.25"); }
+            if (Globals.moveCameraMultiplier == 0.5f) { bgSpeed.SetText("Background Speed: x0.5"); }
+
+            if (Globals.multiplikator == 1f) { scoreMultiplier.SetText("Score Multiplier: x1"); }
+            if (Globals.multiplikator == 2f) { scoreMultiplier.SetText("Score Multiplier: x2"); }
+            if (Globals.multiplikator == 5f) { scoreMultiplier.SetText("Score Multiplier: x5"); }
+            if (Globals.multiplikator == 10f) { scoreMultiplier.SetText("Score Multiplier: x10"); }
+            if (Globals.multiplikator == 0.1f) { scoreMultiplier.SetText("Score Multiplier: x0.1"); }
+            if (Globals.multiplikator == 0.05f) { scoreMultiplier.SetText("Score Multiplier: x0.05"); }
+            if (Globals.multiplikator == 0.01f) { scoreMultiplier.SetText("Score Multiplier: x0.01"); }
         }
 
 
@@ -203,9 +257,9 @@ namespace Gruppenprojekt.App
 
             AddHUDObject(sbTitle);
 
-
+            pos += 50;
             HUDObjectText clear = new HUDObjectText("clear");
-            clear.SetPosition(160f, pos + 50f);
+            clear.SetPosition(160f, pos);
             clear.Name = "clear";
             clear.SetCharacterDistanceFactor(1.0f);
             clear.SetColor(1.0f, 0.0f, 0.0f);
@@ -213,40 +267,40 @@ namespace Gruppenprojekt.App
 
             AddHUDObject(clear);
 
+            //pos += 50;
+            //HUDObjectText text1 = new HUDObjectText("");
+            //text1.SetPosition(160f, pos + 100f);
+            //text1.Name = "text1";
+            //text1.SetCharacterDistanceFactor(1.0f);
+            //text1.SetColor(1.0f, 0.0f, 0.0f);
+            //text1.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            //
+            //AddHUDObject(text1);
 
-            HUDObjectText text1 = new HUDObjectText("");
-            text1.SetPosition(160f, pos + 100f);
-            text1.Name = "text1";
-            text1.SetCharacterDistanceFactor(1.0f);
-            text1.SetColor(1.0f, 0.0f, 0.0f);
-            text1.SetColorEmissive(1.0f, 1.0f, 1.0f);
-
-            AddHUDObject(text1);
-
-
-            HUDObjectText text2 = new HUDObjectText("");
-            text2.SetPosition(160f, pos + 150f);
-            text2.Name = "text2";
-            text2.SetCharacterDistanceFactor(1.0f);
-            text2.SetColor(1.0f, 0.0f, 0.0f);
-            text2.SetColorEmissive(1.0f, 1.0f, 1.0f);
-
-            AddHUDObject(text2);
+            //pos += 50;
+            //HUDObjectText text2 = new HUDObjectText("");
+            //text2.SetPosition(160f, pos + 150f);
+            //text2.Name = "text2";
+            //text2.SetCharacterDistanceFactor(1.0f);
+            //text2.SetColor(1.0f, 0.0f, 0.0f);
+            //text2.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            //
+            //AddHUDObject(text2);
 
 
 
-            
+            pos += 70;
             HUDObjectText bgTitle = new HUDObjectText("Background Settings");
-            bgTitle.SetPosition(130f, pos + 250f);
+            bgTitle.SetPosition(130f, pos);
             bgTitle.SetCharacterDistanceFactor(1.0f);
             bgTitle.SetColor(1.0f, 0.0f, 0.0f);
             bgTitle.SetScale(30.0f);
 
             AddHUDObject(bgTitle);
 
-
+            pos += 50;
             HUDObjectText bgSpeed = new HUDObjectText("Background Speed:");
-            bgSpeed.SetPosition(160f, pos + 300f);
+            bgSpeed.SetPosition(160f, pos);
             bgSpeed.Name = "bgSpeed";
             bgSpeed.SetCharacterDistanceFactor(1.0f);
             bgSpeed.SetColor(1.0f, 0.0f, 0.0f);
@@ -254,45 +308,24 @@ namespace Gruppenprojekt.App
             
             AddHUDObject(bgSpeed);
 
+            pos += 70;
+            HUDObjectText gameSettings = new HUDObjectText("Game Settings");
+            gameSettings.SetPosition(130f, pos);
+            gameSettings.SetCharacterDistanceFactor(1.0f);
+            gameSettings.SetColor(1.0f, 0.0f, 0.0f);
+            gameSettings.SetScale(30.0f);
 
+            AddHUDObject(gameSettings);
 
+            pos += 50;
+            HUDObjectText scoreMultiplier = new HUDObjectText("Score Multiplier:");
+            scoreMultiplier.SetPosition(160f, pos);
+            scoreMultiplier.Name = "scoreMultiplier";
+            scoreMultiplier.SetCharacterDistanceFactor(1.0f);
+            scoreMultiplier.SetColor(1.0f, 0.0f, 0.0f);
+            scoreMultiplier.SetColorEmissive(1.0f, 1.0f, 1.0f);
 
-
-            string filePath = @"./App/data/scoreboardSettings.txt";
-            try
-            {
-                // Datei löschen, falls sie existiert
-                if (File.Exists(filePath))
-                {
-                    File.Delete(filePath);
-                }
-
-                // Datei neu erstellen und beschreiben
-                using (StreamWriter writer = File.CreateText(filePath))
-                {
-                    writer.WriteLine("Dies ist eine neu erstellte Datei.");
-                    writer.WriteLine("Hier ist eine zweite Zeile Text.");
-                }
-
-                // Methode 1: Ganze Datei als Text einlesen
-                string fileContent = File.ReadAllText(filePath);
-
-
-                // Methode 2: Datei zeilenweise einlesen
-                string[] lines = File.ReadAllLines(filePath);
-                foreach (string line in lines)
-                {
-                    Console.WriteLine(line);
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-
-
-
-
+            AddHUDObject(scoreMultiplier);
         }        
     }
 }

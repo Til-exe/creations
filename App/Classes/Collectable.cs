@@ -3,6 +3,7 @@ using KWEngine3.GameObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,9 +14,10 @@ namespace Gruppenprojekt.App.Classes
         private LightObject l;
         public Collectable(string name, float x, float y, float z) 
         {
+            Random rnd = new Random();
             this.SetModel("KWSphere"); // KWCube
             this.Name = name;
-            this.SetPosition(x, y, z);
+            this.SetPosition(x, rnd.Next(1,5), z);
             this.IsCollisionObject = true;
             this.IsShadowCaster = true;
             this.SetColor(0, 1, 0);
@@ -24,7 +26,7 @@ namespace Gruppenprojekt.App.Classes
             l = new LightObject(LightType.Point, ShadowQuality.NoShadow);
             l.Name = name;
             l.SetPosition(x, y, z);
-            l.SetNearFar(0.1f, 8f);
+            l.SetNearFar(0.05f, 7f);
             l.SetColor(0f, 1f, 0f, 10f);
             
             CurrentWorld.AddLightObject(l);
@@ -32,7 +34,7 @@ namespace Gruppenprojekt.App.Classes
 
         public void KillMe()
         {
-            Globals.Score+=100 * Globals.multiplikator;
+            Globals.Score+=(100 * Globals.multiplikator);
             CurrentWorld.RemoveGameObject(this);
             CurrentWorld.RemoveLightObject(l);
 
@@ -52,8 +54,10 @@ namespace Gruppenprojekt.App.Classes
         public override void Act()
         {
             
-            if(Globals.gameRunning)
+            
+            if (Globals.gameRunning)
             {
+                
                 this.SetRotation(this.Rotation.X + 0.01f,0,0);
                 if (movingUp && this.Position.Y < 4)
                 {

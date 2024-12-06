@@ -24,6 +24,7 @@ namespace Gruppenprojekt.App.Classes
         HUDObjectText m1 = new HUDObjectText("Zurück zum Spiel");
         HUDObjectText m2 = new HUDObjectText("Hauptmenu");
         HUDObjectText m3 = new HUDObjectText("Verlassen");
+        HUDObjectText score = new HUDObjectText("Punkte");
         HUDObjectImage bg = new HUDObjectImage("./App/Textures/blackscreen.png");
         HUDObjectText mtitle = new HUDObjectText("Pausiert");
         private HUDObjectText colCount;
@@ -88,6 +89,12 @@ namespace Gruppenprojekt.App.Classes
             m3.SetCharacterDistanceFactor(1.0f);
             m3.SetColor(1.0f, 0.0f, 0.0f);
             m3.SetColorEmissive(1.0f, 1.0f, 1.0f);
+
+            score.SetPosition(700f, 200f);
+            score.Name = "Punkte";
+            score.SetCharacterDistanceFactor(1.0f);
+            score.SetColor(1.0f, 0.0f, 0.0f);
+
         }
 
         private float _flickerVorbei = 0f; 
@@ -279,6 +286,11 @@ namespace Gruppenprojekt.App.Classes
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && m3.IsMouseCursorOnMe() == true)
                 {
+                    Globals.Trys++;
+                    string path = @"./App/data/data.txt";
+
+                    string appendText = Convert.ToString(Globals.Score) + "\n";
+                    File.AppendAllText(path, appendText);
                     Window.Close();
                 }
             }
@@ -336,6 +348,8 @@ namespace Gruppenprojekt.App.Classes
             CurrentWorld.RemoveHUDObject(m2);
             CurrentWorld.RemoveHUDObject(m3);
             CurrentWorld.RemoveHUDObject(mtitle);
+            CurrentWorld.RemoveHUDObject(score);
+
         }
         public void stop()
         {
@@ -347,6 +361,8 @@ namespace Gruppenprojekt.App.Classes
             CurrentWorld.AddHUDObject(m3);
             CurrentWorld.AddHUDObject(bg);
             CurrentWorld.AddHUDObject(mtitle);
+            CurrentWorld.AddHUDObject(score);
+            score.SetText("Punktestand: " + Globals.Score);
         }
         public void weiter()
         {

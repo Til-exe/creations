@@ -160,6 +160,8 @@ namespace Gruppenprojekt.App
         
         public override void Prepare()
         {
+
+            Globals.gameRunning = true;
             Wall w1 = new Wall("1", 0f, 4f, 5f);
             Wall w2 = new Wall("2", 0f, 4f, 0f);
             Floor f = new Floor("floor", 1f, 1f, 1f);
@@ -215,7 +217,7 @@ namespace Gruppenprojekt.App
             displayClickableButtons();
 
 
-            HUDObjectText sb = new HUDObjectText("SCORE BOARD");
+            HUDObjectText sb = new HUDObjectText(Globals.ActualScoreboardText);
             sb.SetPosition(750f, 200f);            
             sb.SetCharacterDistanceFactor(1.0f);
             sb.SetColor(1.0f, 0.0f, 0.0f);
@@ -313,7 +315,17 @@ namespace Gruppenprojekt.App
             SetCameraPosition(0.0f, 5.0f, 15.0f);
 
             string dateiPfad = @"./App/data/data.txt";
-            string content = File.ReadAllText(dateiPfad);
+            string content;
+            try
+            {
+                content = File.ReadAllText(dateiPfad);
+            }
+            catch
+            {
+                File.AppendAllText(dateiPfad, "0" + Environment.NewLine);
+                content = File.ReadAllText(dateiPfad);
+            }
+            
 
             if (string.IsNullOrWhiteSpace(content))
             {
@@ -335,7 +347,8 @@ namespace Gruppenprojekt.App
                 {
                     string path = @"./App/data/data.txt";                    
                     string appendText = Convert.ToString(Globals.Score) + "\n";
-                    File.AppendAllText(path, appendText);
+                    File.WriteAllText(path, appendText);
+                    
                 }                
             }    
             
@@ -354,14 +367,15 @@ namespace Gruppenprojekt.App
                 
             }
             catch
-            {
+            {//                                                                                                                                                                                                                                                                                    Ich hab hier drin gearbeitet und nun hat mir Pia erzählt das als ich vor ein paar monaten eine Freundin von ihr geil fand, sie ja nur nichts gemacht hat weil ich ihr bruder bin und wäre sie mit mir alleien gewesen sie nichts hätte garantieren können :O              
                 s1.SetText("1# 0" );
             }
             try { s2.SetText("2# " + Convert.ToString(allNumbers[allNumbers.Length - 2]));
+                //                                                                                                                                                                                                                              Ich hab hier drin gearbeitet und nun hat mir Pia erzählt das als ich vor ein paar monaten eine Freundin von ihr geil fand, sie ja nur nichts gemacht hat weil ich ihr bruder bin und wäre sie mit mir alleien gewesen sie nichts hätte garantieren können :O              
             }
             catch { s2.SetText("2# 0"); }
             try { s3.SetText("3# " + Convert.ToString(allNumbers[allNumbers.Length - 3]));
-            }
+            } 
             catch { s3.SetText("3# 0"); }
             try { s4.SetText("4# " + Convert.ToString(allNumbers[allNumbers.Length - 4])); 
             }
