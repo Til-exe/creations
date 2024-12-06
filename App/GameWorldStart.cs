@@ -55,7 +55,15 @@ namespace Gruppenprojekt.App
 
         public override void Act()
         {
-           
+            if (Keyboard.IsKeyPressed(Keys.T))
+            {
+                FlowField f = GetFlowField();
+                if (f != null)
+                {
+                    f.IsVisible = !f.IsVisible;
+                }
+            }
+            
 
             // WorldTime ist 2.5
             // _HUDLastUpdate ist 2.2
@@ -169,8 +177,9 @@ namespace Gruppenprojekt.App
         public override void Prepare()
         {
             FlowField pathfinding = new FlowField(0, 2.5f, 0, 100, 100, 0.5f, 5, FlowFieldMode.Simple, typeof(Wall));
-            pathfinding.IsVisible = false; //FLOWFIELD DEBUG VISIBILTY
+            pathfinding.IsVisible = true; //FLOWFIELD DEBUG VISIBILTY
             SetFlowField(pathfinding);
+
             Audio.PreloadSound(@"./App/Sounds/shortsound.wav");
             Audio.PreloadSound(@"./App/Sounds/flashlight_click.wav");
             Audio.PreloadSound(@"./App/Sounds/flashlightexplode.wav");
@@ -208,7 +217,7 @@ namespace Gruppenprojekt.App
 
 
             //test 
-            Enemy e = new Enemy("huso" , -12.5f, 2, 15);
+            Enemy e = new Enemy("huso" , -12.5f, 2, 13);
             AddGameObject(e);
             Collectable c1 = new Collectable("1", 3f, 3f, 20f);
             Collectable c2 = new Collectable("2", 10f, 3f, 20f);
@@ -226,6 +235,7 @@ namespace Gruppenprojekt.App
             Wall w8 = new Wall("8", 10f, 4f, 0f);
             Wall w9 = new Wall("9", 0f, 4f, -5f);
             Wall w10 = new Wall("10", -2.5f, 6.9f, 5);
+            w4.SetScale(30f, 5f, 1f);
             w5.SetRotation(0, 90, 0);
             w5.SetScale(10f, 5f, 1f);
             w6.SetRotation(0, 90, 0);
