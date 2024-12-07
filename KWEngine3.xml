@@ -4009,7 +4009,7 @@
             <param name="value">zu normalisierender Wert</param>
             <param name="rangeMin">Bereichsminimum</param>
             <param name="rangeMax">Bereichsmaximum</param>
-            <returns></returns>
+            <returns>Normalisierter Wert</returns>
         </member>
         <member name="M:KWEngine3.Helper.HelperGeneral.ScaleToRange(System.Int32,System.Int32,System.Single[])">
             <summary>
