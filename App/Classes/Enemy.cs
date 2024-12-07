@@ -3,102 +3,102 @@ using KWEngine3.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OpenTK.Mathematics;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Gruppenprojekt.App.Classes
 {
-    internal class Enemy: GameObject
+    internal class Enemy : GameObject
     {
-        public Enemy(string name, float x, float y, float z) {
+        private HashSet<string> blockedDirections = new HashSet<string>();
+        private float unblockTime = 0f;
+
+        public Enemy(string name, float x, float y, float z)
+        {
             this.Name = name;
             this.SetPosition(x, y, z);
             this.SetColor(0f, 0f, 1f);
             this.IsCollisionObject = true;
             this.IsShadowCaster = true;
             this.SetScale(1, 2, 1);
-
-
-
-
         }
 
         public override void Act()
         {
-            Move(0.1f);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             
-
-           
-
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            Move(0.1f);
+            UnblockDirectionsIfNeeded();
             List<Intersection> intersections = GetIntersections();
             foreach (Intersection intersection in intersections)
             {
@@ -106,15 +106,12 @@ namespace Gruppenprojekt.App.Classes
                 DecideNewDirection();
             }
         }
-        private HashSet<string> blockedDirections = new HashSet<string>();
-        private float unblockTime = 0f;
         private void DecideNewDirection()
         {
             int costNorth = 255;
             int costSouth = 255;
             int costEast = 255;
             int costWest = 255;
-
             FlowField pathfinding = CurrentWorld.GetFlowField();
             if (pathfinding != null)
             {
@@ -125,7 +122,6 @@ namespace Gruppenprojekt.App.Classes
                     FlowFieldCell neighbourSouth = cell.GetNeighbourCellAtOffset(0, 1);
                     FlowFieldCell neighbourWest = cell.GetNeighbourCellAtOffset(-1, 0);
                     FlowFieldCell neighbourEast = cell.GetNeighbourCellAtOffset(1, 0);
-
                     if (neighbourNorth != null && !blockedDirections.Contains("North"))
                         costNorth = neighbourNorth.Cost;
                     if (neighbourSouth != null && !blockedDirections.Contains("South"))
@@ -134,56 +130,51 @@ namespace Gruppenprojekt.App.Classes
                         costWest = neighbourWest.Cost;
                     if (neighbourEast != null && !blockedDirections.Contains("East"))
                         costEast = neighbourEast.Cost;
-
                     List<(string direction, int cost, Vector3 target)> directions = new List<(string, int, Vector3)>
                     {
-                    ("North", costNorth, new Vector3(0, 0, -1)),
-                    ("South", costSouth, new Vector3(0, 0, 1)),
-                    ("West", costWest, new Vector3(-1, 0, 0)),
-                    ("East", costEast, new Vector3(1, 0, 0))
+                        ("North", costNorth, new Vector3(0, 0, -1)),
+                        ("South", costSouth, new Vector3(0, 0, 1)),
+                        ("West", costWest, new Vector3(-1, 0, 0)),
+                        ("East", costEast, new Vector3(1, 0, 0))
                     };
                     directions = directions.OrderBy(d => d.cost).ToList();
-                    int minCost = directions.First().cost;
-                    var bestDirections = directions.Where(d => d.cost == minCost).ToList();
-                    var chosenDirection = bestDirections[new Random().Next(bestDirections.Count)];
-                    this.TurnTowardsXZ(this.Position + chosenDirection.target);
-                    UpdateBlockedDirections(chosenDirection.direction);
+                    var bestDirection = directions.First();
+                    this.TurnTowardsXZ(this.Position + bestDirection.target);
+                    UpdateBlockedDirections(bestDirection.direction);
                 }
                 else
                 {
-                    Console.WriteLine("Digga was IST PASSIERT");
+                    Console.WriteLine("HUH irg was is kaputt gegangen");
                 }
             }
-            UnblockDirectionsIfNeeded();
         }
         private void UpdateBlockedDirections(string chosenDirection)
         {
-            switch (chosenDirection)
+            blockedDirections.Clear();
+            blockedDirections.Add(chosenDirection);
+            string oppositeDirection = chosenDirection switch
             {
-                case "North":
-                    blockedDirections.Add("South");
-                    break;
-                case "South":
-                    blockedDirections.Add("North");
-                    break;
-                case "East":
-                    blockedDirections.Add("West");
-                    break;
-                case "West":
-                    blockedDirections.Add("East");
-                    break;
+                "North" => "South",
+                "South" => "North",
+                "East" => "West",
+                "West" => "East",
+                _ => null
+            };
+
+            if (oppositeDirection != null)
+            {
+                blockedDirections.Add(oppositeDirection);
+                Console.WriteLine($"Richtung {oppositeDirection} gesperrt.");
             }
-            unblockTime = WorldTime + 5f;
+            unblockTime = Environment.TickCount + 2000; //2 sek sperrung
         }
         private void UnblockDirectionsIfNeeded()
         {
-            if (WorldTime >= unblockTime)
+            if (Environment.TickCount >= unblockTime)
             {
                 blockedDirections.Clear();
+                Console.WriteLine("Richtungen entsperrt.");
             }
         }
-
     }
-
 }
-
