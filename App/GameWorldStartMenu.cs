@@ -300,8 +300,6 @@ namespace Gruppenprojekt.App
 
             int[] allNumbers = new int[readScores.Length];
             int[] allTime = new int[readTime.Length];
-
-            // Scores konvertieren
             for (int i = 0; i < readScores.Length; i++)
             {
                 if (int.TryParse(readScores[i], out int number))
@@ -313,8 +311,6 @@ namespace Gruppenprojekt.App
                     Console.WriteLine($"Ungültiger Wert in {dateiPfad}: '{readScores[i]}' wird ignoriert.");
                 }
             }
-
-            // Zeiten konvertieren
             for (int i = 0; i < readTime.Length; i++)
             {
                 if (int.TryParse(readTime[i], out int time))

@@ -326,20 +326,9 @@ namespace Gruppenprojekt.App.Classes
                 MoveOffset(mtv);
                 if (collider is Collectable)
                 {
-
                     (collider as Collectable).KillMe();
                     counter = counter + 1;
-                    colCount.SetText("Gesammelte Orbs: " + counter);
-                    /*
-                    if (counter == 1)
-                    {
-                        colCount.SetText("Sie haben " + counter + " Licht");
-                    }
-                    else if (counter > 1)
-                    {
-                        colCount.SetText("Sie haben " + counter + " Lichter");
-                    }
-                    */
+                    colCount.SetText("Gesammelte Orbs: " + counter);                    
                 }
             }
         } 
