@@ -64,7 +64,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="App\GameWorldStartMenu.cs">
+    <Compile Update="App\Menus\GameWorldStartMenu.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>

@@ -1,12 +1,21 @@
-﻿using KWEngine3;
-using KWEngine3.Audio;
-using KWEngine3.GameObjects;
-using Gruppenprojekt.App.Classes;
-using OpenTK.Mathematics;
+﻿using System.Security.Cryptography.X509Certificates;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using System.Runtime.CompilerServices;
+using System.Collections.Immutable;
+using System.Collections.Generic;
+using System.Diagnostics.Metrics;
+using Gruppenprojekt.App.Classes;
+using Gruppenprojekt.App.Menus;
+using KWEngine3.GameObjects;
+using OpenTK.Mathematics;
+using System.Xml.Linq;
+using KWEngine3.Audio;
+using System.Linq;
+using System.IO;
+using KWEngine3;
 using System;
 
-namespace Gruppenprojekt.App
+namespace Gruppenprojekt.App.Menus
 {
     public class choseGamemode : World
     {
@@ -75,10 +84,10 @@ namespace Gruppenprojekt.App
                     peacefull.SetColorEmissiveIntensity(0.0f);
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && peacefull.IsMouseCursorOnMe() == true)
-                {                    
+                {
                     Globals.choseGamemode = "Peacefull";
                 }
-            
+
             }
             if (hard != null)
             {
@@ -92,7 +101,7 @@ namespace Gruppenprojekt.App
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && hard.IsMouseCursorOnMe() == true)
                 {
-                   
+
                     Globals.choseGamemode = "Hard";
                 }
             }
@@ -103,7 +112,7 @@ namespace Gruppenprojekt.App
             if (Globals.choseGamemode == "Infinit") { infinit.SetText("> Infinit"); }
             if (Globals.choseGamemode == "Normal") { normal.SetText("> Normal"); }
             if (Globals.choseGamemode == "Peacefull") { peacefull.SetText("> Friedlich"); }
-            if (Globals.choseGamemode == "Hard") { hard.SetText("> Schwer"); } 
+            if (Globals.choseGamemode == "Hard") { hard.SetText("> Schwer"); }
         }
         public override void Prepare()
         {
@@ -155,8 +164,8 @@ namespace Gruppenprojekt.App
             Infinit.SetText("Infinit");
             Peacefull.SetText("Peacefull");
             Hard.SetText("Hard");
-        }        
-        public static void  gamemodePrepare()
+        }
+        public static void gamemodePrepare()
         {
             if (Globals.choseGamemode == "Infinit") { }
             if (Globals.choseGamemode == "Normal") { }

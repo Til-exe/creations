@@ -6,22 +6,25 @@ using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using System;
 
-namespace Gruppenprojekt.App
+namespace Gruppenprojekt.App.Menus
 {
     public class CreditsMenu : World
     {
         public override void Act()
-        {            
-            HUDObjectText back = GetHUDObjectTextByName("back");            
+        {
+            HUDObjectText back = GetHUDObjectTextByName("back");
             if (back != null)
             {
-                if (back.IsMouseCursorOnMe() == true) {
+                if (back.IsMouseCursorOnMe() == true)
+                {
                     back.SetColorEmissiveIntensity(1.5f);
                 }
-                else {
+                else
+                {
                     back.SetColorEmissiveIntensity(0.0f);
                 }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && back.IsMouseCursorOnMe() == true) {
+                if (Mouse.IsButtonPressed(MouseButton.Left) && back.IsMouseCursorOnMe() == true)
+                {
                     GameWorldStartMenu gm = new GameWorldStartMenu();
                     Window.SetWorld(gm);
                 }
@@ -33,13 +36,13 @@ namespace Gruppenprojekt.App
             int posY = 200;
             HUDObjectText back = new HUDObjectText("BACK");
             back.SetPosition(50f, 80f);
-            back.Name = "back";            
+            back.Name = "back";
             back.SetColor(1.0f, 0.0f, 0.0f);
             back.SetColorEmissive(1.0f, 1.0f, 1.0f);
 
             HUDObjectText h2 = new HUDObjectText("Dieses Spiel wurde Inspiriert von");
             h2.SetPosition(posX, posY);
-            h2.SetColor(1,0,0);
+            h2.SetColor(1, 0, 0);
             posY += 50;
 
             HUDObjectText h3 = new HUDObjectText("IT STEALS");

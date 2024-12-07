@@ -10,16 +10,16 @@ using static Assimp.Metadata;
 using System.Linq.Expressions;
 using System.IO;
 
-namespace Gruppenprojekt.App
+namespace Gruppenprojekt.App.Menus
 {
     public class GwStartMenuOption : World
     {
         int value1 = 0;
         int value2 = 0;
         int value3 = 0;
-        bool codeEnterd = true;        
+        bool codeEnterd = true;
         public override void Act()
-        {            
+        {
             HUDObjectText back = GetHUDObjectTextByName("back");
             HUDObjectText enter = GetHUDObjectTextByName("Enter");
             HUDObjectText reset = GetHUDObjectTextByName("Reset");
@@ -37,11 +37,11 @@ namespace Gruppenprojekt.App
 
             HUDObjectText code = GetHUDObjectTextByName("code");
             HUDObjectText EnableCredits = GetHUDObjectTextByName("EnableCredits");
-            HUDObjectText EnableLanguage = GetHUDObjectTextByName("EnableLanguage"); 
-            HUDObjectText EnableScoreboard = GetHUDObjectTextByName("EnableScoreboard"); 
-            HUDObjectText gamemode = GetHUDObjectTextByName("gamemode"); 
+            HUDObjectText EnableLanguage = GetHUDObjectTextByName("EnableLanguage");
+            HUDObjectText EnableScoreboard = GetHUDObjectTextByName("EnableScoreboard");
+            HUDObjectText gamemode = GetHUDObjectTextByName("gamemode");
 
-            if (back != null)                                                                     
+            if (back != null)
             {
                 //BACK
 
@@ -77,8 +77,8 @@ namespace Gruppenprojekt.App
                     { code.SetText("CODE AKTIVIERT"); codeEnterd = false; }
                     else { code.SetText(""); }
                     Globals.ReturnCode = 1;
-                        
-                        
+
+
                 }
             }
             if (reset != null)
@@ -112,11 +112,11 @@ namespace Gruppenprojekt.App
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && plus1.IsMouseCursorOnMe() == true)
                 {
-                    if(value1 < 37)
+                    if (value1 < 37)
                     {
                         value1++;
                     }
-                    
+
                 }
             }
             if (plus2 != null)
@@ -179,11 +179,11 @@ namespace Gruppenprojekt.App
                     {
                         value1 = 37;
                     }
-                    if (value1  >= 1)
+                    if (value1 >= 1)
                     {
                         value1--;
                     }
-                    
+
                 }
             }
             if (minus2 != null)
@@ -208,7 +208,7 @@ namespace Gruppenprojekt.App
                     {
                         value2--;
                     }
-                    
+
                 }
             }
             if (minus3 != null)
@@ -231,7 +231,7 @@ namespace Gruppenprojekt.App
                     {
                         value3--;
                     }
-                    
+
                 }
             }
             if (EnableCredits != null)
@@ -245,12 +245,12 @@ namespace Gruppenprojekt.App
                     EnableCredits.SetColorEmissiveIntensity(0.0f);
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && EnableCredits.IsMouseCursorOnMe() == true)
-                {                    
+                {
                     if (Globals.DisplayCreditsButton == true)
                     {
                         EnableCredits.SetText("CREDITS: DISABLED");
                         Globals.DisplayCreditsButton = false;
-                        File.WriteAllText(Globals.Cpath, "false");                        
+                        File.WriteAllText(Globals.Cpath, "false");
                     }
                     else
                     {
@@ -310,33 +310,8 @@ namespace Gruppenprojekt.App
                         Globals.DisplayScoreboardButton = true;
                         File.WriteAllText(Globals.Cpath, "true");
                     }
+
                 }
-            if (EnableScoreboard != null)
-            {
-                if (EnableScoreboard.IsMouseCursorOnMe() == true)
-                {
-                    EnableScoreboard.SetColorEmissiveIntensity(1.5f);
-                }
-                else
-                {
-                    EnableScoreboard.SetColorEmissiveIntensity(0.0f);
-                }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && EnableScoreboard.IsMouseCursorOnMe() == true)
-                {
-                    if (Globals.DisplayScoreboardButton == true)
-                    {
-                        EnableScoreboard.SetText("ADMIN: DISABLED");
-                        Globals.DisplayScoreboardButton = false;
-                        File.WriteAllText(Globals.Cpath, "false");
-                    }
-                    else
-                    {
-                        EnableScoreboard.SetText("ADMIN: ENABLED");
-                        Globals.DisplayScoreboardButton = true;
-                        File.WriteAllText(Globals.Cpath, "true");
-                    }
-                }
-            }
             }
             if (gamemode != null)
             {
@@ -359,9 +334,9 @@ namespace Gruppenprojekt.App
             string text1 = transelateCode(Convert.ToString(value1));
             string text2 = transelateCode(Convert.ToString(value2));
             string text3 = transelateCode(Convert.ToString(value3));
-            if(value1 == 37) { value1 = 0; }
-            if(value2  == 37) { value2 = 0; }
-            if(value3 == 37) { value3 = 0; }
+            if (value1 == 37) { value1 = 0; }
+            if (value2 == 37) { value2 = 0; }
+            if (value3 == 37) { value3 = 0; }
             score1.SetText("| " + text1 + " |", true);  //update shown Value
             score2.SetText("| " + text2 + " |", true);  //update shown Value
             score3.SetText("| " + text3 + " |", true);  //update shown Value
@@ -405,7 +380,7 @@ namespace Gruppenprojekt.App
             {
                 credits.SetText("CREDITS: ENABLED");
                 Globals.DisplayCreditsButton = true;
-            }            
+            }
 
             if (Globals.DisplayLanguageButton == false)
             {
@@ -417,7 +392,7 @@ namespace Gruppenprojekt.App
                 language.SetText("LANGUAGE: ENABLED");
                 Globals.DisplayLanguageButton = true;
             }
-            
+
             if (Globals.DisplayScoreboardButton == false)
             {
                 scoreboard.SetText("ADMIN: DISABLED");
@@ -441,7 +416,7 @@ namespace Gruppenprojekt.App
             Reset.Name = "Reset";
             Reset.SetColor(1.0f, 0.0f, 0.0f);
             Reset.SetColorEmissive(1.0f, 1.0f, 1.0f);
-            AddHUDObject(Reset);            
+            AddHUDObject(Reset);
 
             HUDObjectText code = new HUDObjectText("");
             code.SetPosition(160f, 400f);
@@ -453,10 +428,10 @@ namespace Gruppenprojekt.App
             minus1.SetPosition(160f, 350f);
             minus1.Name = "minus1";
             minus1.SetColor(1.0f, 0.0f, 0.0f);
-            minus1.SetColorEmissive(1.0f, 1.0f, 1.0f);            
+            minus1.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(minus1);
 
-            HUDObjectText score1 = new HUDObjectText("| " + value1 +  " |");
+            HUDObjectText score1 = new HUDObjectText("| " + value1 + " |");
             score1.SetPosition(160f, 300f);
             score1.Name = "score1";
             score1.SetColor(1.0f, 0.0f, 0.0f);
@@ -523,43 +498,43 @@ namespace Gruppenprojekt.App
         }
         public string transelateCode(string text)
         {
-            if(text == "1") { text = "1"; }
-            if(text == "2") { text = "2"; }
-            if(text == "3") { text = "3"; }
-            if(text == "4") { text = "4"; }
-            if(text == "5") { text = "5"; }
-            if(text == "6") { text = "6"; }
-            if(text == "7") { text = "7"; }
-            if(text == "8") { text = "8"; }
-            if(text == "9") { text = "9"; }
-            if(text == "10") { text = "0"; }
+            if (text == "1") { text = "1"; }
+            if (text == "2") { text = "2"; }
+            if (text == "3") { text = "3"; }
+            if (text == "4") { text = "4"; }
+            if (text == "5") { text = "5"; }
+            if (text == "6") { text = "6"; }
+            if (text == "7") { text = "7"; }
+            if (text == "8") { text = "8"; }
+            if (text == "9") { text = "9"; }
+            if (text == "10") { text = "0"; }
 
-            if(text == "11"){ text = "A"; }
-            if(text == "12"){ text = "B"; }
-            if(text == "13"){ text = "C"; }
-            if(text == "14"){ text = "D"; }
-            if(text == "15"){ text = "E"; }
-            if(text == "16"){ text = "F"; }
-            if(text == "17"){ text = "G"; }
-            if(text == "18"){ text = "H"; }
-            if(text == "19"){ text = "I"; }
-            if(text == "20"){ text = "J"; }
-            if(text == "21"){ text = "K"; }
-            if(text == "22"){ text = "L"; }
-            if(text == "23"){ text = "M"; }
-            if(text == "24"){ text = "N"; }
-            if(text == "25"){ text = "O"; }
-            if(text == "26"){ text = "P"; }
-            if(text == "27"){ text = "Q"; }
-            if(text == "28"){ text = "R"; }
-            if(text == "29"){ text = "S"; }
-            if(text == "30"){ text = "T"; }
-            if(text == "31"){ text = "U"; }
-            if(text == "32"){ text = "V"; }
-            if(text == "33"){ text = "W"; }
-            if(text == "34"){ text = "X"; }
-            if(text == "35"){ text = "Y"; }
-            if(text == "36"){ text = "Z"; }
+            if (text == "11") { text = "A"; }
+            if (text == "12") { text = "B"; }
+            if (text == "13") { text = "C"; }
+            if (text == "14") { text = "D"; }
+            if (text == "15") { text = "E"; }
+            if (text == "16") { text = "F"; }
+            if (text == "17") { text = "G"; }
+            if (text == "18") { text = "H"; }
+            if (text == "19") { text = "I"; }
+            if (text == "20") { text = "J"; }
+            if (text == "21") { text = "K"; }
+            if (text == "22") { text = "L"; }
+            if (text == "23") { text = "M"; }
+            if (text == "24") { text = "N"; }
+            if (text == "25") { text = "O"; }
+            if (text == "26") { text = "P"; }
+            if (text == "27") { text = "Q"; }
+            if (text == "28") { text = "R"; }
+            if (text == "29") { text = "S"; }
+            if (text == "30") { text = "T"; }
+            if (text == "31") { text = "U"; }
+            if (text == "32") { text = "V"; }
+            if (text == "33") { text = "W"; }
+            if (text == "34") { text = "X"; }
+            if (text == "35") { text = "Y"; }
+            if (text == "36") { text = "Z"; }
             return text;
         }
     }

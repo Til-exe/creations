@@ -1,19 +1,21 @@
-﻿using KWEngine3;
-using KWEngine3.Audio;
-using KWEngine3.GameObjects;
-using Gruppenprojekt.App.Classes;
-using OpenTK.Mathematics;
+﻿using System.Security.Cryptography.X509Certificates;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using System.Runtime.CompilerServices;
+using System.Collections.Immutable;
+using System.Collections.Generic;
+using System.Diagnostics.Metrics;
+using Gruppenprojekt.App.Classes;
+using Gruppenprojekt.App.Menus;
+using KWEngine3.GameObjects;
+using OpenTK.Mathematics;
+using System.Xml.Linq;
+using KWEngine3.Audio;
 using System.Linq;
 using System.IO;
+using KWEngine3;
 using System;
-using System.Security.Cryptography.X509Certificates;
-using System.Diagnostics.Metrics;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Xml.Linq;
 
-namespace Gruppenprojekt.App
+namespace Gruppenprojekt.App.Menus
 {
     public class scoreboardMenu : World
     {
@@ -27,7 +29,7 @@ namespace Gruppenprojekt.App
             HUDObjectText clear = GetHUDObjectTextByName("clear");
             HUDObjectText text1 = GetHUDObjectTextByName("text1");
             HUDObjectText text2 = GetHUDObjectTextByName("text2");
-            HUDObjectText bgSpeed = GetHUDObjectTextByName("bgSpeed"); 
+            HUDObjectText bgSpeed = GetHUDObjectTextByName("bgSpeed");
             HUDObjectText scoreMultiplier = GetHUDObjectTextByName("scoreMultiplier");
             if (leave != null)
             {
@@ -47,7 +49,7 @@ namespace Gruppenprojekt.App
             }
             if (clear != null)
             {
-                if (delete &&  !deleted)
+                if (delete && !deleted)
                 {
                     clear.SetColor(1, 1, 1);
                     clear.SetColorEmissiveIntensity(0.0f);
@@ -58,7 +60,7 @@ namespace Gruppenprojekt.App
                     clear.SetColor(1, 0, 0);
                     clear.SetColorEmissiveIntensity(0.0f);
                 }
-                else if(clear.IsMouseCursorOnMe() == true && delete)
+                else if (clear.IsMouseCursorOnMe() == true && delete)
                 {
                     clear.SetColorEmissiveIntensity(0.5f);
                     clear.SetColor(1, 1, 1);
@@ -78,13 +80,13 @@ namespace Gruppenprojekt.App
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && clear.IsMouseCursorOnMe() == true)
                 {
-                    if(deleted)
+                    if (deleted)
                     {
                         GameWorldStartMenu gm = new GameWorldStartMenu();
                         Window.SetWorld(gm);
                         return;
                     }
-                    if(delete)
+                    if (delete)
                     {
                         string filePath = @"./App/data/data.txt";
                         string filePathTime = @"./App/data/time.txt";
@@ -99,23 +101,23 @@ namespace Gruppenprojekt.App
                         File.WriteAllText(filePath, "");
 
                         StreamWriter writer1 = new StreamWriter(filePathTime);
-                        writer1.Close();                        
+                        writer1.Close();
                         if (File.Exists(filePathTime))
                         {
                             File.Delete(filePathTime);
                         }
                         File.WriteAllText(filePathTime, "");
                         clear.SetText("cleared file");
-                        deleted = true;                        
+                        deleted = true;
                     }
                     else if (!delete)
                     {
                         clear.SetText("Are you Sure you want to delete all Scores ?");
                         delete = true;
                     }
-                    
-                    
-                    
+
+
+
                 }
             }
 
@@ -140,9 +142,9 @@ namespace Gruppenprojekt.App
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && text1.IsMouseCursorOnMe() == true)
                 {
-                    
+
                 }
-            }            
+            }
             if (bgSpeed != null)
             {
                 if (bgSpeed.IsMouseCursorOnMe() == true)
@@ -155,31 +157,31 @@ namespace Gruppenprojekt.App
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && bgSpeed.IsMouseCursorOnMe() == true)
                 {
-                    if(Globals.moveCameraMultiplier == 1)
-                    { 
+                    if (Globals.moveCameraMultiplier == 1)
+                    {
                         Globals.moveCameraMultiplier = 2;
                     }
                     else if (Globals.moveCameraMultiplier == 2)
                     {
                         Globals.moveCameraMultiplier = 4;
                     }
-                    else if (Globals.moveCameraMultiplier == 4) 
+                    else if (Globals.moveCameraMultiplier == 4)
                     {
                         Globals.moveCameraMultiplier = 0.25f;
                     }
-                    else if (Globals.moveCameraMultiplier == 0.25f) 
+                    else if (Globals.moveCameraMultiplier == 0.25f)
                     {
                         Globals.moveCameraMultiplier = 0.5f;
                     }
-                    else if (Globals.moveCameraMultiplier == 0.5f) 
+                    else if (Globals.moveCameraMultiplier == 0.5f)
                     {
                         Globals.moveCameraMultiplier = 1;
                     }
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
                 }
             }
             if (scoreMultiplier != null)
@@ -284,7 +286,7 @@ namespace Gruppenprojekt.App
             bgSpeed.SetPosition(160f, pos);
             bgSpeed.Name = "bgSpeed";
             bgSpeed.SetColor(1.0f, 0.0f, 0.0f);
-            bgSpeed.SetColorEmissive(1.0f, 1.0f, 1.0f);            
+            bgSpeed.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(bgSpeed);
 
             pos += 70;
@@ -301,6 +303,6 @@ namespace Gruppenprojekt.App
             scoreM.SetColor(1.0f, 0.0f, 0.0f);
             scoreM.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(scoreM);
-        }                
+        }
     }
 }

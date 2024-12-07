@@ -1,19 +1,18 @@
-﻿using KWEngine3;
-using KWEngine3.Audio;
-using KWEngine3.GameObjects;
-using Gruppenprojekt.App.Classes;
-using OpenTK.Mathematics;
+﻿using System.Security.Cryptography.X509Certificates;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using System.Collections.Immutable;
+using System.Collections.Generic;
+using System.Diagnostics.Metrics;
+using Gruppenprojekt.App.Classes;
+using KWEngine3.GameObjects;
+using OpenTK.Mathematics;
+using System.Xml.Linq;
+using KWEngine3.Audio;
 using System.Linq;
 using System.IO;
+using KWEngine3;
 using System;
-using System.Security.Cryptography.X509Certificates;
-using System.Diagnostics.Metrics;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Xml.Linq;
-
-namespace Gruppenprojekt.App
+namespace Gruppenprojekt.App.Menus
 {
     public class GameWorldStartMenu : World
     {
@@ -149,6 +148,8 @@ namespace Gruppenprojekt.App
                 Window.SetWorld(gws);
                 Globals.Score = 0;
             }               //Start Button
+            //if (Keyboard.IsKeyPressed(Keys.Space)) { IntroScreen screen = new IntroScreen(); Window.SetWorld(screen); }
+            
             SetCameraPosition(Globals.moveCameraX, 4, Globals.moveCameraY);
             SetCameraTarget(CameraPosition.X, CameraPosition.Y + 2, CameraPosition.Z);
 
@@ -159,7 +160,7 @@ namespace Gruppenprojekt.App
             if (Globals.moveCameraMultiplier == 4) { Globals.moveCameraX += 0.08f; }
             if (Globals.moveCameraMultiplier == 0.5) { Globals.moveCameraX += 0.01f; }
             if (Globals.moveCameraMultiplier == 0.25) { Globals.moveCameraX += 0.005f; }
-        }                
+        }
         public override void Prepare()
         {
             Globals.gameRunning = true;
@@ -170,29 +171,29 @@ namespace Gruppenprojekt.App
             LightObject light = new LightObject(LightType.Sun, ShadowQuality.Low);
             Collectable c1 = new Collectable("1", 100f, 2.5f, 2.5f);
             HUDObjectImage bbg = new HUDObjectImage("./App/Textures/blackscreen.png");
-            HUDObjectText hSubtitle = new HUDObjectText("By PLUG-INC");            
+            HUDObjectText hSubtitle = new HUDObjectText("By PLUG-INC");
             HUDObjectText hTitle = new HUDObjectText("ITS STOLEN");
 
             w1.SetTexture("./app/Textures/wood1.png");
             w1.SetTextureRepeat(500f, 5f);
-            w1.SetScale(1000,10,1);
+            w1.SetScale(1000, 10, 1);
 
             w2.SetTexture("./app/Textures/wood1.png");
             w2.SetTextureRepeat(500f, 5f);
-            w2.SetScale(1000,10,1);
-            
+            w2.SetScale(1000, 10, 1);
+
             f.SetTexture("./app/Textures/wood1.png");
             f.SetTextureRepeat(500f, 5f);
-            f.SetScale(1000,1,10);
-            
+            f.SetScale(1000, 1, 10);
+
             f1.SetTexture("./app/Textures/wood1.png");
             f1.SetTextureRepeat(500f, 5f);
-            f1.SetScale(1000,1,10);            
-            
-            light.Name = ("scheiß auf den Namen");
+            f1.SetScale(1000, 1, 10);
+
+            light.Name = "scheiß auf den Namen";
             light.SetNearFar(10000f, 2500f);
             light.SetPosition(1f, 1f, 1);
-            
+
             bbg.SetScale(Globals.fensterBreite, Globals.fensterHoehe);
             bbg.SetColor(0, 0, 0);
             bbg.CenterOnScreen();
@@ -202,14 +203,14 @@ namespace Gruppenprojekt.App
             int fb = Globals.fensterBreite;
             int fh = Globals.fensterHoehe;
 
-            hSubtitle.SetPosition(fb/2, 100f);
+            hSubtitle.SetPosition(fb / 2, 100f);
             hSubtitle.SetTextAlignment(TextAlignMode.Center);
             hSubtitle.SetColor(1.0f, 0.0f, 0.0f);
 
-            hTitle.SetPosition(fb/2, 50f);
+            hTitle.SetPosition(fb / 2, 50f);
             hTitle.SetTextAlignment(TextAlignMode.Center);
             hTitle.SetColor(1.0f, 0.0f, 0.0f);
-            hTitle.SetScale(80.0f);         
+            hTitle.SetScale(80.0f);
 
             Globals.posWert = 10;
             Globals.posYWert = 100;
@@ -218,12 +219,12 @@ namespace Gruppenprojekt.App
             displayClickableButtons();
 
             HUDObjectText sb = new HUDObjectText(Globals.ActualScoreboardText);
-            sb.SetPosition(fb/2 + fb/6, 200f);     
+            sb.SetPosition(fb / 2 + fb / 6, 200f);
             sb.SetColor(1.0f, 0.0f, 0.0f);
 
             HUDObjectText s1 = new HUDObjectText("1#");
             s1.SetPosition(fb / 2 + fb / 6, 250f);
-            s1.SetColor(1.0f, 0.0f, 0.0f);            
+            s1.SetColor(1.0f, 0.0f, 0.0f);
 
             HUDObjectText s2 = new HUDObjectText("2#");
             s2.SetPosition(fb / 2 + fb / 6, 290f);
@@ -231,7 +232,7 @@ namespace Gruppenprojekt.App
 
             HUDObjectText s3 = new HUDObjectText("3#");
             s3.SetPosition(fb / 2 + fb / 6, 330f);
-            s3.SetColor(1.0f, 0.0f, 0.0f);            
+            s3.SetColor(1.0f, 0.0f, 0.0f);
 
             HUDObjectText s4 = new HUDObjectText("4#");
             s4.SetPosition(fb / 2 + fb / 6, 370f);
@@ -239,11 +240,11 @@ namespace Gruppenprojekt.App
 
             HUDObjectText s5 = new HUDObjectText("5#");
             s5.SetPosition(fb / 2 + fb / 6, 410f);
-            s5.SetColor(1.0f, 0.0f, 0.0f);            
+            s5.SetColor(1.0f, 0.0f, 0.0f);
 
             HUDObjectText s6 = new HUDObjectText("6#");
             s6.SetPosition(fb / 2 + fb / 6, 450f);
-            s6.SetColor(1.0f, 0.0f, 0.0f);            
+            s6.SetColor(1.0f, 0.0f, 0.0f);
 
             HUDObjectText s7 = new HUDObjectText("7#");
             s7.SetPosition(fb / 2 + fb / 6, 490f);
@@ -258,7 +259,7 @@ namespace Gruppenprojekt.App
             s9.SetColor(1.0f, 0.0f, 0.0f);
 
             HUDObjectText s10 = new HUDObjectText("1O#");
-            s10.SetPosition(fb / 2 + fb /6 - 23, 610f);
+            s10.SetPosition(fb / 2 + fb / 6 - 23, 610f);
             s10.SetColor(1.0f, 0.0f, 0.0f);
 
             AddLightObject(light);
@@ -286,17 +287,17 @@ namespace Gruppenprojekt.App
 
 
             SetCameraPosition(0.0f, 5.0f, 15.0f);
-            
+
             string dateiPfad = @"./App/data/data.txt";
-            string timePfad = @"./App/data/time.txt";  
-            
+            string timePfad = @"./App/data/time.txt";
+
             double[] doubleWerte = File.ReadAllLines(timePfad)
                     .Select(line => double.Parse(line))
                     .ToArray();
             int[] intWerte = doubleWerte.Select(d => (int)d).ToArray();
 
             string[] readTime = intWerte.Select(i => i.ToString()).ToArray();
-            string[] readScores = File.Exists(dateiPfad)  ? File.ReadAllLines(dateiPfad) : new string[0];
+            string[] readScores = File.Exists(dateiPfad) ? File.ReadAllLines(dateiPfad) : new string[0];
 
             int[] allNumbers = new int[readScores.Length];
             int[] allTime = new int[readTime.Length];
@@ -322,7 +323,7 @@ namespace Gruppenprojekt.App
                     Console.WriteLine($"Ungültiger Wert in {timePfad}: '{readTime[i]}' wird ignoriert.");
                 }
             }
-            
+
             List<Result> res = new List<Result>();
             for (int i = 0; i < allNumbers.Length; i++)
             {
@@ -333,43 +334,64 @@ namespace Gruppenprojekt.App
             // Sortieren nach Score
             res.Sort((a, b) => a.Score.CompareTo(b.Score));
 
-            try { s1.SetText(displayValues(1, res));                
+            try
+            {
+                s1.SetText(displayValues(1, res));
             }
-            catch{//                                                                                                                                                                                                                                                                                    Ich hab hier drin gearbeitet und nun hat mir Pia erzählt das als ich vor ein paar monaten eine Freundin von ihr geil fand, sie ja nur nichts gemacht hat weil ich ihr bruder bin und wäre sie mit mir alleien gewesen sie nichts hätte garantieren können :O              
-                s1.SetText("1# 0" );
+            catch
+            {//                                                                                                                                                                                                                                                                                    Ich hab hier drin gearbeitet und nun hat mir Pia erzählt das als ich vor ein paar monaten eine Freundin von ihr geil fand, sie ja nur nichts gemacht hat weil ich ihr bruder bin und wäre sie mit mir alleien gewesen sie nichts hätte garantieren können :O              
+                s1.SetText("1# 0");
             }
-            try { s2.SetText(displayValues(2,res));
+            try
+            {
+                s2.SetText(displayValues(2, res));
                 //                                                                                                                                                                                                                              Ich hab hier drin gearbeitet und nun hat mir Pia erzählt das als ich vor ein paar monaten eine Freundin von ihr geil fand, sie ja nur nichts gemacht hat weil ich ihr bruder bin und wäre sie mit mir alleien gewesen sie nichts hätte garantieren können :O              
             }
             catch { s2.SetText("2# 0"); }
-            try { s3.SetText(displayValues(3, res));
-            } 
+            try//                                                                                                                                                                                                                                                                                                                                 Schlampen-mia,Amilia,Mia 2,Jovi,Jule,Mia Magda,Pia,Chiara,Isabella,Hannah,Celine + + + Ronja, Hako, Julia, Diana, Linette, Livia, Susanne
+            {
+                s3.SetText(displayValues(3, res));
+            }
             catch { s3.SetText("3# 0"); }
-            try { s4.SetText(displayValues(4, res));
-            }                                                    
-            catch { s4.SetText("4# 0"); }                        
-            try { s5.SetText(displayValues(5, res));
-            }                                                    
-            catch {s5.SetText("5# 0"); }                         
-            try { s6.SetText(displayValues(6, res));
-            }                                                    
-            catch { s6.SetText("6# 0"); }                        
-            try { s7.SetText(displayValues(7, res));
-            }                                                    
-            catch { s7.SetText("7# 0"); }                        
-            try { s8.SetText(displayValues(8, res));
-            }                                                    
-            catch { s8.SetText("8# 0"); }                        
-            try { s9.SetText(displayValues(9, res));
+            try
+            {
+                s4.SetText(displayValues(4, res));
+            }
+            catch { s4.SetText("4# 0"); }
+            try
+            {
+                s5.SetText(displayValues(5, res));
+            }
+            catch { s5.SetText("5# 0"); }
+            try
+            {
+                s6.SetText(displayValues(6, res));
+            }
+            catch { s6.SetText("6# 0"); }
+            try
+            {
+                s7.SetText(displayValues(7, res));
+            }
+            catch { s7.SetText("7# 0"); }
+            try
+            {
+                s8.SetText(displayValues(8, res));
+            }
+            catch { s8.SetText("8# 0"); }
+            try
+            {
+                s9.SetText(displayValues(9, res));
             }
             catch { s9.SetText("9# 0"); }
-            try { s10.SetText(displayValues(10, res));
+            try
+            {
+                s10.SetText(displayValues(10, res));
             }
             catch { s10.SetText("10# 0"); }
-        }       
+        }
         public void displayClickableButtons()
         {
-            
+
             HUDObjectText start = new HUDObjectText(Globals.StartButtonText);
             HUDObjectText option = new HUDObjectText(Globals.OptionButtonText);
             HUDObjectText language = new HUDObjectText(Globals.LanguageButtonText);
@@ -431,7 +453,7 @@ namespace Gruppenprojekt.App
             if (Globals.DisplayScoreboardButton) { AddHUDObject(AdminSB); }
             if (Globals.DisplayLeaveButton) { AddHUDObject(leave); }
 
-            
+
         }
         public static string leerstellen(int i)
         {
@@ -452,7 +474,7 @@ namespace Gruppenprojekt.App
             else if (i >= 10)
             {
                 lS = "\t\t\t\t\t";
-            }            
+            }
             else
             {
                 lS = "\t\t\t\t\t\t";
@@ -461,7 +483,7 @@ namespace Gruppenprojekt.App
         }
         public static string displayValues(int i, List<Result> results)
         {
-        string x;
+            string x;
             x = i + "# " + Convert.ToString(results[results.Count - i].Score + leerstellen(results[results.Count - i].Score) + results[results.Count - i].Time + "s");
             return x;
         }
