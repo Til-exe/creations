@@ -1,4 +1,5 @@
-﻿using KWEngine3;
+﻿using Gruppenprojekt.App.Classes;
+using KWEngine3;
 using System.Runtime.CompilerServices;
 
 namespace Gruppenprojekt.App
@@ -6,8 +7,8 @@ namespace Gruppenprojekt.App
     public class GameWindow : GLWindow
     {
         public GameWindow() : base(
-            1280,                               // Fensterbreite
-            720,                                // Fensterhöhe
+            Globals.fensterBreite,                               // Fensterbreite
+            Globals.fensterHoehe,                                // Fensterhöhe
             true,                               // VSync?
             PostProcessingQuality.Standard,     // Qualität der PP-Effekte (Standard für iGPUs)
             WindowMode.Default)                 // Fensterdekorationsmodus

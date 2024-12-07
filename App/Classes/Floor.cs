@@ -13,16 +13,13 @@ namespace Gruppenprojekt.App.Classes
         public Floor(string name, float x, float y, float z) {
             this.Name = Name;
             this.SetPosition(x, y, z);
-            IsCollisionObject = true;
-            IsAffectedByLight = true;
-            IsShadowCaster = true; 
+            this.IsCollisionObject = true;
+            this.IsAffectedByLight = true;
+            this.IsShadowCaster = true; 
             this.SetScale(200,1 ,200 );
         }
-
-
         public override void Act()
-        {
-            
+        {            
         }
     }
 }

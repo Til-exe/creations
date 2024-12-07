@@ -16,17 +16,16 @@ using System.Xml.Linq;
 namespace Gruppenprojekt.App
 {
     public class GameWorldStartMenu : World
-    {       
+    {
         public override void Act()
-        {            
-            
+        {
             HUDObjectText start = GetHUDObjectTextByName("start");
             HUDObjectText option = GetHUDObjectTextByName("option");
             HUDObjectText leave = GetHUDObjectTextByName("leave");
             HUDObjectText credits = GetHUDObjectTextByName("credits");
             HUDObjectText language = GetHUDObjectTextByName("language");
             HUDObjectText AdminSB = GetHUDObjectTextByName("AdminSB");
-            HUDObjectImage bg = GetHUDObjectImageByName("./App/Textures/MenuHintergrund.jpg"); 
+            HUDObjectImage bg = GetHUDObjectImageByName("./App/Textures/MenuHintergrund.jpg");
 
             if (start != null)
             {
@@ -58,14 +57,14 @@ namespace Gruppenprojekt.App
                     option.SetColorEmissiveIntensity(0.0f);
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && option.IsMouseCursorOnMe() == true)
-                {                                                        
+                {
                     GwStartMenuOption GwSmOption = new GwStartMenuOption();
-                    Window.SetWorld(GwSmOption);                                 
+                    Window.SetWorld(GwSmOption);
                 }
             }
             if (leave != null)
             {
-                    if (leave.IsMouseCursorOnMe() == true)
+                if (leave.IsMouseCursorOnMe() == true)
                 {
                     leave.SetColorEmissiveIntensity(1.5f);
                 }
@@ -73,9 +72,9 @@ namespace Gruppenprojekt.App
                 {
                     leave.SetColorEmissiveIntensity(0.0f);
                 }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && leave.IsMouseCursorOnMe() == true) 
+                if (Mouse.IsButtonPressed(MouseButton.Left) && leave.IsMouseCursorOnMe() == true)
                 {
-                    Window.Close();                    
+                    Window.Close();
                 }
             }
             if (credits != null)
@@ -126,7 +125,9 @@ namespace Gruppenprojekt.App
                     Window.SetWorld(scoreboardMenu);
                 }
             }
-            if (Keyboard.IsKeyPressed(Keys.W)) {
+
+            if (Keyboard.IsKeyPressed(Keys.W))
+            {
                 Globals.DisplayStartGameButton = true;
                 Globals.DisplayOptionButton = true;
                 Globals.DisplayLanguageButton = true;
@@ -141,26 +142,26 @@ namespace Gruppenprojekt.App
                 RemoveHUDObject(AdminSB);
                 Globals.posWert = 10;
                 displayClickableButtons();
-            }
-                  
-
+            }                   //Display all Sections Button
+            if (Keyboard.IsKeyPressed(Keys.Enter))
+            {
+                GameWorldStart gws = new GameWorldStart();
+                Window.SetWorld(gws);
+                Globals.Score = 0;
+            }               //Start Button
             SetCameraPosition(Globals.moveCameraX, 4, Globals.moveCameraY);
             SetCameraTarget(CameraPosition.X, CameraPosition.Y + 2, CameraPosition.Z);
 
             do { SetCameraPosition(CameraPosition.X - 400, CameraPosition.Y, CameraPosition.Z); }
-            while(CameraPosition.X > 130);         
-            if(Globals.moveCameraMultiplier == 1) { Globals.moveCameraX += 0.02f; }
-            if(Globals.moveCameraMultiplier == 2) { Globals.moveCameraX += 0.04f; }
-            if(Globals.moveCameraMultiplier == 4) { Globals.moveCameraX += 0.08f; }
-            if(Globals.moveCameraMultiplier == 0.5) { Globals.moveCameraX += 0.01f; }
-            if(Globals.moveCameraMultiplier == 0.25) { Globals.moveCameraX += 0.005f; }
-
-        }
-
-        
+            while (CameraPosition.X > 130);
+            if (Globals.moveCameraMultiplier == 1) { Globals.moveCameraX += 0.02f; }
+            if (Globals.moveCameraMultiplier == 2) { Globals.moveCameraX += 0.04f; }
+            if (Globals.moveCameraMultiplier == 4) { Globals.moveCameraX += 0.08f; }
+            if (Globals.moveCameraMultiplier == 0.5) { Globals.moveCameraX += 0.01f; }
+            if (Globals.moveCameraMultiplier == 0.25) { Globals.moveCameraX += 0.005f; }
+        }                
         public override void Prepare()
         {
-
             Globals.gameRunning = true;
             Wall w1 = new Wall("1", 0f, 4f, 5f);
             Wall w2 = new Wall("2", 0f, 4f, 0f);
@@ -192,101 +193,73 @@ namespace Gruppenprojekt.App
             light.SetNearFar(10000f, 2500f);
             light.SetPosition(1f, 1f, 1);
             
-            bbg.Name = "background";
             bbg.SetScale(Window.Width, Window.Height);
             bbg.SetColor(0, 0, 0);
             bbg.CenterOnScreen();
             bbg.SetZIndex(-100);
             bbg.SetOpacity(0.75f);
 
-            hSubtitle.SetPosition(500f, 100f);
-            hSubtitle.Name = "a";
-            hSubtitle.SetCharacterDistanceFactor(1.0f);
-            hSubtitle.SetColor(1.0f, 0.0f, 0.0f);            
-            
-            hTitle.SetPosition(200f, 50f);
-            hTitle.Name = "GameTitle";
-            hTitle.SetCharacterDistanceFactor(1.0f);
+            int fb = Globals.fensterBreite;
+            int fh = Globals.fensterHoehe;
+
+            hSubtitle.SetPosition(fb/2, 100f);
+            hSubtitle.SetTextAlignment(TextAlignMode.Center);
+            hSubtitle.SetColor(1.0f, 0.0f, 0.0f);
+
+            hTitle.SetPosition(fb/2, 50f);
+            hTitle.SetTextAlignment(TextAlignMode.Center);
             hTitle.SetColor(1.0f, 0.0f, 0.0f);
             hTitle.SetScale(80.0f);         
 
             Globals.posWert = 10;
             Globals.posYWert = 100;
-            languageMenu.ChangeLanguage();
 
+            languageMenu.ChangeLanguage();
             displayClickableButtons();
 
-
             HUDObjectText sb = new HUDObjectText(Globals.ActualScoreboardText);
-            sb.SetPosition(750f, 200f);            
-            sb.SetCharacterDistanceFactor(1.0f);
+            sb.SetPosition(fb/2 + fb/6, 200f);     
             sb.SetColor(1.0f, 0.0f, 0.0f);
 
             HUDObjectText s1 = new HUDObjectText("1#");
-            s1.SetPosition(700f, 250f);
-            s1.Name = "score1";
-            s1.SetCharacterDistanceFactor(1.0f);
+            s1.SetPosition(fb / 2 + fb / 6, 250f);
             s1.SetColor(1.0f, 0.0f, 0.0f);            
 
             HUDObjectText s2 = new HUDObjectText("2#");
-            s2.SetPosition(700f, 290f);
-            s2.Name = "score2";
-            s2.SetCharacterDistanceFactor(1.0f);
+            s2.SetPosition(fb / 2 + fb / 6, 290f);
             s2.SetColor(1.0f, 0.0f, 0.0f);
 
             HUDObjectText s3 = new HUDObjectText("3#");
-            s3.SetPosition(700f, 330f);
-            s3.Name = "score3";
-            s3.SetCharacterDistanceFactor(1.0f);
+            s3.SetPosition(fb / 2 + fb / 6, 330f);
             s3.SetColor(1.0f, 0.0f, 0.0f);            
 
             HUDObjectText s4 = new HUDObjectText("4#");
-            s4.SetPosition(700f, 370f);
-            s4.Name = "score4";
-            s4.SetCharacterDistanceFactor(1.0f);
+            s4.SetPosition(fb / 2 + fb / 6, 370f);
             s4.SetColor(1.0f, 0.0f, 0.0f);
 
             HUDObjectText s5 = new HUDObjectText("5#");
-            s5.SetPosition(700f, 410f);
-            s5.Name = "score5";
-            s5.SetCharacterDistanceFactor(1.0f);
+            s5.SetPosition(fb / 2 + fb / 6, 410f);
             s5.SetColor(1.0f, 0.0f, 0.0f);            
 
             HUDObjectText s6 = new HUDObjectText("6#");
-            s6.SetPosition(700f, 450f);
-            s6.Name = "score6";
-            s6.SetCharacterDistanceFactor(1.0f);
+            s6.SetPosition(fb / 2 + fb / 6, 450f);
             s6.SetColor(1.0f, 0.0f, 0.0f);            
 
             HUDObjectText s7 = new HUDObjectText("7#");
-            s7.SetPosition(700f, 490f);
-            s7.Name = "scpre7";
-            s7.SetCharacterDistanceFactor(1.0f);
+            s7.SetPosition(fb / 2 + fb / 6, 490f);
             s7.SetColor(1.0f, 0.0f, 0.0f);
 
             HUDObjectText s8 = new HUDObjectText("8#");
-            s8.SetPosition(700f, 530f);
-            s8.Name = "score8";
-            s8.SetCharacterDistanceFactor(1.0f);
+            s8.SetPosition(fb / 2 + fb / 6, 530f);
             s8.SetColor(1.0f, 0.0f, 0.0f);
 
             HUDObjectText s9 = new HUDObjectText("9#");
-            s9.SetPosition(700f, 570f);
-            s9.Name = "score9";
-            s9.SetCharacterDistanceFactor(1.0f);
+            s9.SetPosition(fb / 2 + fb / 6, 570f);
             s9.SetColor(1.0f, 0.0f, 0.0f);
 
             HUDObjectText s10 = new HUDObjectText("1O#");
-            s10.SetPosition(678f, 610f);
-            s10.Name = "score10";
-            s10.SetCharacterDistanceFactor(1.0f);
+            s10.SetPosition(fb / 2 + fb /6 - 23, 610f);
             s10.SetColor(1.0f, 0.0f, 0.0f);
-
-
-            Globals.scores[0] = Globals.Score;
-            s1.SetText(s1.Text + " " + Globals.scores[0]);
-
-
 
             AddLightObject(light);
             AddGameObject(c1);
@@ -313,93 +286,87 @@ namespace Gruppenprojekt.App
 
 
             SetCameraPosition(0.0f, 5.0f, 15.0f);
-
+            
             string dateiPfad = @"./App/data/data.txt";
-            string content;
-            try
+            string timePfad = @"./App/data/time.txt";  
+            
+            double[] doubleWerte = File.ReadAllLines(timePfad)
+                    .Select(line => double.Parse(line))
+                    .ToArray();
+            int[] intWerte = doubleWerte.Select(d => (int)d).ToArray();
+
+            string[] readTime = intWerte.Select(i => i.ToString()).ToArray();
+            string[] readScores = File.Exists(dateiPfad)  ? File.ReadAllLines(dateiPfad) : new string[0];
+
+            int[] allNumbers = new int[readScores.Length];
+            int[] allTime = new int[readTime.Length];
+            for (int i = 0; i < readScores.Length; i++)
             {
-                content = File.ReadAllText(dateiPfad);
+                if (int.TryParse(readScores[i], out int number))
+                {
+                    allNumbers[i] = number;
+                }
+                else
+                {
+                    Console.WriteLine($"Ungültiger Wert in {dateiPfad}: '{readScores[i]}' wird ignoriert.");
+                }
             }
-            catch
+            for (int i = 0; i < readTime.Length; i++)
             {
-                File.AppendAllText(dateiPfad, "0" + Environment.NewLine);
-                content = File.ReadAllText(dateiPfad);
+                if (int.TryParse(readTime[i], out int time))
+                {
+                    allTime[i] = time;
+                }
+                else
+                {
+                    Console.WriteLine($"Ungültiger Wert in {timePfad}: '{readTime[i]}' wird ignoriert.");
+                }
             }
             
-
-            if (string.IsNullOrWhiteSpace(content))
+            List<Result> res = new List<Result>();
+            for (int i = 0; i < allNumbers.Length; i++)
             {
-                for(int i = 0; i < 10; i++)
-                {
-                    File.AppendAllText(dateiPfad, "0" + Environment.NewLine);
-                }
+                int time = i < allTime.Length ? allTime[i] : 0; // Falls Zeit fehlt, Standardwert 0
+                res.Add(new Result() { Score = allNumbers[i], Time = time });
             }
 
-            string[] readText = File.ReadAllLines(dateiPfad);
-            int[] allNumbers = new int[readText.Length] ;            
-            for(int  i = 0; i < readText.Length; i++)
-            {
-                try
-                { 
-                    allNumbers[i] = Convert.ToInt32(readText[i]);
-                }
-                catch                 
-                {
-                    string path = @"./App/data/data.txt";                    
-                    string appendText = Convert.ToString(Globals.Score) + "\n";
-                    File.WriteAllText(path, appendText);
-                    
-                }                
-            }    
-            
-            Array.Sort(allNumbers);
-            try
-            {
-                s1.SetText("1# " + Convert.ToString(allNumbers[allNumbers.Length - 1]));
-                if (allNumbers[allNumbers.Length - 1] >= 2500)
-                {
-                    s1.SetColor(1.0f, 1.0f, 1.0f);
-                }
-                else if (allNumbers[allNumbers.Length-1] >= 1000)
-                {
-                    s1.SetColor(1.0f, 1.0f, 0.2f);
-                }
-                
+            // Sortieren nach Score
+            res.Sort((a, b) => a.Score.CompareTo(b.Score));
+
+            try { s1.SetText(displayValues(1, res));                
             }
-            catch
-            {//                                                                                                                                                                                                                                                                                    Ich hab hier drin gearbeitet und nun hat mir Pia erzählt das als ich vor ein paar monaten eine Freundin von ihr geil fand, sie ja nur nichts gemacht hat weil ich ihr bruder bin und wäre sie mit mir alleien gewesen sie nichts hätte garantieren können :O              
+            catch{//                                                                                                                                                                                                                                                                                    Ich hab hier drin gearbeitet und nun hat mir Pia erzählt das als ich vor ein paar monaten eine Freundin von ihr geil fand, sie ja nur nichts gemacht hat weil ich ihr bruder bin und wäre sie mit mir alleien gewesen sie nichts hätte garantieren können :O              
                 s1.SetText("1# 0" );
             }
-            try { s2.SetText("2# " + Convert.ToString(allNumbers[allNumbers.Length - 2]));
+            try { s2.SetText(displayValues(2,res));
                 //                                                                                                                                                                                                                              Ich hab hier drin gearbeitet und nun hat mir Pia erzählt das als ich vor ein paar monaten eine Freundin von ihr geil fand, sie ja nur nichts gemacht hat weil ich ihr bruder bin und wäre sie mit mir alleien gewesen sie nichts hätte garantieren können :O              
             }
             catch { s2.SetText("2# 0"); }
-            try { s3.SetText("3# " + Convert.ToString(allNumbers[allNumbers.Length - 3]));
+            try { s3.SetText(displayValues(3, res));
             } 
             catch { s3.SetText("3# 0"); }
-            try { s4.SetText("4# " + Convert.ToString(allNumbers[allNumbers.Length - 4])); 
-            }
-            catch { s4.SetText("4# 0"); }
-            try { s5.SetText("5# " + Convert.ToString(allNumbers[allNumbers.Length - 5])); 
-            }
-            catch {s5.SetText("5# 0"); }
-            try { s6.SetText("6# " + Convert.ToString(allNumbers[allNumbers.Length - 6])); 
-            }
-            catch { s6.SetText("6# 0"); }
-            try { s7.SetText("7# " + Convert.ToString(allNumbers[allNumbers.Length - 7])); 
-            }
-            catch { s7.SetText("7# 0"); }
-            try { s8.SetText("8# " + Convert.ToString(allNumbers[allNumbers.Length - 8]));
-            }
-            catch { s8.SetText("8# 0"); }
-            try { s9.SetText("9# " + Convert.ToString(allNumbers[allNumbers.Length - 9]));
+            try { s4.SetText(displayValues(4, res));
+            }                                                    
+            catch { s4.SetText("4# 0"); }                        
+            try { s5.SetText(displayValues(5, res));
+            }                                                    
+            catch {s5.SetText("5# 0"); }                         
+            try { s6.SetText(displayValues(6, res));
+            }                                                    
+            catch { s6.SetText("6# 0"); }                        
+            try { s7.SetText(displayValues(7, res));
+            }                                                    
+            catch { s7.SetText("7# 0"); }                        
+            try { s8.SetText(displayValues(8, res));
+            }                                                    
+            catch { s8.SetText("8# 0"); }                        
+            try { s9.SetText(displayValues(9, res));
             }
             catch { s9.SetText("9# 0"); }
-            try { s10.SetText("10# " + Convert.ToString(allNumbers[allNumbers.Length - 10]));
+            try { s10.SetText(displayValues(10, res));
             }
             catch { s10.SetText("10# 0"); }
-        }
-        
+        }       
         public void displayClickableButtons()
         {
             
@@ -466,8 +433,37 @@ namespace Gruppenprojekt.App
 
             
         }
+        public static string leerstellen(int i)
+        {
+            string lS;
 
+            if (i >= 10000)
+            {
+                lS = "\t";
+            }
+            else if (i >= 1000)
+            {
+                lS = "\t\t\t";
+            }
+            else if (i >= 100)
+            {
+                lS = "\t\t\t\t";
+            }
+            else if (i >= 10)
+            {
+                lS = "\t\t\t\t\t";
+            }            
+            else
+            {
+                lS = "\t\t\t\t\t\t";
+            }
+            return lS;
+        }
+        public static string displayValues(int i, List<Result> results)
+        {
+        string x;
+            x = i + "# " + Convert.ToString(results[results.Count - i].Score + leerstellen(results[results.Count - i].Score) + results[results.Count - i].Time + "s");
+            return x;
+        }
     }
-        
 }
-

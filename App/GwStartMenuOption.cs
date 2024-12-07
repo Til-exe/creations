@@ -17,12 +17,9 @@ namespace Gruppenprojekt.App
         int value1 = 0;
         int value2 = 0;
         int value3 = 0;
-        bool codeEnterd = true;
-
-        
+        bool codeEnterd = true;        
         public override void Act()
-        {
-            
+        {            
             HUDObjectText back = GetHUDObjectTextByName("back");
             HUDObjectText enter = GetHUDObjectTextByName("Enter");
             HUDObjectText reset = GetHUDObjectTextByName("Reset");
@@ -42,6 +39,7 @@ namespace Gruppenprojekt.App
             HUDObjectText EnableCredits = GetHUDObjectTextByName("EnableCredits");
             HUDObjectText EnableLanguage = GetHUDObjectTextByName("EnableLanguage"); 
             HUDObjectText EnableScoreboard = GetHUDObjectTextByName("EnableScoreboard"); 
+            HUDObjectText gamemode = GetHUDObjectTextByName("gamemode"); 
 
             if (back != null)                                                                     
             {
@@ -60,7 +58,7 @@ namespace Gruppenprojekt.App
                     GameWorldStartMenu gm = new GameWorldStartMenu();
                     Window.SetWorld(gm);
                 }
-            }   //back  
+            }
             if (enter != null)
             {
                 //Leave game
@@ -82,11 +80,9 @@ namespace Gruppenprojekt.App
                         
                         
                 }
-            }   //Enter
+            }
             if (reset != null)
             {
-                //Leave game
-
                 if (reset.IsMouseCursorOnMe() == true)
                 {
                     reset.SetColorEmissiveIntensity(1.5f);
@@ -100,10 +96,8 @@ namespace Gruppenprojekt.App
                     value1 = 0;
                     value2 = 0;
                     value3 = 0;
-
-
                 }
-            }   //Enter
+            }
             if (plus1 != null)
             {
                 //Option
@@ -124,7 +118,7 @@ namespace Gruppenprojekt.App
                     }
                     
                 }
-            }   //option
+            }
             if (plus2 != null)
             {
                 //Option
@@ -145,7 +139,7 @@ namespace Gruppenprojekt.App
                     }
 
                 }
-            }   //option
+            }
             if (plus3 != null)
             {
                 //Option
@@ -166,7 +160,7 @@ namespace Gruppenprojekt.App
                     }
 
                 }
-            }   //option
+            }
             if (minus1 != null)
             {
                 //Leave game
@@ -181,12 +175,17 @@ namespace Gruppenprojekt.App
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && minus1.IsMouseCursorOnMe() == true)
                 {
+                    if (value1 == 0)
+                    {
+                        value1 = 37;
+                    }
                     if (value1  >= 1)
                     {
                         value1--;
                     }
+                    
                 }
-            }   //leave
+            }
             if (minus2 != null)
             {
                 //Leave game
@@ -201,16 +200,19 @@ namespace Gruppenprojekt.App
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && minus2.IsMouseCursorOnMe() == true)
                 {
+                    if (value2 == 0)
+                    {
+                        value2 = 37;
+                    }
                     if (value2 >= 1)
                     {
                         value2--;
                     }
+                    
                 }
-            }   //leave
+            }
             if (minus3 != null)
             {
-                //Leave game
-
                 if (minus3.IsMouseCursorOnMe() == true)
                 {
                     minus3.SetColorEmissiveIntensity(1.5f);
@@ -221,12 +223,17 @@ namespace Gruppenprojekt.App
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && minus3.IsMouseCursorOnMe() == true)
                 {
+                    if (value3 == 0)
+                    {
+                        value3 = 37;
+                    }
                     if (value3 >= 1)
                     {
                         value3--;
                     }
+                    
                 }
-            }   //leave
+            }
             if (EnableCredits != null)
             {
                 if (EnableCredits.IsMouseCursorOnMe() == true)
@@ -304,8 +311,49 @@ namespace Gruppenprojekt.App
                         File.WriteAllText(Globals.Cpath, "true");
                     }
                 }
+            if (EnableScoreboard != null)
+            {
+                if (EnableScoreboard.IsMouseCursorOnMe() == true)
+                {
+                    EnableScoreboard.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    EnableScoreboard.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && EnableScoreboard.IsMouseCursorOnMe() == true)
+                {
+                    if (Globals.DisplayScoreboardButton == true)
+                    {
+                        EnableScoreboard.SetText("ADMIN: DISABLED");
+                        Globals.DisplayScoreboardButton = false;
+                        File.WriteAllText(Globals.Cpath, "false");
+                    }
+                    else
+                    {
+                        EnableScoreboard.SetText("ADMIN: ENABLED");
+                        Globals.DisplayScoreboardButton = true;
+                        File.WriteAllText(Globals.Cpath, "true");
+                    }
+                }
             }
-
+            }
+            if (gamemode != null)
+            {
+                if (gamemode.IsMouseCursorOnMe() == true)
+                {
+                    gamemode.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    gamemode.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && gamemode.IsMouseCursorOnMe() == true)
+                {
+                    choseGamemode cGm = new choseGamemode();
+                    Window.SetWorld(cGm);
+                }
+            }
 
 
             string text1 = transelateCode(Convert.ToString(value1));
@@ -314,19 +362,15 @@ namespace Gruppenprojekt.App
             if(value1 == 37) { value1 = 0; }
             if(value2  == 37) { value2 = 0; }
             if(value3 == 37) { value3 = 0; }
-
             score1.SetText("| " + text1 + " |", true);  //update shown Value
             score2.SetText("| " + text2 + " |", true);  //update shown Value
             score3.SetText("| " + text3 + " |", true);  //update shown Value
         }
-
-
         public override void Prepare()
         {
             HUDObjectText h1 = new HUDObjectText("BACK");
             h1.SetPosition(50f, 80f);
             h1.Name = "back";
-            h1.SetCharacterDistanceFactor(1.0f);
             h1.SetColor(1.0f, 0.0f, 0.0f);
             h1.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(h1);
@@ -334,10 +378,24 @@ namespace Gruppenprojekt.App
             HUDObjectText credits = new HUDObjectText("CREDITS:");
             credits.SetPosition(700f, 200f);
             credits.Name = "EnableCredits";
-            credits.SetCharacterDistanceFactor(1.0f);
             credits.SetColor(1.0f, 0.0f, 0.0f);
             credits.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(credits);
+
+            HUDObjectText language = new HUDObjectText("LANGUAGE:");
+            language.SetPosition(700f, 250f);
+            language.Name = "EnableLanguage";
+            language.SetColor(1.0f, 0.0f, 0.0f);
+            language.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(language);
+
+            HUDObjectText scoreboard = new HUDObjectText("ADMIN:");
+            scoreboard.SetPosition(700f, 300f);
+            scoreboard.Name = "EnableScoreboard";
+            scoreboard.SetColor(1.0f, 0.0f, 0.0f);
+            scoreboard.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(scoreboard);
+
             if (Globals.DisplayCreditsButton == false)
             {
                 credits.SetText("CREDITS: DISABLED");
@@ -347,15 +405,8 @@ namespace Gruppenprojekt.App
             {
                 credits.SetText("CREDITS: ENABLED");
                 Globals.DisplayCreditsButton = true;
-            }
+            }            
 
-            HUDObjectText language = new HUDObjectText("LANGUAGE:");
-            language.SetPosition(700f, 250f);
-            language.Name = "EnableLanguage";
-            language.SetCharacterDistanceFactor(1.0f);
-            language.SetColor(1.0f, 0.0f, 0.0f);
-            language.SetColorEmissive(1.0f, 1.0f, 1.0f);
-            AddHUDObject(language);
             if (Globals.DisplayLanguageButton == false)
             {
                 language.SetText("LANGUAGE: DISABLED");
@@ -366,14 +417,7 @@ namespace Gruppenprojekt.App
                 language.SetText("LANGUAGE: ENABLED");
                 Globals.DisplayLanguageButton = true;
             }
-
-            HUDObjectText scoreboard = new HUDObjectText("ADMIN:");
-            scoreboard.SetPosition(700f, 300f);
-            scoreboard.Name = "EnableScoreboard";
-            scoreboard.SetCharacterDistanceFactor(1.0f);
-            scoreboard.SetColor(1.0f, 0.0f, 0.0f);
-            scoreboard.SetColorEmissive(1.0f, 1.0f, 1.0f);
-            AddHUDObject(scoreboard);
+            
             if (Globals.DisplayScoreboardButton == false)
             {
                 scoreboard.SetText("ADMIN: DISABLED");
@@ -385,153 +429,97 @@ namespace Gruppenprojekt.App
                 Globals.DisplayScoreboardButton = true;
             }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             HUDObjectText Enter = new HUDObjectText("ENTER CODE");
             Enter.SetPosition(160f, 200f);
             Enter.Name = "Enter";
-            Enter.SetCharacterDistanceFactor(1.0f);
             Enter.SetColor(1.0f, 0.0f, 0.0f);
             Enter.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(Enter);
 
-            HUDObjectText Reset = new HUDObjectText("Reset");
-            Reset.SetPosition(450f, 200f);
+            HUDObjectText Reset = new HUDObjectText("RESET");
+            Reset.SetPosition(460f, 200f);
             Reset.Name = "Reset";
-            Reset.SetCharacterDistanceFactor(1.0f);
             Reset.SetColor(1.0f, 0.0f, 0.0f);
             Reset.SetColorEmissive(1.0f, 1.0f, 1.0f);
-            AddHUDObject(Reset);
-            
+            AddHUDObject(Reset);            
 
             HUDObjectText code = new HUDObjectText("");
             code.SetPosition(160f, 400f);
             code.Name = "code";
-            code.SetCharacterDistanceFactor(1.0f);
             code.SetColor(1.0f, 1.0f, 1.0f);
             AddHUDObject(code);
-
-            
-
-
-
-
-
 
             HUDObjectText minus1 = new HUDObjectText("| - |");
             minus1.SetPosition(160f, 350f);
             minus1.Name = "minus1";
-            minus1.SetCharacterDistanceFactor(1.0f);
             minus1.SetColor(1.0f, 0.0f, 0.0f);
-            minus1.SetColorEmissive(1.0f, 1.0f, 1.0f);
-            
+            minus1.SetColorEmissive(1.0f, 1.0f, 1.0f);            
             AddHUDObject(minus1);
-
 
             HUDObjectText score1 = new HUDObjectText("| " + value1 +  " |");
             score1.SetPosition(160f, 300f);
             score1.Name = "score1";
-            score1.SetCharacterDistanceFactor(1.0f);
             score1.SetColor(1.0f, 0.0f, 0.0f);
             score1.SetColorEmissive(0.0f, 0.0f, 0.0f);
-            score1.SetText(""+ value1, true);
-
             AddHUDObject(score1);
 
 
             HUDObjectText plus1 = new HUDObjectText("| + |");
             plus1.SetPosition(160f, 250f);
             plus1.Name = "plus1";
-            plus1.SetCharacterDistanceFactor(1.0f);
             plus1.SetColor(1.0f, 0.0f, 0.0f);
             plus1.SetColorEmissive(1.0f, 1.0f, 1.0f);
-
             AddHUDObject(plus1);
-
-
-
-
-
-
-
 
             HUDObjectText minus2 = new HUDObjectText("| - |");
             minus2.SetPosition(310f, 350f);
             minus2.Name = "minus2";
-            minus2.SetCharacterDistanceFactor(1.0f);
             minus2.SetColor(1.0f, 0.0f, 0.0f);
             minus2.SetColorEmissive(1.0f, 1.0f, 1.0f);
-
             AddHUDObject(minus2);
-
 
             HUDObjectText score2 = new HUDObjectText("| " + value2 + " |");
             score2.SetPosition(310f, 300f);
             score2.Name = "score2";
-            score2.SetCharacterDistanceFactor(1.0f);
             score2.SetColor(1.0f, 0.0f, 0.0f);
             score2.SetColorEmissive(0.0f, 0.0f, 0.0f);
-            score2.SetText("" + value2, true);
-
             AddHUDObject(score2);
-
 
             HUDObjectText plus2 = new HUDObjectText("| + |");
             plus2.SetPosition(310f, 250f);
             plus2.Name = "plus2";
-            plus2.SetCharacterDistanceFactor(1.0f);
             plus2.SetColor(1.0f, 0.0f, 0.0f);
             plus2.SetColorEmissive(1.0f, 1.0f, 1.0f);
-
             AddHUDObject(plus2);
-
-
-
-
-
 
             HUDObjectText minus3 = new HUDObjectText("| - |");
             minus3.SetPosition(460f, 350f);
             minus3.Name = "minus3";
-            minus3.SetCharacterDistanceFactor(1.0f);
             minus3.SetColor(1.0f, 0.0f, 0.0f);
             minus3.SetColorEmissive(1.0f, 1.0f, 1.0f);
-
             AddHUDObject(minus3);
 
 
             HUDObjectText score3 = new HUDObjectText("| " + value3 + " |");
             score3.SetPosition(460f, 300f);
             score3.Name = "score3";
-            score3.SetCharacterDistanceFactor(1.0f);
             score3.SetColor(1.0f, 0.0f, 0.0f);
             score3.SetColorEmissive(0.0f, 0.0f, 0.0f);
-            score3.SetText("" + value3, true);
-
             AddHUDObject(score3);
-
 
             HUDObjectText plus3 = new HUDObjectText("| + |");
             plus3.SetPosition(460f, 250f);
             plus3.Name = "plus3";
-            plus3.SetCharacterDistanceFactor(1.0f);
             plus3.SetColor(1.0f, 0.0f, 0.0f);
             plus3.SetColorEmissive(1.0f, 1.0f, 1.0f);
-
             AddHUDObject(plus3);
+
+            HUDObjectText gamemode = new HUDObjectText(Globals.choseGamemodeText);
+            gamemode.SetPosition(160f, 600f);
+            gamemode.Name = "gamemode";
+            gamemode.SetColor(1.0f, 0.0f, 0.0f);
+            gamemode.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(gamemode);
         }
         public string transelateCode(string text)
         {
