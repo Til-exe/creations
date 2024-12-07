@@ -30,8 +30,9 @@ namespace Gruppenprojekt.App.Classes
         private int counter = 0;
         public Player(string name, float x, float y, float z)
         {
-            
-            
+
+            sek = 0;
+            removedTime = 0;
             Globals.gameRunning = true;
             this.Name = name;
             this.SetPosition(x, y, z);
@@ -127,6 +128,7 @@ namespace Gruppenprojekt.App.Classes
         int stnd = 0;
         public override void Act()
         {
+
             string ActualTimeDisplay = min + "m " + sek + "s";
             sek = Convert.ToInt32(CurrentWorld.WorldTime) - removedTime;
             if (sek == 60)
