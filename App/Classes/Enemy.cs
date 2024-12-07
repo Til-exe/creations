@@ -107,7 +107,7 @@ namespace Gruppenprojekt.App.Classes
             }
         }
         private HashSet<string> blockedDirections = new HashSet<string>();
-        private float unblockTime = 0;
+        private float unblockTime = 0f;
         private void DecideNewDirection()
         {
             int costNorth = 255;
@@ -173,7 +173,7 @@ namespace Gruppenprojekt.App.Classes
                     blockedDirections.Add("East");
                     break;
             }
-            unblockTime = WorldTime + 3f;
+            unblockTime = WorldTime + 5f;
         }
         private void UnblockDirectionsIfNeeded()
         {
