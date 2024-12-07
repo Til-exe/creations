@@ -130,7 +130,9 @@ namespace Gruppenprojekt.App
             FlowField pathfinding = new FlowField(0, 2.5f, 0, 100, 100, 0.5f, 5, FlowFieldMode.Simple, typeof(Wall));
             pathfinding.IsVisible = true; //FLOWFIELD DEBUG VISIBILTY
             SetFlowField(pathfinding);
-            
+
+            KWEngine.LoadModel("Pascal", "./App/Models/pascalbild.fbx");
+
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/shortsound.wav");
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/flashlight_click.wav");
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/flashlightexplode.wav");
@@ -169,8 +171,8 @@ namespace Gruppenprojekt.App
             if (Globals.choseGamemode != "Peacefull" )
             {
                 Enemy e = new Enemy("huso", -12.5f, 2, 13);
+                
                 AddGameObject(e);
-
             }
             
             Collectable c1 = new Collectable("1", 3f, 3f, 20f);
