@@ -123,7 +123,7 @@ namespace Gruppenprojekt.App
             Floor f = new Floor("floor", 1f, 1f, 1f);
             f.SetTexture("./app/Textures/wood1.png");
             if (Globals.ReturnCode == 0) {  }
-            if (Globals.ReturnCode == 1) { Globals.ReturnCode = 0; Globals.multiplikator = 2; }
+            if (Globals.ReturnCode == 1) { Globals.ReturnCode = 0; Globals.Score += 1000; }
 
             f.SetTextureRepeat(100f, 100f);
             AddGameObject(f);
@@ -134,9 +134,12 @@ namespace Gruppenprojekt.App
             SetCameraToFirstPersonGameObject(p, 2f);
             KWEngine.MouseSensitivity = 0.07f;
             MouseCursorGrab();
-
-            Enemy e = new Enemy("huso" , 10, 2, 1);
-            AddGameObject(e);
+            if(Globals.choseGamemode != "Peacefull" )
+            {
+                Enemy e = new Enemy("huso", 11, 2, 2);
+                AddGameObject(e);
+            }
+            
             Collectable c1 = new Collectable("1", 3f, 3f, 20f);
             Collectable c2 = new Collectable("2", 10f, 3f, 20f);
             Collectable c3 = new Collectable("3", 20f, 3f, 20f);

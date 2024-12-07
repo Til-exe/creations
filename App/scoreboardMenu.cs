@@ -47,7 +47,13 @@ namespace Gruppenprojekt.App
             }
             if (clear != null)
             {
-                if(delete && deleted)
+                if (delete &&  !deleted)
+                {
+                    clear.SetColor(1, 1, 1);
+                    clear.SetColorEmissiveIntensity(0.0f);
+                    clear.SetText("Are you Sure you want to delete all Scores ?");
+                }
+                else if (delete && deleted)
                 {
                     clear.SetColor(1, 0, 0);
                     clear.SetColorEmissiveIntensity(0.0f);
@@ -112,6 +118,16 @@ namespace Gruppenprojekt.App
                     
                 }
             }
+
+
+
+
+
+
+
+
+
+
             if (text1 != null)
             {
                 if (text1.IsMouseCursorOnMe() == true)

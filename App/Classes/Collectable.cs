@@ -47,10 +47,22 @@ namespace Gruppenprojekt.App.Classes
             {
                 (CurrentWorld as GameWorldStart).UpdateHUDLastUpdateTime();
             }
-            Collectable c = new Collectable("New",rnd.Next(-100,100),rnd.Next(1,5),rnd.Next(-100,100));
-            CurrentWorld.AddExplosionObject(ex);
-            CurrentWorld.AddGameObject(c); 
-            CurrentWorld.RemoveGameObject(this);
+            if(Globals.choseGamemode== "Infinit")
+            {
+                Globals.SpawnColByDeath = 1;
+            }
+            else
+            {
+                Globals.SpawnColByDeath = 0;
+            }
+            for (int i = 0; i < Globals.SpawnColByDeath; i++)
+            {
+                Collectable c = new Collectable("New", rnd.Next(-100, 100), rnd.Next(1, 5), rnd.Next(-100, 100));                
+                CurrentWorld.AddGameObject(c);                
+            }
+                CurrentWorld.AddExplosionObject(ex);
+
+                CurrentWorld.RemoveGameObject(this);
             CurrentWorld.RemoveLightObject(l);
         }        
         public override void Act()

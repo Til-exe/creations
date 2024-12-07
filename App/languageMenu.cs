@@ -157,6 +157,7 @@ namespace Gruppenprojekt.App
                 Globals.ScoreboardButtonText = "Admin";
                 Globals.LeaveButtonText = "Verlassen";
                 Globals.ActualScoreboardText = "PUNKTETAFEL";
+                Globals.choseGamemodeText = "SPIELMODUS";
             }
             if(Globals.SetLanguage == "English") 
             {
@@ -167,6 +168,7 @@ namespace Gruppenprojekt.App
                 Globals.ScoreboardButtonText = "Admin";
                 Globals.LeaveButtonText = "Leave";
                 Globals.ActualScoreboardText = "SCOREBOARD";
+                Globals.choseGamemodeText = "GAMEMODE";
 
             }
             if (Globals.SetLanguage == "Spanisch") 

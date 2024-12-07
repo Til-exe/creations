@@ -39,6 +39,7 @@ namespace Gruppenprojekt.App
             HUDObjectText EnableCredits = GetHUDObjectTextByName("EnableCredits");
             HUDObjectText EnableLanguage = GetHUDObjectTextByName("EnableLanguage"); 
             HUDObjectText EnableScoreboard = GetHUDObjectTextByName("EnableScoreboard"); 
+            HUDObjectText gamemode = GetHUDObjectTextByName("gamemode"); 
 
             if (back != null)                                                                     
             {
@@ -310,7 +311,50 @@ namespace Gruppenprojekt.App
                         File.WriteAllText(Globals.Cpath, "true");
                     }
                 }
+            if (EnableScoreboard != null)
+            {
+                if (EnableScoreboard.IsMouseCursorOnMe() == true)
+                {
+                    EnableScoreboard.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    EnableScoreboard.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && EnableScoreboard.IsMouseCursorOnMe() == true)
+                {
+                    if (Globals.DisplayScoreboardButton == true)
+                    {
+                        EnableScoreboard.SetText("ADMIN: DISABLED");
+                        Globals.DisplayScoreboardButton = false;
+                        File.WriteAllText(Globals.Cpath, "false");
+                    }
+                    else
+                    {
+                        EnableScoreboard.SetText("ADMIN: ENABLED");
+                        Globals.DisplayScoreboardButton = true;
+                        File.WriteAllText(Globals.Cpath, "true");
+                    }
+                }
             }
+            }
+            if (gamemode != null)
+            {
+                if (gamemode.IsMouseCursorOnMe() == true)
+                {
+                    gamemode.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    gamemode.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && gamemode.IsMouseCursorOnMe() == true)
+                {
+                    choseGamemode cGm = new choseGamemode();
+                    Window.SetWorld(cGm);
+                }
+            }
+
 
             string text1 = transelateCode(Convert.ToString(value1));
             string text2 = transelateCode(Convert.ToString(value2));
@@ -392,8 +436,8 @@ namespace Gruppenprojekt.App
             Enter.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(Enter);
 
-            HUDObjectText Reset = new HUDObjectText("Reset");
-            Reset.SetPosition(450f, 200f);
+            HUDObjectText Reset = new HUDObjectText("RESET");
+            Reset.SetPosition(460f, 200f);
             Reset.Name = "Reset";
             Reset.SetColor(1.0f, 0.0f, 0.0f);
             Reset.SetColorEmissive(1.0f, 1.0f, 1.0f);
@@ -469,6 +513,13 @@ namespace Gruppenprojekt.App
             plus3.SetColor(1.0f, 0.0f, 0.0f);
             plus3.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(plus3);
+
+            HUDObjectText gamemode = new HUDObjectText(Globals.choseGamemodeText);
+            gamemode.SetPosition(160f, 600f);
+            gamemode.Name = "gamemode";
+            gamemode.SetColor(1.0f, 0.0f, 0.0f);
+            gamemode.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(gamemode);
         }
         public string transelateCode(string text)
         {

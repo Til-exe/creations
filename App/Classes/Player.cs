@@ -1,17 +1,17 @@
-﻿using KWEngine3;
-using KWEngine3.Audio;
-using KWEngine3.GameObjects;
-using KWEngine3.Helper;
-using OpenTK.Windowing.GraphicsLibraryFramework;
-using OpenTK.Mathematics;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading;
+﻿using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Windowing.Common.Input;
-using Assimp;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using KWEngine3.GameObjects;
+using OpenTK.Mathematics;
+using System.Diagnostics;
+using KWEngine3.Helper;
+using System.Threading;
+using KWEngine3.Audio;
+using KWEngine3;
 using System.IO;
+using Assimp;
+using System;
 
 namespace Gruppenprojekt.App.Classes
 {
@@ -326,6 +326,7 @@ namespace Gruppenprojekt.App.Classes
                 MoveOffset(mtv);
                 if (collider is Collectable)
                 {
+
                     (collider as Collectable).KillMe();
                     counter = counter + 1;
                     colCount.SetText("Gesammelte Orbs: " + counter);

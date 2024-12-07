@@ -28,7 +28,10 @@ namespace Gruppenprojekt.App.Classes
         public static float moveCameraX = 0;
         public static float moveCameraY = 2.5f;
         public static float moveCameraMultiplier = 1;
-        
+        public static string choseGamemode = "Normal";
+        public static int SpawnColByDeath = 1;
+
+
         public static string Cpath = @"./App/data/credits.txt";        
         public static string path = @"./App/data/data.txt";
         public static string timePath = @"./App/data/time.txt";
@@ -53,10 +56,11 @@ namespace Gruppenprojekt.App.Classes
         public static string ActualScoreboardText = "";
         public static string SetLanguage = "English";
         public static string displayCounter = "";
+        public static string choseGamemodeText = "";
 
-        public static int fensterBreite = 1280;     
-        //public static int fensterBreite = 1920;
-        public static int fensterHoehe = 720;
-        //public static int fensterHoehe = 1080;
+        //public static int fensterBreite = 1280;     
+        public static int fensterBreite = 1920;
+        //public static int fensterHoehe = 720;
+        public static int fensterHoehe = 1080;
     }
 }
