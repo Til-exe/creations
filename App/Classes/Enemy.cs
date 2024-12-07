@@ -93,6 +93,9 @@ namespace Gruppenprojekt.App.Classes
                     MoveAlongVector(myDirection, 0.05f);
                 }
             }
+
+
+
             List<Intersection> intersections = GetIntersections();
             foreach (Intersection intersection in intersections)
             {
