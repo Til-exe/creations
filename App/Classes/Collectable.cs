@@ -8,13 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Gruppenprojekt.App.Classes
-{
+{    
     internal class Collectable : GameObject
     {
+        Random rnd = new Random();
         private LightObject l;
+        bool movingUp = true;
+        float ColMovementSpeed = 0.007f;
         public Collectable(string name, float x, float y, float z) 
-        {
-            Random rnd = new Random();
+        {            
             this.SetModel("KWSphere"); // KWCube
             this.Name = name;
             this.SetPosition(x, rnd.Next(1,5), z);
@@ -31,33 +33,30 @@ namespace Gruppenprojekt.App.Classes
             
             CurrentWorld.AddLightObject(l);
         }
-
         public void KillMe()
         {
-            Globals.Score+=(100 * Globals.multiplikator);
-            CurrentWorld.RemoveGameObject(this);
-            CurrentWorld.RemoveLightObject(l);
+            Random rn = new Random();
+            Globals.Score+=(100 * Globals.multiplikator);            
 
             ExplosionObject ex = new ExplosionObject(128, 0.5f, 4f, 2.0f, ExplosionType.Skull);
             ex.SetAlgorithm(ExplosionAnimation.WindUp);
             ex.SetColorEmissive(0, 1, 0, 2);
-            ex.SetPosition(this.Position);
-            CurrentWorld.AddExplosionObject(ex);
+            ex.SetPosition(this.Position);            
 
             if(CurrentWorld is GameWorldStart)
             {
                 (CurrentWorld as GameWorldStart).UpdateHUDLastUpdateTime();
             }
-        }
-        bool movingUp = true;
-        float ColMovementSpeed = 0.007f;
+            Collectable c = new Collectable("New",rnd.Next(-100,100),rnd.Next(1,5),rnd.Next(-100,100));
+            CurrentWorld.AddExplosionObject(ex);
+            CurrentWorld.AddGameObject(c); 
+            CurrentWorld.RemoveGameObject(this);
+            CurrentWorld.RemoveLightObject(l);
+        }        
         public override void Act()
         {
-            
-            
             if (Globals.gameRunning)
             {
-                
                 this.SetRotation(this.Rotation.X + 0.01f,0,0);
                 if (movingUp && this.Position.Y < 4)
                 {
@@ -79,8 +78,6 @@ namespace Gruppenprojekt.App.Classes
                     movingUp = true;
                 }
             }
-            
-
         }
     }
 }

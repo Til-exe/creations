@@ -19,10 +19,8 @@ namespace Gruppenprojekt.App.Classes
         this.SetTexture("./app/Textures/wood1.png");
         this.SetTextureRepeat(10f, 3f);
         }
-
         public override void Act()
-        {
-            
+        {            
         }
     }
 }

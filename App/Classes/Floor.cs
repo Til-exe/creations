@@ -18,11 +18,8 @@ namespace Gruppenprojekt.App.Classes
             IsShadowCaster = true; 
             this.SetScale(200,1 ,200 );
         }
-
-
         public override void Act()
-        {
-            
+        {            
         }
     }
 }

@@ -14,13 +14,8 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Linq;
 
-class Result
+public class Result
 {
     public int Score { get; set; }
-    public int Time { get; set; }
-
-    public Result()
-    {
-        
-    }
+    public int Time { get; set; }   
 }

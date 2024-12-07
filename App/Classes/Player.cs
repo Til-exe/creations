@@ -17,7 +17,6 @@ namespace Gruppenprojekt.App.Classes
 {
     public class Player : GameObject
     {
-
         bool flashlight = false;
         private LightObject _flashlight;
         HUDObjectText displayTimer = new HUDObjectText("Timer: ");
@@ -29,7 +28,6 @@ namespace Gruppenprojekt.App.Classes
         HUDObjectText mtitle = new HUDObjectText("Pausiert");
         private HUDObjectText colCount;
         private int counter = 0;
-
         public Player(string name, float x, float y, float z)
         {
             
@@ -109,26 +107,26 @@ namespace Gruppenprojekt.App.Classes
             score.SetColor(1.0f, 0.0f, 0.0f);
 
         }
-
-
-
-        
-        
-
-        private float _flickerVorbei = 0f; 
-        private bool _flickering = false; 
-        private float _nextFlicker = 0f; 
         private Random _random = new Random();
-        public double WorldTimeVar = 0;
-        public int timedpenisboom = 0;
+        Random rnd = new Random();
         public bool BOOM = false;
         public bool FirstAct = true;
+        private bool _flickering = false;
+        bool toggleSprint = false;
+
+        private float _flickerVorbei = 0f;         
+        private float _nextFlicker = 0f; 
+        
+        public double WorldTimeVar = 0;
+
+        public int timedpenisboom = 0;
         static int yolo = 0;
         static int removedTime = 0;
         static int sek = 0;
         static int min = 0;
         int stnd = 0;
-        
+        int forward = 0;
+        int strafe = 0;
         public override void Act()
         {
             string ActualTimeDisplay = min + "m " + sek + "s";
@@ -141,42 +139,32 @@ namespace Gruppenprojekt.App.Classes
             if(Convert.ToInt32(WorldTime) < 60)
             {
                 ActualTimeDisplay = sek + "s";
-
             }
-            
-
             displayTimer.SetText("Timer: " + ActualTimeDisplay);
-
-
             if (timedpenisboom < 50 && BOOM)
             {
                 timedpenisboom++;
             }
             if (timedpenisboom == 50)
-            {
-                
+            {                
                 timedpenisboom = 0;
                 BOOM = false;
                 _flashlight.SetColor(0, 0, 0, 0);
             }
-
-            Random rnd = new Random();
+            
             int random = rnd.Next(20000);
             _flashlight.SetPosition(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVectorLocalRight);
             _flashlight.SetTarget(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVector * 100); // KAR: Taschenlampe muss weiiiiit in die Ferne schauen
             if (random == 69 && flashlight == true || Keyboard.IsKeyPressed(Keys.Space) && flashlight == true)
             {
-                
-                
                 _flickering = true;
                 _flickerVorbei = WorldTime + 0.5f;
                 _nextFlicker = WorldTime + GetRandomFlickerDelay(); 
                 Console.WriteLine("penis flackern");
-                Audio.PlaySound(@"./App/Sounds/shortsound.wav", false, (float)0.1);
+                KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/shortsound.wav", false, (float)0.1);
             }
             if (_flickering)
-            {
-                
+            {                
                 if (WorldTime >= _nextFlicker)
                 {
                     if (_flashlight.Color.W > 0) 
@@ -196,33 +184,28 @@ namespace Gruppenprojekt.App.Classes
                     flashlight = false;
                     _flickering = false;
                     _flashlight.SetColor(1, 1, 1, 13);
-                    Audio.PlaySound(@"./App/Sounds/flashlightexplode.wav", false, (float)0.1);
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/flashlightexplode.wav", false, (float)0.1);
                     Console.WriteLine("penis flacker vorbei");
                     Console.WriteLine("Penis aus");
                 }
             }
-           
-
-
             if (Keyboard.IsKeyPressed(Keys.F) && flashlight == false)
             {
                 _flashlight.SetColor(1, 1, 1, 4);
                 flashlight = true;
                 Console.WriteLine("Penis an");
-                Audio.PlaySound(@"./App/Sounds/flashlight_click.wav", false, (float)0.1);
+                KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/flashlight_click.wav", false, (float)0.1);
             }
             else if (Keyboard.IsKeyPressed(Keys.F) && flashlight == true)
             {
                 _flashlight.SetColor(0, 0, 0, 0);
                 flashlight = false;
                 Console.WriteLine("Penis aus");
-                Audio.PlaySound(@"./App/Sounds/flashlight_click.wav", false, (float)0.1);
+                KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/flashlight_click.wav", false, (float)0.1);
             }
-
-
-            bool k = false;
+            
             //Sprinting
-            if (k == false) 
+            if (toggleSprint == false) 
             {
                 if (Keyboard.IsKeyDown(Keys.LeftShift)) { Globals.Sprinting = true; }
                 else { Globals.Sprinting = false; }
@@ -230,35 +213,26 @@ namespace Gruppenprojekt.App.Classes
             //Sprint Toggle
             if (Keyboard.IsKeyPressed(Keys.CapsLock))
             {
-                if (k == false)
-                {
-                    k = true;
+                if (toggleSprint == false) {
+                    toggleSprint = true;
                 }
                 else
-                {  k = false;}
+                {  toggleSprint = false;}
                 Globals.Sprinting = true;
                 
             }
-            //Player speed regeln
-            if(Globals.Sprinting)
-            {
+            if(Globals.Sprinting) {
                 Globals.speed = 0.105f;
             }
-            else
-            {
+            else {
                 Globals.speed = 0.05f;
-            }
-
-            //Movement
-            int forward = 0;
-            int strafe = 0;
+            }            
             if (Globals.gameRunning)
             {
                 if (Keyboard.IsKeyDown(Keys.W)) { forward += 1; }
                 if (Keyboard.IsKeyDown(Keys.D)) { strafe += 1; }
                 if (Keyboard.IsKeyDown(Keys.A)) { strafe -= 1; }
-                if (Keyboard.IsKeyDown(Keys.S)) { forward -= 1; Globals.speed = 0.05f; }
-                
+                if (Keyboard.IsKeyDown(Keys.S)) { forward -= 1; Globals.speed = 0.05f; }                
             }
 
             //pause Menu
@@ -266,18 +240,10 @@ namespace Gruppenprojekt.App.Classes
             {
                 stop();
             }
-
-
             if (Keyboard.IsKeyPressed(Keys.Q))
             {
                 weiter();
             }
-
-
-            //minimap
-            if (Keyboard.IsKeyDown(Keys.R)) { /*Minimap*/ }
-
-            //pause Menu Button Use
             if (m1 != null)
             {   //Weiter spielen
                 if (m1.IsMouseCursorOnMe() == true)
@@ -342,8 +308,6 @@ namespace Gruppenprojekt.App.Classes
                     Window.Close();
                 }
             }
-
-            //Die Methode ist da um den Code übersichtlicher zu machen
             Camera(forward, strafe);
 
             //Einsammeln von Collectable's
@@ -361,31 +325,15 @@ namespace Gruppenprojekt.App.Classes
                 {
                     (collider as Collectable).KillMe();
                     counter = counter + 1;
-                    colCount.SetText("Gesammelte Orbs: " + counter);
-                    /*
-                    if (counter == 1)
-                    {
-                        colCount.SetText("Sie haben " + counter + " Licht");
-                    }
-                    else if (counter > 1)
-                    {
-                        colCount.SetText("Sie haben " + counter + " Lichter");
-                    }
-                    */
+                    colCount.SetText("Gesammelte Orbs: " + counter);                    
                 }
             }
-
-
         }
-
-
         public void Camera(int forward, int strafe)
         {
-            if (Globals.gameRunning)
-            {
+            if (Globals.gameRunning) {
                 CurrentWorld.AddCameraRotationFromMouseDelta();
-                CurrentWorld.UpdateCameraPositionForFirstPersonView(Center, 2f);
-                
+                CurrentWorld.UpdateCameraPositionForFirstPersonView(Center, 2f);                
                 MoveAndStrafeAlongCameraXZ(forward, strafe, Globals.speed);
                 TurnTowardsXZ(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVector);
             }
@@ -399,8 +347,6 @@ namespace Gruppenprojekt.App.Classes
             CurrentWorld.RemoveHUDObject(mtitle);
             CurrentWorld.RemoveHUDObject(score);
             displayTimer.SetPosition(50f, 50f);
-
-
         }
         public void stop()
         {

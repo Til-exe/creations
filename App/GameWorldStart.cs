@@ -14,19 +14,11 @@ namespace Gruppenprojekt.App
     {
         private Player p;
         float finalPos = 0f;
-        private float _HUDLastUpdate = 0;
-       
-        
+        private float _HUDLastUpdate = 0;        
         public float GetHUDLastUpdateTime()
-        {
-            
+        {            
             HUDObjectText h = GetHUDObjectTextByName("MyHUDObject");
             HUDObjectText h1 = GetHUDObjectTextByName("Weiter");
-            // Wenn ein Objekt dieses Typs und dieses Namens gefunden werden
-            // konnte, ist die Variable h nicht 'leer', also 'nicht null':
-            
-            
-            
             if (h1 != null)
             {
                 if (h1.IsMouseCursorOnMe() == true)
@@ -40,99 +32,61 @@ namespace Gruppenprojekt.App
                 if (Mouse.IsButtonPressed(MouseButton.Left) && h1.IsMouseCursorOnMe() == true)
                 {
                     MouseCursorGrab();
-                    
                 }
             }
-
-        
             return _HUDLastUpdate;
         }
-
         public void UpdateHUDLastUpdateTime()
         {
             _HUDLastUpdate = WorldTime;
         }
-
         public override void Act()
         {
-           
-
-            // WorldTime ist 2.5
-            // _HUDLastUpdate ist 2.2
-            // deltat = 0.3
-
             float deltat = Math.Clamp((WorldTime - _HUDLastUpdate) * 0.4f, 0, 1);
             HUDObjectText t = GetHUDObjectTextByName("ORBS");
             t.SetOpacity(1 - deltat);
-
             if (Keyboard.IsKeyPressed(Keys.R) == true )
             {
-                
                 Map.Enabled = !Map.Enabled;
-               Globals.gameRunning = !Globals.gameRunning;
+                Globals.gameRunning = !Globals.gameRunning;
                 // Optional: Map gemäß der Spielerposition verschieben und rotieren
                 if(Map.Enabled == false && finalPos >= 80f)
                 {
                     finalPos = 0f;
-                   
-                  
                 }
-               
-               
             }
-          
-
-
-
             if (Map.Enabled == true)
             {
-               
                 if(finalPos < 0.01f )
                 {
-                   
-                    finalPos = finalPos + 0.0001f;
-                   
+                    finalPos = finalPos + 0.0001f;                   
                     Map.SetCamera(
-                      p.Position.X, p.Position.Y, p.Position.Z,                   // Position der Map-Kamera
-                     ProjectionDirection.NegativeY, // Blickrichtung der Kamera (in diesem Beispiel nach unten)
-                     10 + finalPos,                            // Sichtfeld der Kamera (in z.B. Metern) in der Breite
-                        10 + finalPos,                            // Sichtfeld der Kamera (in z.B. Metern) in der Höhe
-                     1,                             // Naheinstellgrenze (Objekte näher als 1 Einheit werden ignoriert)
-                        100);
-                }
-                
+                    p.Position.X, p.Position.Y, p.Position.Z,                   // Position der Map-Kamera
+                    ProjectionDirection.NegativeY, // Blickrichtung der Kamera (in diesem Beispiel nach unten)
+                    10 + finalPos,                            // Sichtfeld der Kamera (in z.B. Metern) in der Breite
+                    10 + finalPos,                            // Sichtfeld der Kamera (in z.B. Metern) in der Höhe
+                    1,                             // Naheinstellgrenze (Objekte näher als 1 Einheit werden ignoriert)
+                    100);
+                }                
                
                 else if (finalPos < 80 )
                 {
-
                     Map.SetCamera(
-                p.Position.X, p.Position.Y, p.Position.Z,                   // Position der Map-Kamera
-                ProjectionDirection.NegativeY, // Blickrichtung der Kamera (in diesem Beispiel nach unten)
-                10 + finalPos,                            // Sichtfeld der Kamera (in z.B. Metern) in der Breite
-                10 + finalPos,                            // Sichtfeld der Kamera (in z.B. Metern) in der Höhe
-                1,                             // Naheinstellgrenze (Objekte näher als 1 Einheit werden ignoriert)
-                100);
-
-                finalPos = finalPos + 0.8f;
-                  
-
-                  
-
-
-
-
-
-
+                    p.Position.X, p.Position.Y, p.Position.Z,                   // Position der Map-Kamera
+                    ProjectionDirection.NegativeY, // Blickrichtung der Kamera (in diesem Beispiel nach unten)
+                    10 + finalPos,                            // Sichtfeld der Kamera (in z.B. Metern) in der Breite
+                    10 + finalPos,                            // Sichtfeld der Kamera (in z.B. Metern) in der Höhe
+                    1,                             // Naheinstellgrenze (Objekte näher als 1 Einheit werden ignoriert)
+                    100);
+                    finalPos = finalPos + 0.8f;
                 }
                
                 if(finalPos >= 80f)
                 {
                     // Optional: Map gemäß der Spielerposition verschieben und rotieren
                     Map.UpdateCameraRotation(CameraLookAtVectorXZ);
-
                     AddCameraRotationFromMouseDelta();
                 }
-              
 
                 Wall dach = (Wall)GetGameObjectByName("10");
 
@@ -146,32 +100,19 @@ namespace Gruppenprojekt.App
                 {
                     if (wlist[W_count].Name != "10")
                     {
-
-
                         Map.Add(wlist[W_count], 0f, new Vector3(0, 0, 1), new Vector3(0, 0, 1), 1f, 0.6f, 0f, "./App/Textures/bl_wall.jpg");
                     }
-                    }
-
+                }
                 List<Player> plist = GetGameObjectsByType<Player>();
                 for (int p_count = 0; p_count < plist.Count; p_count++)
                 {
                     Map.Add(p, 0f, new Vector3(1, 0, 0), new Vector3(1, 0, 0), 1f, 0.6f, 3f);
                 }
-
-
-               
-
             }
         }
-
         public override void Prepare()
         {
-
-
-            Audio.PreloadSound(@"./App/Sounds/shortsound.wav");
-            Audio.PreloadSound(@"./App/Sounds/flashlight_click.wav");
-            Audio.PreloadSound(@"./App/Sounds/flashlightexplode.wav");
-
+            PreLoadSounds();
             SetFadeColor(0, 0, 0);
 
             SetBackgroundSkybox("./App/Textures/skybox.png");
@@ -190,21 +131,10 @@ namespace Gruppenprojekt.App
             p = new Player("Yasin", -13f, 2f, -4f);
             AddGameObject(p);
 
-
             SetCameraToFirstPersonGameObject(p, 2f);
             KWEngine.MouseSensitivity = 0.07f;
             MouseCursorGrab();
 
-
-
-            LightObject light = new LightObject(LightType.Sun, ShadowQuality.Low);
-            light.Name = ("scheiß auf den Namen");
-            light.SetNearFar(0.1f, 25f);
-            light.SetPosition(0f, 5f, 0);
-            //AddLightObject(light);
-
-
-            //test 
             Enemy e = new Enemy("huso" , 10, 2, 1);
             AddGameObject(e);
             Collectable c1 = new Collectable("1", 3f, 3f, 20f);
@@ -278,6 +208,13 @@ namespace Gruppenprojekt.App
 
             
             
+        }
+        public static void PreLoadSounds()
+        {
+            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/shortsound.wav");
+            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/flashlight_click.wav");
+            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/flashlightexplode.wav");
+
         }
     }
 }

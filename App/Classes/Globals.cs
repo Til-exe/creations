@@ -16,8 +16,7 @@ using System.Diagnostics;
 namespace Gruppenprojekt.App.Classes
 {
     internal class Globals
-    {
-        //public static int GamesCounter;
+    {        
         public static bool gameRunning = true;
         public static float[] scores = new float[9];
         public static int Trys;
@@ -29,17 +28,12 @@ namespace Gruppenprojekt.App.Classes
         public static float moveCameraX = 0;
         public static float moveCameraY = 2.5f;
         public static float moveCameraMultiplier = 1;
-
-
         
         public static string Cpath = @"./App/data/credits.txt";        
         public static string path = @"./App/data/data.txt";
         public static string timePath = @"./App/data/time.txt";
 
         public static string[] Clines = File.ReadAllLines(Cpath);
-        
-
-
 
         public static bool DisplayStartGameButton = true;
         public static bool DisplayOptionButton = true;
@@ -60,14 +54,9 @@ namespace Gruppenprojekt.App.Classes
         public static string SetLanguage = "English";
         public static string displayCounter = "";
 
-        //public static int fensterBreite = 1280;     
-        public static int fensterBreite = 1920;
-        //public static int fensterHoehe = 720;
-        public static int fensterHoehe = 1080;
-
-
-
-
+        public static int fensterBreite = 1280;     
+        //public static int fensterBreite = 1920;
+        public static int fensterHoehe = 720;
+        //public static int fensterHoehe = 1080;
     }
-    
 }

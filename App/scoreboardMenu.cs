@@ -20,9 +20,9 @@ namespace Gruppenprojekt.App
         bool delete = false;
         bool deleted = false;
         int speed = 0;
+        int pos = 120;
         public override void Act()
         {
-
             HUDObjectText leave = GetHUDObjectTextByName("leave");
             HUDObjectText clear = GetHUDObjectTextByName("clear");
             HUDObjectText text1 = GetHUDObjectTextByName("text1");
@@ -92,18 +92,15 @@ namespace Gruppenprojekt.App
                         }
                         File.WriteAllText(filePath, "");
 
-
                         StreamWriter writer1 = new StreamWriter(filePathTime);
-                        writer1.Close();
-                        // Datei löschen, falls sie existiert
+                        writer1.Close();                        
                         if (File.Exists(filePathTime))
                         {
                             File.Delete(filePathTime);
                         }
                         File.WriteAllText(filePathTime, "");
                         clear.SetText("cleared file");
-                        deleted = true;
-                        
+                        deleted = true;                        
                     }
                     else if (!delete)
                     {
@@ -129,22 +126,7 @@ namespace Gruppenprojekt.App
                 {
                     
                 }
-            }
-            if (text2 != null)
-            {
-                if (text2.IsMouseCursorOnMe() == true)
-                {
-                    text2.SetColorEmissiveIntensity(1.5f);
-                }
-                else
-                {
-                    text2.SetColorEmissiveIntensity(0.0f);
-                }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && text2.IsMouseCursorOnMe() == true)
-                {
-                    
-                }
-            }
+            }            
             if (bgSpeed != null)
             {
                 if (bgSpeed.IsMouseCursorOnMe() == true)
@@ -227,7 +209,6 @@ namespace Gruppenprojekt.App
                 }
             }
 
-
             if (Globals.moveCameraMultiplier == 1f) { bgSpeed.SetText("Background Speed: x1"); }
             if (Globals.moveCameraMultiplier == 2f) { bgSpeed.SetText("Background Speed: x2"); }
             if (Globals.moveCameraMultiplier == 4f) { bgSpeed.SetText("Background Speed: x4"); }
@@ -242,40 +223,27 @@ namespace Gruppenprojekt.App
             if (Globals.multiplikator == 0.05f) { scoreMultiplier.SetText("Score Multiplier: x0.05"); }
             if (Globals.multiplikator == 0.01f) { scoreMultiplier.SetText("Score Multiplier: x0.01"); }
         }
-
-
         public override void Prepare()
         {
-            int pos = 120;
-
-
             HUDObjectText h1 = new HUDObjectText("BACK");
             h1.SetPosition(50f, 80f);
             h1.Name = "leave";
-            h1.SetCharacterDistanceFactor(1.0f);
             h1.SetColor(1.0f, 0.0f, 0.0f);
             h1.SetColorEmissive(1.0f, 1.0f, 1.0f);
-
-            AddHUDObject(h1);  
-            
-
+            AddHUDObject(h1);
 
             HUDObjectText sbTitle = new HUDObjectText("Scoreboard Settings");
-            sbTitle.SetPosition(130f, pos);            
-            sbTitle.SetCharacterDistanceFactor(1.0f);
+            sbTitle.SetPosition(130f, pos);
             sbTitle.SetColor(1.0f, 0.0f, 0.0f);
-            sbTitle.SetScale(30.0f);            
-
+            sbTitle.SetScale(30.0f);
             AddHUDObject(sbTitle);
 
             pos += 50;
             HUDObjectText clear = new HUDObjectText("clear");
             clear.SetPosition(160f, pos);
             clear.Name = "clear";
-            clear.SetCharacterDistanceFactor(1.0f);
             clear.SetColor(1.0f, 0.0f, 0.0f);
             clear.SetColorEmissive(1.0f, 1.0f, 1.0f);
-
             AddHUDObject(clear);
 
             //pos += 50;
@@ -288,55 +256,35 @@ namespace Gruppenprojekt.App
             //
             //AddHUDObject(text1);
 
-            //pos += 50;
-            //HUDObjectText text2 = new HUDObjectText("");
-            //text2.SetPosition(160f, pos + 150f);
-            //text2.Name = "text2";
-            //text2.SetCharacterDistanceFactor(1.0f);
-            //text2.SetColor(1.0f, 0.0f, 0.0f);
-            //text2.SetColorEmissive(1.0f, 1.0f, 1.0f);
-            //
-            //AddHUDObject(text2);
-
-
-
             pos += 70;
             HUDObjectText bgTitle = new HUDObjectText("Background Settings");
             bgTitle.SetPosition(130f, pos);
-            bgTitle.SetCharacterDistanceFactor(1.0f);
             bgTitle.SetColor(1.0f, 0.0f, 0.0f);
             bgTitle.SetScale(30.0f);
-
             AddHUDObject(bgTitle);
 
             pos += 50;
             HUDObjectText bgSpeed = new HUDObjectText("Background Speed:");
             bgSpeed.SetPosition(160f, pos);
             bgSpeed.Name = "bgSpeed";
-            bgSpeed.SetCharacterDistanceFactor(1.0f);
             bgSpeed.SetColor(1.0f, 0.0f, 0.0f);
-            bgSpeed.SetColorEmissive(1.0f, 1.0f, 1.0f);
-            
+            bgSpeed.SetColorEmissive(1.0f, 1.0f, 1.0f);            
             AddHUDObject(bgSpeed);
 
             pos += 70;
             HUDObjectText gameSettings = new HUDObjectText("Game Settings");
             gameSettings.SetPosition(130f, pos);
-            gameSettings.SetCharacterDistanceFactor(1.0f);
             gameSettings.SetColor(1.0f, 0.0f, 0.0f);
             gameSettings.SetScale(30.0f);
-
             AddHUDObject(gameSettings);
 
             pos += 50;
-            HUDObjectText scoreMultiplier = new HUDObjectText("Score Multiplier:");
-            scoreMultiplier.SetPosition(160f, pos);
-            scoreMultiplier.Name = "scoreMultiplier";
-            scoreMultiplier.SetCharacterDistanceFactor(1.0f);
-            scoreMultiplier.SetColor(1.0f, 0.0f, 0.0f);
-            scoreMultiplier.SetColorEmissive(1.0f, 1.0f, 1.0f);
-
-            AddHUDObject(scoreMultiplier);
-        }        
+            HUDObjectText scoreM = new HUDObjectText("Score Multiplier:");
+            scoreM.SetPosition(160f, pos);
+            scoreM.Name = "scoreMultiplier";
+            scoreM.SetColor(1.0f, 0.0f, 0.0f);
+            scoreM.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(scoreM);
+        }                
     }
 }

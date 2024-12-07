@@ -16,15 +16,9 @@ namespace Gruppenprojekt.App.Classes
             this.IsCollisionObject = true;
             this.IsShadowCaster = true;
             this.SetScale(1, 5, 1);
-
-
-
-
         }
-
         public override void Act()
-        {
-            
+        {            
         }
     }
 }
