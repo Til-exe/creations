@@ -130,10 +130,10 @@ namespace Gruppenprojekt.App
             FlowField pathfinding = new FlowField(0, 2.5f, 0, 100, 100, 0.5f, 5, FlowFieldMode.Simple, typeof(Wall));
             pathfinding.IsVisible = true; //FLOWFIELD DEBUG VISIBILTY
             SetFlowField(pathfinding);
-
-            Audio.PreloadSound(@"./App/Sounds/shortsound.wav");
-            Audio.PreloadSound(@"./App/Sounds/flashlight_click.wav");
-            Audio.PreloadSound(@"./App/Sounds/flashlightexplode.wav");
+            
+            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/shortsound.wav");
+            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/flashlight_click.wav");
+            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/flashlightexplode.wav");
 
             SetFadeColor(0, 0, 0);
 
@@ -165,14 +165,12 @@ namespace Gruppenprojekt.App
             light.SetPosition(0f, 5f, 0);
             //AddLightObject(light);
 
-
-            //test 
-            Enemy e = new Enemy("huso" , -12.5f, 2, 13);
-            AddGameObject(e);
-            if(Globals.choseGamemode != "Peacefull" )
+            
+            if (Globals.choseGamemode != "Peacefull" )
             {
-                Enemy e = new Enemy("huso", 11, 2, 2);
+                Enemy e = new Enemy("huso", -12.5f, 2, 13);
                 AddGameObject(e);
+
             }
             
             Collectable c1 = new Collectable("1", 3f, 3f, 20f);
@@ -256,4 +254,4 @@ namespace Gruppenprojekt.App
 
         }
     }
-}
+}   
