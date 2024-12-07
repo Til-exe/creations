@@ -125,8 +125,6 @@ namespace Gruppenprojekt.App.Classes
         static int sek = 0;
         static int min = 0;
         int stnd = 0;
-        int forward = 0;
-        int strafe = 0;
         public override void Act()
         {
             string ActualTimeDisplay = min + "m " + sek + "s";
@@ -224,15 +222,18 @@ namespace Gruppenprojekt.App.Classes
             if(Globals.Sprinting) {
                 Globals.speed = 0.105f;
             }
-            else {
+            else{
                 Globals.speed = 0.05f;
-            }            
+            }
+            int forward = 0;
+            int strafe = 0;
             if (Globals.gameRunning)
             {
                 if (Keyboard.IsKeyDown(Keys.W)) { forward += 1; }
                 if (Keyboard.IsKeyDown(Keys.D)) { strafe += 1; }
                 if (Keyboard.IsKeyDown(Keys.A)) { strafe -= 1; }
-                if (Keyboard.IsKeyDown(Keys.S)) { forward -= 1; Globals.speed = 0.05f; }                
+                if (Keyboard.IsKeyDown(Keys.S)) { forward -= 1; Globals.speed = 0.05f; }
+                
             }
 
             //pause Menu
@@ -244,6 +245,7 @@ namespace Gruppenprojekt.App.Classes
             {
                 weiter();
             }
+
             if (m1 != null)
             {   //Weiter spielen
                 if (m1.IsMouseCursorOnMe() == true)
@@ -309,7 +311,6 @@ namespace Gruppenprojekt.App.Classes
                 }
             }
             Camera(forward, strafe);
-
             //Einsammeln von Collectable's
             List<Intersection> intersections = GetIntersections();
             foreach (Intersection i in intersections)
@@ -325,7 +326,17 @@ namespace Gruppenprojekt.App.Classes
                 {
                     (collider as Collectable).KillMe();
                     counter = counter + 1;
-                    colCount.SetText("Gesammelte Orbs: " + counter);                    
+                    colCount.SetText("Gesammelte Orbs: " + counter);
+                    /*
+                    if (counter == 1)
+                    {
+                        colCount.SetText("Sie haben " + counter + " Licht");
+                    }
+                    else if (counter > 1)
+                    {
+                        colCount.SetText("Sie haben " + counter + " Lichter");
+                    }
+                    */
                 }
             }
         }
