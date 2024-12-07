@@ -193,7 +193,7 @@ namespace Gruppenprojekt.App
             light.SetNearFar(10000f, 2500f);
             light.SetPosition(1f, 1f, 1);
             
-            bbg.SetScale(Window.Width, Window.Height);
+            bbg.SetScale(Globals.fensterBreite, Globals.fensterHoehe);
             bbg.SetColor(0, 0, 0);
             bbg.CenterOnScreen();
             bbg.SetZIndex(-100);

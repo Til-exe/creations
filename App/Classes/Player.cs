@@ -376,5 +376,4 @@ namespace Gruppenprojekt.App.Classes
             return (float)_random.NextDouble() * 0.08f + 0.02f;
         }
     }
-
 }
