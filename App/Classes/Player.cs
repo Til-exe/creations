@@ -339,7 +339,7 @@ namespace Gruppenprojekt.App.Classes
                     */
                 }
             }
-        }
+        } 
         public void Camera(int forward, int strafe)
         {
             if (Globals.gameRunning) {
