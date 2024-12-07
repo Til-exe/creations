@@ -83,10 +83,10 @@ namespace Gruppenprojekt.App.Classes
                 TurnTowardsXZ(playerPos);
                 if (myDirection != Vector3.Zero)
                 {
-                    MoveAlongVector(myDirection, 0.05f);
+                    MoveAlongVector(myDirection, 0.05f);                                //Attackgeschwindigkeit
                 }
             }
-            else if (timestampLastSighting + 4f > WorldTime && timestampLastSighting != 0)
+            else if (timestampLastSighting + 4f > WorldTime && timestampLastSighting != 0)          //NOTIZ AN TIL: Wie lang kann der Gegner dich noch um Wände sehen und folgen
             {
                 Console.WriteLine("not in sight still attack");
                 if (myDirection != Vector3.Zero)
@@ -94,9 +94,9 @@ namespace Gruppenprojekt.App.Classes
                     MoveAlongVector(myDirection, 0.05f);
                 }
             }
-            else
+            else                      
             {
-                Move(0.1f);
+                Move(0.1f);                                                 //NOTIZ AN TIL HIER KANNST DU ROAMING GESCHWINDIGKEIT ANPASSEN (für difficulty)
                 Console.WriteLine("roaming");
                 List<Intersection> intersections1 = GetIntersections();
                 foreach (Intersection intersection in intersections1)
@@ -106,14 +106,14 @@ namespace Gruppenprojekt.App.Classes
                 }
             }
             List<Intersection> intersections = GetIntersections();
-            foreach (Intersection intersection in intersections)
+            foreach (Intersection intersection in intersections)            
             {
-                bool ne = false;
+                bool deathreal = false;                                    //ZUM AKTIVIEREN UND DEAKTIVIEREN DES TODES
                 MoveOffset(intersection.MTV);
                 GameObject collider = intersection.Object;
-                if (collider is Player && ne == false)
+                if (collider is Player && deathreal == true)            //WIRD AUSGEFÜHRT BEI TOT
                 {
-                    Console.WriteLine("gefahr");
+                    Console.WriteLine("skill issue");
                     GameWorldStartMenu gm = new GameWorldStartMenu();
                     Window.SetWorld(gm);
                     Globals.Trys++;
