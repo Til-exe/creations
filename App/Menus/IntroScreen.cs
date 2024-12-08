@@ -27,7 +27,6 @@ namespace Gruppenprojekt.App.Menus
         {
             HUDObjectText title = GetHUDObjectTextByName("itSteals");
             HUDObjectText start = GetHUDObjectTextByName("start");
-
             /*HUDObjectText back = GetHUDObjectTextByName("back");
             if (back != null)
             {
@@ -80,10 +79,6 @@ namespace Gruppenprojekt.App.Menus
                     Window.SetWorld(gwo);
                 }
             }
-
-
-
-
         }
         public override void Prepare()
         {/*

@@ -64,10 +64,7 @@ namespace Gruppenprojekt.App
 
                 }
                 fullbright = !fullbright;
-
             }
-
-
             // WorldTime ist 2.5
             // _HUDLastUpdate ist 2.2
             // deltat = 0.3

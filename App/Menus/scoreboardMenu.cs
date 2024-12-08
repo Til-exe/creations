@@ -34,23 +34,7 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectText deathReal = GetHUDObjectTextByName("deathReal");
             HUDObjectText bgCollectable = GetHUDObjectTextByName("bgCollectable");
             HUDObjectText bgAnimation = GetHUDObjectTextByName("bgAnimation");
-
-            if (leave != null)
-            {
-                if (leave.IsMouseCursorOnMe() == true)
-                {
-                    leave.SetColorEmissiveIntensity(1.5f);
-                }
-                else
-                {
-                    leave.SetColorEmissiveIntensity(0.0f);
-                }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && leave.IsMouseCursorOnMe() == true)
-                {
-                    GameWorldStartMenu gm = new GameWorldStartMenu();
-                    Window.SetWorld(gm);
-                }
-            }
+            GameWorldStartMenu.functionBackButton(leave);
             if (clear != null)
             {
                 if (delete && !deleted)
@@ -293,7 +277,6 @@ namespace Gruppenprojekt.App.Menus
                 }
             }
 
-
             if (Globals.moveCameraMultiplier == 1f) { bgSpeed.SetText("Background Speed: x1"); }
             if (Globals.moveCameraMultiplier == 2f) { bgSpeed.SetText("Background Speed: x2"); }
             if (Globals.moveCameraMultiplier == 4f) { bgSpeed.SetText("Background Speed: x4"); }
@@ -309,8 +292,7 @@ namespace Gruppenprojekt.App.Menus
             if (Globals.multiplikator == 0.01f) { scoreMultiplier.SetText("Score Multiplier: x0.01"); }
 
             if (Globals.deathreal) { deathReal.SetText("Death: " + Globals.enabledText); } else { deathReal.SetText("Death: " + Globals.disabledText); }
-            if (Globals.bgAnimation) { bgAnimation.SetText("Animation: " + Globals.enabledText); } else { bgAnimation.SetText("Animation: " + Globals.disabledText); }
-
+            if (Globals.bgAnimation) { bgAnimation.SetText("Animation: " + Globals.enabledText); } else { bgAnimation.SetText("Animation: " + Globals.disabledText); }            
         }
         public override void Prepare()
         {
@@ -334,16 +316,6 @@ namespace Gruppenprojekt.App.Menus
             clear.SetColor(1.0f, 0.0f, 0.0f);
             clear.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(clear);
-
-            //pos += 50;
-            //HUDObjectText text1 = new HUDObjectText("");
-            //text1.SetPosition(160f, pos + 100f);
-            //text1.Name = "text1";
-            //text1.SetCharacterDistanceFactor(1.0f);
-            //text1.SetColor(1.0f, 0.0f, 0.0f);
-            //text1.SetColorEmissive(1.0f, 1.0f, 1.0f);
-            //
-            //AddHUDObject(text1);
 
             pos += 70;
             HUDObjectText bgTitle = new HUDObjectText("Background Settings");

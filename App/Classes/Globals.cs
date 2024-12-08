@@ -32,14 +32,21 @@ namespace Gruppenprojekt.App.Classes
         public static string choseGamemode = "Normal";
         public static int SpawnColByDeath = 1;
         public static bool deathreal = false;
+        public static bool GameEnd = false;
+        public static bool EndReal = true;
+        public static string path = @"./App/data/data.txt";
+        public static string timePath = @"./App/data/time.txt";
+
+
+        public static int posWert;
+        public static int posYWert;
+
         public static bool DisplayStartGameButton = true;
         public static bool DisplayOptionButton = true;
         public static bool DisplayLanguageButton = false;
         public static bool DisplayCreditsButton = true;
         public static bool DisplayScoreboardButton = false;
-        public static bool DisplayLeaveButton = true;       
-        public static int posWert;
-        public static int posYWert;
+        public static bool DisplayLeaveButton = true;
 
         public static string enabledText = "";
         public static string disabledText = "";

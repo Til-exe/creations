@@ -25,37 +25,13 @@ namespace Gruppenprojekt.App.Menus
         int pos = 200;
         public override void Act()
         {
-            HUDObjectText leave = GetHUDObjectTextByName("leave");
+            
             HUDObjectText buy1 = GetHUDObjectTextByName("buy1");
             HUDObjectText buy2 = GetHUDObjectTextByName("buy2");
             HUDObjectText buy3 = GetHUDObjectTextByName("buy3");
-            HUDObjectText score = GetHUDObjectTextByName("score");
-            /*
-            HUDObjectText clear = GetHUDObjectTextByName("clear");
-            HUDObjectText text1 = GetHUDObjectTextByName("text1");
-            HUDObjectText text2 = GetHUDObjectTextByName("text2");
-            HUDObjectText bgSpeed = GetHUDObjectTextByName("bgSpeed");
-            HUDObjectText scoreMultiplier = GetHUDObjectTextByName("scoreMultiplier");
-            HUDObjectText deathReal = GetHUDObjectTextByName("deathReal");
-            HUDObjectText bgCollectable = GetHUDObjectTextByName("bgCollectable");
-            HUDObjectText bgAnimation = GetHUDObjectTextByName("bgAnimation");
-            */
-            if (leave != null)
-            {
-                if (leave.IsMouseCursorOnMe() == true)
-                {
-                    leave.SetColorEmissiveIntensity(1.5f);
-                }
-                else
-                {
-                    leave.SetColorEmissiveIntensity(0.0f);
-                }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && leave.IsMouseCursorOnMe() == true)
-                {
-                    GwStartMenuOption gm = new GwStartMenuOption();
-                    Window.SetWorld(gm);
-                }
-            }
+            HUDObjectText score = GetHUDObjectTextByName("score");            
+            HUDObjectText leave = GetHUDObjectTextByName("leave");
+            GameWorldStartMenu.functionBackButton(leave);
             if (buy1 != null)
             {
                 if (buy1.IsMouseCursorOnMe() == true)

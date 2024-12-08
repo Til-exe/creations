@@ -41,9 +41,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && start.IsMouseCursorOnMe() == true)
                 {
-                    GameWorldStart gws = new GameWorldStart();
-                    Window.SetWorld(gws);
-                    Globals.Score = 0;
+                    startGame();
                 }
             }
             if (option != null)
@@ -144,9 +142,7 @@ namespace Gruppenprojekt.App.Menus
             }                   //Display all Sections Button
             if (Keyboard.IsKeyPressed(Keys.Enter))
             {
-                GameWorldStart gws = new GameWorldStart();
-                Window.SetWorld(gws);
-                Globals.Score = 0;
+                startGame();
             }               //Start Button
             //if (Keyboard.IsKeyPressed(Keys.Space)) { IntroScreen screen = new IntroScreen(); Window.SetWorld(screen); }
             
@@ -166,8 +162,7 @@ namespace Gruppenprojekt.App.Menus
             
         }
         public override void Prepare()
-        {
-            
+        {            
             Globals.gameRunning = true;
             Wall w1 = new Wall("1", 0f, 4f, 5f);
             Wall w2 = new Wall("2", 0f, 4f, 0f);
@@ -178,6 +173,11 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectImage bbg = new HUDObjectImage("./App/Textures/blackscreen.png");
             HUDObjectText hSubtitle = new HUDObjectText("By PLUG-INC");
             HUDObjectText hTitle = new HUDObjectText("ITS STOLEN");
+
+            int fb = Globals.fensterBreite;
+            int fh = Globals.fensterHoehe;
+            Globals.posWert = 10;
+            Globals.posYWert = 100;
 
             w1.SetTexture("./app/Textures/wood1.png");
             w1.SetTextureRepeat(500f, 5f);
@@ -198,8 +198,6 @@ namespace Gruppenprojekt.App.Menus
             light.Name = "light";
             light.SetNearFar(10000f, 2500f);
             light.SetPosition(1f, 1f, 1);
-            
-            
 
             bbg.SetScale(Globals.fensterBreite, Globals.fensterHoehe);
             bbg.Name = "bbg";
@@ -207,9 +205,6 @@ namespace Gruppenprojekt.App.Menus
             bbg.CenterOnScreen();
             bbg.SetZIndex(-100);
             bbg.SetOpacity(0.75f);
-
-            int fb = Globals.fensterBreite;
-            int fh = Globals.fensterHoehe;
 
             hSubtitle.SetPosition(fb / 2, 100f);
             hSubtitle.SetTextAlignment(TextAlignMode.Center);
@@ -219,9 +214,6 @@ namespace Gruppenprojekt.App.Menus
             hTitle.SetTextAlignment(TextAlignMode.Center);
             hTitle.SetColor(1.0f, 0.0f, 0.0f);
             hTitle.SetScale(80.0f);
-
-            Globals.posWert = 10;
-            Globals.posYWert = 100;
 
             languageMenu.ChangeLanguage();
             displayClickableButtons();
@@ -293,19 +285,15 @@ namespace Gruppenprojekt.App.Menus
             AddHUDObject(s9);
             AddHUDObject(s10);
 
-
             SetCameraPosition(0.0f, 5.0f, 15.0f);
 
-            string dateiPfad = @"./App/data/data.txt";
-            string timePfad = @"./App/data/time.txt";
-
-            double[] doubleWerte = File.ReadAllLines(timePfad)
+            double[] doubleWerte = File.ReadAllLines(Globals.timePath)
                     .Select(line => double.Parse(line))
                     .ToArray();
             int[] intWerte = doubleWerte.Select(d => (int)d).ToArray();
 
             string[] readTime = intWerte.Select(i => i.ToString()).ToArray();
-            string[] readScores = File.Exists(dateiPfad) ? File.ReadAllLines(dateiPfad) : new string[0];
+            string[] readScores = File.Exists(Globals.path) ? File.ReadAllLines(Globals.path) : new string[0];
 
             int[] allNumbers = new int[readScores.Length];
             int[] allTime = new int[readTime.Length];
@@ -317,7 +305,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 else
                 {
-                    Console.WriteLine($"Ungültiger Wert in {dateiPfad}: '{readScores[i]}' wird ignoriert.");
+                    Console.WriteLine($"Ungültiger Wert in {Globals.path}: '{readScores[i]}' wird ignoriert.");
                 }
             }
             for (int i = 0; i < readTime.Length; i++)
@@ -328,7 +316,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 else
                 {
-                    Console.WriteLine($"Ungültiger Wert in {timePfad}: '{readTime[i]}' wird ignoriert.");
+                    Console.WriteLine($"Ungültiger Wert in {Globals.timePath}: '{readTime[i]}' wird ignoriert.");
                 }
             }
 
@@ -495,6 +483,32 @@ namespace Gruppenprojekt.App.Menus
             string x;
             x = i + "# " + Convert.ToString(results[results.Count - i].Score + leerstellen(results[results.Count - i].Score) + results[results.Count - i].Time + "s");
             return x;
+        }
+        public static void startGame()
+        {
+            GameWorldStart gws = new GameWorldStart();
+            Window.SetWorld(gws);
+            Globals.Score = 0;
+        }
+        public static void functionBackButton(HUDObject leave) 
+        {
+            
+            if (leave != null)
+            {
+                if (leave.IsMouseCursorOnMe() == true)
+                {
+                    leave.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    leave.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && leave.IsMouseCursorOnMe() == true)
+                {
+                    GwStartMenuOption gm = new GwStartMenuOption();
+                    Window.SetWorld(gm);
+                }
+            }
         }
     }
 }
