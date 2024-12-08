@@ -116,7 +116,7 @@ namespace Gruppenprojekt.App.Menus
         }
         public override void Prepare()
         {
-            HUDObjectText h1 = new HUDObjectText("BACK");
+            HUDObjectText h1 = new HUDObjectText(Globals.backText);
             h1.SetPosition(50f, 80f);
             h1.Name = "MyHUDObject1";
             h1.SetCharacterDistanceFactor(1.0f);

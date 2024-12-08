@@ -107,7 +107,7 @@ namespace Gruppenprojekt.App.Menus
 
 
 
-            HUDObjectText h1 = new HUDObjectText("BACK");
+            HUDObjectText h1 = new HUDObjectText(Globals.backText);
             h1.SetPosition(50f, 80f);
             h1.Name = "MyHUDObject1";
             h1.SetCharacterDistanceFactor(1.0f);
@@ -162,11 +162,14 @@ namespace Gruppenprojekt.App.Menus
                 Globals.StartButtonText = "Start";
                 Globals.OptionButtonText = "Optionen";
                 Globals.LanguageButtonText = "Sprache";
-                Globals.CreditsButtonText = "Vielen Dank an:";
+                Globals.CreditsButtonText = "Danksage";
                 Globals.ScoreboardButtonText = "Admin";
                 Globals.LeaveButtonText = "Verlassen";
                 Globals.ActualScoreboardText = "PUNKTETAFEL";
                 Globals.choseGamemodeText = "SPIELMODUS";
+                Globals.enabledText = "AKTIVIERT";
+                Globals.disabledText = "DEAKTIVIERT";
+                Globals.backText = "Zurück";
             }
             if (Globals.SetLanguage == "English")
             {
@@ -178,6 +181,10 @@ namespace Gruppenprojekt.App.Menus
                 Globals.LeaveButtonText = "Leave";
                 Globals.ActualScoreboardText = "SCOREBOARD";
                 Globals.choseGamemodeText = "GAMEMODE";
+                Globals.enabledText = "ENABLED";
+                Globals.disabledText = "DISABLED";
+                Globals.backText = "Back";
+
 
             }
             if (Globals.SetLanguage == "Spanisch")
@@ -188,7 +195,11 @@ namespace Gruppenprojekt.App.Menus
                 Globals.CreditsButtonText = "Créditos";
                 Globals.ScoreboardButtonText = "Admin";
                 Globals.LeaveButtonText = "Dejar";
-                Globals.ActualScoreboardText = "MARCADOR";
+                Globals.ActualScoreboardText = "MARCADOR"; 
+                Globals.enabledText = "ist An, ich Kann kein Spanisch";
+                Globals.disabledText = "ist Aus, ich Kann kein Spanisch";
+                Globals.backText = "Baguette";
+
 
             }
         }

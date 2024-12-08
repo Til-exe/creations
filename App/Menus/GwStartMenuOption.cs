@@ -17,9 +17,11 @@ namespace Gruppenprojekt.App.Menus
         int value1 = 0;
         int value2 = 0;
         int value3 = 0;
+        int counter = 0;
         bool codeEnterd = true;
         public override void Act()
         {
+            
             HUDObjectText back = GetHUDObjectTextByName("back");
             HUDObjectText enter = GetHUDObjectTextByName("Enter");
             HUDObjectText reset = GetHUDObjectTextByName("Reset");
@@ -72,10 +74,16 @@ namespace Gruppenprojekt.App.Menus
                     enter.SetColorEmissiveIntensity(0.0f);
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && enter.IsMouseCursorOnMe() == true)
-                {
+                {                    
                     if (value1 == 1 && value2 == 1 && value3 == 1 && codeEnterd)
-                    { code.SetText("CODE AKTIVIERT"); codeEnterd = false; }
-                    else { code.SetText(""); }
+                    { 
+                        code.SetText("CODE AKTIVIERT"); codeEnterd = false;
+                    }
+
+                    else
+                    {
+                        
+                    }
                     Globals.ReturnCode = 1;
 
 
@@ -93,6 +101,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && reset.IsMouseCursorOnMe() == true)
                 {
+                    code.SetText("");
                     value1 = 0;
                     value2 = 0;
                     value3 = 0;
@@ -246,18 +255,15 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && EnableCredits.IsMouseCursorOnMe() == true)
                 {
-                    if (Globals.DisplayCreditsButton == true)
+                    if (Globals.DisplayCreditsButton)
                     {
-                        EnableCredits.SetText("CREDITS: DISABLED");
-                        Globals.DisplayCreditsButton = false;
-                        File.WriteAllText(Globals.Cpath, "false");
+                        EnableCredits.SetText("CREDITS: " + Globals.disabledText);
                     }
                     else
                     {
-                        EnableCredits.SetText("CREDITS: ENABLED");
-                        Globals.DisplayCreditsButton = true;
-                        File.WriteAllText(Globals.Cpath, "true");
+                        EnableCredits.SetText("CREDITS: " + Globals.enabledText);
                     }
+                    Globals.DisplayCreditsButton = !Globals.DisplayCreditsButton;
                 }
             }
             if (EnableLanguage != null)
@@ -272,18 +278,15 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && EnableLanguage.IsMouseCursorOnMe() == true)
                 {
-                    if (Globals.DisplayLanguageButton == true)
+                    if (Globals.DisplayLanguageButton)
                     {
-                        EnableLanguage.SetText("LANGUAGE: DISABLED");
-                        Globals.DisplayLanguageButton = false;
-                        File.WriteAllText(Globals.Cpath, "false");
+                        EnableLanguage.SetText("LANGUAGE: " + Globals.disabledText);
                     }
                     else
                     {
-                        EnableLanguage.SetText("LANGUAGE: ENABLED");
-                        Globals.DisplayLanguageButton = true;
-                        File.WriteAllText(Globals.Cpath, "true");
+                        EnableLanguage.SetText("LANGUAGE: " + Globals.enabledText);
                     }
+                    Globals.DisplayLanguageButton = !Globals.DisplayLanguageButton;
                 }
             }
             if (EnableScoreboard != null)
@@ -298,18 +301,13 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && EnableScoreboard.IsMouseCursorOnMe() == true)
                 {
-                    if (Globals.DisplayScoreboardButton == true)
-                    {
-                        EnableScoreboard.SetText("ADMIN: DISABLED");
-                        Globals.DisplayScoreboardButton = false;
-                        File.WriteAllText(Globals.Cpath, "false");
+                    if (Globals.DisplayScoreboardButton) {
+                        EnableScoreboard.SetText("ADMIN: " + Globals.disabledText);                        
                     }
-                    else
-                    {
-                        EnableScoreboard.SetText("ADMIN: ENABLED");
-                        Globals.DisplayScoreboardButton = true;
-                        File.WriteAllText(Globals.Cpath, "true");
+                    else {
+                        EnableScoreboard.SetText("ADMIN: " + Globals.enabledText);                        
                     }
+                    Globals.DisplayScoreboardButton = !Globals.DisplayScoreboardButton;
 
                 }
             }
@@ -343,7 +341,7 @@ namespace Gruppenprojekt.App.Menus
         }
         public override void Prepare()
         {
-            HUDObjectText h1 = new HUDObjectText("BACK");
+            HUDObjectText h1 = new HUDObjectText(Globals.backText);
             h1.SetPosition(50f, 80f);
             h1.Name = "back";
             h1.SetColor(1.0f, 0.0f, 0.0f);
@@ -373,34 +371,31 @@ namespace Gruppenprojekt.App.Menus
 
             if (Globals.DisplayCreditsButton == false)
             {
-                credits.SetText("CREDITS: DISABLED");
-                Globals.DisplayCreditsButton = false;
+                credits.SetText("CREDITS: " + Globals.disabledText);                
             }
             else
             {
-                credits.SetText("CREDITS: ENABLED");
+                credits.SetText("CREDITS: " + Globals.enabledText);
                 Globals.DisplayCreditsButton = true;
             }
 
             if (Globals.DisplayLanguageButton == false)
             {
-                language.SetText("LANGUAGE: DISABLED");
-                Globals.DisplayLanguageButton = false;
+                language.SetText("LANGUAGE: " + Globals.disabledText);                
             }
             else
             {
-                language.SetText("LANGUAGE: ENABLED");
+                language.SetText("LANGUAGE: " + Globals.enabledText);
                 Globals.DisplayLanguageButton = true;
             }
 
             if (Globals.DisplayScoreboardButton == false)
             {
-                scoreboard.SetText("ADMIN: DISABLED");
-                Globals.DisplayScoreboardButton = false;
+                scoreboard.SetText("ADMIN: " + Globals.disabledText);                
             }
             else
             {
-                scoreboard.SetText("ADMIN: ENABLED");
+                scoreboard.SetText("ADMIN: " + Globals.enabledText);
                 Globals.DisplayScoreboardButton = true;
             }
 

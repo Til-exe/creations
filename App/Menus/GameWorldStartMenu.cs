@@ -12,6 +12,7 @@ using System.Linq;
 using System.IO;
 using KWEngine3;
 using System;
+using Assimp;
 namespace Gruppenprojekt.App.Menus
 {
     public class GameWorldStartMenu : World
@@ -24,7 +25,7 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectText credits = GetHUDObjectTextByName("credits");
             HUDObjectText language = GetHUDObjectTextByName("language");
             HUDObjectText AdminSB = GetHUDObjectTextByName("AdminSB");
-            HUDObjectImage bg = GetHUDObjectImageByName("./App/Textures/MenuHintergrund.jpg");
+            HUDObjectImage bbg = GetHUDObjectImageByName("bbg");
 
             if (start != null)
             {
@@ -124,7 +125,6 @@ namespace Gruppenprojekt.App.Menus
                     Window.SetWorld(scoreboardMenu);
                 }
             }
-
             if (Keyboard.IsKeyPressed(Keys.W))
             {
                 Globals.DisplayStartGameButton = true;
@@ -160,6 +160,10 @@ namespace Gruppenprojekt.App.Menus
             if (Globals.moveCameraMultiplier == 4) { Globals.moveCameraX += 0.08f; }
             if (Globals.moveCameraMultiplier == 0.5) { Globals.moveCameraX += 0.01f; }
             if (Globals.moveCameraMultiplier == 0.25) { Globals.moveCameraX += 0.005f; }
+            if (Globals.bgAnimation) { bbg.SetOpacity(0.75f); } else { bbg.SetOpacity(1f); }
+
+
+            
         }
         public override void Prepare()
         {
@@ -167,9 +171,9 @@ namespace Gruppenprojekt.App.Menus
             Wall w1 = new Wall("1", 0f, 4f, 5f);
             Wall w2 = new Wall("2", 0f, 4f, 0f);
             Floor f = new Floor("floor", 1f, 1f, 1f);
-            Floor f1 = new Floor("floor", 1f, 10f, 1f);
+            Floor f1 = new Floor("floor", 1f, 10f, 1f);            
             LightObject light = new LightObject(LightType.Sun, ShadowQuality.Low);
-            Collectable c1 = new Collectable("1", 100f, 2.5f, 2.5f);
+            Collectable c1 = new Collectable("1", 100f, 2.5f, 2.5f);                      
             HUDObjectImage bbg = new HUDObjectImage("./App/Textures/blackscreen.png");
             HUDObjectText hSubtitle = new HUDObjectText("By PLUG-INC");
             HUDObjectText hTitle = new HUDObjectText("ITS STOLEN");
@@ -189,12 +193,15 @@ namespace Gruppenprojekt.App.Menus
             f1.SetTexture("./app/Textures/wood1.png");
             f1.SetTextureRepeat(500f, 5f);
             f1.SetScale(1000, 1, 10);
-
-            light.Name = "scheiß auf den Namen";
+            
+            light.Name = "light";
             light.SetNearFar(10000f, 2500f);
             light.SetPosition(1f, 1f, 1);
+            
+            
 
             bbg.SetScale(Globals.fensterBreite, Globals.fensterHoehe);
+            bbg.Name = "bbg";
             bbg.SetColor(0, 0, 0);
             bbg.CenterOnScreen();
             bbg.SetZIndex(-100);
@@ -260,8 +267,8 @@ namespace Gruppenprojekt.App.Menus
 
             HUDObjectText s10 = new HUDObjectText("1O#");
             s10.SetPosition(fb / 2 + fb / 6 - 23, 610f);
-            s10.SetColor(1.0f, 0.0f, 0.0f);
-
+            s10.SetColor(1.0f, 0.0f, 0.0f);    
+            
             AddLightObject(light);
             AddGameObject(c1);
             AddGameObject(w1);

@@ -31,6 +31,10 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectText text2 = GetHUDObjectTextByName("text2");
             HUDObjectText bgSpeed = GetHUDObjectTextByName("bgSpeed");
             HUDObjectText scoreMultiplier = GetHUDObjectTextByName("scoreMultiplier");
+            HUDObjectText deathReal = GetHUDObjectTextByName("deathReal");
+            HUDObjectText bgCollectable = GetHUDObjectTextByName("bgCollectable");
+            HUDObjectText bgAnimation = GetHUDObjectTextByName("bgAnimation");
+
             if (leave != null)
             {
                 if (leave.IsMouseCursorOnMe() == true)
@@ -120,16 +124,6 @@ namespace Gruppenprojekt.App.Menus
 
                 }
             }
-
-
-
-
-
-
-
-
-
-
             if (text1 != null)
             {
                 if (text1.IsMouseCursorOnMe() == true)
@@ -226,6 +220,79 @@ namespace Gruppenprojekt.App.Menus
                     }
                 }
             }
+            if (deathReal != null)
+            {
+                if (deathReal.IsMouseCursorOnMe() == true)
+                {
+                    deathReal.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    deathReal.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && deathReal.IsMouseCursorOnMe() == true)
+                {
+                    if(Globals.deathreal)
+                    {
+                        deathReal.SetText("Death: " + Globals.enabledText);
+                    }
+                    else
+                    {
+                        deathReal.SetText("Death: " + Globals.disabledText);
+
+                    }
+                    Globals.deathreal = !Globals.deathreal;
+                }
+            }
+            if (bgCollectable != null)
+            {
+                if (bgCollectable.IsMouseCursorOnMe() == true)
+                {
+                    bgCollectable.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    bgCollectable.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && bgCollectable.IsMouseCursorOnMe() == true)
+                {
+                    if (Globals.bgAnimation)
+                    {
+                        bgCollectable.SetText("Collectable: " + Globals.enabledText);
+                    }
+                    else
+                    {
+                        bgCollectable.SetText("Collectable: " + Globals.disabledText);
+
+                    }
+                    Globals.bgAnimation = !Globals.bgAnimation;
+                }
+            }
+            if (bgAnimation != null) 
+            {
+                if (bgAnimation.IsMouseCursorOnMe() == true)
+                {
+                    bgAnimation.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    bgAnimation.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && bgAnimation.IsMouseCursorOnMe() == true)
+                {
+                    if (Globals.bgAnimation)
+                    {
+                        bgAnimation.SetText("Animation: " + Globals.enabledText);
+                    }
+                    else
+                    {
+                        bgAnimation.SetText("Animation: " + Globals.disabledText);
+
+                    }
+                    Globals.bgAnimation = !Globals.bgAnimation;
+                }
+            }
+
 
             if (Globals.moveCameraMultiplier == 1f) { bgSpeed.SetText("Background Speed: x1"); }
             if (Globals.moveCameraMultiplier == 2f) { bgSpeed.SetText("Background Speed: x2"); }
@@ -240,10 +307,14 @@ namespace Gruppenprojekt.App.Menus
             if (Globals.multiplikator == 0.1f) { scoreMultiplier.SetText("Score Multiplier: x0.1"); }
             if (Globals.multiplikator == 0.05f) { scoreMultiplier.SetText("Score Multiplier: x0.05"); }
             if (Globals.multiplikator == 0.01f) { scoreMultiplier.SetText("Score Multiplier: x0.01"); }
+
+            if (Globals.deathreal) { deathReal.SetText("Death: " + Globals.enabledText); } else { deathReal.SetText("Death: " + Globals.disabledText); }
+            if (Globals.bgAnimation) { bgAnimation.SetText("Animation: " + Globals.enabledText); } else { bgAnimation.SetText("Animation: " + Globals.disabledText); }
+
         }
         public override void Prepare()
         {
-            HUDObjectText h1 = new HUDObjectText("BACK");
+            HUDObjectText h1 = new HUDObjectText(Globals.backText);
             h1.SetPosition(50f, 80f);
             h1.Name = "leave";
             h1.SetColor(1.0f, 0.0f, 0.0f);
@@ -289,6 +360,14 @@ namespace Gruppenprojekt.App.Menus
             bgSpeed.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(bgSpeed);
 
+            pos += 50;
+            HUDObjectText bgAnimation = new HUDObjectText("Animation:");
+            bgAnimation.SetPosition(160f, pos);
+            bgAnimation.Name = "bgAnimation";
+            bgAnimation.SetColor(1.0f, 0.0f, 0.0f);
+            bgAnimation.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(bgAnimation);
+
             pos += 70;
             HUDObjectText gameSettings = new HUDObjectText("Game Settings");
             gameSettings.SetPosition(130f, pos);
@@ -303,6 +382,14 @@ namespace Gruppenprojekt.App.Menus
             scoreM.SetColor(1.0f, 0.0f, 0.0f);
             scoreM.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(scoreM);
+
+            pos += 50;
+            HUDObjectText deathReal = new HUDObjectText("Death:");
+            deathReal.SetPosition(160f, pos);
+            deathReal.Name = "deathReal";
+            deathReal.SetColor(1.0f, 0.0f, 0.0f);
+            deathReal.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(deathReal);
         }
     }
 }

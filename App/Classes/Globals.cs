@@ -28,9 +28,10 @@ namespace Gruppenprojekt.App.Classes
         public static float moveCameraX = 0;
         public static float moveCameraY = 2.5f;
         public static float moveCameraMultiplier = 1;
+        public static bool bgAnimation = true;
         public static string choseGamemode = "Normal";
         public static int SpawnColByDeath = 1;
-
+        public static bool deathreal = false;
 
         public static string Cpath = @"./App/data/credits.txt";        
         public static string path = @"./App/data/data.txt";
@@ -47,6 +48,9 @@ namespace Gruppenprojekt.App.Classes
         public static int posWert;
         public static int posYWert;
 
+        public static string enabledText = "";
+        public static string disabledText = "";
+        public static string backText = "";
         public static string StartButtonText = "";
         public static string OptionButtonText = "";
         public static string LanguageButtonText = "";
