@@ -3780,11 +3780,19 @@
             für das FlowField relevanten Objekts ändert
             </remarks>
         </member>
-        <member name="M:KWEngine3.Helper.FlowField.SetTarget(OpenTK.Mathematics.Vector3)">
+        <member name="M:KWEngine3.Helper.FlowField.SetTarget(OpenTK.Mathematics.Vector3,System.Boolean)">
             <summary>
             Berechnet die Richungsanweisungen im gesamten FlowField für die neue Zielposition
             </summary>
             <param name="position">Neue Positionsangabe</param>
+            <param name="clampToGrid">Gibt an, ob die Zielposition auf die nächstgelegene FlowField-Zelle angepasst werden soll, wenn es außerhalb der FlowField-Instanz liegt (Standard: false)</param>
+        </member>
+        <member name="M:KWEngine3.Helper.FlowField.GetLinearDirectionForPosition(OpenTK.Mathematics.Vector3)">
+            <summary>
+            Gibt die (normalisierte) Luftlinienrichtung von der angegebenen Position zum aktuellen Ziel zurück.
+            </summary>
+            <param name="position">Zielposition</param>
+            <returns>Luftlinienrichtung</returns>
         </member>
         <member name="M:KWEngine3.Helper.FlowField.GetBestDirectionForPosition(OpenTK.Mathematics.Vector3)">
             <summary>
@@ -3793,11 +3801,12 @@
             <param name="position">aktuelle Position</param>
             <returns>bestmögliche Bewegungsrichtung</returns>
         </member>
-        <member name="M:KWEngine3.Helper.FlowField.GetCellForWorldPosition(OpenTK.Mathematics.Vector3)">
+        <member name="M:KWEngine3.Helper.FlowField.GetCellForWorldPosition(OpenTK.Mathematics.Vector3,System.Boolean)">
             <summary>
             Erfragt Details zu der FlowField-Zelle, die der übergebenen Weltposition entspricht
             </summary>
             <param name="position">Position in Weltkoordinaten</param>
+            <param name="clampToGrid">Gibt an, ob die Position auf die nächstgelegene Zelle angepasst werden soll, wenn sie eigentlich außerhalb des Grids liegt (Standard: false)</param>
             <returns>Zell-Instanz falls das FlowField diese Position abdeckt - null, falls die Position außerhalb des FlowFields liegt</returns>
         </member>
         <member name="M:KWEngine3.Helper.FlowField.IsPositionInsideDestinationCell(OpenTK.Mathematics.Vector3)">
@@ -3806,6 +3815,13 @@
             </summary>
             <param name="position">Zu prüfende Position</param>
             <returns>true, wenn die Position in der Zielzelle liegt</returns>
+        </member>
+        <member name="M:KWEngine3.Helper.FlowField.SetPosition(System.Single,System.Single)">
+            <summary>
+            Aktualisiert den Mittelpunkt der FlowField-Instanz (erzeugt eine Verschiebung des FlowFields)
+            </summary>
+            <param name="x">Verschiebung des FlowField in x-Richtung</param>
+            <param name="z">Verschiebung des FlowField in z-Richtung</param>
         </member>
         <member name="P:KWEngine3.Helper.FlowField.HasTarget">
             <summary>
