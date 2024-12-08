@@ -79,7 +79,7 @@ namespace Gruppenprojekt.App.Menus
                     GameWorldStartMenu gwo = new GameWorldStartMenu();
                     Window.SetWorld(gwo);
 
-                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 255f);
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
                 }
             }
         }
@@ -125,7 +125,7 @@ namespace Gruppenprojekt.App.Menus
             AddHUDObject(h5);
             AddHUDObject(h6);*/
             GameWorldStart.PreLoadSounds(); 
-            //KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/IntroMusic1.wav", false, 0.5f);
+            KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/IntroMusic1.wav", false, 0.06f);
             HUDObjectText title = new HUDObjectText("ITS STOLEN");
             title.Name = "itSteals";
             title.SetScale(1f);
