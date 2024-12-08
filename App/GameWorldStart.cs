@@ -284,7 +284,13 @@ namespace Gruppenprojekt.App
         public static void PreLoadSounds() {
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/shortsound.wav");
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/flashlight_click.wav");
-            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/flashlightexplode.wav");
+            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/Collecting.wav");
+            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/deepGrowl1.wav");
+            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/IntroMusic1.wav");
+            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/scaryAmbience.wav");
+            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/ScaryMenuMusic1.wav");
+            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/ScaryScream.wav");
+            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/click.wav");
         }
     }
 }   

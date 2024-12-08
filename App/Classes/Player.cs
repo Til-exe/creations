@@ -188,7 +188,7 @@ namespace Gruppenprojekt.App.Classes
                     flashlight = false;
                     _flickering = false;
                     _flashlight.SetColor(1, 1, 1, 13);
-                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/flashlightexplode.wav", false, (float)0.1);
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/flashlightexplode.wav", false, 0.1f);
                     Console.WriteLine("penis flacker vorbei");
                     Console.WriteLine("Penis aus");
                 }
