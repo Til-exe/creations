@@ -18,7 +18,7 @@ namespace Gruppenprojekt.App.Classes
     internal class Globals
     {        
         public static bool gameRunning = true;
-        public static float[] scores = new float[9];
+        public static float totalScore = 0;
         public static int Trys;
         public static float Score;
         public static int ReturnCode;
@@ -32,13 +32,6 @@ namespace Gruppenprojekt.App.Classes
         public static string choseGamemode = "Normal";
         public static int SpawnColByDeath = 1;
         public static bool deathreal = false;
-
-        public static string Cpath = @"./App/data/credits.txt";        
-        public static string path = @"./App/data/data.txt";
-        public static string timePath = @"./App/data/time.txt";
-
-        public static string[] Clines = File.ReadAllLines(Cpath);
-
         public static bool DisplayStartGameButton = true;
         public static bool DisplayOptionButton = true;
         public static bool DisplayLanguageButton = false;
@@ -62,9 +55,9 @@ namespace Gruppenprojekt.App.Classes
         public static string displayCounter = "";
         public static string choseGamemodeText = "";
 
-        public static int fensterBreite = 1280;     
-        //public static int fensterBreite = 1920;
-        public static int fensterHoehe = 720;
-        //public static int fensterHoehe = 1080;
+        //public static int fensterBreite = 1280;     
+        public static int fensterBreite = 1920;
+        //public static int fensterHoehe = 720;
+        public static int fensterHoehe = 1080;
     }
 }

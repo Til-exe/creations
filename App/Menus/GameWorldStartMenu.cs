@@ -167,6 +167,7 @@ namespace Gruppenprojekt.App.Menus
         }
         public override void Prepare()
         {
+            
             Globals.gameRunning = true;
             Wall w1 = new Wall("1", 0f, 4f, 5f);
             Wall w2 = new Wall("2", 0f, 4f, 0f);
@@ -395,6 +396,7 @@ namespace Gruppenprojekt.App.Menus
                 s10.SetText(displayValues(10, res));
             }
             catch { s10.SetText("10# 0"); }
+            
         }
         public void displayClickableButtons()
         {

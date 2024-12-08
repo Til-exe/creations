@@ -42,6 +42,9 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectText EnableLanguage = GetHUDObjectTextByName("EnableLanguage");
             HUDObjectText EnableScoreboard = GetHUDObjectTextByName("EnableScoreboard");
             HUDObjectText gamemode = GetHUDObjectTextByName("gamemode");
+            HUDObjectText shop = GetHUDObjectTextByName("shop");
+            HUDObjectText admin = GetHUDObjectTextByName("admin");
+            HUDObjectText language = GetHUDObjectTextByName("language");
 
             if (back != null)
             {
@@ -327,6 +330,55 @@ namespace Gruppenprojekt.App.Menus
                     Window.SetWorld(cGm);
                 }
             }
+            if (shop != null)
+            {
+                if (shop.IsMouseCursorOnMe() == true)
+                {
+                    shop.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    shop.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && shop.IsMouseCursorOnMe() == true)
+                {
+                    shopMenu shopmenu = new shopMenu();
+                    Window.SetWorld(shopmenu);
+                }
+            }
+            if (admin != null)
+            {
+                if (admin.IsMouseCursorOnMe() == true)
+                {
+                    admin.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    admin.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && admin.IsMouseCursorOnMe() == true)
+                {
+                    scoreboardMenu adminM= new scoreboardMenu();
+                    Window.SetWorld(adminM);
+                }
+            }
+            if (language != null)
+            {
+                if (language.IsMouseCursorOnMe() == true)
+                {
+                    language.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    language.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && language.IsMouseCursorOnMe() == true)
+                {
+                    languageMenu languageM = new languageMenu();
+                    Window.SetWorld(languageM);
+                }
+            }
+
 
 
             string text1 = transelateCode(Convert.ToString(value1));
@@ -368,6 +420,19 @@ namespace Gruppenprojekt.App.Menus
             scoreboard.SetColor(1.0f, 0.0f, 0.0f);
             scoreboard.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(scoreboard);
+
+            HUDObjectText admin = new HUDObjectText("ADMIN");
+            admin.SetPosition(600f, Globals.fensterHoehe/2 + Globals.fensterHoehe /4 + Globals.fensterHoehe /10);
+            admin.Name = "admin";
+            admin.SetColor(1.0f, 0.0f, 0.0f);
+            admin.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(admin);
+            HUDObjectText languagee = new HUDObjectText(Globals.LanguageButtonText.ToUpper());
+            languagee.SetPosition(800f, Globals.fensterHoehe / 2 + Globals.fensterHoehe / 4 + Globals.fensterHoehe / 10);
+            languagee.Name = "language";
+            languagee.SetColor(1.0f, 0.0f, 0.0f);
+            languagee.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(languagee);
 
             if (Globals.DisplayCreditsButton == false)
             {
@@ -485,11 +550,18 @@ namespace Gruppenprojekt.App.Menus
             AddHUDObject(plus3);
 
             HUDObjectText gamemode = new HUDObjectText(Globals.choseGamemodeText);
-            gamemode.SetPosition(160f, 600f);
+            gamemode.SetPosition(160f, Globals.fensterHoehe / 2 + Globals.fensterHoehe / 4 + Globals.fensterHoehe / 10);
             gamemode.Name = "gamemode";
             gamemode.SetColor(1.0f, 0.0f, 0.0f);
             gamemode.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(gamemode);
+
+            HUDObjectText shop = new HUDObjectText("SHOP");
+            shop.SetPosition(420f, Globals.fensterHoehe / 2 + Globals.fensterHoehe / 4 + Globals.fensterHoehe / 10);
+            shop.Name = "shop";
+            shop.SetColor(1.0f, 0.0f, 0.0f);
+            shop.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(shop);
         }
         public string transelateCode(string text)
         {
