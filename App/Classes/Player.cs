@@ -240,7 +240,7 @@ namespace Gruppenprojekt.App.Classes
             }
 
             //pause Menu
-            if (Keyboard.IsKeyPressed(Keys.Escape) || Keyboard.IsKeyPressed(Keys.Tab))
+            if ((Keyboard.IsKeyPressed(Keys.Escape) || Keyboard.IsKeyPressed(Keys.Tab)  )&& !GameWorldStart.MapOpen)
             {
                 stop();
             }

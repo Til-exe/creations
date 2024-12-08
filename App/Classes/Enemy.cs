@@ -57,6 +57,7 @@ namespace Gruppenprojekt.App.Classes
 
         public override void Act()
         {
+            if (Globals.gameRunning) { 
             Vector3 raystart = this.Center;
             Vector3 rayDirection = this.LookAtVector;
             Vector3 myDirection = Vector3.Zero;
@@ -125,6 +126,7 @@ namespace Gruppenprojekt.App.Classes
                     string appendText = Convert.ToString(Globals.Score) + "\n";
                     File.AppendAllText(path, appendText);
                 }
+            }
             }
         }
 
