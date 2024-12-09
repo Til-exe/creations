@@ -25,7 +25,6 @@ namespace Gruppenprojekt.App.Menus
         int pos = 120;
         public override void Act()
         {
-            HUDObjectText leave = GetHUDObjectTextByName("leave");
             HUDObjectText clear = GetHUDObjectTextByName("clear");
             HUDObjectText text1 = GetHUDObjectTextByName("text1");
             HUDObjectText text2 = GetHUDObjectTextByName("text2");
@@ -34,7 +33,24 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectText deathReal = GetHUDObjectTextByName("deathReal");
             HUDObjectText bgCollectable = GetHUDObjectTextByName("bgCollectable");
             HUDObjectText bgAnimation = GetHUDObjectTextByName("bgAnimation");
-            GameWorldStartMenu.functionBackButton(leave);
+            HUDObjectText back = GetHUDObjectTextByName("leave");
+            if (back != null)
+            {
+                if (back.IsMouseCursorOnMe() == true)
+                {
+                    back.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    back.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && back.IsMouseCursorOnMe() == true)
+                {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
+                    GameWorldStartMenu gm = new GameWorldStartMenu();
+                    Window.SetWorld(gm);
+                }
+            }
             if (clear != null)
             {
                 if (delete && !deleted)

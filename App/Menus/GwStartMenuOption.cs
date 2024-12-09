@@ -1,14 +1,14 @@
-﻿using KWEngine3;
-using KWEngine3.Audio;
-using KWEngine3.GameObjects;
-using Gruppenprojekt.App.Classes;
-using OpenTK.Mathematics;
-using OpenTK.Windowing.GraphicsLibraryFramework;
+﻿using OpenTK.Windowing.GraphicsLibraryFramework;
 using static System.Net.Mime.MediaTypeNames;
-using System;
-using static Assimp.Metadata;
+using Gruppenprojekt.App.Classes;
 using System.Linq.Expressions;
+using static Assimp.Metadata;
+using KWEngine3.GameObjects;
+using OpenTK.Mathematics;
+using KWEngine3.Audio;
 using System.IO;
+using KWEngine3;
+using System;
 
 namespace Gruppenprojekt.App.Menus
 {
@@ -45,7 +45,6 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectText shop = GetHUDObjectTextByName("shop");
             HUDObjectText admin = GetHUDObjectTextByName("admin");
             HUDObjectText language = GetHUDObjectTextByName("language");
-
             if (back != null)
             {
                 //BACK
@@ -60,6 +59,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && back.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click1.wav", false, 0.2f);
                     GameWorldStartMenu gm = new GameWorldStartMenu();
                     Window.SetWorld(gm);
                 }
@@ -124,10 +124,9 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && plus1.IsMouseCursorOnMe() == true)
                 {
-                    if (value1 < 37)
-                    {
+
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/off.wav", false, 0.2f);
                         value1++;
-                    }
 
                 }
             }
@@ -145,10 +144,8 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && plus2.IsMouseCursorOnMe() == true)
                 {
-                    if (value2 < 37)
-                    {
-                        value2++;
-                    }
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/off.wav", false, 0.2f);
+                    value2++;
 
                 }
             }
@@ -166,10 +163,8 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && plus3.IsMouseCursorOnMe() == true)
                 {
-                    if (value3 < 37)
-                    {
-                        value3++;
-                    }
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/off.wav", false, 0.2f);
+                    value3++;
 
                 }
             }
@@ -187,6 +182,8 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && minus1.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/off.wav", false, 0.2f);
+
                     if (value1 == 0)
                     {
                         value1 = 37;
@@ -212,6 +209,8 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && minus2.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/off.wav", false, 0.2f);
+
                     if (value2 == 0)
                     {
                         value2 = 37;
@@ -235,6 +234,8 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && minus3.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/off.wav", false, 0.2f);
+
                     if (value3 == 0)
                     {
                         value3 = 37;
@@ -258,13 +259,17 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && EnableCredits.IsMouseCursorOnMe() == true)
                 {
+
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/on.wav", false, 0.2f);
                     if (Globals.DisplayCreditsButton)
                     {
                         EnableCredits.SetText("CREDITS: " + Globals.disabledText);
+
                     }
                     else
                     {
                         EnableCredits.SetText("CREDITS: " + Globals.enabledText);
+
                     }
                     Globals.DisplayCreditsButton = !Globals.DisplayCreditsButton;
                 }
@@ -281,6 +286,8 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && EnableLanguage.IsMouseCursorOnMe() == true)
                 {
+
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/on.wav", false, 0.2f);
                     if (Globals.DisplayLanguageButton)
                     {
                         EnableLanguage.SetText("LANGUAGE: " + Globals.disabledText);
@@ -304,6 +311,8 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && EnableScoreboard.IsMouseCursorOnMe() == true)
                 {
+
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/on.wav", false, 0.2f);
                     if (Globals.DisplayScoreboardButton) {
                         EnableScoreboard.SetText("ADMIN: " + Globals.disabledText);                        
                     }

@@ -79,7 +79,9 @@ namespace Gruppenprojekt.App.Menus
                     GameWorldStartMenu gwo = new GameWorldStartMenu();
                     Window.SetWorld(gwo);
 
+                    KWEngine3.Audio.Audio.StopAllSound();
                     KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
+
                 }
             }
         }

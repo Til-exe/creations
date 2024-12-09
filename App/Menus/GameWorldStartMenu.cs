@@ -26,7 +26,7 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectText language = GetHUDObjectTextByName("language");
             HUDObjectText AdminSB = GetHUDObjectTextByName("AdminSB");
             HUDObjectImage bbg = GetHUDObjectImageByName("bbg");
-
+            
             if (start != null)
             {
                 if (start.IsMouseCursorOnMe() == true)
@@ -41,6 +41,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && start.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
                     startGame();
                 }
             }
@@ -56,6 +57,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && option.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
                     GwStartMenuOption GwSmOption = new GwStartMenuOption();
                     Window.SetWorld(GwSmOption);
                 }
@@ -72,6 +74,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && leave.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
                     Window.Close();
                 }
             }
@@ -87,6 +90,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && credits.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
                     CreditsMenu creditsMenu = new CreditsMenu();
                     Window.SetWorld(creditsMenu);
                 }
@@ -103,6 +107,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && language.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
                     languageMenu languageMenu = new languageMenu();
                     Window.SetWorld(languageMenu);
                 }
@@ -119,6 +124,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && AdminSB.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
                     scoreboardMenu scoreboardMenu = new scoreboardMenu();
                     Window.SetWorld(scoreboardMenu);
                 }
@@ -163,7 +169,6 @@ namespace Gruppenprojekt.App.Menus
         }
         public override void Prepare()
         {
-            KWEngine3.Audio.Audio.StopAllSound();
             //KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/ScaryMenuMusic1.wav", false, 0.5f);
             Globals.gameRunning = true;
             Wall w1 = new Wall("1", 0f, 4f, 5f);
@@ -507,6 +512,8 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && leave.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
+
                     GwStartMenuOption gm = new GwStartMenuOption();
                     Window.SetWorld(gm);
                 }

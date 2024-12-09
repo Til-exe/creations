@@ -52,8 +52,11 @@ namespace Gruppenprojekt.App.Classes
             Vector3 myDirection = Vector3.Zero;
             playerPos = p.Position;
             FlowField f = CurrentWorld.GetFlowField();
-
-            List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 14f, true, this, typeof(Wall), typeof(Player));
+                if (f != null)
+                {                    
+                     //f.SetPosition(this.Position.X, this.Position.Z);                    
+                }
+                List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 14f, true, this, typeof(Wall), typeof(Player));
             if (results.Count > 0)
             {
                 raycollision = results[0];  //definiert erstes objekt welches im ray getroffen wird 
