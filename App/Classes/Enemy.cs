@@ -54,7 +54,7 @@ namespace Gruppenprojekt.App.Classes
             FlowField f = CurrentWorld.GetFlowField();
                 if (f != null)
                 {                    
-                     //f.SetPosition(this.Position.X, this.Position.Z);                    
+                     f.SetPosition(this.Position.X, this.Position.Z);                    
                 }
                 List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 14f, true, this, typeof(Wall), typeof(Player));
             if (results.Count > 0)

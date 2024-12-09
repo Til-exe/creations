@@ -3686,6 +3686,11 @@
             Klasse zum Erstellen einer FlowField-Instanz für KI-Navigation
             </summary>
         </member>
+        <member name="P:KWEngine3.Helper.FlowField.Name">
+            <summary>
+            Erfragt oder setzt den Namen der Instanz
+            </summary>
+        </member>
         <member name="P:KWEngine3.Helper.FlowField.GridCellCount">
             <summary>
             Anzahl der Zellen im Feld (in allen drei Dimensionen, wobei nur X- und Z-Dimension zählen)
@@ -3780,11 +3785,19 @@
             für das FlowField relevanten Objekts ändert
             </remarks>
         </member>
-        <member name="M:KWEngine3.Helper.FlowField.SetTarget(OpenTK.Mathematics.Vector3)">
+        <member name="M:KWEngine3.Helper.FlowField.SetTarget(OpenTK.Mathematics.Vector3,System.Boolean)">
             <summary>
             Berechnet die Richungsanweisungen im gesamten FlowField für die neue Zielposition
             </summary>
             <param name="position">Neue Positionsangabe</param>
+            <param name="clampToGrid">Gibt an, ob die Zielposition auf die nächstgelegene FlowField-Zelle angepasst werden soll, wenn es außerhalb der FlowField-Instanz liegt (Standard: false)</param>
+        </member>
+        <member name="M:KWEngine3.Helper.FlowField.GetLinearDirectionForPosition(OpenTK.Mathematics.Vector3)">
+            <summary>
+            Gibt die (normalisierte) Luftlinienrichtung von der angegebenen Position zum aktuellen Ziel zurück.
+            </summary>
+            <param name="position">Zielposition</param>
+            <returns>Luftlinienrichtung</returns>
         </member>
         <member name="M:KWEngine3.Helper.FlowField.GetBestDirectionForPosition(OpenTK.Mathematics.Vector3)">
             <summary>
@@ -3793,11 +3806,12 @@
             <param name="position">aktuelle Position</param>
             <returns>bestmögliche Bewegungsrichtung</returns>
         </member>
-        <member name="M:KWEngine3.Helper.FlowField.GetCellForWorldPosition(OpenTK.Mathematics.Vector3)">
+        <member name="M:KWEngine3.Helper.FlowField.GetCellForWorldPosition(OpenTK.Mathematics.Vector3,System.Boolean)">
             <summary>
             Erfragt Details zu der FlowField-Zelle, die der übergebenen Weltposition entspricht
             </summary>
             <param name="position">Position in Weltkoordinaten</param>
+            <param name="clampToGrid">Gibt an, ob die Position auf die nächstgelegene Zelle angepasst werden soll, wenn sie eigentlich außerhalb des Grids liegt (Standard: false)</param>
             <returns>Zell-Instanz falls das FlowField diese Position abdeckt - null, falls die Position außerhalb des FlowFields liegt</returns>
         </member>
         <member name="M:KWEngine3.Helper.FlowField.IsPositionInsideDestinationCell(OpenTK.Mathematics.Vector3)">
@@ -3806,6 +3820,13 @@
             </summary>
             <param name="position">Zu prüfende Position</param>
             <returns>true, wenn die Position in der Zielzelle liegt</returns>
+        </member>
+        <member name="M:KWEngine3.Helper.FlowField.SetPosition(System.Single,System.Single)">
+            <summary>
+            Aktualisiert den Mittelpunkt der FlowField-Instanz (erzeugt eine Verschiebung des FlowFields)
+            </summary>
+            <param name="x">Verschiebung des FlowField in x-Richtung</param>
+            <param name="z">Verschiebung des FlowField in z-Richtung</param>
         </member>
         <member name="P:KWEngine3.Helper.FlowField.HasTarget">
             <summary>
@@ -5706,13 +5727,32 @@
             <summary>
             Setzt das FlowField-Objekt (es kann aktuell immer nur ein FlowField pro Welt existieren)
             </summary>
-            <param name="f">FlowField-Objekt</param>
+            <param name="f">FlowField-Instanz</param>
         </member>
-        <member name="M:KWEngine3.World.GetFlowField">
+        <member name="M:KWEngine3.World.AddFlowField(KWEngine3.Helper.FlowField)">
             <summary>
-            Erfragt die Referenz auf das aktuelle FlowField
+            Fügt der aktuellen Welt die angegebene FlowField-Instanz hinzu
             </summary>
-            <returns>Referenz auf das FlowField - wenn keines vorhanden ist: null</returns>
+            <param name="f">FlowField-Instanz</param>
+        </member>
+        <member name="M:KWEngine3.World.RemoveFlowField(KWEngine3.Helper.FlowField)">
+            <summary>
+            Entfernt die angegebene FlowField-Instanz aus der Welt
+            </summary>
+            <param name="f">zu löschende Instanz</param>
+        </member>
+        <member name="M:KWEngine3.World.GetFlowField(System.Int32)">
+            <summary>
+            Erfragt die Referenz auf das aktuelle FlowField mit dem angegebenen Index (Standardwert: 0)
+            </summary>
+            <returns>FlowField-Instanz - wenn keine gefunden wird: null</returns>
+        </member>
+        <member name="M:KWEngine3.World.GetFlowFieldByName(System.String)">
+            <summary>
+            Durchsucht die Liste der aktuell aktiven FlowField-Instanzen nach einem Namen und gibt die erste Instanz, die mit diesem Namen übereinstimmt zurück
+            </summary>
+            <param name="name">gesuchter Name</param>
+            <returns>gefundene FlowField-Instanz (null, falls keine Instanz mit dem angegebenen Namen gefunden werden kann)</returns>
         </member>
         <member name="M:KWEngine3.World.AddExplosionObject(KWEngine3.GameObjects.ExplosionObject)">
             <summary>
