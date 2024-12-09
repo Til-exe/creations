@@ -3686,6 +3686,11 @@
             Klasse zum Erstellen einer FlowField-Instanz für KI-Navigation
             </summary>
         </member>
+        <member name="P:KWEngine3.Helper.FlowField.Name">
+            <summary>
+            Erfragt oder setzt den Namen der Instanz
+            </summary>
+        </member>
         <member name="P:KWEngine3.Helper.FlowField.GridCellCount">
             <summary>
             Anzahl der Zellen im Feld (in allen drei Dimensionen, wobei nur X- und Z-Dimension zählen)
@@ -5722,13 +5727,32 @@
             <summary>
             Setzt das FlowField-Objekt (es kann aktuell immer nur ein FlowField pro Welt existieren)
             </summary>
-            <param name="f">FlowField-Objekt</param>
+            <param name="f">FlowField-Instanz</param>
         </member>
-        <member name="M:KWEngine3.World.GetFlowField">
+        <member name="M:KWEngine3.World.AddFlowField(KWEngine3.Helper.FlowField)">
             <summary>
-            Erfragt die Referenz auf das aktuelle FlowField
+            Fügt der aktuellen Welt die angegebene FlowField-Instanz hinzu
             </summary>
-            <returns>Referenz auf das FlowField - wenn keines vorhanden ist: null</returns>
+            <param name="f">FlowField-Instanz</param>
+        </member>
+        <member name="M:KWEngine3.World.RemoveFlowField(KWEngine3.Helper.FlowField)">
+            <summary>
+            Entfernt die angegebene FlowField-Instanz aus der Welt
+            </summary>
+            <param name="f">zu löschende Instanz</param>
+        </member>
+        <member name="M:KWEngine3.World.GetFlowField(System.Int32)">
+            <summary>
+            Erfragt die Referenz auf das aktuelle FlowField mit dem angegebenen Index (Standardwert: 0)
+            </summary>
+            <returns>FlowField-Instanz - wenn keine gefunden wird: null</returns>
+        </member>
+        <member name="M:KWEngine3.World.GetFlowFieldByName(System.String)">
+            <summary>
+            Durchsucht die Liste der aktuell aktiven FlowField-Instanzen nach einem Namen und gibt die erste Instanz, die mit diesem Namen übereinstimmt zurück
+            </summary>
+            <param name="name">gesuchter Name</param>
+            <returns>gefundene FlowField-Instanz (null, falls keine Instanz mit dem angegebenen Namen gefunden werden kann)</returns>
         </member>
         <member name="M:KWEngine3.World.AddExplosionObject(KWEngine3.GameObjects.ExplosionObject)">
             <summary>
