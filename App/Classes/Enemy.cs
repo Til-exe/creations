@@ -5,12 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using KWEngine3;
 using KWEngine3.Audio;
-using KWEngine3.GameObjects;
-using KWEngine3.Helper;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Mathematics;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using OpenTK.Windowing.Common.Input;
@@ -18,12 +14,7 @@ using Assimp;
 using System.Threading.Tasks;
 using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using System.Transactions;
-using KWEngine3;
-using OpenTK.Mathematics;
-using OpenTK.Windowing.GraphicsLibraryFramework;
-using Assimp;
 using Gruppenprojekt.App.Menus;
 
 namespace Gruppenprojekt.App.Classes
@@ -62,9 +53,12 @@ namespace Gruppenprojekt.App.Classes
             Vector3 rayDirection = this.LookAtVector;
             Vector3 myDirection = Vector3.Zero;
             playerPos = p.Position;
-            FlowField f = CurrentWorld.GetFlowField();
-
-            List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 14f, true, this, typeof(Wall), typeof(Player));
+                FlowField f = CurrentWorld.GetFlowField();
+                if (f != null)
+                {
+                    f.SetPosition(this.Position.X, this.Position.Z);
+                }
+                List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 14f, true, this, typeof(Wall), typeof(Player));
             if (results.Count > 0)
             {
                 raycollision = results[0];  //definiert erstes objekt welches im ray getroffen wird 

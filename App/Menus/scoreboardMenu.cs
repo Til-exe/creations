@@ -21,7 +21,6 @@ namespace Gruppenprojekt.App.Menus
     {
         bool delete = false;
         bool deleted = false;
-        int speed = 0;
         int pos = 120;
         public override void Act()
         {

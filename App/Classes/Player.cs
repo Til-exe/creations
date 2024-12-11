@@ -122,11 +122,9 @@ namespace Gruppenprojekt.App.Classes
         public double WorldTimeVar = 0;
 
         public int timedpenisboom = 0;
-        static int yolo = 0;
         static int removedTime = 0;
         static int sek = 0;
         static int min = 0;
-        int stnd = 0;
         public override void Act()
         {
 
