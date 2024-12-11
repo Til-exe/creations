@@ -62,7 +62,10 @@ namespace Gruppenprojekt.App.Classes
             Vector3 rayDirection = this.LookAtVector;
             Vector3 myDirection = Vector3.Zero;
             playerPos = p.Position;
-            FlowField f = CurrentWorld.GetFlowField();
+            FlowField f = CurrentWorld.GetFlowField(); if (f != null) 
+                { 
+                    f.SetPosition(this.Position.X, this.Position.Z); 
+                }
 
             List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 14f, true, this, typeof(Wall), typeof(Player));
             if (results.Count > 0)
