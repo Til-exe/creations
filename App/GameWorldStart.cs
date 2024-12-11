@@ -197,6 +197,7 @@ namespace Gruppenprojekt.App
             Collectable c3 = new Collectable("3", 20f, 3f, 20f);
             AddGameObject(c1);
             AddGameObject(c2);
+            AddGameObject(c3);
             Wall borderNorth = new Wall("1", 100f, xCord, 0f);
             Wall borderSouth = new Wall("1", -100f, xCord, 0f);
             Wall borderWest = new Wall("1", 0f, xCord, 100f);
