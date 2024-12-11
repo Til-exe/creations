@@ -1287,6 +1287,13 @@
             <param name="b">Blauanteil (zwischen 0 und 2)</param>
             <param name="intensity">Helligkeit (zwischen 0 und 10)</param>
         </member>
+        <member name="M:KWEngine3.GameObjects.EngineObject.SetColorEmissive(OpenTK.Mathematics.Vector3,System.Single)">
+            <summary>
+            Setzt die selbstleuchtende Farbtönung des Objekts
+            </summary>
+            <param name="color">Rot-/Grün-/Blauanteil (zwischen 0 und 2)</param>
+            <param name="intensity">Helligkeit (zwischen 0 und 10)</param>
+        </member>
         <member name="M:KWEngine3.GameObjects.EngineObject.SetMetallic(System.Single,System.Int32)">
             <summary>
             Setzt fest, wie metallisch das Objekt ist
@@ -5747,6 +5754,12 @@
             </summary>
             <returns>FlowField-Instanz - wenn keine gefunden wird: null</returns>
         </member>
+        <member name="M:KWEngine3.World.GetFlowFieldCount">
+            <summary>
+            Erfragt die aktuelle Anzahl an aktiven FlowField-Instanzen in der Welt
+            </summary>
+            <returns>Anzahl der FlowField-Instanzen</returns>
+        </member>
         <member name="M:KWEngine3.World.GetFlowFieldByName(System.String)">
             <summary>
             Durchsucht die Liste der aktuell aktiven FlowField-Instanzen nach einem Namen und gibt die erste Instanz, die mit diesem Namen übereinstimmt zurück
@@ -6171,7 +6184,7 @@
             <summary>
             Erfragt die Liste der aktuellen GameObject-Instanzen der Welt
             </summary>
-            <returns>Liste</returns>
+            <returns>Liste der aktuell aktiven Objekte</returns>
         </member>
         <member name="M:KWEngine3.World.GetLightObjects">
             <summary>
