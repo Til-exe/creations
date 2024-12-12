@@ -2344,6 +2344,11 @@
             Zentriert das Objekt im Fenster
             </summary>
         </member>
+        <member name="P:KWEngine3.GameObjects.HUDObject.IsInWorld">
+            <summary>
+            Gibt an, ob die HUDObject-Instanz Teil der aktuellen Welt ist
+            </summary>
+        </member>
         <member name="M:KWEngine3.GameObjects.HUDObject.IsMouseCursorOnMe">
             <summary>
             Prüft, ob der Mauszeiger auf dem HUD-Objekt ist
