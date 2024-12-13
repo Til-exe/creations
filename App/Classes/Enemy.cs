@@ -87,7 +87,7 @@ namespace Gruppenprojekt.App.Classes
                         MoveAlongVector(myDirection, 0.02f);                                //Attackgeschwindigkeit
                     }
                 }
-                else if (timestampLastSighting + 2f > WorldTime && timestampLastSighting != 0)          //NOTIZ AN TIL: Wie lang kann der Gegner dich noch um Wände sehen und folgen
+                else if (timestampLastSighting + 4f > WorldTime && timestampLastSighting != 0)          //NOTIZ AN TIL: Wie lang kann der Gegner dich noch um Wände sehen und folgen
                 {
                     Console.WriteLine("not in sight still attack");
                     if (myDirection != Vector3.Zero)
