@@ -81,8 +81,7 @@ namespace Gruppenprojekt.App.Classes
             if(Globals.TutorialProgress == 0) 
             {
                 InteractionCollectable ic = new InteractionCollectable("1", 10, 2, 10);
-                CurrentWorld.AddGameObject(ic);
-                Globals.TutorialProgress = 1;
+                CurrentWorld.AddGameObject(ic);                
             }
             if(Globals.TutorialProgress == 1) {
                 InteractionCollectable ic = new InteractionCollectable("1", 30, 2, 30);
