@@ -73,5 +73,6 @@ namespace Gruppenprojekt.App.Classes
 
         public static bool TutorialComplete = false;
         public static bool InteractionCollectable = false;
+        public static int TutorialProgress = 0;
     }
 }

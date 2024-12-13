@@ -50,7 +50,7 @@ namespace Gruppenprojekt.App
                 {
                     f.IsVisible = !f.IsVisible;
                 }
-            }
+            }            
             if (Keyboard.IsKeyPressed(Keys.B))
             {
                 if (fullbright)

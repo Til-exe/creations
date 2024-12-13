@@ -35,6 +35,7 @@ namespace Gruppenprojekt.App.Classes
         }
         public void KillMe(float r, float g, float b, float em)
         {
+            TutorialProgressAction();
             Globals.Score += (100 * Globals.multiplikator);
             KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/Collecting1.wav", false, 0.2f);
             ExplosionObject ex = new ExplosionObject(128, 0.5f, 4f, 2.0f, ExplosionType.Skull);
@@ -74,6 +75,24 @@ namespace Gruppenprojekt.App.Classes
                     movingUp = true;
                 }
             }
+        }
+        public static void TutorialProgressAction()
+        {
+            if(Globals.TutorialProgress == 0) 
+            {
+                InteractionCollectable ic = new InteractionCollectable("1", 10, 2, 10);
+                CurrentWorld.AddGameObject(ic);
+                Globals.TutorialProgress = 1;
+            }
+            if(Globals.TutorialProgress == 1) {
+                InteractionCollectable ic = new InteractionCollectable("1", 30, 2, 30);
+                CurrentWorld.AddGameObject(ic);
+                Globals.TutorialProgress = 2;
+            }
+            if(Globals.TutorialProgress == 2) { }
+            if(Globals.TutorialProgress == 3) { }
+            if(Globals.TutorialProgress == 4) { }
+            if(Globals.TutorialProgress == 5) { }
         }
     }
 }
