@@ -42,8 +42,8 @@ namespace Gruppenprojekt.App.Menus
                 if (Mouse.IsButtonPressed(MouseButton.Left) && start.IsMouseCursorOnMe() == true)
                 {
                     KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
-                    if(Globals.TutorialComplete) { startGame(); }
-                    else { startTutorial(); }
+                    if(Globals.choseGamemode == "Tutorial") { startTuroial(); }
+                    else { startGame(); }
 
                 }
             }
@@ -397,7 +397,7 @@ namespace Gruppenprojekt.App.Menus
         }
         public void displayClickableButtons()
         {
-
+            if(Globals.TutorialComplete) { Globals.StartButtonText = "Start"; }  else { Globals.StartButtonText = "Tutorial"; }
             HUDObjectText start = new HUDObjectText(Globals.StartButtonText);
             HUDObjectText option = new HUDObjectText(Globals.OptionButtonText);
             HUDObjectText language = new HUDObjectText(Globals.LanguageButtonText);
