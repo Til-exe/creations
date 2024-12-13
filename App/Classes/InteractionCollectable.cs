@@ -86,9 +86,7 @@ namespace Gruppenprojekt.App.Classes
                 GameWorldStartMenu gms = new GameWorldStartMenu();
                 Window.SetWorld(gms);
             }
-            if(Globals.TutorialProgress == 1) {
-               
-            }
+            if(Globals.TutorialProgress == 1) { }
             if(Globals.TutorialProgress == 2) { }
             if(Globals.TutorialProgress == 3) { }
             if(Globals.TutorialProgress == 4) { }
