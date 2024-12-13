@@ -55,7 +55,6 @@ namespace Gruppenprojekt.App.Classes
                 Vector3 rayDirection = this.LookAtVector;
                 Vector3 myDirection = Vector3.Zero;
                 //collectableposlol = myDirection;
-                TurnTowardsXZ(playerPos);
                 playerPos = p.Position;
                 FlowField f = CurrentWorld.GetFlowField(); 
                 if (f != null) 
