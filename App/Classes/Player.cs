@@ -343,7 +343,7 @@ namespace Gruppenprojekt.App.Classes
                 MoveOffset(mtv);
                 if (collider is Collectable)
                 {
-                    (collider as Collectable).KillMe();
+                    (collider as Collectable).KillMe(0,1,0,2);
                     counter = counter + 1;
                     colCount.SetText("Gesammelte Orbs: " + counter);
                     collectablepos = collider.Position;
