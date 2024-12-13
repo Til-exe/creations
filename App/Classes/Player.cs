@@ -122,11 +122,9 @@ namespace Gruppenprojekt.App.Classes
         public double WorldTimeVar = 0;
 
         public int timedpenisboom = 0;
-        static int yolo = 0;
         static int removedTime = 0;
         static int sek = 0;
         static int min = 0;
-        int stnd = 0;
         public override void Act()
         {
 
@@ -240,13 +238,13 @@ namespace Gruppenprojekt.App.Classes
             }
 
             //pause Menu
-            if ((Keyboard.IsKeyPressed(Keys.Escape) || Keyboard.IsKeyPressed(Keys.Tab)  )&& !GameWorldStart.MapOpen)
+            if ((Keyboard.IsKeyPressed(Keys.Escape) || Keyboard.IsKeyPressed(Keys.Tab)  )&& !Globals.MapOpen)
             {
                 stop();
             }
             if (Keyboard.IsKeyPressed(Keys.Q))
             {
-                weiter();
+                //weiter();
             }
 
             if (m1 != null)
