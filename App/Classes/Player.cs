@@ -13,7 +13,6 @@ using System.IO;
 using Assimp;
 using System;
 using Gruppenprojekt.App.Menus;
-
 namespace Gruppenprojekt.App.Classes
 {
     public class Player : GameObject
@@ -25,6 +24,7 @@ namespace Gruppenprojekt.App.Classes
         HUDObjectText m2 = new HUDObjectText("Hauptmenu");
         HUDObjectText m3 = new HUDObjectText("Verlassen");
         HUDObjectText score = new HUDObjectText("Punkte");
+        HUDObjectText gamemode = new HUDObjectText("Gamemode:" + Globals.choseGamemode);
         HUDObjectImage bg = new HUDObjectImage("./App/Textures/blackscreen.png");
         HUDObjectText mtitle = new HUDObjectText("Pausiert");
         private HUDObjectText colCount;
@@ -108,6 +108,11 @@ namespace Gruppenprojekt.App.Classes
             score.SetCharacterDistanceFactor(1.0f);
             score.SetColor(1.0f, 0.0f, 0.0f);
 
+            gamemode.SetPosition(700f, 300f);
+            gamemode.Name = "gamemode";
+            gamemode.SetCharacterDistanceFactor(1.0f);
+            gamemode.SetColor(1.0f, 0.0f, 0.0f);
+
         }
         private Random _random = new Random();
         Random rnd = new Random();
@@ -127,7 +132,12 @@ namespace Gruppenprojekt.App.Classes
         static int min = 0;
         public override void Act()
         {
-
+            //Death Action
+            if (Globals.GameEnd && Globals.EndReal)
+            {
+                safeScore();
+            }
+            //Displaying Time
             string ActualTimeDisplay = min + "m " + sek + "s";
             sek = Convert.ToInt32(CurrentWorld.WorldTime) - removedTime;
             if (sek == 60)
@@ -140,6 +150,7 @@ namespace Gruppenprojekt.App.Classes
                 ActualTimeDisplay = sek + "s";
             }
             displayTimer.SetText("Timer: " + ActualTimeDisplay);
+            //Flaschlight Action
             if (timedpenisboom < 50 && BOOM)
             {
                 timedpenisboom++;
@@ -150,7 +161,7 @@ namespace Gruppenprojekt.App.Classes
                 BOOM = false;
                 _flashlight.SetColor(0, 0, 0, 0);
             }
-            
+            //random Flashlight Breaking
             int random = rnd.Next(20000);
             _flashlight.SetPosition(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVectorLocalRight);
             _flashlight.SetTarget(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVector * 100); // KAR: Taschenlampe muss weiiiiit in die Ferne schauen
@@ -183,11 +194,12 @@ namespace Gruppenprojekt.App.Classes
                     flashlight = false;
                     _flickering = false;
                     _flashlight.SetColor(1, 1, 1, 13);
-                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/flashlightexplode.wav", false, (float)0.1);
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/flashlightexplode.wav", false, 0.1f);
                     Console.WriteLine("penis flacker vorbei");
                     Console.WriteLine("Penis aus");
                 }
             }
+            //Activate Flashlight
             if (Keyboard.IsKeyPressed(Keys.F) && flashlight == false)
             {
                 _flashlight.SetColor(1, 1, 1, 4);
@@ -202,53 +214,40 @@ namespace Gruppenprojekt.App.Classes
                 Console.WriteLine("Penis aus");
                 KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/flashlight_click.wav", false, (float)0.1);
             }
-            
             //Sprinting
-            if (toggleSprint == false) 
+            if (!toggleSprint) 
             {
                 if (Keyboard.IsKeyDown(Keys.LeftShift)) { Globals.Sprinting = true; }
                 else { Globals.Sprinting = false; }
-            }        
+            }
             //Sprint Toggle
             if (Keyboard.IsKeyPressed(Keys.CapsLock))
             {
-                if (toggleSprint == false) {
-                    toggleSprint = true;
-                }
-                else
-                {  toggleSprint = false;}
-                Globals.Sprinting = true;
-                
-            }
-            if(Globals.Sprinting) {
-                Globals.speed = 0.105f;
-            }
-            else{
-                Globals.speed = 0.05f;
+                toggleSprint = !toggleSprint;
+                Globals.Sprinting = true;                
             }
             int forward = 0;
             int strafe = 0;
-            if (Globals.gameRunning && !Globals.MapOpen)
+            //Movement
+            if (Globals.gameRunning && !Globals.MapOpen )
             {
                 if (Keyboard.IsKeyDown(Keys.W)) { forward += 1; }
-                if (Keyboard.IsKeyDown(Keys.D)) { strafe += 1; }
-                if (Keyboard.IsKeyDown(Keys.A)) { strafe -= 1; }
-                if (Keyboard.IsKeyDown(Keys.S)) { forward -= 1; Globals.speed = 0.05f; }
-                
+                if (Keyboard.IsKeyDown(Keys.D)) { strafe += 1;  }
+                if (Keyboard.IsKeyDown(Keys.A)) { strafe -= 1;  }
+                if (Keyboard.IsKeyDown(Keys.S)) { forward -= 1;  }
+                Globals.speed = 0.05f;
+                if (Keyboard.IsKeyDown(Keys.W) && Globals.Sprinting) { Globals.speed = 0.105f; }
+                if (Keyboard.IsKeyDown(Keys.D) && Globals.Sprinting) { Globals.speed = 0.069f; }
+                if (Keyboard.IsKeyDown(Keys.A) && Globals.Sprinting) { Globals.speed = 0.069f; }
             }
-
             //pause Menu
             if ((Keyboard.IsKeyPressed(Keys.Escape) || Keyboard.IsKeyPressed(Keys.Tab)  )&& !Globals.MapOpen)
             {
                 stop();
             }
-            if (Keyboard.IsKeyPressed(Keys.Q))
-            {
-                //weiter();
-            }
-
+            //Pause Menu Weiter spielen
             if (m1 != null)
-            {   //Weiter spielen
+            {   
                 if (m1.IsMouseCursorOnMe() == true)
                 {
                     m1.SetColorEmissiveIntensity(1.5f);
@@ -264,8 +263,9 @@ namespace Gruppenprojekt.App.Classes
                     weiter();
                 }
             }
+            //Pause Menu Hauptmenu
             if (m2!= null)
-            {   //Hauptmenu
+            {   
                 if (m2.IsMouseCursorOnMe() == true)
                 {
                     m2.SetColorEmissiveIntensity(1.5f);
@@ -276,23 +276,21 @@ namespace Gruppenprojekt.App.Classes
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && m2.IsMouseCursorOnMe() == true)
                 {
-                    
-                    Globals.Trys++;
-                    string path = @"./App/data/data.txt";
-                    string timePath = @"./App/data/time.txt";
-
-                    Globals.displayCounter = Convert.ToString(CurrentWorld.WorldTime) + "\n";
-                    string appendText = Convert.ToString(Globals.Score) + "\n";
-                                       
-                    File.AppendAllText(timePath, Globals.displayCounter);
-                    File.AppendAllText(path, appendText);
-
+                    if (!Globals.TutorialComplete) 
+                    {
+                        Globals.TutorialComplete = true;
+                        Globals.choseGamemode = "Normal";
+                                                
+                    }
+                    else { safeScore(); }
+                        
                     GameWorldStartMenu gm = new GameWorldStartMenu();
                     Window.SetWorld(gm);
                 }
             }
+            //Pause Menu Close
             if (m3 != null)
-            {   //Anwendung Verlassen / schließen
+            {   
                 if (m3.IsMouseCursorOnMe() == true)
                 {
                     m3.SetColorEmissiveIntensity(1.5f);
@@ -304,10 +302,8 @@ namespace Gruppenprojekt.App.Classes
                 if (Mouse.IsButtonPressed(MouseButton.Left) && m3.IsMouseCursorOnMe() == true)
                 {
                     Globals.Trys++;
-                    string path = @"./App/data/data.txt";
-
                     string appendText = Convert.ToString(Globals.Score) + "\n";
-                    File.AppendAllText(path, appendText);
+                    File.AppendAllText(Globals.path, appendText);
                     Window.Close();
                 }
             }
@@ -325,9 +321,15 @@ namespace Gruppenprojekt.App.Classes
                 MoveOffset(mtv);
                 if (collider is Collectable)
                 {
-                    (collider as Collectable).KillMe();
+                    (collider as Collectable).KillMe(0,1,0,2);
                     counter = counter + 1;
                     colCount.SetText("Gesammelte Orbs: " + counter);                    
+                }
+                else if (collider is InteractionCollectable)
+                {
+                    (collider as InteractionCollectable).KillMe(1, 0, 0, 2);
+                    counter = counter + 1;
+                    colCount.SetText("Gesammelte Orbs: " + counter);
                 }
             }
         } 
@@ -348,6 +350,7 @@ namespace Gruppenprojekt.App.Classes
             CurrentWorld.RemoveHUDObject(m3);
             CurrentWorld.RemoveHUDObject(mtitle);
             CurrentWorld.RemoveHUDObject(score);
+            CurrentWorld.RemoveHUDObject(gamemode);
             displayTimer.SetPosition(50f, 50f);
         }
         public void stop()
@@ -361,6 +364,7 @@ namespace Gruppenprojekt.App.Classes
             CurrentWorld.AddHUDObject(bg);
             CurrentWorld.AddHUDObject(mtitle);
             CurrentWorld.AddHUDObject(score);
+            CurrentWorld.AddHUDObject(gamemode);
             displayTimer.SetPosition(700f,250f);
             score.SetText("Punktestand: " + Globals.Score);
         }
@@ -373,6 +377,16 @@ namespace Gruppenprojekt.App.Classes
         private float GetRandomFlickerDelay()
         {
             return (float)_random.NextDouble() * 0.08f + 0.02f;
+        }
+        public static void safeScore()
+        {            
+                Globals.Trys++;
+                Globals.displayCounter = Convert.ToString(CurrentWorld.WorldTime) + "\n";
+                string appendText = Convert.ToString(Globals.Score) + "\n";
+                File.AppendAllText(Globals.timePath, Globals.displayCounter);
+                File.AppendAllText(Globals.path, appendText);
+            
+            
         }
     }
 }

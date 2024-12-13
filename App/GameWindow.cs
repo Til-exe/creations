@@ -25,12 +25,13 @@ namespace Gruppenprojekt.App
             PostProcessingQuality.Standard,     // Qualität der PP-Effekte (Standard für iGPUs)
             WindowMode.Default)                 // Fensterdekorationsmodus
         {
-            //this.Title = "My infamous game title";
+
+            this.Title = "Its Stolen";      
             
-            GameWorldStart gws = new GameWorldStart();
-            GameWorldStartMenu sm = new GameWorldStartMenu();
-            IntroScreen screen = new IntroScreen();
-            this.SetWorld(screen);
+            GameWorldStart game = new GameWorldStart();
+            GameWorldStartMenu StartMenu = new GameWorldStartMenu();
+            IntroScreen intro = new IntroScreen();
+            this.SetWorld(intro);
         }
     }
 }

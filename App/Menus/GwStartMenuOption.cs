@@ -1,14 +1,14 @@
-﻿using KWEngine3;
-using KWEngine3.Audio;
-using KWEngine3.GameObjects;
-using Gruppenprojekt.App.Classes;
-using OpenTK.Mathematics;
-using OpenTK.Windowing.GraphicsLibraryFramework;
+﻿using OpenTK.Windowing.GraphicsLibraryFramework;
 using static System.Net.Mime.MediaTypeNames;
-using System;
-using static Assimp.Metadata;
+using Gruppenprojekt.App.Classes;
 using System.Linq.Expressions;
+using static Assimp.Metadata;
+using KWEngine3.GameObjects;
+using OpenTK.Mathematics;
+using KWEngine3.Audio;
 using System.IO;
+using KWEngine3;
+using System;
 
 namespace Gruppenprojekt.App.Menus
 {
@@ -17,9 +17,11 @@ namespace Gruppenprojekt.App.Menus
         int value1 = 0;
         int value2 = 0;
         int value3 = 0;
+        int counter = 0;
         bool codeEnterd = true;
         public override void Act()
         {
+            
             HUDObjectText back = GetHUDObjectTextByName("back");
             HUDObjectText enter = GetHUDObjectTextByName("Enter");
             HUDObjectText reset = GetHUDObjectTextByName("Reset");
@@ -40,7 +42,9 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectText EnableLanguage = GetHUDObjectTextByName("EnableLanguage");
             HUDObjectText EnableScoreboard = GetHUDObjectTextByName("EnableScoreboard");
             HUDObjectText gamemode = GetHUDObjectTextByName("gamemode");
-
+            HUDObjectText shop = GetHUDObjectTextByName("shop");
+            HUDObjectText admin = GetHUDObjectTextByName("admin");
+            HUDObjectText language = GetHUDObjectTextByName("language");
             if (back != null)
             {
                 //BACK
@@ -55,6 +59,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && back.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click1.wav", false, 0.2f);
                     GameWorldStartMenu gm = new GameWorldStartMenu();
                     Window.SetWorld(gm);
                 }
@@ -72,10 +77,16 @@ namespace Gruppenprojekt.App.Menus
                     enter.SetColorEmissiveIntensity(0.0f);
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && enter.IsMouseCursorOnMe() == true)
-                {
+                {                    
                     if (value1 == 1 && value2 == 1 && value3 == 1 && codeEnterd)
-                    { code.SetText("CODE AKTIVIERT"); codeEnterd = false; }
-                    else { code.SetText(""); }
+                    { 
+                        code.SetText("CODE AKTIVIERT"); codeEnterd = false;
+                    }
+
+                    else
+                    {
+                        
+                    }
                     Globals.ReturnCode = 1;
 
 
@@ -93,6 +104,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && reset.IsMouseCursorOnMe() == true)
                 {
+                    code.SetText("");
                     value1 = 0;
                     value2 = 0;
                     value3 = 0;
@@ -112,10 +124,9 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && plus1.IsMouseCursorOnMe() == true)
                 {
-                    if (value1 < 37)
-                    {
+
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/off.wav", false, 0.2f);
                         value1++;
-                    }
 
                 }
             }
@@ -133,10 +144,8 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && plus2.IsMouseCursorOnMe() == true)
                 {
-                    if (value2 < 37)
-                    {
-                        value2++;
-                    }
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/off.wav", false, 0.2f);
+                    value2++;
 
                 }
             }
@@ -154,10 +163,8 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && plus3.IsMouseCursorOnMe() == true)
                 {
-                    if (value3 < 37)
-                    {
-                        value3++;
-                    }
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/off.wav", false, 0.2f);
+                    value3++;
 
                 }
             }
@@ -175,6 +182,8 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && minus1.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/off.wav", false, 0.2f);
+
                     if (value1 == 0)
                     {
                         value1 = 37;
@@ -200,6 +209,8 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && minus2.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/off.wav", false, 0.2f);
+
                     if (value2 == 0)
                     {
                         value2 = 37;
@@ -223,6 +234,8 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && minus3.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/off.wav", false, 0.2f);
+
                     if (value3 == 0)
                     {
                         value3 = 37;
@@ -246,18 +259,19 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && EnableCredits.IsMouseCursorOnMe() == true)
                 {
-                    if (Globals.DisplayCreditsButton == true)
+
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/on.wav", false, 0.2f);
+                    if (Globals.DisplayCreditsButton)
                     {
-                        EnableCredits.SetText("CREDITS: DISABLED");
-                        Globals.DisplayCreditsButton = false;
-                        File.WriteAllText(Globals.Cpath, "false");
+                        EnableCredits.SetText("CREDITS: " + Globals.disabledText);
+
                     }
                     else
                     {
-                        EnableCredits.SetText("CREDITS: ENABLED");
-                        Globals.DisplayCreditsButton = true;
-                        File.WriteAllText(Globals.Cpath, "true");
+                        EnableCredits.SetText("CREDITS: " + Globals.enabledText);
+
                     }
+                    Globals.DisplayCreditsButton = !Globals.DisplayCreditsButton;
                 }
             }
             if (EnableLanguage != null)
@@ -272,18 +286,17 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && EnableLanguage.IsMouseCursorOnMe() == true)
                 {
-                    if (Globals.DisplayLanguageButton == true)
+
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/on.wav", false, 0.2f);
+                    if (Globals.DisplayLanguageButton)
                     {
-                        EnableLanguage.SetText("LANGUAGE: DISABLED");
-                        Globals.DisplayLanguageButton = false;
-                        File.WriteAllText(Globals.Cpath, "false");
+                        EnableLanguage.SetText("LANGUAGE: " + Globals.disabledText);
                     }
                     else
                     {
-                        EnableLanguage.SetText("LANGUAGE: ENABLED");
-                        Globals.DisplayLanguageButton = true;
-                        File.WriteAllText(Globals.Cpath, "true");
+                        EnableLanguage.SetText("LANGUAGE: " + Globals.enabledText);
                     }
+                    Globals.DisplayLanguageButton = !Globals.DisplayLanguageButton;
                 }
             }
             if (EnableScoreboard != null)
@@ -298,18 +311,15 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && EnableScoreboard.IsMouseCursorOnMe() == true)
                 {
-                    if (Globals.DisplayScoreboardButton == true)
-                    {
-                        EnableScoreboard.SetText("ADMIN: DISABLED");
-                        Globals.DisplayScoreboardButton = false;
-                        File.WriteAllText(Globals.Cpath, "false");
+
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/on.wav", false, 0.2f);
+                    if (Globals.DisplayScoreboardButton) {
+                        EnableScoreboard.SetText("ADMIN: " + Globals.disabledText);                        
                     }
-                    else
-                    {
-                        EnableScoreboard.SetText("ADMIN: ENABLED");
-                        Globals.DisplayScoreboardButton = true;
-                        File.WriteAllText(Globals.Cpath, "true");
+                    else {
+                        EnableScoreboard.SetText("ADMIN: " + Globals.enabledText);                        
                     }
+                    Globals.DisplayScoreboardButton = !Globals.DisplayScoreboardButton;
 
                 }
             }
@@ -329,6 +339,55 @@ namespace Gruppenprojekt.App.Menus
                     Window.SetWorld(cGm);
                 }
             }
+            if (shop != null)
+            {
+                if (shop.IsMouseCursorOnMe() == true)
+                {
+                    shop.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    shop.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && shop.IsMouseCursorOnMe() == true)
+                {
+                    shopMenu shopmenu = new shopMenu();
+                    Window.SetWorld(shopmenu);
+                }
+            }
+            if (admin != null)
+            {
+                if (admin.IsMouseCursorOnMe() == true)
+                {
+                    admin.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    admin.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && admin.IsMouseCursorOnMe() == true)
+                {
+                    scoreboardMenu adminM= new scoreboardMenu();
+                    Window.SetWorld(adminM);
+                }
+            }
+            if (language != null)
+            {
+                if (language.IsMouseCursorOnMe() == true)
+                {
+                    language.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    language.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && language.IsMouseCursorOnMe() == true)
+                {
+                    languageMenu languageM = new languageMenu();
+                    Window.SetWorld(languageM);
+                }
+            }
+
 
 
             string text1 = transelateCode(Convert.ToString(value1));
@@ -343,7 +402,7 @@ namespace Gruppenprojekt.App.Menus
         }
         public override void Prepare()
         {
-            HUDObjectText h1 = new HUDObjectText("BACK");
+            HUDObjectText h1 = new HUDObjectText(Globals.backText);
             h1.SetPosition(50f, 80f);
             h1.Name = "back";
             h1.SetColor(1.0f, 0.0f, 0.0f);
@@ -371,36 +430,46 @@ namespace Gruppenprojekt.App.Menus
             scoreboard.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(scoreboard);
 
+            HUDObjectText admin = new HUDObjectText("ADMIN");
+            admin.SetPosition(600f, Globals.fensterHoehe/2 + Globals.fensterHoehe /4 + Globals.fensterHoehe /10);
+            admin.Name = "admin";
+            admin.SetColor(1.0f, 0.0f, 0.0f);
+            admin.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(admin);
+            HUDObjectText languagee = new HUDObjectText(Globals.LanguageButtonText.ToUpper());
+            languagee.SetPosition(800f, Globals.fensterHoehe / 2 + Globals.fensterHoehe / 4 + Globals.fensterHoehe / 10);
+            languagee.Name = "language";
+            languagee.SetColor(1.0f, 0.0f, 0.0f);
+            languagee.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(languagee);
+
             if (Globals.DisplayCreditsButton == false)
             {
-                credits.SetText("CREDITS: DISABLED");
-                Globals.DisplayCreditsButton = false;
+                credits.SetText("CREDITS: " + Globals.disabledText);                
             }
             else
             {
-                credits.SetText("CREDITS: ENABLED");
+                credits.SetText("CREDITS: " + Globals.enabledText);
                 Globals.DisplayCreditsButton = true;
             }
 
             if (Globals.DisplayLanguageButton == false)
             {
-                language.SetText("LANGUAGE: DISABLED");
-                Globals.DisplayLanguageButton = false;
+                language.SetText("LANGUAGE: " + Globals.disabledText);                
             }
             else
             {
-                language.SetText("LANGUAGE: ENABLED");
+                language.SetText("LANGUAGE: " + Globals.enabledText);
                 Globals.DisplayLanguageButton = true;
             }
 
             if (Globals.DisplayScoreboardButton == false)
             {
-                scoreboard.SetText("ADMIN: DISABLED");
-                Globals.DisplayScoreboardButton = false;
+                scoreboard.SetText("ADMIN: " + Globals.disabledText);                
             }
             else
             {
-                scoreboard.SetText("ADMIN: ENABLED");
+                scoreboard.SetText("ADMIN: " + Globals.enabledText);
                 Globals.DisplayScoreboardButton = true;
             }
 
@@ -490,11 +559,18 @@ namespace Gruppenprojekt.App.Menus
             AddHUDObject(plus3);
 
             HUDObjectText gamemode = new HUDObjectText(Globals.choseGamemodeText);
-            gamemode.SetPosition(160f, 600f);
+            gamemode.SetPosition(160f, Globals.fensterHoehe / 2 + Globals.fensterHoehe / 4 + Globals.fensterHoehe / 10);
             gamemode.Name = "gamemode";
             gamemode.SetColor(1.0f, 0.0f, 0.0f);
             gamemode.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(gamemode);
+
+            HUDObjectText shop = new HUDObjectText("SHOP");
+            shop.SetPosition(420f, Globals.fensterHoehe / 2 + Globals.fensterHoehe / 4 + Globals.fensterHoehe / 10);
+            shop.Name = "shop";
+            shop.SetColor(1.0f, 0.0f, 0.0f);
+            shop.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(shop);
         }
         public string transelateCode(string text)
         {

@@ -12,7 +12,7 @@ namespace Gruppenprojekt.App.Classes
     internal class Collectable : GameObject
     {
         Random rnd = new Random();
-        private LightObject l;
+        public LightObject l;
         bool movingUp = true;
         float ColMovementSpeed = 0.007f;
         public Collectable(string name, float x, float y, float z) 
@@ -33,14 +33,16 @@ namespace Gruppenprojekt.App.Classes
             
             CurrentWorld.AddLightObject(l);
         }
-        public void KillMe()
+        public void KillMe(float r,float g,float b, float em)
         {
             Random rn = new Random();
-            Globals.Score+=(100 * Globals.multiplikator);            
+            Globals.Score+=(100 * Globals.multiplikator);
+            KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/Collecting1.wav", false, 0.2f);
 
+            
             ExplosionObject ex = new ExplosionObject(128, 0.5f, 4f, 2.0f, ExplosionType.Skull);
             ex.SetAlgorithm(ExplosionAnimation.WindUp);
-            ex.SetColorEmissive(0, 1, 0, 2);
+            ex.SetColorEmissive(r, g, b, em);
             ex.SetPosition(this.Position);            
 
             if(CurrentWorld is GameWorldStart)

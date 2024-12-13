@@ -18,7 +18,7 @@ namespace Gruppenprojekt.App.Classes
     internal class Globals
     {        
         public static bool gameRunning = true;
-        public static float[] scores = new float[9];
+        public static float totalScore = 0;
         public static int Trys;
         public static float Score;
         public static int ReturnCode;
@@ -28,26 +28,33 @@ namespace Gruppenprojekt.App.Classes
         public static float moveCameraX = 0;
         public static float moveCameraY = 2.5f;
         public static float moveCameraMultiplier = 1;
-        public static string choseGamemode = "Normal";
+        public static bool bgAnimation = true;
+        public static string choseGamemode = "Tutorial";
         public static int SpawnColByDeath = 1;
         public static bool MapOpen = false;
 
 
         public static string Cpath = @"./App/data/credits.txt";        
+        public static bool deathreal = false;
+        public static bool GameEnd = false;
+        public static bool EndReal = true;
         public static string path = @"./App/data/data.txt";
         public static string timePath = @"./App/data/time.txt";
 
-        public static string[] Clines = File.ReadAllLines(Cpath);
+
+        public static int posWert;
+        public static int posYWert;
 
         public static bool DisplayStartGameButton = true;
         public static bool DisplayOptionButton = true;
         public static bool DisplayLanguageButton = false;
         public static bool DisplayCreditsButton = true;
         public static bool DisplayScoreboardButton = false;
-        public static bool DisplayLeaveButton = true;       
-        public static int posWert;
-        public static int posYWert;
+        public static bool DisplayLeaveButton = true;
 
+        public static string enabledText = "";
+        public static string disabledText = "";
+        public static string backText = "";
         public static string StartButtonText = "";
         public static string OptionButtonText = "";
         public static string LanguageButtonText = "";
@@ -59,9 +66,13 @@ namespace Gruppenprojekt.App.Classes
         public static string displayCounter = "";
         public static string choseGamemodeText = "";
 
-        public static int fensterBreite = 1280;     
-        //public static int fensterBreite = 1920;
-        public static int fensterHoehe = 720;
-        //public static int fensterHoehe = 1080;
+        //public static int fensterBreite = 1280;     
+        public static int fensterBreite = 1920;
+        //public static int fensterHoehe = 720;
+        public static int fensterHoehe = 1080;
+
+        public static bool TutorialComplete = false;
+        public static bool InteractionCollectable = false;
+        public static int TutorialProgress = 0;
     }
 }

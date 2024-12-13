@@ -50,7 +50,7 @@ namespace Gruppenprojekt.App
                 {
                     f.IsVisible = !f.IsVisible;
                 }
-            }
+            }            
             if (Keyboard.IsKeyPressed(Keys.B))
             {
                 if (fullbright)
@@ -63,10 +63,7 @@ namespace Gruppenprojekt.App
 
                 }
                 fullbright = !fullbright;
-
             }
-
-
             // WorldTime ist 2.5
             // _HUDLastUpdate ist 2.2
             // deltat = 0.3
@@ -154,6 +151,8 @@ namespace Gruppenprojekt.App
         }
         public override void Prepare()
         {
+            KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/ScaryScream.wav", false, 0.2f);
+
             PreLoadSounds();
             FlowField pathfinding = new FlowField(0, 2.5f, 0, 50, 50, 0.5f, 5, FlowFieldMode.Simple, typeof(Wall));
             pathfinding.IsVisible = false; //FLOWFIELD DEBUG VISIBILTY
@@ -298,7 +297,14 @@ namespace Gruppenprojekt.App
         public static void PreLoadSounds() {
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/shortsound.wav");
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/flashlight_click.wav");
-            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/flashlightexplode.wav");
+            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/Collecting.wav");
+            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/deepGrowl1.wav");
+            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/IntroMusic1.wav");
+            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/scaryAmbience.wav");
+            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/ScaryMenuMusic1.wav");
+            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/ScaryScream.wav");
+            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/click.wav");
+            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/click1.wav");
         }
     }
 }   

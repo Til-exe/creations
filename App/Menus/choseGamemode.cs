@@ -21,108 +21,40 @@ namespace Gruppenprojekt.App.Menus
     {
         public override void Act()
         {
-
-            HUDObjectText h1 = GetHUDObjectTextByName("MyHUDObject1");
+            HUDObjectText back = GetHUDObjectTextByName("back");
             HUDObjectText normal = GetHUDObjectTextByName("Normal");
             HUDObjectText infinit = GetHUDObjectTextByName("Infinit");
             HUDObjectText peacefull = GetHUDObjectTextByName("Peacefull");
             HUDObjectText hard = GetHUDObjectTextByName("Hard");
-            if (h1 != null)
-            {
-                if (h1.IsMouseCursorOnMe() == true)
-                {
-                    h1.SetColorEmissiveIntensity(1.5f);
-                }
-                else
-                {
-                    h1.SetColorEmissiveIntensity(0.0f);
-                }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && h1.IsMouseCursorOnMe() == true)
-                {
-                    GwStartMenuOption gwo = new GwStartMenuOption();
-                    Window.SetWorld(gwo);
-                }
-            }
-            if (normal != null)
-            {
-                if (normal.IsMouseCursorOnMe() == true)
-                {
-                    normal.SetColorEmissiveIntensity(1.5f);
-                }
-                else
-                {
-                    normal.SetColorEmissiveIntensity(0.0f);
-                }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && normal.IsMouseCursorOnMe() == true)
-                {
-                    Globals.choseGamemode = "Normal";
-                }
-            }
-            if (infinit != null)
-            {
-                if (infinit.IsMouseCursorOnMe() == true)
-                {
-                    infinit.SetColorEmissiveIntensity(1.5f);
-                }
-                else
-                {
-                    infinit.SetColorEmissiveIntensity(0.0f);
-                }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && infinit.IsMouseCursorOnMe() == true)
-                {
-                    Globals.choseGamemode = "Infinit";
-                }
-            }
-            if (peacefull != null)
-            {
-                if (peacefull.IsMouseCursorOnMe() == true)
-                {
-                    peacefull.SetColorEmissiveIntensity(1.5f);
-                }
-                else
-                {
-                    peacefull.SetColorEmissiveIntensity(0.0f);
-                }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && peacefull.IsMouseCursorOnMe() == true)
-                {
-                    Globals.choseGamemode = "Peacefull";
-                }
-
-            }
-            if (hard != null)
-            {
-                if (hard.IsMouseCursorOnMe() == true)
-                {
-                    hard.SetColorEmissiveIntensity(1.5f);
-                }
-                else
-                {
-                    hard.SetColorEmissiveIntensity(0.0f);
-                }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && hard.IsMouseCursorOnMe() == true)
-                {
-
-                    Globals.choseGamemode = "Hard";
-                }
-            }
+            HUDObjectText tutorial = GetHUDObjectTextByName("Tutorial");
+            GameWorldStartMenu.functionBackButton(back);
+            
+            functionGamemodeChose(normal, "Normal");
+            functionGamemodeChose(infinit, "Infinit");
+            functionGamemodeChose(peacefull, "Peacefull");
+            functionGamemodeChose(hard, "Hard"); 
+            
+            functionGamemodeChose(tutorial, "Tutorial");
             infinit.SetText("Infinit");
             normal.SetText("Normal");
             peacefull.SetText("Friedlich");
             hard.SetText("Schwer");
+            tutorial.SetText("Tutorial");
             if (Globals.choseGamemode == "Infinit") { infinit.SetText("> Infinit"); }
             if (Globals.choseGamemode == "Normal") { normal.SetText("> Normal"); }
             if (Globals.choseGamemode == "Peacefull") { peacefull.SetText("> Friedlich"); }
             if (Globals.choseGamemode == "Hard") { hard.SetText("> Schwer"); }
+            if (Globals.choseGamemode == "Tutorial") { tutorial.SetText("> Tutorial"); }
         }
         public override void Prepare()
         {
-            HUDObjectText h1 = new HUDObjectText("BACK");
-            h1.SetPosition(50f, 80f);
-            h1.Name = "MyHUDObject1";
-            h1.SetCharacterDistanceFactor(1.0f);
-            h1.SetColor(1.0f, 0.0f, 0.0f);
-            h1.SetColorEmissive(1.0f, 1.0f, 1.0f);
-            AddHUDObject(h1);
+            HUDObjectText back = new HUDObjectText(Globals.backText);
+            back.SetPosition(50f, 80f);
+            back.Name = "back";
+            back.SetCharacterDistanceFactor(1.0f);
+            back.SetColor(1.0f, 0.0f, 0.0f);
+            back.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(back);
 
             HUDObjectText h = new HUDObjectText(""); //Text: "Hat bislang noch keine Auswirkungen auf das Spiel"
             h.SetPosition(160f, 180f);
@@ -160,10 +92,27 @@ namespace Gruppenprojekt.App.Menus
             Hard.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(Hard);
 
+            HUDObjectText Tutorial = new HUDObjectText("Tutorial");
+            Tutorial.SetPosition(160f, 450f);
+            Tutorial.Name = "Tutorial";
+            Tutorial.SetColor(1.0f, 0.0f, 0.0f);
+            Tutorial.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(Tutorial);
+
             Normal.SetText("Normal");
             Infinit.SetText("Infinit");
             Peacefull.SetText("Peacefull");
             Hard.SetText("Hard");
+            Tutorial.SetText("Tutorial");
+
+            if(!Globals.TutorialComplete)
+            {
+                Hard.SetOpacity(0.7f);
+                Normal.SetOpacity(0.7f);
+                Infinit.SetOpacity(0.7f);
+                Peacefull.SetOpacity(0.7f);
+            }
+                
         }
         public static void gamemodePrepare()
         {
@@ -171,6 +120,27 @@ namespace Gruppenprojekt.App.Menus
             if (Globals.choseGamemode == "Normal") { }
             if (Globals.choseGamemode == "Peacefull") { }
             if (Globals.choseGamemode == "Hard") { }
+            if (Globals.choseGamemode == "Tutorial") { }
+        }
+        private static void functionGamemodeChose(HUDObject i, string gamemode)
+        {
+            if (i != null)
+            {
+                if (i.IsMouseCursorOnMe() == true)
+                {
+                    if (Globals.TutorialComplete)
+                        i.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    i.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && i.IsMouseCursorOnMe() == true)
+                {
+                    if (Globals.TutorialComplete)
+                        Globals.choseGamemode = gamemode;
+                }
+            }
         }
     }
 }
