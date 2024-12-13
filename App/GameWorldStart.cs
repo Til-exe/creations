@@ -155,8 +155,8 @@ namespace Gruppenprojekt.App
         public override void Prepare()
         {
             PreLoadSounds();
-            FlowField pathfinding = new FlowField(0, 2.5f, 0, 100, 100, 0.5f, 5, FlowFieldMode.Simple, typeof(Wall));
-            pathfinding.IsVisible = true; //FLOWFIELD DEBUG VISIBILTY
+            FlowField pathfinding = new FlowField(0, 2.5f, 0, 50, 50, 0.5f, 5, FlowFieldMode.Simple, typeof(Wall));
+            pathfinding.IsVisible = false; //FLOWFIELD DEBUG VISIBILTY
             AddFlowField(pathfinding);
 
             KWEngine.LoadModel("Pascal", "./App/Models/pascalbild.fbx");
