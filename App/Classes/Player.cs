@@ -331,7 +331,6 @@ namespace Gruppenprojekt.App.Classes
                     colCount.SetText("Gesammelte Orbs: " + counter);
                     collectablepos = collider.Position;
                     Enemy.Collectabletarget(collectablepos);
-
                 }
             }
         } 

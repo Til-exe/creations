@@ -50,7 +50,7 @@ namespace Gruppenprojekt.App.Menus
             h3.SetColor(1.0f, 0.0f, 0.0f);
             posY += 50;
 
-            HUDObjectText h4 = new HUDObjectText("gemacht von Zeekerrs");
+            HUDObjectText h4 = new HUDObjectText("gemacht von Zeekerss");
             h4.SetPosition(posX, posY);
             h4.SetColor(1.0f, 0.0f, 0.0f);
             posY += 100;
