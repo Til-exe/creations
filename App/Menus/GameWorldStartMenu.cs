@@ -160,6 +160,7 @@ namespace Gruppenprojekt.App.Menus
             if (Globals.moveCameraMultiplier == 4) { Globals.moveCameraX += 0.08f; }
             if (Globals.moveCameraMultiplier == 0.5) { Globals.moveCameraX += 0.01f; }
             if (Globals.moveCameraMultiplier == 0.25) { Globals.moveCameraX += 0.005f; }
+            //Änderung :P
         }
         public override void Prepare()
         {
