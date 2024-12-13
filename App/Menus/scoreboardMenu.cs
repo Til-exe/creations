@@ -333,7 +333,7 @@ namespace Gruppenprojekt.App.Menus
 
             if (Globals.deathreal) { deathReal.SetText("Death: " + Globals.enabledText); } else { deathReal.SetText("Death: " + Globals.disabledText); }
             if (Globals.bgAnimation) { bgAnimation.SetText("Animation: " + Globals.enabledText); } else { bgAnimation.SetText("Animation: " + Globals.disabledText); }            
-            if (Globals.TutorialComplete) { completeTutorial.SetText("Must Complete Tutorial: " + Globals.enabledText); } else { completeTutorial.SetText("Must Complete Tutorial: " + Globals.disabledText); }
+            if (Globals.TutorialComplete) { completeTutorial.SetText("Must Complete Tutorial: " + Globals.disabledText); } else { completeTutorial.SetText("Must Complete Tutorial: " + Globals.enabledText); }
         }
         public override void Prepare()
         {

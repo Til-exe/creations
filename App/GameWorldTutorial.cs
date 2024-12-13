@@ -147,7 +147,7 @@ namespace Gruppenprojekt.App
             f.SetTextureRepeat(100f, 100f);
             AddGameObject(f);
 
-            p = new Player("Yasin", -13f, 2f, -4f);
+            p = new Player("Yasin", 0f, 2f, 0f);
             AddGameObject(p);
 
             SetCameraToFirstPersonGameObject(p, 2f);
@@ -157,17 +157,28 @@ namespace Gruppenprojekt.App
             if (Globals.choseGamemode != "Peacefull")
             {
                 Enemy e = new Enemy("huso", -12.5f, 2, 13);
-                AddGameObject(e);
+                //AddGameObject(e);
             }
             float xCord = 4f;
             float ScaleHoehe = 5f;
-            Collectable c1 = new Collectable("1", 3f, 4f, 20f);
-            AddGameObject(c1);
+            //Collectable c1 = new Collectable("1", 3f, 4f, 20f);
+            //AddGameObject(c1);
             Wall borderNorth = new Wall("1", 100f, xCord, 0f);
             Wall borderSouth = new Wall("1", -100f, xCord, 0f);
             Wall borderWest = new Wall("1", 0f, xCord, 100f);
             Wall borderEast = new Wall("1", 0f, xCord, -100f);
-            Wall w1 = new Wall("1", 0f, xCord, 5f);
+            Wall w1 = new Wall("1", 2f, xCord, 10f);
+            Wall w2 = new Wall("2", -2f, xCord, 10f);
+            Wall w3 = new Wall("3", 0f, xCord, 20f);
+            Wall w4 = new Wall("4", 0f, xCord, -2f);
+
+            w1.SetRotation(0,90,0);
+            w1.SetScale(40,ScaleHoehe,1);
+            w1.SetTextureRepeat(20, 3);
+            w2.SetRotation(0,90,0);
+            w2.SetScale(40, ScaleHoehe, 1);
+            w2.SetTextureRepeat(20, 3);
+
 
             borderNorth.SetRotation(0, 90, 0);
             borderNorth.SetScale(200, ScaleHoehe, 1);
@@ -185,6 +196,9 @@ namespace Gruppenprojekt.App
             AddGameObject(borderNorth);
             AddGameObject(borderSouth);
             AddGameObject(w1);
+            AddGameObject(w2);
+            AddGameObject(w3);
+            AddGameObject(w4);
 
             createMap();
         }
