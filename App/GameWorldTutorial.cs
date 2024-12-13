@@ -27,6 +27,7 @@ namespace Gruppenprojekt.App
 {
     public class GameWorldTutorial : World
     {
+
         private Player p;
         float finalPos = 0f;
         private float _HUDLastUpdate = 0;
@@ -58,6 +59,11 @@ namespace Gruppenprojekt.App
         }
         public override void Act()
         {
+                    
+            
+
+
+
             if (Keyboard.IsKeyPressed(Keys.T))
             {
                 FlowField f = GetFlowField();
@@ -155,6 +161,14 @@ namespace Gruppenprojekt.App
         }
         public override void Prepare()
         {
+
+            HUDObjectText score = new HUDObjectText("Sammle das Rote Collectable ein!");
+            score.SetPosition(Globals.fensterBreite/2, 20);
+            score.SetTextAlignment(TextAlignMode.Center);
+            score.Name = "Punkte";
+            score.SetCharacterDistanceFactor(1.0f);
+            score.SetColor(1.0f, 0.0f, 0.0f); 
+            AddHUDObject(score);
 
             PreLoadSounds();
             FlowField pathfinding = new FlowField(0, 2.5f, 0, 50, 50, 0.5f, 5, FlowFieldMode.Simple, typeof(Wall));

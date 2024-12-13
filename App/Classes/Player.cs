@@ -99,8 +99,11 @@ namespace Gruppenprojekt.App.Classes
             displayTimer.Name = "displayTimer";
             displayTimer.SetCharacterDistanceFactor(1.0f);
             displayTimer.SetColor(1.0f, 0.0f, 0.0f);
-            CurrentWorld.AddHUDObject(displayTimer);
-            
+            if(Globals.choseGamemode != "Tutorial")
+            {
+                CurrentWorld.AddHUDObject(displayTimer);
+            }
+
 
 
             m2.SetPosition(160f, 250f);
@@ -343,7 +346,7 @@ namespace Gruppenprojekt.App.Classes
                 MoveOffset(mtv);
                 if (collider is Collectable)
                 {
-                    (collider as Collectable).KillMe();
+                    (collider as Collectable).KillMe(0,1,0,2);
                     counter = counter + 1;
                     colCount.SetText("Gesammelte Orbs: " + counter);
                     collectablepos = collider.Position;
