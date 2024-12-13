@@ -18,6 +18,7 @@ namespace Gruppenprojekt.App.Classes
 {
     public class Player : GameObject
     {
+        Vector3 collectablepos;
         bool flashlight = false;
         private LightObject _flashlight;
         HUDObjectText displayTimer = new HUDObjectText("Timer: ");
@@ -327,7 +328,8 @@ namespace Gruppenprojekt.App.Classes
                 {
                     (collider as Collectable).KillMe();
                     counter = counter + 1;
-                    colCount.SetText("Gesammelte Orbs: " + counter);                    
+                    colCount.SetText("Gesammelte Orbs: " + counter);
+                    collectablepos = collider.Position;
                 }
             }
         } 

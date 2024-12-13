@@ -70,6 +70,7 @@ namespace Gruppenprojekt.App.Classes
                 if (f != null && f.Contains(playerPos) && f.Contains(this.Position))
                 {
                     f.SetTarget(playerPos);
+                    
                 }
                 if (f.Contains(this.Position) && f.HasTarget)
                 {
@@ -104,23 +105,25 @@ namespace Gruppenprojekt.App.Classes
                         DecideNewDirection();
                     }
                 }
-            List<Intersection> intersections = GetIntersections();
-            foreach (Intersection intersection in intersections)            
-            {
-                bool deathreal = false;                                    //ZUM AKTIVIEREN UND DEAKTIVIEREN DES TODES
-                MoveOffset(intersection.MTV);
-                GameObject collider = intersection.Object;
-                if (collider is Player && deathreal == true)            //WIRD AUSGEFÜHRT BEI TOT
+                List<Intersection> intersections = GetIntersections();
+                foreach (Intersection intersection in intersections)            
                 {
-                    Console.WriteLine("skill issue");
-                    GameWorldStartMenu gm = new GameWorldStartMenu();
-                    Window.SetWorld(gm);
-                    Globals.Trys++;
-                    string path = @"./App/data/data.txt";
-                    string appendText = Convert.ToString(Globals.Score) + "\n";
-                    File.AppendAllText(path, appendText);
+                    bool deathreal = false;                                    //ZUM AKTIVIEREN UND DEAKTIVIEREN DES TODES
+                    MoveOffset(intersection.MTV);
+                    GameObject collider = intersection.Object;
+                    if (collider is Player && deathreal == true)            //WIRD AUSGEFÜHRT BEI TOT
+                    {
+                        Console.WriteLine("skill issue");
+                        GameWorldStartMenu gm = new GameWorldStartMenu();
+                        Window.SetWorld(gm);
+                        Globals.Trys++;
+                        string path = @"./App/data/data.txt";
+                        string appendText = Convert.ToString(Globals.Score) + "\n";
+                        File.AppendAllText(path, appendText);
+                    }
                 }
-            }
+                
+
             }
         }
 
@@ -200,6 +203,8 @@ namespace Gruppenprojekt.App.Classes
                 blockedDirections.Clear();
             }
         }
+
+
 
     }
 }
