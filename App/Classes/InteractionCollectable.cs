@@ -1,4 +1,5 @@
-﻿using KWEngine3;
+﻿using Gruppenprojekt.App.Menus;
+using KWEngine3;
 using KWEngine3.GameObjects;
 using System;
 using System.Collections.Generic;
@@ -80,13 +81,13 @@ namespace Gruppenprojekt.App.Classes
         {
             if(Globals.TutorialProgress == 0) 
             {
-                InteractionCollectable ic = new InteractionCollectable("1", 10, 2, 10);
-                CurrentWorld.AddGameObject(ic);                
+                Globals.choseGamemode = "Normal";
+                Globals.TutorialComplete = true;
+                GameWorldStartMenu gms = new GameWorldStartMenu();
+                Window.SetWorld(gms);
             }
             if(Globals.TutorialProgress == 1) {
-                InteractionCollectable ic = new InteractionCollectable("1", 30, 2, 30);
-                CurrentWorld.AddGameObject(ic);
-                Globals.TutorialProgress = 2;
+                
             }
             if(Globals.TutorialProgress == 2) { }
             if(Globals.TutorialProgress == 3) { }
