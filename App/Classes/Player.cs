@@ -229,7 +229,7 @@ namespace Gruppenprojekt.App.Classes
             }
             int forward = 0;
             int strafe = 0;
-            if (Globals.gameRunning)
+            if (Globals.gameRunning && !Globals.MapOpen)
             {
                 if (Keyboard.IsKeyDown(Keys.W)) { forward += 1; }
                 if (Keyboard.IsKeyDown(Keys.D)) { strafe += 1; }
