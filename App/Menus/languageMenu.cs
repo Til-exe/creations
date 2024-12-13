@@ -21,7 +21,6 @@ namespace Gruppenprojekt.App.Menus
     {
         public override void Act()
         {
-
             HUDObjectText h1 = GetHUDObjectTextByName("MyHUDObject1");
             HUDObjectText Deutsch = GetHUDObjectTextByName("Deutsch");
             HUDObjectText English = GetHUDObjectTextByName("English");
@@ -100,22 +99,15 @@ namespace Gruppenprojekt.App.Menus
             if (Globals.SetLanguage == "English") { English.SetText("> English"); }
             if (Globals.SetLanguage == "Spanisch") { Spanisch.SetText("> Spanisch"); }
         }
-
-
         public override void Prepare()
         {
-
-
-
-            HUDObjectText h1 = new HUDObjectText("BACK");
+            HUDObjectText h1 = new HUDObjectText(Globals.backText);
             h1.SetPosition(50f, 80f);
             h1.Name = "MyHUDObject1";
             h1.SetCharacterDistanceFactor(1.0f);
             h1.SetColor(1.0f, 0.0f, 0.0f);
             h1.SetColorEmissive(1.0f, 1.0f, 1.0f);
-
             AddHUDObject(h1);
-
 
             HUDObjectText Deutsch = new HUDObjectText("Deutsch");
             Deutsch.SetPosition(160f, 250f);
@@ -123,9 +115,7 @@ namespace Gruppenprojekt.App.Menus
             Deutsch.SetCharacterDistanceFactor(1.0f);
             Deutsch.SetColor(1.0f, 0.0f, 0.0f);
             Deutsch.SetColorEmissive(1.0f, 1.0f, 1.0f);
-
             AddHUDObject(Deutsch);
-
 
             HUDObjectText English = new HUDObjectText("English");
             English.SetPosition(160f, 300f);
@@ -133,7 +123,6 @@ namespace Gruppenprojekt.App.Menus
             English.SetCharacterDistanceFactor(1.0f);
             English.SetColor(1.0f, 0.0f, 0.0f);
             English.SetColorEmissive(1.0f, 1.0f, 1.0f);
-
             AddHUDObject(English);
 
             HUDObjectText Spanisch = new HUDObjectText("Spanisch");
@@ -142,18 +131,11 @@ namespace Gruppenprojekt.App.Menus
             Spanisch.SetCharacterDistanceFactor(1.0f);
             Spanisch.SetColor(1.0f, 0.0f, 0.0f);
             Spanisch.SetColorEmissive(1.0f, 1.0f, 1.0f);
-
             AddHUDObject(Spanisch);
-
 
             Deutsch.SetText("Deutsch");
             English.SetText("English");
             Spanisch.SetText("Spanisch");
-
-
-
-
-
         }
         public static void ChangeLanguage()
         {
@@ -162,11 +144,14 @@ namespace Gruppenprojekt.App.Menus
                 Globals.StartButtonText = "Start";
                 Globals.OptionButtonText = "Optionen";
                 Globals.LanguageButtonText = "Sprache";
-                Globals.CreditsButtonText = "Vielen Dank an:";
+                Globals.CreditsButtonText = "Danksage";
                 Globals.ScoreboardButtonText = "Admin";
                 Globals.LeaveButtonText = "Verlassen";
                 Globals.ActualScoreboardText = "PUNKTETAFEL";
                 Globals.choseGamemodeText = "SPIELMODUS";
+                Globals.enabledText = "AKTIVIERT";
+                Globals.disabledText = "DEAKTIVIERT";
+                Globals.backText = "Zurück";
             }
             if (Globals.SetLanguage == "English")
             {
@@ -178,6 +163,10 @@ namespace Gruppenprojekt.App.Menus
                 Globals.LeaveButtonText = "Leave";
                 Globals.ActualScoreboardText = "SCOREBOARD";
                 Globals.choseGamemodeText = "GAMEMODE";
+                Globals.enabledText = "ENABLED";
+                Globals.disabledText = "DISABLED";
+                Globals.backText = "Back";
+
 
             }
             if (Globals.SetLanguage == "Spanisch")
@@ -188,7 +177,11 @@ namespace Gruppenprojekt.App.Menus
                 Globals.CreditsButtonText = "Créditos";
                 Globals.ScoreboardButtonText = "Admin";
                 Globals.LeaveButtonText = "Dejar";
-                Globals.ActualScoreboardText = "MARCADOR";
+                Globals.ActualScoreboardText = "MARCADOR"; 
+                Globals.enabledText = "ist An, ich Kann kein Spanisch";
+                Globals.disabledText = "ist Aus, ich Kann kein Spanisch";
+                Globals.backText = "Baguette";
+
 
             }
         }

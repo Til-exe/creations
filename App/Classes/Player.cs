@@ -127,7 +127,10 @@ namespace Gruppenprojekt.App.Classes
         static int min = 0;
         public override void Act()
         {
-
+            if(Globals.GameEnd && Globals.EndReal)
+            {
+                gotoHauptmenu();
+            }
             string ActualTimeDisplay = min + "m " + sek + "s";
             sek = Convert.ToInt32(CurrentWorld.WorldTime) - removedTime;
             if (sek == 60)
@@ -183,7 +186,7 @@ namespace Gruppenprojekt.App.Classes
                     flashlight = false;
                     _flickering = false;
                     _flashlight.SetColor(1, 1, 1, 13);
-                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/flashlightexplode.wav", false, (float)0.1);
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/flashlightexplode.wav", false, 0.1f);
                     Console.WriteLine("penis flacker vorbei");
                     Console.WriteLine("Penis aus");
                 }
@@ -276,19 +279,7 @@ namespace Gruppenprojekt.App.Classes
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && m2.IsMouseCursorOnMe() == true)
                 {
-                    
-                    Globals.Trys++;
-                    string path = @"./App/data/data.txt";
-                    string timePath = @"./App/data/time.txt";
-
-                    Globals.displayCounter = Convert.ToString(CurrentWorld.WorldTime) + "\n";
-                    string appendText = Convert.ToString(Globals.Score) + "\n";
-                                       
-                    File.AppendAllText(timePath, Globals.displayCounter);
-                    File.AppendAllText(path, appendText);
-
-                    GameWorldStartMenu gm = new GameWorldStartMenu();
-                    Window.SetWorld(gm);
+                    gotoHauptmenu();
                 }
             }
             if (m3 != null)
@@ -304,10 +295,8 @@ namespace Gruppenprojekt.App.Classes
                 if (Mouse.IsButtonPressed(MouseButton.Left) && m3.IsMouseCursorOnMe() == true)
                 {
                     Globals.Trys++;
-                    string path = @"./App/data/data.txt";
-
                     string appendText = Convert.ToString(Globals.Score) + "\n";
-                    File.AppendAllText(path, appendText);
+                    File.AppendAllText(Globals.path, appendText);
                     Window.Close();
                 }
             }
@@ -373,6 +362,16 @@ namespace Gruppenprojekt.App.Classes
         private float GetRandomFlickerDelay()
         {
             return (float)_random.NextDouble() * 0.08f + 0.02f;
+        }
+        public static void gotoHauptmenu()
+        {
+            Globals.Trys++;
+            Globals.displayCounter = Convert.ToString(CurrentWorld.WorldTime) + "\n";
+            string appendText = Convert.ToString(Globals.Score) + "\n";
+            File.AppendAllText(Globals.timePath, Globals.displayCounter);
+            File.AppendAllText(Globals.path, appendText);
+            GameWorldStartMenu gm = new GameWorldStartMenu();
+            Window.SetWorld(gm);
         }
     }
 }

@@ -25,9 +25,9 @@ namespace Gruppenprojekt.App.Menus
         bool maxGerreicht = true;
         public override void Act()
         {
+            
             HUDObjectText title = GetHUDObjectTextByName("itSteals");
             HUDObjectText start = GetHUDObjectTextByName("start");
-
             /*HUDObjectText back = GetHUDObjectTextByName("back");
             if (back != null)
             {
@@ -78,12 +78,12 @@ namespace Gruppenprojekt.App.Menus
                 {
                     GameWorldStartMenu gwo = new GameWorldStartMenu();
                     Window.SetWorld(gwo);
+
+                    KWEngine3.Audio.Audio.StopAllSound();
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
+
                 }
             }
-
-
-
-
         }
         public override void Prepare()
         {/*
@@ -126,6 +126,8 @@ namespace Gruppenprojekt.App.Menus
             AddHUDObject(h4);
             AddHUDObject(h5);
             AddHUDObject(h6);*/
+            GameWorldStart.PreLoadSounds(); 
+            KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/IntroMusic1.wav", false, 0.06f);
             HUDObjectText title = new HUDObjectText("ITS STOLEN");
             title.Name = "itSteals";
             title.SetScale(1f);
@@ -142,6 +144,7 @@ namespace Gruppenprojekt.App.Menus
             start.SetColor(1, 0, 0);
             start.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(start);
+            
         }
     }
 }
