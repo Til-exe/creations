@@ -180,7 +180,7 @@ namespace Gruppenprojekt.App
             f.SetTextureRepeat(100f, 100f);
             AddGameObject(f);
 
-            p = new Player("Yasin", -13f, 2f, -4f);
+            p = new Player("Yasin", -13 , 2f, -4);
             AddGameObject(p);
 
             SetCameraToFirstPersonGameObject(p, 2f);
