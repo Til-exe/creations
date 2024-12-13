@@ -148,12 +148,7 @@ namespace Gruppenprojekt.App
                     if (finalPos >= 0.02f) {
                         Map.Add(p, 0f, new Vector3(1, 0, 0), new Vector3(1, 0, 0), 1f, 0.6f, 3f);
                     }
-                    
                 }
-
-
-               
-
             }
         }
         public override void Prepare()
