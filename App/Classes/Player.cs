@@ -30,6 +30,16 @@ namespace Gruppenprojekt.App.Classes
         HUDObjectText mtitle = new HUDObjectText("Pausiert");
         private HUDObjectText colCount;
         private int counter = 0;
+
+
+        private bool IsBird() // Testmethode von KAR
+        {
+            if(CurrentWorld is GameWorldStart)
+            {
+                return (CurrentWorld as GameWorldStart).IsBird();
+            }
+            return false;
+        }
         public Player(string name, float x, float y, float z)
         {
 
@@ -41,6 +51,7 @@ namespace Gruppenprojekt.App.Classes
             this.SetColor(1, 0, 0);
             this.SetScale(1, 2, 1);
             this.IsCollisionObject = true;
+            
             
             //Taschenlampe
             _flashlight = new LightObject(LightType.Directional, ShadowQuality.Low);
@@ -312,7 +323,17 @@ namespace Gruppenprojekt.App.Classes
                     Window.Close();
                 }
             }
-            Camera(forward, strafe);
+            if(IsBird() == false) Camera(forward, strafe);
+            else
+            {
+                if(Keyboard.IsKeyDown(Keys.W)){ MoveOffset(0, 0, -0.05f); }
+                if (Keyboard.IsKeyDown(Keys.S)) { MoveOffset(0, 0, +0.05f); }
+                if (Keyboard.IsKeyDown(Keys.A)) { MoveOffset(-0.05f, 0, 0); }
+                if (Keyboard.IsKeyDown(Keys.D)) { MoveOffset(0.05f, 0, 0); }
+                CurrentWorld.SetCameraPosition(0, 50, 0);
+                CurrentWorld.SetCameraTarget(0, 0, 0);
+
+            }
             //Einsammeln von Collectable's
             List<Intersection> intersections = GetIntersections();
             foreach (Intersection i in intersections)

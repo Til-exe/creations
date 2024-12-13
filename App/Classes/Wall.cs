@@ -15,6 +15,7 @@ namespace Gruppenprojekt.App.Classes
         this.IsCollisionObject = true;
         this.IsShadowCaster = true;
         this.SetScale(20f, 5f, 1f);
+            //this.SetOpacity(0.5f);
         this.FlowFieldCost = 255;
         this.SetTexture("./app/Textures/wood1.png");
         this.SetTextureRepeat(10f, 3f);

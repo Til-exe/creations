@@ -17,6 +17,7 @@ using System.Text;
 using System.Transactions;
 using Gruppenprojekt.App.Menus;
 using System.Security.Cryptography.X509Certificates;
+using OpenTK.Platform.Windows;
 
 namespace Gruppenprojekt.App.Classes
 {
@@ -31,6 +32,9 @@ namespace Gruppenprojekt.App.Classes
         float timestampLastSighting = 0;
         Vector3 normal;
         static Vector3 collectableposlol;
+        static bool OverridePathfinding = false;
+        private const int MAXDIRECTIONS = 64;
+        private Queue<Vector3> directions = new Queue<Vector3>(MAXDIRECTIONS);
 
 
         public Enemy(string name, float x, float y, float z)
@@ -55,12 +59,13 @@ namespace Gruppenprojekt.App.Classes
                 Vector3 raystart = this.Center;
                 Vector3 rayDirection = HelperVector.GetDirectionFromVectorToVectorXZ(this.Position,playerPos);
                 Vector3 myDirection = Vector3.Zero;
-                collectableposlol = myDirection;
+                //Vector3 colDirection = HelperVector.GetDirectionFromVectorToVectorXZ(this.Position, collectableposlol);
+                //collectableposlol = myDirection;
                 playerPos = p.Position;
-                FlowField f = CurrentWorld.GetFlowField(); 
-                if (f != null) 
-                { 
-                    f.SetPosition(this.Position.X, this.Position.Z); 
+                FlowField f = CurrentWorld.GetFlowField();
+                if (f != null)
+                {
+                    f.SetPosition(this.Position.X, this.Position.Z);
                 }
                 List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 40f, true, this, typeof(Wall), typeof(Player));
                 if (results.Count > 0)
@@ -70,11 +75,11 @@ namespace Gruppenprojekt.App.Classes
                     distanceToObject = raycollision.Distance;  // Distanz zwischen Strahl-Startposition und dem Treffer:
                     target = raycollision.IntersectionPoint; // Genaue Trefferposition:
                     normal = raycollision.SurfaceNormal;       // Ebenenvektor der Oberfläche, die vom Strahl getroffen wurde:
-                }   
+                }
                 if (f != null && f.Contains(playerPos) && f.Contains(this.Position))
                 {
                     f.SetTarget(playerPos);
-                    
+
                 }
                 if (f.Contains(this.Position) && f.HasTarget)
                 {
@@ -82,7 +87,8 @@ namespace Gruppenprojekt.App.Classes
                 }
                 if (objectHitByRay == p)
                 {
-                    //Console.WriteLine("attack");
+                    OverridePathfinding = false;
+                    Console.WriteLine("attack");
                     timestampLastSighting = WorldTime;
                     TurnTowardsXZ(playerPos);
                     if (myDirection != Vector3.Zero)
@@ -92,16 +98,50 @@ namespace Gruppenprojekt.App.Classes
                 }
                 else if (timestampLastSighting + 4f > WorldTime && timestampLastSighting != 0)          //NOTIZ AN TIL: Wie lang kann der Gegner dich noch um Wände sehen und folgen
                 {
-                    //Console.WriteLine("not in sight still attack");
+                    OverridePathfinding = false;
+                    Console.WriteLine("not in sight still attack");
                     if (myDirection != Vector3.Zero)
                     {
                         MoveAlongVector(myDirection, 0.02f);
                     }
                 }
+                else if (OverridePathfinding == true)
+                {
+                    //Vector3 CollectablePos = Vector3.Zero;
+                    FlowField pathfinding = CurrentWorld.GetFlowField();
+                    if (pathfinding != null)
+                    {
+                        pathfinding.SetTarget(collectableposlol, true);
+                        if (pathfinding.HasTarget && pathfinding.ContainsXZ(collectableposlol))
+                        {
+                            if(directions.Count >= MAXDIRECTIONS)
+                            {
+                                directions.Dequeue();
+                            }
+                            directions.Enqueue(pathfinding.GetBestDirectionForPosition(this.Position));
+
+                            myDirection = GetAverageDirection();
+                            //Console.WriteLine("coldirection: " + myDirection + " (collectableposlol: " + collectableposlol + ")");
+                            if(HelperVector.GetDistanceBetweenVectorsXZ(this.Position, collectableposlol) <= 3f)
+                            {
+                                OverridePathfinding = false;
+                            }
+                        }
+                    }
+                    if (myDirection != Vector3.Zero)
+                    {
+                        MoveAlongVector(myDirection, 0.1f);
+                    }
+                    List<Intersection> intersections1 = GetIntersections();
+                    foreach (Intersection intersection in intersections1)
+                    {
+                        MoveOffset(intersection.MTV);
+                    }
+                }
                 else
                 {
                     Move(0.1f);                                                 //NOTIZ AN TIL HIER KANNST DU ROAMING GESCHWINDIGKEIT ANPASSEN (für difficulty)
-                    //Console.WriteLine("roaming");
+                    Console.WriteLine("roaming");
                     List<Intersection> intersections1 = GetIntersections();
                     foreach (Intersection intersection in intersections1)
                     {
@@ -110,7 +150,7 @@ namespace Gruppenprojekt.App.Classes
                     }
                 }
                 List<Intersection> intersections = GetIntersections();
-                foreach (Intersection intersection in intersections)            
+                foreach (Intersection intersection in intersections)
                 {
                     bool deathreal = false;                                    //ZUM AKTIVIEREN UND DEAKTIVIEREN DES TODES
                     MoveOffset(intersection.MTV);
@@ -210,9 +250,21 @@ namespace Gruppenprojekt.App.Classes
         {
             Console.WriteLine($"Collectable target: {collectablepos}");
             collectableposlol = collectablepos;
-
+            OverridePathfinding = true;
+            
         }
 
+        // test kar
+        private Vector3 GetAverageDirection()
+        {
+            Vector3 dir = Vector3.Zero;
+            foreach(Vector3 v in directions)
+            {
+                dir += v;
+            }
+            return dir / directions.Count;
+        }
+        
     }
 }
 
