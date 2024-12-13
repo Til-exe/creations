@@ -30,7 +30,7 @@ namespace Gruppenprojekt.App
             GameWorldStart gws = new GameWorldStart();
             GameWorldStartMenu sm = new GameWorldStartMenu();
             IntroScreen screen = new IntroScreen();
-            this.SetWorld(screen);
+            this.SetWorld(gws);
         }
     }
 }

@@ -31,6 +31,7 @@ namespace Gruppenprojekt.App.Classes
         float timestampLastSighting = 0;
         Vector3 normal;
         static Vector3 collectableposlol;
+        static bool OverridePathfinding = false;
 
 
         public Enemy(string name, float x, float y, float z)
@@ -54,6 +55,7 @@ namespace Gruppenprojekt.App.Classes
                 Vector3 raystart = this.Center;
                 Vector3 rayDirection = this.LookAtVector;
                 Vector3 myDirection = Vector3.Zero;
+                Vector3 colDirection = HelperVector.GetDirectionFromVectorToVectorXZ(this.Position, collectableposlol);    
                 //collectableposlol = myDirection;
                 playerPos = p.Position;
                 FlowField f = CurrentWorld.GetFlowField(); 
@@ -81,6 +83,7 @@ namespace Gruppenprojekt.App.Classes
                 }
                 if (objectHitByRay == p)
                 {
+                    OverridePathfinding = false;
                     //Console.WriteLine("attack");
                     timestampLastSighting = WorldTime;
                     TurnTowardsXZ(playerPos);
@@ -91,10 +94,34 @@ namespace Gruppenprojekt.App.Classes
                 }
                 else if (timestampLastSighting + 4f > WorldTime && timestampLastSighting != 0)          //NOTIZ AN TIL: Wie lang kann der Gegner dich noch um Wände sehen und folgen
                 {
+                    OverridePathfinding = false;
                     //Console.WriteLine("not in sight still attack");
                     if (myDirection != Vector3.Zero)
                     {
                         MoveAlongVector(myDirection, 0.05f);
+                    }
+                }
+                else if (OverridePathfinding == true)
+                {
+                    //Vector3 CollectablePos = Vector3.Zero;
+                    FlowField pathfinding = CurrentWorld.GetFlowField();
+                    if (pathfinding != null)
+                    {
+                        pathfinding.SetTarget(collectableposlol, true);
+                        if(pathfinding.HasTarget && pathfinding.ContainsXZ(collectableposlol))
+                        {
+                            colDirection = pathfinding.GetBestDirectionForPosition(collectableposlol);
+                        }
+                        else { Console.WriteLine("leck"); }
+                    }
+                    if(colDirection != Vector3.Zero)
+                    {
+                        MoveAlongVector(colDirection, 0.1f);
+                    }
+                    List<Intersection> intersections1 = GetIntersections();
+                    foreach(Intersection intersection in intersections1)
+                    {
+                        MoveOffset(intersection.MTV);
                     }
                 }
                 else
@@ -209,7 +236,8 @@ namespace Gruppenprojekt.App.Classes
         {
             Console.WriteLine($"Collectable target: {collectablepos}");
             collectableposlol = collectablepos;
-
+            OverridePathfinding = true;
+            
         }
 
     }
