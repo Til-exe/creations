@@ -66,10 +66,10 @@ namespace Gruppenprojekt.App.Classes
         public static string displayCounter = "";
         public static string choseGamemodeText = "";
 
-        //public static int fensterBreite = 1280;     
-        public static int fensterBreite = 1920;
-        //public static int fensterHoehe = 720;
-        public static int fensterHoehe = 1080;
+        public static int fensterBreite = 1280;     
+        //public static int fensterBreite = 1920;
+        public static int fensterHoehe = 720;
+        //public static int fensterHoehe = 1080;
 
         public static bool TutorialComplete = false;
         public static bool InteractionCollectable = false;

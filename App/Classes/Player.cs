@@ -99,8 +99,11 @@ namespace Gruppenprojekt.App.Classes
             displayTimer.Name = "displayTimer";
             displayTimer.SetCharacterDistanceFactor(1.0f);
             displayTimer.SetColor(1.0f, 0.0f, 0.0f);
-            CurrentWorld.AddHUDObject(displayTimer);
-            
+            if(Globals.choseGamemode != "Tutorial")
+            {
+                CurrentWorld.AddHUDObject(displayTimer);
+            }
+
 
 
             m2.SetPosition(160f, 250f);
