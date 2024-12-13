@@ -42,7 +42,9 @@ namespace Gruppenprojekt.App.Menus
                 if (Mouse.IsButtonPressed(MouseButton.Left) && start.IsMouseCursorOnMe() == true)
                 {
                     KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
-                    startGame();
+                    if(Globals.TutorialComplete) { startGame(); }
+                    else { startTutorial(); }
+
                 }
             }
             if (option != null)
@@ -496,6 +498,11 @@ namespace Gruppenprojekt.App.Menus
             GameWorldStart gws = new GameWorldStart();
             Window.SetWorld(gws);
             Globals.Score = 0;
+        }
+        public static void startTuroial()
+        {
+            GameWorldTutorial gwt = new GameWorldTutorial();
+            Window.SetWorld(gwt);
         }
         public static void functionBackButton(HUDObject leave) 
         {
