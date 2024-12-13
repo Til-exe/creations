@@ -57,54 +57,6 @@ namespace Gruppenprojekt.App.Classes
 
             p = CurrentWorld.GetGameObjectByName<Player>("Yasin");
         }
-
-        public override void Act()
-        {
-            Vector3 raystart = this.Center;
-            Vector3 rayDirection = this.LookAtVector;
-            Vector3 myDirection = Vector3.Zero;
-            playerPos = p.Position;
-            FlowField f = CurrentWorld.GetFlowField();
-            TurnTowardsXZ(playerPos);
-            List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 14f, true, this, typeof(Wall), typeof(Player));
-            if(results.Count > 0)
-            {
-                raycollision = results[0];  //definiert erstes objekt welches im ray getroffen wird 
-                objectHitByRay = raycollision.Object; // object welches getroffen wurde 
-                distanceToObject = raycollision.Distance;  // Distanz zwischen Strahl-Startposition und dem Treffer:
-                target = raycollision.IntersectionPoint; // Genaue Trefferposition:
-                normal = raycollision.SurfaceNormal;       // Ebenenvektor der Oberfläche, die vom Strahl getroffen wurde:
-            }
-            if (f != null && f.Contains(playerPos) && f.Contains(this.Position))
-            {
-                f.SetTarget(playerPos);
-            }
-            if (f.Contains(this.Position) && f.HasTarget)
-            {
-                myDirection = f.GetBestDirectionForPosition(this.Position);
-            }
-            if (objectHitByRay == p)
-            {
-                Console.WriteLine("if");
-                timestampLastSighting = WorldTime;
-                             
-                if (myDirection != Vector3.Zero)
-                {
-                    MoveAlongVector(myDirection, 0.05f);
-                }
-            }
-            else if (timestampLastSighting + 4f > WorldTime && timestampLastSighting != 0)
-            {
-                Console.WriteLine("else");               
-                if (myDirection != Vector3.Zero)
-                {
-                    MoveAlongVector(myDirection, 0.05f);
-                }
-            }
-
-            p = CurrentWorld.GetGameObjectByName<Player>("Yasin");
-        }
-
         public override void Act()
         {
             if (Globals.gameRunning) { 
