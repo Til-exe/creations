@@ -16,6 +16,7 @@ using System.IO;
 using System.Text;
 using System.Transactions;
 using Gruppenprojekt.App.Menus;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Gruppenprojekt.App.Classes
 {
@@ -29,6 +30,7 @@ namespace Gruppenprojekt.App.Classes
         float distanceToObject;
         float timestampLastSighting = 0;
         Vector3 normal;
+        static Vector3 collectableposlol;
 
 
         public Enemy(string name, float x, float y, float z)
@@ -53,8 +55,9 @@ namespace Gruppenprojekt.App.Classes
                 Vector3 raystart = this.Center;
                 Vector3 rayDirection = HelperVector.GetDirectionFromVectorToVectorXZ(this.Position,playerPos);
                 Vector3 myDirection = Vector3.Zero;
-                
-                
+                //collectableposlol = myDirection;
+                TurnTowardsXZ(playerPos);
+                playerPos = p.Position;
                 FlowField f = CurrentWorld.GetFlowField(); 
                 if (f != null) 
                 { 
@@ -72,6 +75,7 @@ namespace Gruppenprojekt.App.Classes
                 if (f != null && f.Contains(playerPos) && f.Contains(this.Position))
                 {
                     f.SetTarget(playerPos);
+                    
                 }
                 if (f.Contains(this.Position) && f.HasTarget)
                 {
@@ -79,7 +83,7 @@ namespace Gruppenprojekt.App.Classes
                 }
                 if (objectHitByRay == p)
                 {
-                    Console.WriteLine("attack");
+                    //Console.WriteLine("attack");
                     timestampLastSighting = WorldTime;
                     TurnTowardsXZ(playerPos);
                     if (myDirection != Vector3.Zero)
@@ -89,7 +93,7 @@ namespace Gruppenprojekt.App.Classes
                 }
                 else if (timestampLastSighting + 4f > WorldTime && timestampLastSighting != 0)          //NOTIZ AN TIL: Wie lang kann der Gegner dich noch um Wände sehen und folgen
                 {
-                    Console.WriteLine("not in sight still attack");
+                    //Console.WriteLine("not in sight still attack");
                     if (myDirection != Vector3.Zero)
                     {
                         MoveAlongVector(myDirection, 0.02f);
@@ -97,8 +101,8 @@ namespace Gruppenprojekt.App.Classes
                 }
                 else
                 {
-                    Move(0.02f);                                                 //NOTIZ AN TIL HIER KANNST DU ROAMING GESCHWINDIGKEIT ANPASSEN (für difficulty)
-                    Console.WriteLine("roaming");
+                    Move(0.1f);                                                 //NOTIZ AN TIL HIER KANNST DU ROAMING GESCHWINDIGKEIT ANPASSEN (für difficulty)
+                    //Console.WriteLine("roaming");
                     List<Intersection> intersections1 = GetIntersections();
                     foreach (Intersection intersection in intersections1)
                     {
@@ -106,23 +110,23 @@ namespace Gruppenprojekt.App.Classes
                         DecideNewDirection();
                     }
                 }
-            List<Intersection> intersections = GetIntersections();
-            foreach (Intersection intersection in intersections)            
-            {
-                bool deathreal = false;                                    //ZUM AKTIVIEREN UND DEAKTIVIEREN DES TODES
-                MoveOffset(intersection.MTV);
-                GameObject collider = intersection.Object;
-                if (collider is Player && deathreal == true)            //WIRD AUSGEFÜHRT BEI TOT
+                List<Intersection> intersections = GetIntersections();
+                foreach (Intersection intersection in intersections)            
                 {
-                    Console.WriteLine("skill issue");
-                    GameWorldStartMenu gm = new GameWorldStartMenu();
-                    Window.SetWorld(gm);
-                    Globals.Trys++;
-                    string path = @"./App/data/data.txt";
-                    string appendText = Convert.ToString(Globals.Score) + "\n";
-                    File.AppendAllText(path, appendText);
+                    bool deathreal = false;                                    //ZUM AKTIVIEREN UND DEAKTIVIEREN DES TODES
+                    MoveOffset(intersection.MTV);
+                    GameObject collider = intersection.Object;
+                    if (collider is Player && deathreal == true)            //WIRD AUSGEFÜHRT BEI TOT
+                    {
+                        Console.WriteLine("skill issue");
+                        GameWorldStartMenu gm = new GameWorldStartMenu();
+                        Window.SetWorld(gm);
+                        Globals.Trys++;
+                        string path = @"./App/data/data.txt";
+                        string appendText = Convert.ToString(Globals.Score) + "\n";
+                        File.AppendAllText(path, appendText);
+                    }
                 }
-            }
             }
         }
 
@@ -201,6 +205,13 @@ namespace Gruppenprojekt.App.Classes
             {
                 blockedDirections.Clear();
             }
+        }
+
+        public static void Collectabletarget(Vector3 collectablepos)
+        {
+            Console.WriteLine($"Collectable target: {collectablepos}");
+            collectableposlol = collectablepos;
+
         }
 
     }
