@@ -29,7 +29,7 @@ namespace Gruppenprojekt.App.Classes
         public static float moveCameraY = 2.5f;
         public static float moveCameraMultiplier = 1;
         public static bool bgAnimation = true;
-        public static string choseGamemode = "Normal";
+        public static string choseGamemode = "Tutorial";
         public static int SpawnColByDeath = 1;
         public static bool MapOpen = false;
 
@@ -70,5 +70,7 @@ namespace Gruppenprojekt.App.Classes
         public static int fensterBreite = 1920;
         //public static int fensterHoehe = 720;
         public static int fensterHoehe = 1080;
+
+        public static bool TutorialComplete = false;
     }
 }

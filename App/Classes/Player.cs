@@ -25,6 +25,7 @@ namespace Gruppenprojekt.App.Classes
         HUDObjectText m2 = new HUDObjectText("Hauptmenu");
         HUDObjectText m3 = new HUDObjectText("Verlassen");
         HUDObjectText score = new HUDObjectText("Punkte");
+        HUDObjectText gamemode = new HUDObjectText("Gamemode:" + Globals.choseGamemode);
         HUDObjectImage bg = new HUDObjectImage("./App/Textures/blackscreen.png");
         HUDObjectText mtitle = new HUDObjectText("Pausiert");
         private HUDObjectText colCount;
@@ -107,6 +108,11 @@ namespace Gruppenprojekt.App.Classes
             score.Name = "Punkte";
             score.SetCharacterDistanceFactor(1.0f);
             score.SetColor(1.0f, 0.0f, 0.0f);
+
+            gamemode.SetPosition(700f, 300f);
+            gamemode.Name = "gamemode";
+            gamemode.SetCharacterDistanceFactor(1.0f);
+            gamemode.SetColor(1.0f, 0.0f, 0.0f);
 
         }
         private Random _random = new Random();
@@ -279,6 +285,8 @@ namespace Gruppenprojekt.App.Classes
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && m2.IsMouseCursorOnMe() == true)
                 {
+                    Globals.TutorialComplete = true;
+                    Globals.choseGamemode = "Normal";
                     gotoHauptmenu();
                 }
             }
@@ -337,6 +345,7 @@ namespace Gruppenprojekt.App.Classes
             CurrentWorld.RemoveHUDObject(m3);
             CurrentWorld.RemoveHUDObject(mtitle);
             CurrentWorld.RemoveHUDObject(score);
+            CurrentWorld.RemoveHUDObject(gamemode);
             displayTimer.SetPosition(50f, 50f);
         }
         public void stop()
@@ -350,6 +359,7 @@ namespace Gruppenprojekt.App.Classes
             CurrentWorld.AddHUDObject(bg);
             CurrentWorld.AddHUDObject(mtitle);
             CurrentWorld.AddHUDObject(score);
+            CurrentWorld.AddHUDObject(gamemode);
             displayTimer.SetPosition(700f,250f);
             score.SetText("Punktestand: " + Globals.Score);
         }
