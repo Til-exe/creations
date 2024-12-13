@@ -231,7 +231,8 @@ namespace Gruppenprojekt.App
             Wall w9 = new Wall("9", 0f, xCord, -5f);
             Wall w10 = new Wall("10", -2.5f, xCord+3, 5);
             
-            if (true) {
+            if (true) 
+            {
                 w4.SetScale(30f, ScaleHoehe, 1f);
                 w5.SetRotation(0, 90, 0);
                 w5.SetScale(10f, ScaleHoehe, 1f);
@@ -255,7 +256,8 @@ namespace Gruppenprojekt.App
                 borderWest.SetTextureRepeat(100f, 5f);
             } //Set Attributes            
 
-            if (true) {
+            if (true) 
+            {
                 AddGameObject(borderWest);
                 AddGameObject(borderEast);
                 AddGameObject(borderNorth);

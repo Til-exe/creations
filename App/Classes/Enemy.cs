@@ -33,8 +33,8 @@ namespace Gruppenprojekt.App.Classes
         Vector3 normal;
         static Vector3 collectableposlol;
         static bool OverridePathfinding = false;
-        //private const int MAXDIRECTIONS = 64;
-        //private Queue<Vector3> directions = new Queue<Vector3>(MAXDIRECTIONS);
+        private const int MAXDIRECTIONS = 64;
+        private Queue<Vector3> directions = new Queue<Vector3>(MAXDIRECTIONS);
 
 
         public Enemy(string name, float x, float y, float z)
@@ -46,7 +46,6 @@ namespace Gruppenprojekt.App.Classes
             this.IsCollisionObject = true;
             this.IsShadowCaster = true;
             this.SetScale(1, 2, 1);
-            this.SetHitboxToCapsule();
 
             p = CurrentWorld.GetGameObjectByName<Player>("Yasin");
         }
@@ -88,7 +87,7 @@ namespace Gruppenprojekt.App.Classes
                 if (objectHitByRay == p)
                 {
                     OverridePathfinding = false;
-                    //Console.WriteLine("attack");
+                    Console.WriteLine("attack");
                     timestampLastSighting = WorldTime;
                     TurnTowardsXZ(playerPos);
                     if (myDirection != Vector3.Zero)
@@ -99,7 +98,7 @@ namespace Gruppenprojekt.App.Classes
                 else if (timestampLastSighting + 4f > WorldTime && timestampLastSighting != 0)          //NOTIZ AN TIL: Wie lang kann der Gegner dich noch um Wände sehen und folgen
                 {
                     OverridePathfinding = false;
-                    //Console.WriteLine("not in sight still attack");
+                    Console.WriteLine("not in sight still attack");
                     if (myDirection != Vector3.Zero)
                     {
                         MoveAlongVector(myDirection, 0.05f);
@@ -114,10 +113,19 @@ namespace Gruppenprojekt.App.Classes
                         pathfinding.SetTarget(collectableposlol, true);
                         if (pathfinding.HasTarget && pathfinding.ContainsXZ(collectableposlol))
                         {
-                            myDirection = pathfinding.GetBestDirectionForPosition(this.Position);
+                            if(directions.Count >= MAXDIRECTIONS)
+                            {
+                                directions.Dequeue();
+                            }
+                            directions.Enqueue(pathfinding.GetBestDirectionForPosition(this.Position));
+
+                            myDirection = GetAverageDirection();
                             //Console.WriteLine("coldirection: " + myDirection + " (collectableposlol: " + collectableposlol + ")");
+                            if(HelperVector.GetDistanceBetweenVectorsXZ(this.Position, collectableposlol) <= 3f)
+                            {
+                                OverridePathfinding = false;
+                            }
                         }
-                        else { Console.WriteLine("leck"); }
                     }
                     if (myDirection != Vector3.Zero)
                     {
@@ -132,7 +140,7 @@ namespace Gruppenprojekt.App.Classes
                 else
                 {
                     Move(0.1f);                                                 //NOTIZ AN TIL HIER KANNST DU ROAMING GESCHWINDIGKEIT ANPASSEN (für difficulty)
-                    //Console.WriteLine("roaming");
+                    Console.WriteLine("roaming");
                     List<Intersection> intersections1 = GetIntersections();
                     foreach (Intersection intersection in intersections1)
                     {
@@ -245,7 +253,7 @@ namespace Gruppenprojekt.App.Classes
             
         }
 
-        /* test kar
+        // test kar
         private Vector3 GetAverageDirection()
         {
             Vector3 dir = Vector3.Zero;
@@ -255,7 +263,7 @@ namespace Gruppenprojekt.App.Classes
             }
             return dir / directions.Count;
         }
-        */
+        
     }
 }
 
