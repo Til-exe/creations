@@ -59,62 +59,64 @@ namespace Gruppenprojekt.App.Classes
         }
         public override void Act()
         {
-            if (Globals.gameRunning) { 
-            Vector3 raystart = this.Center;
-            Vector3 rayDirection = this.LookAtVector;
-            Vector3 myDirection = Vector3.Zero;
-            playerPos = p.Position;
-            FlowField f = CurrentWorld.GetFlowField(); if (f != null) 
+            if (Globals.gameRunning) 
+            { 
+                Vector3 raystart = this.Center;
+                Vector3 rayDirection = this.LookAtVector;
+                Vector3 myDirection = Vector3.Zero;
+                TurnTowardsXZ(playerPos);
+                playerPos = p.Position;
+                FlowField f = CurrentWorld.GetFlowField(); 
+                if (f != null) 
                 { 
                     f.SetPosition(this.Position.X, this.Position.Z); 
                 }
-
-            List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 14f, true, this, typeof(Wall), typeof(Player));
-            if (results.Count > 0)
-            {
-                raycollision = results[0];  //definiert erstes objekt welches im ray getroffen wird 
-                objectHitByRay = raycollision.Object; // object welches getroffen wurde 
-                distanceToObject = raycollision.Distance;  // Distanz zwischen Strahl-Startposition und dem Treffer:
-                target = raycollision.IntersectionPoint; // Genaue Trefferposition:
-                normal = raycollision.SurfaceNormal;       // Ebenenvektor der Oberfläche, die vom Strahl getroffen wurde:
-            }
-            if (f != null && f.Contains(playerPos) && f.Contains(this.Position))
-            {
-                f.SetTarget(playerPos);
-            }
-            if (f.Contains(this.Position) && f.HasTarget)
-            {
-                myDirection = f.GetBestDirectionForPosition(this.Position);
-            }
-            if (objectHitByRay == p)
-            {
-                Console.WriteLine("attack");
-                timestampLastSighting = WorldTime;
-                TurnTowardsXZ(playerPos);
-                if (myDirection != Vector3.Zero)
+                List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 14f, true, this, typeof(Wall), typeof(Player));
+                if (results.Count > 0)
                 {
-                    MoveAlongVector(myDirection, 0.05f);                                //Attackgeschwindigkeit
-                }
-            }
-            else if (timestampLastSighting + 4f > WorldTime && timestampLastSighting != 0)          //NOTIZ AN TIL: Wie lang kann der Gegner dich noch um Wände sehen und folgen
-            {
-                Console.WriteLine("not in sight still attack");
-                if (myDirection != Vector3.Zero)
+                    raycollision = results[0];  //definiert erstes objekt welches im ray getroffen wird 
+                    objectHitByRay = raycollision.Object; // object welches getroffen wurde 
+                    distanceToObject = raycollision.Distance;  // Distanz zwischen Strahl-Startposition und dem Treffer:
+                    target = raycollision.IntersectionPoint; // Genaue Trefferposition:
+                    normal = raycollision.SurfaceNormal;       // Ebenenvektor der Oberfläche, die vom Strahl getroffen wurde:
+                }   
+                if (f != null && f.Contains(playerPos) && f.Contains(this.Position))
                 {
-                    MoveAlongVector(myDirection, 0.05f);
+                    f.SetTarget(playerPos);
                 }
-            }
-            else                      
-            {
-                Move(0.1f);                                                 //NOTIZ AN TIL HIER KANNST DU ROAMING GESCHWINDIGKEIT ANPASSEN (für difficulty)
-                Console.WriteLine("roaming");
-                List<Intersection> intersections1 = GetIntersections();
-                foreach (Intersection intersection in intersections1)
+                if (f.Contains(this.Position) && f.HasTarget)
                 {
-                    MoveOffset(intersection.MTV);
-                    DecideNewDirection();
+                    myDirection = f.GetBestDirectionForPosition(this.Position);
                 }
-            }
+                if (objectHitByRay == p)
+                {
+                    Console.WriteLine("attack");
+                    timestampLastSighting = WorldTime;
+                    TurnTowardsXZ(playerPos);
+                    if (myDirection != Vector3.Zero)
+                    {
+                        MoveAlongVector(myDirection, 0.05f);                                //Attackgeschwindigkeit
+                    }
+                }
+                else if (timestampLastSighting + 4f > WorldTime && timestampLastSighting != 0)          //NOTIZ AN TIL: Wie lang kann der Gegner dich noch um Wände sehen und folgen
+                {
+                    Console.WriteLine("not in sight still attack");
+                    if (myDirection != Vector3.Zero)
+                    {
+                        MoveAlongVector(myDirection, 0.05f);
+                    }
+                }
+                else
+                {
+                    Move(0.1f);                                                 //NOTIZ AN TIL HIER KANNST DU ROAMING GESCHWINDIGKEIT ANPASSEN (für difficulty)
+                    Console.WriteLine("roaming");
+                    List<Intersection> intersections1 = GetIntersections();
+                    foreach (Intersection intersection in intersections1)
+                    {
+                        MoveOffset(intersection.MTV);
+                        DecideNewDirection();
+                    }
+                }
             List<Intersection> intersections = GetIntersections();
             foreach (Intersection intersection in intersections)            
             {
@@ -202,7 +204,7 @@ namespace Gruppenprojekt.App.Classes
                     blockedDirections.Add("East");
                     break;
             }
-            unblockTime = WorldTime + 3f;
+            unblockTime = WorldTime;
         }
         private void UnblockDirectionsIfNeeded()
         {
