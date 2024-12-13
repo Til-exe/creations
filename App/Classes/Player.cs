@@ -285,8 +285,11 @@ namespace Gruppenprojekt.App.Classes
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && m2.IsMouseCursorOnMe() == true)
                 {
-                    Globals.TutorialComplete = true;
-                    Globals.choseGamemode = "Normal";
+                    if (!Globals.TutorialComplete) 
+                    {
+                        Globals.TutorialComplete = true;
+                        Globals.choseGamemode = "Normal";
+                    }                    
                     gotoHauptmenu();
                 }
             }
