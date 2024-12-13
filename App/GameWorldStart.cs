@@ -16,6 +16,13 @@ namespace Gruppenprojekt.App
         float finalPos = 0f;
         private float _HUDLastUpdate = 0;
         bool fullbright = false;
+        bool bird = false; // KAR: Vogelperspektive
+
+        public bool IsBird()
+        {
+            return bird;
+        }
+
         public float GetHUDLastUpdateTime()
         {            
             HUDObjectText h = GetHUDObjectTextByName("MyHUDObject");

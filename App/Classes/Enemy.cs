@@ -17,6 +17,7 @@ using System.Text;
 using System.Transactions;
 using Gruppenprojekt.App.Menus;
 using System.Security.Cryptography.X509Certificates;
+using OpenTK.Platform.Windows;
 
 namespace Gruppenprojekt.App.Classes
 {
@@ -32,6 +33,8 @@ namespace Gruppenprojekt.App.Classes
         Vector3 normal;
         static Vector3 collectableposlol;
         static bool OverridePathfinding = false;
+        //private const int MAXDIRECTIONS = 64;
+        //private Queue<Vector3> directions = new Queue<Vector3>(MAXDIRECTIONS);
 
 
         public Enemy(string name, float x, float y, float z)
@@ -43,25 +46,26 @@ namespace Gruppenprojekt.App.Classes
             this.IsCollisionObject = true;
             this.IsShadowCaster = true;
             this.SetScale(1, 2, 1);
+            this.SetHitboxToCapsule();
 
             p = CurrentWorld.GetGameObjectByName<Player>("Yasin");
         }
 
         public override void Act()
         {
-            if (Globals.gameRunning) 
-            { 
-                
+            if (Globals.gameRunning)
+            {
+
                 Vector3 raystart = this.Center;
                 Vector3 rayDirection = this.LookAtVector;
                 Vector3 myDirection = Vector3.Zero;
-                Vector3 colDirection = HelperVector.GetDirectionFromVectorToVectorXZ(this.Position, collectableposlol);    
+                //Vector3 colDirection = HelperVector.GetDirectionFromVectorToVectorXZ(this.Position, collectableposlol);
                 //collectableposlol = myDirection;
                 playerPos = p.Position;
-                FlowField f = CurrentWorld.GetFlowField(); 
-                if (f != null) 
-                { 
-                    f.SetPosition(this.Position.X, this.Position.Z); 
+                FlowField f = CurrentWorld.GetFlowField();
+                if (f != null)
+                {
+                    f.SetPosition(this.Position.X, this.Position.Z);
                 }
                 List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 14f, true, this, typeof(Wall), typeof(Player));
                 if (results.Count > 0)
@@ -71,11 +75,11 @@ namespace Gruppenprojekt.App.Classes
                     distanceToObject = raycollision.Distance;  // Distanz zwischen Strahl-Startposition und dem Treffer:
                     target = raycollision.IntersectionPoint; // Genaue Trefferposition:
                     normal = raycollision.SurfaceNormal;       // Ebenenvektor der Oberfläche, die vom Strahl getroffen wurde:
-                }   
+                }
                 if (f != null && f.Contains(playerPos) && f.Contains(this.Position))
                 {
                     f.SetTarget(playerPos);
-                    
+
                 }
                 if (f.Contains(this.Position) && f.HasTarget)
                 {
@@ -108,18 +112,19 @@ namespace Gruppenprojekt.App.Classes
                     if (pathfinding != null)
                     {
                         pathfinding.SetTarget(collectableposlol, true);
-                        if(pathfinding.HasTarget && pathfinding.ContainsXZ(collectableposlol))
+                        if (pathfinding.HasTarget && pathfinding.ContainsXZ(collectableposlol))
                         {
-                            colDirection = pathfinding.GetBestDirectionForPosition(collectableposlol);
+                            myDirection = pathfinding.GetBestDirectionForPosition(this.Position);
+                            //Console.WriteLine("coldirection: " + myDirection + " (collectableposlol: " + collectableposlol + ")");
                         }
                         else { Console.WriteLine("leck"); }
                     }
-                    if(colDirection != Vector3.Zero)
+                    if (myDirection != Vector3.Zero)
                     {
-                        MoveAlongVector(colDirection, 0.1f);
+                        MoveAlongVector(myDirection, 0.1f);
                     }
                     List<Intersection> intersections1 = GetIntersections();
-                    foreach(Intersection intersection in intersections1)
+                    foreach (Intersection intersection in intersections1)
                     {
                         MoveOffset(intersection.MTV);
                     }
@@ -136,7 +141,7 @@ namespace Gruppenprojekt.App.Classes
                     }
                 }
                 List<Intersection> intersections = GetIntersections();
-                foreach (Intersection intersection in intersections)            
+                foreach (Intersection intersection in intersections)
                 {
                     bool deathreal = false;                                    //ZUM AKTIVIEREN UND DEAKTIVIEREN DES TODES
                     MoveOffset(intersection.MTV);
@@ -240,6 +245,17 @@ namespace Gruppenprojekt.App.Classes
             
         }
 
+        /* test kar
+        private Vector3 GetAverageDirection()
+        {
+            Vector3 dir = Vector3.Zero;
+            foreach(Vector3 v in directions)
+            {
+                dir += v;
+            }
+            return dir / directions.Count;
+        }
+        */
     }
 }
 
