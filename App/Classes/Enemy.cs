@@ -16,6 +16,7 @@ using System.IO;
 using System.Text;
 using System.Transactions;
 using Gruppenprojekt.App.Menus;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Gruppenprojekt.App.Classes
 {
@@ -29,6 +30,7 @@ namespace Gruppenprojekt.App.Classes
         float distanceToObject;
         float timestampLastSighting = 0;
         Vector3 normal;
+        static Vector3 collectableposlol;
 
 
         public Enemy(string name, float x, float y, float z)
@@ -48,9 +50,11 @@ namespace Gruppenprojekt.App.Classes
         {
             if (Globals.gameRunning) 
             { 
+                
                 Vector3 raystart = this.Center;
                 Vector3 rayDirection = this.LookAtVector;
                 Vector3 myDirection = Vector3.Zero;
+                //collectableposlol = myDirection;
                 TurnTowardsXZ(playerPos);
                 playerPos = p.Position;
                 FlowField f = CurrentWorld.GetFlowField(); 
@@ -78,7 +82,7 @@ namespace Gruppenprojekt.App.Classes
                 }
                 if (objectHitByRay == p)
                 {
-                    Console.WriteLine("attack");
+                    //Console.WriteLine("attack");
                     timestampLastSighting = WorldTime;
                     TurnTowardsXZ(playerPos);
                     if (myDirection != Vector3.Zero)
@@ -88,7 +92,7 @@ namespace Gruppenprojekt.App.Classes
                 }
                 else if (timestampLastSighting + 4f > WorldTime && timestampLastSighting != 0)          //NOTIZ AN TIL: Wie lang kann der Gegner dich noch um Wände sehen und folgen
                 {
-                    Console.WriteLine("not in sight still attack");
+                    //Console.WriteLine("not in sight still attack");
                     if (myDirection != Vector3.Zero)
                     {
                         MoveAlongVector(myDirection, 0.05f);
@@ -97,7 +101,7 @@ namespace Gruppenprojekt.App.Classes
                 else
                 {
                     Move(0.1f);                                                 //NOTIZ AN TIL HIER KANNST DU ROAMING GESCHWINDIGKEIT ANPASSEN (für difficulty)
-                    Console.WriteLine("roaming");
+                    //Console.WriteLine("roaming");
                     List<Intersection> intersections1 = GetIntersections();
                     foreach (Intersection intersection in intersections1)
                     {
@@ -122,8 +126,6 @@ namespace Gruppenprojekt.App.Classes
                         File.AppendAllText(path, appendText);
                     }
                 }
-                
-
             }
         }
 
@@ -204,7 +206,12 @@ namespace Gruppenprojekt.App.Classes
             }
         }
 
+        public static void Collectabletarget(Vector3 collectablepos)
+        {
+            Console.WriteLine($"Collectable target: {collectablepos}");
+            collectableposlol = collectablepos;
 
+        }
 
     }
 }

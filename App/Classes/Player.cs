@@ -330,11 +330,8 @@ namespace Gruppenprojekt.App.Classes
                     counter = counter + 1;
                     colCount.SetText("Gesammelte Orbs: " + counter);
                     collectablepos = collider.Position;
-                    Enemy e = CurrentWorld.GetGameObjectByName<Enemy>("huso");
-                    if(e != null)
-                    {
+                    Enemy.Collectabletarget(collectablepos);
 
-                    }
                 }
             }
         } 
