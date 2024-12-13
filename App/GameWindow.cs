@@ -18,7 +18,9 @@ namespace Gruppenprojekt.App
 {
     public class GameWindow : GLWindow
     {
+
         public GameWindow() : base(
+            
             Globals.fensterBreite,                               // Fensterbreite
             Globals.fensterHoehe,                                // Fensterhöhe
             true,                               // VSync?

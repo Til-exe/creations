@@ -182,11 +182,19 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectImage bbg = new HUDObjectImage("./App/Textures/blackscreen.png");
             HUDObjectText hSubtitle = new HUDObjectText("By PLUG-INC");
             HUDObjectText hTitle = new HUDObjectText("ITS STOLEN");
+            HUDObjectText LevelNum = new HUDObjectText("level #" + Globals.Level + "");
+            HUDObjectText LevelScore = new HUDObjectText("|---------");
 
             int fb = Globals.fensterBreite;
             int fh = Globals.fensterHoehe;
             Globals.posWert = 10;
             Globals.posYWert = 100;
+
+            LevelNum.SetPosition(10 , fh - 100);
+            LevelNum.SetColor(1.0f, 0.0f, 0.0f);
+
+            LevelScore.SetPosition(10, fh - 50);
+            LevelScore.SetColor(1.0f, 0.0f, 0.0f);
 
             w1.SetTexture("./app/Textures/wood1.png");
             w1.SetTextureRepeat(500f, 5f);
@@ -269,8 +277,28 @@ namespace Gruppenprojekt.App.Menus
 
             HUDObjectText s10 = new HUDObjectText("1O#");
             s10.SetPosition(fb / 2 + fb / 6 - 23, 610f);
-            s10.SetColor(1.0f, 0.0f, 0.0f);    
+            s10.SetColor(1.0f, 0.0f, 0.0f); 
             
+
+            if(Globals.TutorialComplete) 
+            {
+                AddHUDObject(sb);
+                AddHUDObject(s1);
+                AddHUDObject(s2);
+                AddHUDObject(s3);
+                AddHUDObject(s3);
+                AddHUDObject(s4);
+                AddHUDObject(s5);
+                AddHUDObject(s6);
+                AddHUDObject(s7);
+                AddHUDObject(s8);
+                AddHUDObject(s9);
+                AddHUDObject(s10);
+
+                AddHUDObject(LevelNum);
+                AddHUDObject(LevelScore);
+
+            }
             AddLightObject(light);
             AddGameObject(c1);
             AddGameObject(w1);
@@ -280,19 +308,6 @@ namespace Gruppenprojekt.App.Menus
             AddHUDObject(bbg);
             AddHUDObject(hSubtitle);
             AddHUDObject(hTitle);
-            AddHUDObject(sb);
-
-            AddHUDObject(s1);
-            AddHUDObject(s2);
-            AddHUDObject(s3);
-            AddHUDObject(s3);
-            AddHUDObject(s4);
-            AddHUDObject(s5);
-            AddHUDObject(s6);
-            AddHUDObject(s7);
-            AddHUDObject(s8);
-            AddHUDObject(s9);
-            AddHUDObject(s10);
 
             SetCameraPosition(0.0f, 5.0f, 15.0f);
 

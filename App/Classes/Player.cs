@@ -280,8 +280,8 @@ namespace Gruppenprojekt.App.Classes
             }
             //Pause Menu Hauptmenu
             if (m2!= null)
-            {   
-                if (m2.IsMouseCursorOnMe() == true)
+            {  
+                if (m2.IsMouseCursorOnMe() == true && Globals.TutorialComplete)
                 {
                     m2.SetColorEmissiveIntensity(1.5f);
                 }
@@ -289,19 +289,20 @@ namespace Gruppenprojekt.App.Classes
                 {
                     m2.SetColorEmissiveIntensity(0.0f);
                 }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && m2.IsMouseCursorOnMe() == true)
-                {
-                    if (!Globals.TutorialComplete) 
+                if (Globals.TutorialComplete) {
+                    if (Mouse.IsButtonPressed(MouseButton.Left) && m2.IsMouseCursorOnMe() == true)
                     {
-                        Globals.TutorialComplete = true;
-                        Globals.choseGamemode = "Normal";
-                                                
+                        safeScore();
+                        GameWorldStartMenu gm = new GameWorldStartMenu();
+                        Window.SetWorld(gm);
                     }
-                    else { safeScore(); }
-                        
-                    GameWorldStartMenu gm = new GameWorldStartMenu();
-                    Window.SetWorld(gm);
                 }
+                else
+                {
+                    m2.SetOpacity(0.5f);
+                }
+                
+                
             }
             //Pause Menu Close
             if (m3 != null)
@@ -346,7 +347,7 @@ namespace Gruppenprojekt.App.Classes
                 MoveOffset(mtv);
                 if (collider is Collectable)
                 {
-                    (collider as Collectable).KillMe(0,1,0,2);
+                    (collider as Collectable).KillMe();
                     counter = counter + 1;
                     colCount.SetText("Gesammelte Orbs: " + counter);
                     collectablepos = collider.Position;

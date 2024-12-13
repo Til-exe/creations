@@ -66,13 +66,39 @@ namespace Gruppenprojekt.App.Classes
         public static string displayCounter = "";
         public static string choseGamemodeText = "";
 
-        public static int fensterBreite = 1280;     
-        //public static int fensterBreite = 1920;
-        public static int fensterHoehe = 720;
-        //public static int fensterHoehe = 1080;
 
+        public static int fensterBreite = 1920;   
+        public static int fensterHoehe = 1080;
+        
         public static bool TutorialComplete = false;
         public static bool InteractionCollectable = false;
         public static int TutorialProgress = 0;
+        public static double Experience = 0;
+        public static int Level = 0;
+
+        /*public static double experience = 0
+        public static int level = ConvertXpToLevel(experience, level);
+        public string levelDisplay = DisplayExperience();
+
+        public static int ConvertXpToLevel(double e, int x)
+        {
+            if (e >= 10)
+            {
+                e = 0;
+                x++;
+            }
+            return x;
+        }
+        public string DisplayExperience()        {
+            string displayText = string.Empty;
+            for (int i = 0; i < experience;i++)
+            {
+                disabledText += "|";
+            }
+            
+
+            return disabledText;
+        }*/
+
     }
 }

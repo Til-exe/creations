@@ -33,7 +33,7 @@ namespace Gruppenprojekt.App.Classes
             
             CurrentWorld.AddLightObject(l);
         }
-        public void KillMe(float r,float g,float b, float em)
+        public void KillMe()
         {
             Random rn = new Random();
             Globals.Score+=(100 * Globals.multiplikator);
@@ -42,7 +42,7 @@ namespace Gruppenprojekt.App.Classes
             
             ExplosionObject ex = new ExplosionObject(128, 0.5f, 4f, 2.0f, ExplosionType.Skull);
             ex.SetAlgorithm(ExplosionAnimation.WindUp);
-            ex.SetColorEmissive(r, g, b, em);
+            ex.SetColorEmissive(0, 1, 0, 2);
             ex.SetPosition(this.Position);            
 
             if(CurrentWorld is GameWorldStart)
