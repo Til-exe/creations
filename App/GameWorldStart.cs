@@ -16,6 +16,13 @@ namespace Gruppenprojekt.App
         float finalPos = 0f;
         private float _HUDLastUpdate = 0;
         bool fullbright = false;
+        bool bird = false; // KAR: Vogelperspektive
+
+        public bool IsBird()
+        {
+            return bird;
+        }
+
         public float GetHUDLastUpdateTime()
         {            
             HUDObjectText h = GetHUDObjectTextByName("MyHUDObject");
@@ -179,7 +186,7 @@ namespace Gruppenprojekt.App
             f.SetTextureRepeat(100f, 100f);
             AddGameObject(f);
 
-            p = new Player("Yasin", -13f, 2f, -4f);
+            p = new Player("Yasin", -13 , 2f, -4);
             AddGameObject(p);
 
             SetCameraToFirstPersonGameObject(p, 2f);
@@ -223,7 +230,8 @@ namespace Gruppenprojekt.App
             Wall w9 = new Wall("9", 0f, xCord, -5f);
             Wall w10 = new Wall("10", -2.5f, xCord+3, 5);
             
-            if (true) {
+            if (true) 
+            {
                 w4.SetScale(30f, ScaleHoehe, 1f);
                 w5.SetRotation(0, 90, 0);
                 w5.SetScale(10f, ScaleHoehe, 1f);
@@ -247,7 +255,8 @@ namespace Gruppenprojekt.App
                 borderWest.SetTextureRepeat(100f, 5f);
             } //Set Attributes            
 
-            if (true) {
+            if (true) 
+            {
                 AddGameObject(borderWest);
                 AddGameObject(borderEast);
                 AddGameObject(borderNorth);
