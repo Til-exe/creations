@@ -49,10 +49,11 @@ namespace Gruppenprojekt.App.Classes
         public override void Act()
         {
             if (Globals.gameRunning) 
-            { 
-                
+            {
+               
+                playerPos = p.Position;
                 Vector3 raystart = this.Center;
-                Vector3 rayDirection = this.LookAtVector;
+                Vector3 rayDirection = HelperVector.GetDirectionFromVectorToVectorXZ(this.Position,playerPos);
                 Vector3 myDirection = Vector3.Zero;
                 //collectableposlol = myDirection;
                 TurnTowardsXZ(playerPos);
@@ -62,7 +63,7 @@ namespace Gruppenprojekt.App.Classes
                 { 
                     f.SetPosition(this.Position.X, this.Position.Z); 
                 }
-                List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 14f, true, this, typeof(Wall), typeof(Player));
+                List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 40f, true, this, typeof(Wall), typeof(Player));
                 if (results.Count > 0)
                 {
                     raycollision = results[0];  //definiert erstes objekt welches im ray getroffen wird 
@@ -87,7 +88,7 @@ namespace Gruppenprojekt.App.Classes
                     TurnTowardsXZ(playerPos);
                     if (myDirection != Vector3.Zero)
                     {
-                        MoveAlongVector(myDirection, 0.05f);                                //Attackgeschwindigkeit
+                        MoveAlongVector(myDirection, 0.02f);                                //Attackgeschwindigkeit
                     }
                 }
                 else if (timestampLastSighting + 4f > WorldTime && timestampLastSighting != 0)          //NOTIZ AN TIL: Wie lang kann der Gegner dich noch um Wände sehen und folgen
@@ -95,7 +96,7 @@ namespace Gruppenprojekt.App.Classes
                     //Console.WriteLine("not in sight still attack");
                     if (myDirection != Vector3.Zero)
                     {
-                        MoveAlongVector(myDirection, 0.05f);
+                        MoveAlongVector(myDirection, 0.02f);
                     }
                 }
                 else
