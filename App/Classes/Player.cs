@@ -1,35 +1,39 @@
-﻿using KWEngine3;
-using KWEngine3.Audio;
-using KWEngine3.GameObjects;
-using KWEngine3.Helper;
-using OpenTK.Windowing.GraphicsLibraryFramework;
-using OpenTK.Mathematics;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading;
+﻿using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Windowing.Common.Input;
-using Assimp;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using KWEngine3.GameObjects;
+using OpenTK.Mathematics;
+using System.Diagnostics;
+using KWEngine3.Helper;
+using System.Threading;
+using KWEngine3.Audio;
+using KWEngine3;
 using System.IO;
+using Assimp;
+using System;
+using Gruppenprojekt.App.Menus;
 
 namespace Gruppenprojekt.App.Classes
 {
     public class Player : GameObject
     {
-
         bool flashlight = false;
         private LightObject _flashlight;
-        
+        HUDObjectText displayTimer = new HUDObjectText("Timer: ");
         HUDObjectText m1 = new HUDObjectText("Zurück zum Spiel");
         HUDObjectText m2 = new HUDObjectText("Hauptmenu");
         HUDObjectText m3 = new HUDObjectText("Verlassen");
+        HUDObjectText score = new HUDObjectText("Punkte");
         HUDObjectImage bg = new HUDObjectImage("./App/Textures/blackscreen.png");
         HUDObjectText mtitle = new HUDObjectText("Pausiert");
         private HUDObjectText colCount;
         private int counter = 0;
         public Player(string name, float x, float y, float z)
         {
+
+            sek = 0;
+            removedTime = 0;
             Globals.gameRunning = true;
             this.Name = name;
             this.SetPosition(x, y, z);
@@ -48,10 +52,11 @@ namespace Gruppenprojekt.App.Classes
 
             colCount = new HUDObjectText("Sie haben kein Licht");
             colCount.Name = "BLA";
-            colCount.SetPosition(350f, 32f);
+            colCount.SetPosition(Globals.fensterBreite/2, 32f);
             colCount = new HUDObjectText("");
             colCount.Name = "ORBS";
-            colCount.SetPosition(290f, 20f);
+            colCount.SetPosition(Globals.fensterBreite/2, 20f);
+            colCount.SetTextAlignment(TextAlignMode.Center);
             colCount.SetFont(FontFace.NovaMono);
             colCount.SetScale(30f);
             colCount.SetOpacity(0);
@@ -59,7 +64,8 @@ namespace Gruppenprojekt.App.Classes
 
 
             mtitle.Name = "PAUSE";                       
-            mtitle.SetPosition(160f, 100f);          
+            mtitle.SetPosition(Globals.fensterBreite/2, 100f);   
+            mtitle.SetTextAlignment(TextAlignMode.Center);
             mtitle.SetScale(100f);                       
             mtitle.SetCharacterDistanceFactor(1.0f);            
             mtitle.SetColor(1.0f, 0.0f, 0.0f);
@@ -77,6 +83,14 @@ namespace Gruppenprojekt.App.Classes
             m1.SetColor(1.0f, 0.0f, 0.0f);
             m1.SetColorEmissive(1.0f, 1.0f, 1.0f);
 
+            displayTimer.SetPosition(50f, 50f);
+            displayTimer.Name = "displayTimer";
+            displayTimer.SetCharacterDistanceFactor(1.0f);
+            displayTimer.SetColor(1.0f, 0.0f, 0.0f);
+            CurrentWorld.AddHUDObject(displayTimer);
+            
+
+
             m2.SetPosition(160f, 250f);
             m2.Name = "Menu";
             m2.SetCharacterDistanceFactor(1.0f);
@@ -88,46 +102,70 @@ namespace Gruppenprojekt.App.Classes
             m3.SetCharacterDistanceFactor(1.0f);
             m3.SetColor(1.0f, 0.0f, 0.0f);
             m3.SetColorEmissive(1.0f, 1.0f, 1.0f);
-        }
 
-        private float _flickerVorbei = 0f; 
-        private bool _flickering = false; 
-        private float _nextFlicker = 0f; 
+            score.SetPosition(700f, 200f);
+            score.Name = "Punkte";
+            score.SetCharacterDistanceFactor(1.0f);
+            score.SetColor(1.0f, 0.0f, 0.0f);
+
+        }
         private Random _random = new Random();
-        public double WorldTimeVar = 0;
-        public int timedpenisboom = 0;
+        Random rnd = new Random();
         public bool BOOM = false;
+        public bool FirstAct = true;
+        private bool _flickering = false;
+        bool toggleSprint = false;
+
+        private float _flickerVorbei = 0f;         
+        private float _nextFlicker = 0f; 
+        
+        public double WorldTimeVar = 0;
+
+        public int timedpenisboom = 0;
+        static int yolo = 0;
+        static int removedTime = 0;
+        static int sek = 0;
+        static int min = 0;
+        int stnd = 0;
         public override void Act()
         {
+
+            string ActualTimeDisplay = min + "m " + sek + "s";
+            sek = Convert.ToInt32(CurrentWorld.WorldTime) - removedTime;
+            if (sek == 60)
+            {
+                removedTime += 60;
+                min++;
+            }
+            if(Convert.ToInt32(WorldTime) < 60)
+            {
+                ActualTimeDisplay = sek + "s";
+            }
+            displayTimer.SetText("Timer: " + ActualTimeDisplay);
             if (timedpenisboom < 50 && BOOM)
             {
                 timedpenisboom++;
             }
             if (timedpenisboom == 50)
-            {
-                
+            {                
                 timedpenisboom = 0;
                 BOOM = false;
                 _flashlight.SetColor(0, 0, 0, 0);
             }
-
-            Random rnd = new Random();
+            
             int random = rnd.Next(20000);
             _flashlight.SetPosition(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVectorLocalRight);
             _flashlight.SetTarget(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVector * 100); // KAR: Taschenlampe muss weiiiiit in die Ferne schauen
             if (random == 69 && flashlight == true || Keyboard.IsKeyPressed(Keys.Space) && flashlight == true)
             {
-                
-                
                 _flickering = true;
                 _flickerVorbei = WorldTime + 0.5f;
                 _nextFlicker = WorldTime + GetRandomFlickerDelay(); 
                 Console.WriteLine("penis flackern");
-                Audio.PlaySound(@"./App/Sounds/shortsound.wav", false, (float)0.1);
+                KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/shortsound.wav", false, (float)0.1);
             }
             if (_flickering)
-            {
-                
+            {                
                 if (WorldTime >= _nextFlicker)
                 {
                     if (_flashlight.Color.W > 0) 
@@ -147,33 +185,28 @@ namespace Gruppenprojekt.App.Classes
                     flashlight = false;
                     _flickering = false;
                     _flashlight.SetColor(1, 1, 1, 13);
-                    Audio.PlaySound(@"./App/Sounds/flashlightexplode.wav", false, (float)0.1);
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/flashlightexplode.wav", false, (float)0.1);
                     Console.WriteLine("penis flacker vorbei");
                     Console.WriteLine("Penis aus");
                 }
             }
-           
-
-
             if (Keyboard.IsKeyPressed(Keys.F) && flashlight == false)
             {
                 _flashlight.SetColor(1, 1, 1, 4);
                 flashlight = true;
                 Console.WriteLine("Penis an");
-                Audio.PlaySound(@"./App/Sounds/flashlight_click.wav", false, (float)0.1);
+                KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/flashlight_click.wav", false, (float)0.1);
             }
             else if (Keyboard.IsKeyPressed(Keys.F) && flashlight == true)
             {
                 _flashlight.SetColor(0, 0, 0, 0);
                 flashlight = false;
                 Console.WriteLine("Penis aus");
-                Audio.PlaySound(@"./App/Sounds/flashlight_click.wav", false, (float)0.1);
+                KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/flashlight_click.wav", false, (float)0.1);
             }
-
-
-            bool k = false;
+            
             //Sprinting
-            if (k == false) 
+            if (toggleSprint == false) 
             {
                 if (Keyboard.IsKeyDown(Keys.LeftShift)) { Globals.Sprinting = true; }
                 else { Globals.Sprinting = false; }
@@ -181,26 +214,20 @@ namespace Gruppenprojekt.App.Classes
             //Sprint Toggle
             if (Keyboard.IsKeyPressed(Keys.CapsLock))
             {
-                if (k == false)
-                {
-                    k = true;
+                if (toggleSprint == false) {
+                    toggleSprint = true;
                 }
                 else
-                {  k = false;}
+                {  toggleSprint = false;}
                 Globals.Sprinting = true;
                 
             }
-            //Player speed regeln
-            if(Globals.Sprinting)
-            {
+            if(Globals.Sprinting) {
                 Globals.speed = 0.105f;
             }
-            else
-            {
+            else{
                 Globals.speed = 0.05f;
             }
-
-            //Movement
             int forward = 0;
             int strafe = 0;
             if (Globals.gameRunning)
@@ -213,22 +240,15 @@ namespace Gruppenprojekt.App.Classes
             }
 
             //pause Menu
-            if (Keyboard.IsKeyPressed(Keys.Escape) || Keyboard.IsKeyPressed(Keys.Tab))
+            if ((Keyboard.IsKeyPressed(Keys.Escape) || Keyboard.IsKeyPressed(Keys.Tab)  )&& !GameWorldStart.MapOpen)
             {
                 stop();
             }
-
-
             if (Keyboard.IsKeyPressed(Keys.Q))
             {
                 weiter();
             }
 
-
-            //minimap
-            if (Keyboard.IsKeyDown(Keys.R)) { /*Minimap*/ }
-
-            //pause Menu Button Use
             if (m1 != null)
             {   //Weiter spielen
                 if (m1.IsMouseCursorOnMe() == true)
@@ -258,13 +278,19 @@ namespace Gruppenprojekt.App.Classes
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && m2.IsMouseCursorOnMe() == true)
                 {
-                    GameWorldStartMenu gm = new GameWorldStartMenu();
-                    Window.SetWorld(gm);
+                    
                     Globals.Trys++;
                     string path = @"./App/data/data.txt";
+                    string timePath = @"./App/data/time.txt";
 
+                    Globals.displayCounter = Convert.ToString(CurrentWorld.WorldTime) + "\n";
                     string appendText = Convert.ToString(Globals.Score) + "\n";
+                                       
+                    File.AppendAllText(timePath, Globals.displayCounter);
                     File.AppendAllText(path, appendText);
+
+                    GameWorldStartMenu gm = new GameWorldStartMenu();
+                    Window.SetWorld(gm);
                 }
             }
             if (m3 != null)
@@ -279,13 +305,15 @@ namespace Gruppenprojekt.App.Classes
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && m3.IsMouseCursorOnMe() == true)
                 {
+                    Globals.Trys++;
+                    string path = @"./App/data/data.txt";
+
+                    string appendText = Convert.ToString(Globals.Score) + "\n";
+                    File.AppendAllText(path, appendText);
                     Window.Close();
                 }
             }
-
-            //Die Methode ist da um den Code übersichtlicher zu machen
             Camera(forward, strafe);
-
             //Einsammeln von Collectable's
             List<Intersection> intersections = GetIntersections();
             foreach (Intersection i in intersections)
@@ -301,30 +329,15 @@ namespace Gruppenprojekt.App.Classes
                 {
                     (collider as Collectable).KillMe();
                     counter = counter + 1;
-                    colCount.SetText("Gesammelte Orbs: " + counter);
-                    /*
-                    if (counter == 1)
-                    {
-                        colCount.SetText("Sie haben " + counter + " Licht");
-                    }
-                    else if (counter > 1)
-                    {
-                        colCount.SetText("Sie haben " + counter + " Lichter");
-                    }
-                    */
+                    colCount.SetText("Gesammelte Orbs: " + counter);                    
                 }
             }
-
-
-        }
-
-
+        } 
         public void Camera(int forward, int strafe)
         {
-            if (Globals.gameRunning)
-            {
+            if (Globals.gameRunning) {
                 CurrentWorld.AddCameraRotationFromMouseDelta();
-                CurrentWorld.UpdateCameraPositionForFirstPersonView(Center, 2f);
+                CurrentWorld.UpdateCameraPositionForFirstPersonView(Center, 2f);                
                 MoveAndStrafeAlongCameraXZ(forward, strafe, Globals.speed);
                 TurnTowardsXZ(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVector);
             }
@@ -336,6 +349,8 @@ namespace Gruppenprojekt.App.Classes
             CurrentWorld.RemoveHUDObject(m2);
             CurrentWorld.RemoveHUDObject(m3);
             CurrentWorld.RemoveHUDObject(mtitle);
+            CurrentWorld.RemoveHUDObject(score);
+            displayTimer.SetPosition(50f, 50f);
         }
         public void stop()
         {
@@ -347,6 +362,9 @@ namespace Gruppenprojekt.App.Classes
             CurrentWorld.AddHUDObject(m3);
             CurrentWorld.AddHUDObject(bg);
             CurrentWorld.AddHUDObject(mtitle);
+            CurrentWorld.AddHUDObject(score);
+            displayTimer.SetPosition(700f,250f);
+            score.SetText("Punktestand: " + Globals.Score);
         }
         public void weiter()
         {
@@ -359,5 +377,4 @@ namespace Gruppenprojekt.App.Classes
             return (float)_random.NextDouble() * 0.08f + 0.02f;
         }
     }
-
 }
