@@ -72,5 +72,6 @@ namespace Gruppenprojekt.App.Classes
         public static int fensterHoehe = 1080;
 
         public static bool TutorialComplete = false;
+        public static bool InteractionCollectable = false;
     }
 }

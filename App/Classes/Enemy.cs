@@ -111,7 +111,7 @@ namespace Gruppenprojekt.App.Classes
                 if (collider is Player && Globals.deathreal)            //WIRD AUSGEFÜHRT BEI TOT
                 {
                     Console.WriteLine("skill issue");
-                    Player.gotoHauptmenu();
+                    Player.safeScore();
                 }
             }
             }

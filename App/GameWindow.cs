@@ -26,7 +26,7 @@ namespace Gruppenprojekt.App
             WindowMode.Default)                 // Fensterdekorationsmodus
         {
 
-            this.Title = "Super dupa mega Hammer krass geiles Profi top Spiel";      
+            this.Title = "Its Stolen";      
             
             GameWorldStart game = new GameWorldStart();
             GameWorldStartMenu StartMenu = new GameWorldStartMenu();

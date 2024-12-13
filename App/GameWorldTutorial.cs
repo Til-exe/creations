@@ -155,12 +155,11 @@ namespace Gruppenprojekt.App
         }
         public override void Prepare()
         {
-            KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/ScaryScream.wav", false, 0.2f);
 
             PreLoadSounds();
             FlowField pathfinding = new FlowField(0, 2.5f, 0, 50, 50, 0.5f, 5, FlowFieldMode.Simple, typeof(Wall));
             pathfinding.IsVisible = false; //FLOWFIELD DEBUG VISIBILTY
-            AddFlowField(pathfinding);
+            //AddFlowField(pathfinding);
 
             KWEngine.LoadModel("Pascal", "./App/Models/pascalbild.fbx");
 
@@ -198,48 +197,25 @@ namespace Gruppenprojekt.App
             light.SetPosition(0f, 5f, 0);
             //AddLightObject(light);
 
+            //Enemy e = new Enemy("huso", -12.5f, 2, 13);
+            //AddGameObject(e);
 
-            if (Globals.choseGamemode != "Peacefull")
-            {
-                Enemy e = new Enemy("huso", -12.5f, 2, 13);
-                AddGameObject(e);
-            }
             float xCord = 4f;
             float ScaleHoehe = 5f;
             Collectable c1 = new Collectable("1", 3f, 4f, 20f);
-            Collectable c2 = new Collectable("2", 10f, 3f, 20f);
-            Collectable c3 = new Collectable("3", 20f, 3f, 20f);
+            InteractionCollectable cComplete = new InteractionCollectable("1", 3f, 4f, 1f);
+            cComplete.SetColorEmissive(1,0,0,10);
+            cComplete.l.SetColor(1, 0, 0,10);
             AddGameObject(c1);
-            AddGameObject(c2);
-            AddGameObject(c3);
+            AddGameObject(cComplete);
             Wall borderNorth = new Wall("1", 100f, xCord, 0f);
             Wall borderSouth = new Wall("1", -100f, xCord, 0f);
             Wall borderWest = new Wall("1", 0f, xCord, 100f);
             Wall borderEast = new Wall("1", 0f, xCord, -100f);
             Wall w1 = new Wall("1", 0f, xCord, 5f);
-            Wall w2 = new Wall("2", -5f, xCord, 0f);
-            Wall w3 = new Wall("3", -5f, xCord, 10f);
-            Wall w4 = new Wall("4", 0f, xCord, 15f);
-            Wall w5 = new Wall("5", 10f, xCord, 10f);
-            Wall w6 = new Wall("6", -15f, xCord, 10f);
-            Wall w7 = new Wall("7", -15f, xCord, 0f);
-            Wall w8 = new Wall("8", 10f, xCord, 0f);
-            Wall w9 = new Wall("9", 0f, xCord, -5f);
-            Wall w10 = new Wall("10", -2.5f, xCord + 3, 5);
 
             if (true)
             {
-                w4.SetScale(30f, ScaleHoehe, 1f);
-                w5.SetRotation(0, 90, 0);
-                w5.SetScale(10f, ScaleHoehe, 1f);
-                w6.SetRotation(0, 90, 0);
-                w6.SetScale(10f, ScaleHoehe, 1f);
-                w7.SetRotation(0, 90, 0);
-                w7.SetScale(10f, ScaleHoehe, 1f);
-                w8.SetRotation(0, 90, 0);
-                w8.SetScale(10f, ScaleHoehe, 1f);
-                w10.SetScale(25f, 1f, 20f);
-
                 borderNorth.SetRotation(0, 90, 0);
                 borderNorth.SetScale(200, ScaleHoehe, 1);
                 borderNorth.SetTextureRepeat(100f, 5f);
@@ -259,15 +235,6 @@ namespace Gruppenprojekt.App
                 AddGameObject(borderNorth);
                 AddGameObject(borderSouth);
                 AddGameObject(w1);
-                AddGameObject(w2);
-                AddGameObject(w3);
-                AddGameObject(w4);
-                AddGameObject(w5);
-                AddGameObject(w6);
-                AddGameObject(w7);
-                AddGameObject(w8);
-                AddGameObject(w9);
-                AddGameObject(w10);
             } //Add Game Objekts
 
             createMap();
