@@ -375,11 +375,15 @@ namespace Gruppenprojekt.App.Classes
         }
         public static void gotoHauptmenu()
         {
-            Globals.Trys++;
-            Globals.displayCounter = Convert.ToString(CurrentWorld.WorldTime) + "\n";
-            string appendText = Convert.ToString(Globals.Score) + "\n";
-            File.AppendAllText(Globals.timePath, Globals.displayCounter);
-            File.AppendAllText(Globals.path, appendText);
+
+            if (Globals.choseGamemode != "Tutorial")
+            {
+                Globals.Trys++;
+                Globals.displayCounter = Convert.ToString(CurrentWorld.WorldTime) + "\n";
+                string appendText = Convert.ToString(Globals.Score) + "\n";
+                File.AppendAllText(Globals.timePath, Globals.displayCounter);
+                File.AppendAllText(Globals.path, appendText);
+            }
             GameWorldStartMenu gm = new GameWorldStartMenu();
             Window.SetWorld(gm);
         }

@@ -32,6 +32,7 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectText deathReal = GetHUDObjectTextByName("deathReal");
             HUDObjectText bgCollectable = GetHUDObjectTextByName("bgCollectable");
             HUDObjectText bgAnimation = GetHUDObjectTextByName("bgAnimation");
+            HUDObjectText completeTutorial = GetHUDObjectTextByName("completeTutorial");
             HUDObjectText back = GetHUDObjectTextByName("leave");
             if (back != null)
             {
@@ -289,6 +290,30 @@ namespace Gruppenprojekt.App.Menus
 
                     }
                     Globals.bgAnimation = !Globals.bgAnimation;
+                }           
+            }
+            if (completeTutorial != null)
+            {
+                if (completeTutorial.IsMouseCursorOnMe() == true)
+                {
+                    completeTutorial.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    completeTutorial.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && completeTutorial.IsMouseCursorOnMe() == true)
+                {
+                    if (Globals.TutorialComplete)
+                    {
+                        completeTutorial.SetText("Must Complete Tutorial: " + Globals.enabledText);
+                    }
+                    else
+                    {
+                        completeTutorial.SetText("Must Complete Tutorial: " + Globals.disabledText);
+
+                    }
+                    Globals.TutorialComplete = !Globals.TutorialComplete;
                 }
             }
 
@@ -308,6 +333,7 @@ namespace Gruppenprojekt.App.Menus
 
             if (Globals.deathreal) { deathReal.SetText("Death: " + Globals.enabledText); } else { deathReal.SetText("Death: " + Globals.disabledText); }
             if (Globals.bgAnimation) { bgAnimation.SetText("Animation: " + Globals.enabledText); } else { bgAnimation.SetText("Animation: " + Globals.disabledText); }            
+            if (Globals.TutorialComplete) { completeTutorial.SetText("Must Complete Tutorial: " + Globals.enabledText); } else { completeTutorial.SetText("Must Complete Tutorial: " + Globals.disabledText); }
         }
         public override void Prepare()
         {
@@ -377,6 +403,14 @@ namespace Gruppenprojekt.App.Menus
             deathReal.SetColor(1.0f, 0.0f, 0.0f);
             deathReal.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(deathReal);
+
+            pos += 50;
+            HUDObjectText completeTutorial = new HUDObjectText("Must Complete Tutorial: ");
+            completeTutorial.SetPosition(160f, pos);
+            completeTutorial.Name = "completeTutorial";
+            completeTutorial.SetColor(1.0f, 0.0f, 0.0f);
+            completeTutorial.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(completeTutorial);
         }
     }
 }
