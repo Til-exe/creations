@@ -30,6 +30,7 @@ namespace Gruppenprojekt.App.Classes
         public static float moveCameraMultiplier = 1;
         public static string choseGamemode = "Normal";
         public static int SpawnColByDeath = 1;
+        public static bool MapOpen = false;
 
 
         public static string Cpath = @"./App/data/credits.txt";        

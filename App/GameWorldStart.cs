@@ -15,7 +15,6 @@ namespace Gruppenprojekt.App
         private Player p;
         float finalPos = 0f;
         private float _HUDLastUpdate = 0;
-        public static bool MapOpen = false;
         bool fullbright = false;
         public float GetHUDLastUpdateTime()
         {            
@@ -82,7 +81,7 @@ namespace Gruppenprojekt.App
                 AddCameraRotationFromMouseDelta();
 
                 Map.Enabled = !Map.Enabled;
-                MapOpen = !MapOpen;
+                Globals.MapOpen = !Globals.MapOpen;
                 
                 // Optional: Map gemäß der Spielerposition verschieben und rotieren
                 if(Map.Enabled == false && finalPos >= 80f)
