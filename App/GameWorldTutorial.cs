@@ -48,16 +48,14 @@ namespace Gruppenprojekt.App
                 {
                     MouseCursorGrab();
                 }
-            }
-            return _HUDLastUpdate;
+            } return _HUDLastUpdate;
         }
         public void UpdateHUDLastUpdateTime()
         {
             _HUDLastUpdate = WorldTime;
         }
         public override void Act()
-        {
-            
+        {            
             HUDObjectText Text = GetHUDObjectTextByName("text");
             HUDObjectText Text1 = GetHUDObjectTextByName("text1");
             if (Globals.gameRunning ) {
@@ -84,28 +82,30 @@ namespace Gruppenprojekt.App
                 }
                 if (Globals.TutorialProgress == 4 && complete1)
                 {
-                    
-                        InteractionCollectable cComplete = new InteractionCollectable("1", 0f, 4f, 20f);
-                        cComplete.SetColorEmissive(1, 0, 0, 10);
-                        cComplete.l.SetColor(1, 0, 0, 10);
-                        AddGameObject(cComplete);
-                        
-                    
+                    p.SetPosition(0, 2, 0);
+                    InteractionCollectable cComplete = new InteractionCollectable("1", 0f, 4f, 20f);
+                    cComplete.SetColorEmissive(1, 0, 0, 10);
+                    cComplete.l.SetColor(1, 0, 0, 10);
+                    AddGameObject(cComplete);
                     
                     Text.SetText("Collect the Last Red Collectable");
                     Text1.SetText("to End the Tutorial");
                 }
                 if (Globals.TutorialProgress == 5)
-                {                    
+                {
                     Globals.TutorialComplete = true;
                     Globals.choseGamemode = "Normal";
                     GameWorldStartMenu gm = new GameWorldStartMenu();
                     Window.SetWorld(gm);
                 }
                 complete1 = false;
-
-            } else { Text.SetText(""); Text1.SetText(""); }
-            if (Keyboard.IsKeyPressed(Keys.LeftShift ) && Keyboard.IsKeyPressed(Keys.W) && Globals.TutorialProgress == 2
+            } 
+            else { Text.SetText(""); Text1.SetText(""); }
+            if (Keyboard.IsKeyPressed(Keys.LeftShift )
+                && (Keyboard.IsKeyPressed(Keys.W)
+                || Keyboard.IsKeyPressed(Keys.A)
+                || Keyboard.IsKeyPressed(Keys.D))
+                && Globals.TutorialProgress == 2
                 || Keyboard.IsKeyPressed(Keys.R) && Globals.TutorialProgress == 3
                 || Keyboard.IsKeyPressed(Keys.F) && Globals.TutorialProgress == 1)
             { Globals.TutorialProgress++; complete1 = true; }
@@ -130,12 +130,10 @@ namespace Gruppenprojekt.App
                 if (fullbright)
                 {
                     SetColorAmbient(0.05f, 0.02f, 0.02f);
-
                 }
                 else
                 {
                     SetColorAmbient(0.5f, 0.5f, 0.5f);
-
                 }
                 fullbright = !fullbright;
             }
@@ -178,16 +176,13 @@ namespace Gruppenprojekt.App
                     100);
                     finalPos = finalPos + 0.8f;
                 }
-
                 if (finalPos >= 80f)
                 {
                     // Optional: Map gemäß der Spielerposition verschieben und rotieren
                     Map.UpdateCameraRotation(CameraLookAtVectorXZ);
                     AddCameraRotationFromMouseDelta();
                 }
-
                 Wall dach = (Wall)GetGameObjectByName("10");
-
                 List<Collectable> list = GetGameObjectsByType<Collectable>();
                 for (int C_count = 0; C_count < list.Count; C_count++)
                 {
@@ -237,7 +232,7 @@ namespace Gruppenprojekt.App
 
             SetBackgroundSkybox("./App/Textures/skybox.png");
             SetCameraFOV(100);
-            SetColorAmbient(0.05f, 0.02f, 0.02f);            
+            SetColorAmbient(0.05f, 0.02f, 0.02f);
             KWEngine.MouseSensitivity = 0.07f;
             SetFadeColor(0, 0, 0);
             MouseCursorGrab();

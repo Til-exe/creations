@@ -169,9 +169,7 @@ namespace Gruppenprojekt.App.Menus
             if (Globals.moveCameraMultiplier == 4) { Globals.moveCameraX += 0.08f; }
             if (Globals.moveCameraMultiplier == 0.5) { Globals.moveCameraX += 0.01f; }
             if (Globals.moveCameraMultiplier == 0.25) { Globals.moveCameraX += 0.005f; }
-            if (Globals.bgAnimation) { bbg.SetOpacity(0.75f); } else { bbg.SetOpacity(1f); }
-
-            
+            if (Globals.bgAnimation) { bbg.SetOpacity(0.75f); } else { bbg.SetOpacity(1f); }            
         }
         public override void Prepare()
         {
@@ -186,8 +184,8 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectImage bbg = new HUDObjectImage("./App/Textures/blackscreen.png");
             HUDObjectText hSubtitle = new HUDObjectText("By PLUG-INC");
             HUDObjectText hTitle = new HUDObjectText("ITS STOLEN");
-            HUDObjectText LevelNum = new HUDObjectText("level #" + Globals.level + "");
-            HUDObjectText LevelScore = new HUDObjectText(Globals.levelDisplay + Globals.Experience);
+            HUDObjectText LevelNum = new HUDObjectText("level #" + Globals.Level + "");
+            HUDObjectText LevelScore = new HUDObjectText(Globals.Experience + "/10");
 
             int fb = Globals.fensterBreite;
             int fh = Globals.fensterHoehe;
