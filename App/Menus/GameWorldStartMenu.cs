@@ -26,7 +26,8 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectText language = GetHUDObjectTextByName("language");
             HUDObjectText AdminSB = GetHUDObjectTextByName("AdminSB");
             HUDObjectImage bbg = GetHUDObjectImageByName("bbg");
-            
+            HUDObjectText LevelScore = GetHUDObjectTextByName("LevelScore");
+
             if (start != null)
             {
                 if (start.IsMouseCursorOnMe() == true)
@@ -152,9 +153,12 @@ namespace Gruppenprojekt.App.Menus
             {
                 startGame();
             }               //Start Button
-            //if (Keyboard.IsKeyPressed(Keys.Space)) { IntroScreen screen = new IntroScreen(); Window.SetWorld(screen); }
-            
-            SetCameraPosition(Globals.moveCameraX, 4, Globals.moveCameraY);
+                            //if (Keyboard.IsKeyPressed(Keys.Space)) { IntroScreen screen = new IntroScreen(); Window.SetWorld(screen); }
+            if (Keyboard.IsKeyPressed(Keys.Up))
+            {
+                Globals.Experience++;
+            }
+                SetCameraPosition(Globals.moveCameraX, 4, Globals.moveCameraY);
             SetCameraTarget(CameraPosition.X, CameraPosition.Y + 2, CameraPosition.Z);
 
             do { SetCameraPosition(CameraPosition.X - 400, CameraPosition.Y, CameraPosition.Z); }
@@ -165,7 +169,6 @@ namespace Gruppenprojekt.App.Menus
             if (Globals.moveCameraMultiplier == 0.5) { Globals.moveCameraX += 0.01f; }
             if (Globals.moveCameraMultiplier == 0.25) { Globals.moveCameraX += 0.005f; }
             if (Globals.bgAnimation) { bbg.SetOpacity(0.75f); } else { bbg.SetOpacity(1f); }
-
 
             
         }
@@ -183,7 +186,7 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectText hSubtitle = new HUDObjectText("By PLUG-INC");
             HUDObjectText hTitle = new HUDObjectText("ITS STOLEN");
             HUDObjectText LevelNum = new HUDObjectText("level #" + Globals.Level + "");
-            HUDObjectText LevelScore = new HUDObjectText("|---------");
+            HUDObjectText LevelScore = new HUDObjectText("LevelScore");
 
             int fb = Globals.fensterBreite;
             int fh = Globals.fensterHoehe;
@@ -195,6 +198,7 @@ namespace Gruppenprojekt.App.Menus
 
             LevelScore.SetPosition(10, fh - 50);
             LevelScore.SetColor(1.0f, 0.0f, 0.0f);
+            LevelScore.Name = "LevelScore"; 
 
             w1.SetTexture("./app/Textures/wood1.png");
             w1.SetTextureRepeat(500f, 5f);
