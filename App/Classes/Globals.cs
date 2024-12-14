@@ -87,18 +87,9 @@ namespace Gruppenprojekt.App.Classes
                 e = 0;
                 x++;
             }
-            return x;
+            return x + 1;
         }
-        public string DisplayExperience()        {
-            string displayText = string.Empty;
-            for (int i = 0; i < experience;i++)
-            {
-                disabledText += "|";
-            }
-            
-
-            return disabledText;
-        }*/
+       
 
     }
 }

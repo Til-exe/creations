@@ -19,6 +19,7 @@ namespace Gruppenprojekt.App.Menus
     {
         public override void Act()
         {
+
             HUDObjectText start = GetHUDObjectTextByName("start");
             HUDObjectText option = GetHUDObjectTextByName("option");
             HUDObjectText leave = GetHUDObjectTextByName("leave");
@@ -185,8 +186,8 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectImage bbg = new HUDObjectImage("./App/Textures/blackscreen.png");
             HUDObjectText hSubtitle = new HUDObjectText("By PLUG-INC");
             HUDObjectText hTitle = new HUDObjectText("ITS STOLEN");
-            HUDObjectText LevelNum = new HUDObjectText("level #" + Globals.Level + "");
-            HUDObjectText LevelScore = new HUDObjectText("LevelScore");
+            HUDObjectText LevelNum = new HUDObjectText("level #" + Globals.level + "");
+            HUDObjectText LevelScore = new HUDObjectText(Globals.levelDisplay + Globals.Experience);
 
             int fb = Globals.fensterBreite;
             int fh = Globals.fensterHoehe;
