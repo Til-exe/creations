@@ -79,7 +79,7 @@ namespace Gruppenprojekt.App.Classes
         /*public static double experience = 0
         public static int level = ConvertXpToLevel(experience, level);
         public string levelDisplay = DisplayExperience();
-
+        Nächste Branch Namen , 4/10"IchKannJuleEinfachNichtVergessen" 2oder8/10"DiesesMaedchenKannSieNichtErsetzen" 5/10"EinFreundVonMirArbeitetAuchBeimCombiWieJule" 8/10"Jule-SuperHübsch-Neunzeh-SuperLieb-HatMichInDerBestenZeitEinfachAngefangenZuIgnorieren" 4/10"ProgrammierenFülltDieLückeInMeinemTagAberNichtInMeinemHerz" 6/10"JederSnapVonIhrIstWieEinStichInsHerz" 4/10"DiesesJahrWollteIchMitJuleBeenden-undDasNächsteMitIhrBeginnen" 7/10"IchMussSieEndlichVergessen" 6/10"IchHabDasInteresseAnIhrVerloren-aberLeiderNichtDieGefühle"
         public static int ConvertXpToLevel(double e, int x)
         {
             if (e >= 10)
