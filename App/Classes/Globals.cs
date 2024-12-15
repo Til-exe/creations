@@ -1,38 +1,37 @@
-﻿using KWEngine3;
-using KWEngine3.Audio;
-using KWEngine3.GameObjects;
-using Gruppenprojekt.App.Classes;
-using OpenTK.Mathematics;
+﻿using System.Security.Cryptography.X509Certificates;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using System.Collections.Immutable;
+using System.Collections.Generic;
+using Gruppenprojekt.App.Classes;
+using System.Diagnostics.Metrics;
+using KWEngine3.GameObjects;
+using OpenTK.Mathematics;
+using System.Diagnostics;
+using KWEngine3.Audio;
 using System.Linq;
 using System.IO;
+using KWEngine3;
 using System;
-using System.Security.Cryptography.X509Certificates;
-using System.Diagnostics.Metrics;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Diagnostics;
 
 namespace Gruppenprojekt.App.Classes
 {
     internal class Globals
     {        
         public static bool gameRunning = true;
-        public static float totalScore = 0;
-        public static int Trys;
+        public static string choseGamemode = "Tutorial";
         public static float Score;
         public static int ReturnCode;
-        public static float speed = 0.05f;
         public static bool Sprinting = false;
+        public static float speed = 0.05f;
+        public static int Trys;
+        public static float totalScore = 0;
         public static float multiplikator = 1;
         public static float moveCameraX = 0;
         public static float moveCameraY = 2.5f;
         public static float moveCameraMultiplier = 1;
         public static bool bgAnimation = true;
-        public static string choseGamemode = "Tutorial";
         public static int SpawnColByDeath = 1;
         public static bool MapOpen = false;
-
 
         public static string Cpath = @"./App/data/credits.txt";        
         public static bool deathreal = false;
@@ -40,7 +39,6 @@ namespace Gruppenprojekt.App.Classes
         public static bool EndReal = true;
         public static string path = @"./App/data/data.txt";
         public static string timePath = @"./App/data/time.txt";
-
 
         public static int posWert;
         public static int posYWert;
@@ -66,7 +64,6 @@ namespace Gruppenprojekt.App.Classes
         public static string displayCounter = "";
         public static string choseGamemodeText = "";
 
-
         public static int fensterBreite = 1920;   
         public static int fensterHoehe = 1080;
         
@@ -74,8 +71,7 @@ namespace Gruppenprojekt.App.Classes
         public static bool InteractionCollectable = false;
         public static int TutorialProgress = 0;
         public static double Experience = 0;
-        public static int Level = 0;
-
+        public static int Level = 1;
         /*public static double experience = 0
         public static int level = ConvertXpToLevel(experience, level);
         public string levelDisplay = DisplayExperience();
@@ -89,7 +85,5 @@ namespace Gruppenprojekt.App.Classes
             }
             return x + 1;
         }*/
-       
-
     }
 }

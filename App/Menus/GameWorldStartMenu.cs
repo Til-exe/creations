@@ -28,6 +28,7 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectText AdminSB = GetHUDObjectTextByName("AdminSB");
             HUDObjectImage bbg = GetHUDObjectImageByName("bbg");
             HUDObjectText LevelScore = GetHUDObjectTextByName("LevelScore");
+            HUDObjectText LevelNum = GetHUDObjectTextByName("LevelNum");
 
             if (start != null)
             {
@@ -43,9 +44,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && start.IsMouseCursorOnMe() == true)
                 {
-                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
-                    if(Globals.choseGamemode == "Tutorial") { startTuroial(); }
-                    else { startGame(); }
+                    startGame();
 
                 }
             }
@@ -153,7 +152,7 @@ namespace Gruppenprojekt.App.Menus
             if (Keyboard.IsKeyPressed(Keys.Enter))
             {
                 startGame();
-            }               //Start Button
+            }               
                             //if (Keyboard.IsKeyPressed(Keys.Space)) { IntroScreen screen = new IntroScreen(); Window.SetWorld(screen); }
             if (Keyboard.IsKeyPressed(Keys.Up))
             {
@@ -169,7 +168,14 @@ namespace Gruppenprojekt.App.Menus
             if (Globals.moveCameraMultiplier == 4) { Globals.moveCameraX += 0.08f; }
             if (Globals.moveCameraMultiplier == 0.5) { Globals.moveCameraX += 0.01f; }
             if (Globals.moveCameraMultiplier == 0.25) { Globals.moveCameraX += 0.005f; }
-            if (Globals.bgAnimation) { bbg.SetOpacity(0.75f); } else { bbg.SetOpacity(1f); }            
+            if (Globals.bgAnimation) { bbg.SetOpacity(0.75f); } else { bbg.SetOpacity(1f); }
+
+            if (Globals.Experience > 10) { Globals.Experience = 0; Globals.Level++; }            
+            if (Globals.TutorialComplete)
+            {
+                LevelNum.SetText("level #" + Globals.Level);
+                LevelScore.SetText(Globals.Experience + "/10");
+            }
         }
         public override void Prepare()
         {
@@ -184,7 +190,7 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectImage bbg = new HUDObjectImage("./App/Textures/blackscreen.png");
             HUDObjectText hSubtitle = new HUDObjectText("By PLUG-INC");
             HUDObjectText hTitle = new HUDObjectText("ITS STOLEN");
-            HUDObjectText LevelNum = new HUDObjectText("level #" + Globals.Level + "");
+            HUDObjectText LevelNum = new HUDObjectText("level #" + (Globals.Level) + "");
             HUDObjectText LevelScore = new HUDObjectText(Globals.Experience + "/10");
 
             int fb = Globals.fensterBreite;
@@ -194,6 +200,7 @@ namespace Gruppenprojekt.App.Menus
 
             LevelNum.SetPosition(10 , fh - 100);
             LevelNum.SetColor(1.0f, 0.0f, 0.0f);
+            LevelNum.Name = "LevelNum";
 
             LevelScore.SetPosition(10, fh - 50);
             LevelScore.SetColor(1.0f, 0.0f, 0.0f);
@@ -511,17 +518,6 @@ namespace Gruppenprojekt.App.Menus
             x = i + "# " + Convert.ToString(results[results.Count - i].Score + leerstellen(results[results.Count - i].Score) + results[results.Count - i].Time + "s");
             return x;
         }
-        public static void startGame()
-        {
-            GameWorldStart gws = new GameWorldStart();
-            Window.SetWorld(gws);
-            Globals.Score = 0;
-        }
-        public static void startTuroial()
-        {
-            GameWorldTutorial gwt = new GameWorldTutorial();
-            Window.SetWorld(gwt);
-        }
         public static void functionBackButton(HUDObject leave) 
         {
             
@@ -542,6 +538,18 @@ namespace Gruppenprojekt.App.Menus
                     GwStartMenuOption gm = new GwStartMenuOption();
                     Window.SetWorld(gm);
                 }
+            }
+        }
+        public static void startGame()
+        {
+            KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
+            if (Globals.choseGamemode == "Tutorial") {
+                GameWorldTutorial gwt = new GameWorldTutorial();
+                Window.SetWorld(gwt);}
+            else {
+                GameWorldStart gws = new GameWorldStart();
+                Window.SetWorld(gws);
+                Globals.Score = 0;
             }
         }
     }

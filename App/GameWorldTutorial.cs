@@ -59,26 +59,27 @@ namespace Gruppenprojekt.App
             HUDObjectText Text = GetHUDObjectTextByName("text");
             HUDObjectText Text1 = GetHUDObjectTextByName("text1");
             if (Globals.gameRunning ) {
-                
-                if (Globals.TutorialProgress == 0 && complete1)
-                {
+
+
+                if (Globals.TutorialProgress == 0) {
                     Text.SetText("Collect the Red Collectable");
-                    
+                }
+                if (Globals.TutorialProgress == 1) {
+                    Text.SetText("Press 'F' to use the Flashlight");
+                }
+                if (Globals.TutorialProgress == 2) {
+                    Text.SetText("Press 'Shift' while Walking to Sprint");                    
+                }
+                if (Globals.TutorialProgress == 3) {
+                    Text.SetText("Press 'R' to Open the Map");
+                }
+                if (Globals.TutorialProgress == 4) {
+                    Text.SetText("Collect the Last Red Collectable");
+                    Text1.SetText("to End the Tutorial");
                 }
                 if (Globals.TutorialProgress == 1 && complete1)
                 {
                     p.SetPosition(0, 2, 0); 
-                    Text.SetText("Press 'F' to use the Flashlight");
-                }
-                if (Globals.TutorialProgress == 2 && complete1) 
-                { 
-                    Text.SetText("Press 'Shift' while Walking to Sprint");
-                    
-                }
-                if (Globals.TutorialProgress == 3 && complete1)
-                { 
-                    Text.SetText("Press 'R' to Open the Map");
-                    
                 }
                 if (Globals.TutorialProgress == 4 && complete1)
                 {
@@ -87,12 +88,11 @@ namespace Gruppenprojekt.App
                     cComplete.SetColorEmissive(1, 0, 0, 10);
                     cComplete.l.SetColor(1, 0, 0, 10);
                     AddGameObject(cComplete);
-                    
-                    Text.SetText("Collect the Last Red Collectable");
-                    Text1.SetText("to End the Tutorial");
                 }
                 if (Globals.TutorialProgress == 5)
                 {
+                    Globals.Level = 1;
+                    Globals.Experience = 1;
                     Globals.TutorialComplete = true;
                     Globals.choseGamemode = "Normal";
                     GameWorldStartMenu gm = new GameWorldStartMenu();
