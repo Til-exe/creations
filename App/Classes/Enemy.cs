@@ -93,7 +93,7 @@ namespace Gruppenprojekt.App.Classes
                     TurnTowardsXZ(playerPos);
                     if (myDirection != Vector3.Zero)
                     {
-                        MoveAlongVector(myDirection, 0.02f);                                //Attackgeschwindigkeit
+                        MoveAlongVector(myDirection, Globals.EnemySpeed);                                //Attackgeschwindigkeit
                     }
                 }
                 else if (timestampLastSighting + 4f > WorldTime && timestampLastSighting != 0)          //NOTIZ AN TIL: Wie lang kann der Gegner dich noch um Wände sehen und folgen

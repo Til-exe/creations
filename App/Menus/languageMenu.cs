@@ -146,6 +146,7 @@ namespace Gruppenprojekt.App.Menus
                 Globals.LanguageButtonText = "Sprache";
                 Globals.CreditsButtonText = "Danksage";
                 Globals.ScoreboardButtonText = "Admin";
+                Globals.LevelButtonText = "Level"; 
                 Globals.LeaveButtonText = "Verlassen";
                 Globals.ActualScoreboardText = "PUNKTETAFEL";
                 Globals.choseGamemodeText = "SPIELMODUS";
@@ -160,6 +161,7 @@ namespace Gruppenprojekt.App.Menus
                 Globals.LanguageButtonText = "Language";
                 Globals.CreditsButtonText = "Credits";
                 Globals.ScoreboardButtonText = "Admin";
+                Globals.LevelButtonText = "Level";
                 Globals.LeaveButtonText = "Leave";
                 Globals.ActualScoreboardText = "SCOREBOARD";
                 Globals.choseGamemodeText = "GAMEMODE";
@@ -176,6 +178,7 @@ namespace Gruppenprojekt.App.Menus
                 Globals.LanguageButtonText = "Idioma";
                 Globals.CreditsButtonText = "Créditos";
                 Globals.ScoreboardButtonText = "Admin";
+                Globals.LevelButtonText = "Level";
                 Globals.LeaveButtonText = "Dejar";
                 Globals.ActualScoreboardText = "MARCADOR"; 
                 Globals.enabledText = "ist An, ich Kann kein Spanisch";
