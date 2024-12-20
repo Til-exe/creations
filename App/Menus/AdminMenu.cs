@@ -17,7 +17,7 @@ using System;
 
 namespace Gruppenprojekt.App.Menus
 {
-    public class scoreboardMenu : World
+    public class AdminMenu : World
     {
         bool delete = false;
         bool deleted = false;
@@ -337,6 +337,7 @@ namespace Gruppenprojekt.App.Menus
         }
         public override void Prepare()
         {
+            Console.WriteLine("[CONSOLE] World: AdminMenu");
             HUDObjectText h1 = new HUDObjectText(Globals.backText);
             h1.SetPosition(50f, 80f);
             h1.Name = "leave";

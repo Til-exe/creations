@@ -48,6 +48,7 @@ namespace Gruppenprojekt.App.Menus
         }
         public override void Prepare()
         {
+            //Console.WriteLine("[CONSOLE] World: choseGamemode");
             HUDObjectText back = new HUDObjectText(Globals.backText);
             back.SetPosition(50f, 80f);
             back.Name = "back";

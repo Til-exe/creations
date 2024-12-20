@@ -32,6 +32,8 @@ namespace Gruppenprojekt.App
             GameWorldStartMenu StartMenu = new GameWorldStartMenu();
             IntroScreen intro = new IntroScreen();
             this.SetWorld(intro);
+            Console.WriteLine("[CONSOLE] Game Start");
+
         }
     }
 }

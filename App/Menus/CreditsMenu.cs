@@ -33,6 +33,7 @@ namespace Gruppenprojekt.App.Menus
         }
         public override void Prepare()
         {
+            //Console.WriteLine("[CONSOLE] World: CreditsMenu");
             int posX = 200;
             int posY = 200;
             HUDObjectText back = new HUDObjectText("BACK");

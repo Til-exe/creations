@@ -8,10 +8,6 @@ using System;
 using KWEngine3.Helper;
 using System.Collections.Generic;
 using System.Linq;
-using KWEngine3;
-using KWEngine3.Audio;
-using OpenTK.Windowing.GraphicsLibraryFramework;
-using OpenTK.Mathematics;
 using System.Diagnostics;
 using System.Threading;
 using OpenTK.Windowing.Common.Input;
@@ -21,7 +17,6 @@ using System.IO;
 using System.Text;
 using System.Transactions;
 using Gruppenprojekt.App.Menus;
-using Gruppenprojekt.App.Classes;
 
 namespace Gruppenprojekt.App
 {
@@ -161,7 +156,7 @@ namespace Gruppenprojekt.App
         }
         public override void Prepare()
         {
-
+            Console.WriteLine("[CONSOLE] World: GameWorldTutorial");
             HUDObjectText score = new HUDObjectText("Sammle das Rote Collectable ein!");
             score.SetPosition(Globals.fensterBreite/2, 20);
             score.SetTextAlignment(TextAlignMode.Center);

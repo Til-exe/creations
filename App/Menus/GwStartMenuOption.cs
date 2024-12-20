@@ -367,7 +367,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && admin.IsMouseCursorOnMe() == true)
                 {
-                    scoreboardMenu adminM= new scoreboardMenu();
+                    AdminMenu adminM= new AdminMenu();
                     Window.SetWorld(adminM);
                 }
             }
@@ -402,6 +402,8 @@ namespace Gruppenprojekt.App.Menus
         }
         public override void Prepare()
         {
+
+            //Console.WriteLine("[CONSOLE] World: GwStartMenuOption");
             HUDObjectText h1 = new HUDObjectText(Globals.backText);
             h1.SetPosition(50f, 80f);
             h1.Name = "back";

@@ -153,6 +153,7 @@ namespace Gruppenprojekt.App
         }
         public override void Prepare()
         {
+            Console.WriteLine("[CONSOLE] World: GameWorldStart");
             KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/ScaryScream.wav", false, 0.2f);
 
             PreLoadSounds();

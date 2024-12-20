@@ -127,7 +127,7 @@ namespace Gruppenprojekt.App.Menus
                 if (Mouse.IsButtonPressed(MouseButton.Left) && AdminSB.IsMouseCursorOnMe() == true)
                 {
                     KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
-                    scoreboardMenu scoreboardMenu = new scoreboardMenu();
+                    AdminMenu scoreboardMenu = new AdminMenu();
                     Window.SetWorld(scoreboardMenu);
                 }
             }
@@ -171,6 +171,7 @@ namespace Gruppenprojekt.App.Menus
         }
         public override void Prepare()
         {
+            Console.WriteLine("[CONSOLE] World: GameWorldStartMenu");
             //KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/ScaryMenuMusic1.wav", false, 0.5f);
             Globals.gameRunning = true;
             Wall w1 = new Wall("1", 0f, 4f, 5f);
