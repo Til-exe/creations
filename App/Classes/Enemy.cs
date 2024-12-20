@@ -70,11 +70,11 @@ namespace Gruppenprojekt.App.Classes
                 List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 40f, true, this, typeof(Wall), typeof(Player));
                 if (results.Count > 0)
                 {
-                    raycollision = results[0];  //definiert erstes objekt welches im ray getroffen wird 
-                    objectHitByRay = raycollision.Object; // object welches getroffen wurde 
-                    distanceToObject = raycollision.Distance;  // Distanz zwischen Strahl-Startposition und dem Treffer:
-                    target = raycollision.IntersectionPoint; // Genaue Trefferposition:
-                    normal = raycollision.SurfaceNormal;       // Ebenenvektor der Oberfläche, die vom Strahl getroffen wurde:
+                    raycollision = results[0];
+                    objectHitByRay = raycollision.Object;
+                    distanceToObject = raycollision.Distance;
+                    target = raycollision.IntersectionPoint;
+                    normal = raycollision.SurfaceNormal;
                 }
                 if (f != null && f.Contains(playerPos) && f.Contains(this.Position))
                 {
@@ -87,8 +87,9 @@ namespace Gruppenprojekt.App.Classes
                 }
                 if (objectHitByRay == p)
                 {
+                    Player.enemyspeedcap = false;
                     OverridePathfinding = false;
-                    Console.WriteLine("attack");
+                    Console.WriteLine("attack [" + Globals.EnemySpeed+ "]");                  //DEBUG ATTACK
                     timestampLastSighting = WorldTime;
                     TurnTowardsXZ(playerPos);
                     if (myDirection != Vector3.Zero)
@@ -98,22 +99,24 @@ namespace Gruppenprojekt.App.Classes
                 }
                 else if (timestampLastSighting + 4f > WorldTime && timestampLastSighting != 0)          //NOTIZ AN TIL: Wie lang kann der Gegner dich noch um Wände sehen und folgen
                 {
+                    Player.enemyspeedcap = false;
                     OverridePathfinding = false;
-                    Console.WriteLine("not in sight still attack");
+                    Console.WriteLine("not in sight still attack");       //DEBUG NOT IN SIGHT
                     if (myDirection != Vector3.Zero)
                     {
-                        MoveAlongVector(myDirection, 0.02f);
+                        MoveAlongVector(myDirection, 0.1f);
                     }
                 }
                 else if (OverridePathfinding == true)
                 {
-                    //Vector3 CollectablePos = Vector3.Zero;
+                    Player.enemyspeedcap = false;
                     FlowField pathfinding = CurrentWorld.GetFlowField();
                     if (pathfinding != null)
                     {
                         pathfinding.SetTarget(collectableposlol, true);
                         if (pathfinding.HasTarget && pathfinding.ContainsXZ(collectableposlol))
                         {
+                            Console.WriteLine("Aufsammeln erkannt und auf Weg");
                             if(directions.Count >= MAXDIRECTIONS)
                             {
                                 directions.Dequeue();
@@ -121,15 +124,16 @@ namespace Gruppenprojekt.App.Classes
                             directions.Enqueue(pathfinding.GetBestDirectionForPosition(this.Position));
 
                             myDirection = GetAverageDirection();
-                            //Console.WriteLine("coldirection: " + myDirection + " (collectableposlol: " + collectableposlol + ")");
                             if(HelperVector.GetDistanceBetweenVectorsXZ(this.Position, collectableposlol) <= 3f)
                             {
+                                Console.WriteLine("angekommen bei location");
                                 OverridePathfinding = false;
                             }
                         }
                     }
                     if (myDirection != Vector3.Zero)
                     {
+                        Player.enemyspeedcap = false;
                         MoveAlongVector(myDirection, 0.1f);
                     }
                     List<Intersection> intersections1 = GetIntersections();
@@ -140,8 +144,9 @@ namespace Gruppenprojekt.App.Classes
                 }
                 else
                 {
+                    Player.enemyspeedcap = false;
                     Move(0.1f);                                                 //NOTIZ AN TIL HIER KANNST DU ROAMING GESCHWINDIGKEIT ANPASSEN (für difficulty)
-                    Console.WriteLine("roaming");
+                    Console.WriteLine("roaming");               //DEBUG ROAMING
                     List<Intersection> intersections1 = GetIntersections();
                     foreach (Intersection intersection in intersections1)
                     {

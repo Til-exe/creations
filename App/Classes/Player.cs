@@ -139,6 +139,7 @@ namespace Gruppenprojekt.App.Classes
         static int removedTime = 0;
         static int sek = 0;
         static int min = 0;
+        public static bool enemyspeedcap = false;
         public override void Act()
         {
             //Death Action
@@ -360,12 +361,22 @@ namespace Gruppenprojekt.App.Classes
             }
             Vector3 rayStart = this.Center;
             Vector3 rayDirection = this.LookAtVector;
-            List<RayIntersection> results = HelperIntersection.RayTraceObjectsForViewVectorFast(rayStart, rayDirection, this, 5, false, typeof(Enemy));
+            List<RayIntersection> results = HelperIntersection.RayTraceObjectsForViewVectorFast(rayStart, rayDirection, this, 10, true, typeof(Enemy));
             if (flashlight == true && results.Count > 0)
             {
                 RayIntersection raycollision = results[0];
                 Console.WriteLine(raycollision.ToString());
                 Console.WriteLine("Hit");
+                enemyspeedcap = true;
+            }
+            if (enemyspeedcap == true)
+            {
+                Globals.EnemySpeed = 0.05f;
+                
+            }
+            else if (enemyspeedcap == false)
+            {
+                Globals.EnemySpeed = 0.1f;
             }
         } 
         public void Camera(int forward, int strafe)
