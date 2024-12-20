@@ -59,8 +59,6 @@ namespace Gruppenprojekt.App.Classes
                 Vector3 raystart = this.Center;
                 Vector3 rayDirection = HelperVector.GetDirectionFromVectorToVectorXZ(this.Position,playerPos);
                 Vector3 myDirection = Vector3.Zero;
-                //Vector3 colDirection = HelperVector.GetDirectionFromVectorToVectorXZ(this.Position, collectableposlol);
-                //collectableposlol = myDirection;
                 playerPos = p.Position;
                 FlowField f = CurrentWorld.GetFlowField();
                 if (f != null)
@@ -101,10 +99,10 @@ namespace Gruppenprojekt.App.Classes
                 {
                     Player.enemyspeedcap = false;
                     OverridePathfinding = false;
-                    Console.WriteLine("not in sight still attack");       //DEBUG NOT IN SIGHT
+                    Console.WriteLine("not in sight still attack [" + Globals.EnemySpeed+ "]");       //DEBUG NOT IN SIGHT
                     if (myDirection != Vector3.Zero)
                     {
-                        MoveAlongVector(myDirection, 0.1f);
+                        MoveAlongVector(myDirection, Globals.EnemySpeed);
                     }
                 }
                 else if (OverridePathfinding == true)
@@ -116,7 +114,7 @@ namespace Gruppenprojekt.App.Classes
                         pathfinding.SetTarget(collectableposlol, true);
                         if (pathfinding.HasTarget && pathfinding.ContainsXZ(collectableposlol))
                         {
-                            Console.WriteLine("Aufsammeln erkannt und auf Weg");
+                            Console.WriteLine("Aufsammeln erkannt und auf Weg [" + Globals.EnemySpeed+ "] ");
                             if(directions.Count >= MAXDIRECTIONS)
                             {
                                 directions.Dequeue();
@@ -126,7 +124,7 @@ namespace Gruppenprojekt.App.Classes
                             myDirection = GetAverageDirection();
                             if(HelperVector.GetDistanceBetweenVectorsXZ(this.Position, collectableposlol) <= 3f)
                             {
-                                Console.WriteLine("angekommen bei location");
+                                Console.WriteLine("angekommen bei location [" + Globals.EnemySpeed+ "]");
                                 OverridePathfinding = false;
                             }
                         }
@@ -134,7 +132,7 @@ namespace Gruppenprojekt.App.Classes
                     if (myDirection != Vector3.Zero)
                     {
                         Player.enemyspeedcap = false;
-                        MoveAlongVector(myDirection, 0.1f);
+                        MoveAlongVector(myDirection, Globals.EnemySpeed);
                     }
                     List<Intersection> intersections1 = GetIntersections();
                     foreach (Intersection intersection in intersections1)
@@ -145,8 +143,8 @@ namespace Gruppenprojekt.App.Classes
                 else
                 {
                     Player.enemyspeedcap = false;
-                    Move(0.1f);                                                 //NOTIZ AN TIL HIER KANNST DU ROAMING GESCHWINDIGKEIT ANPASSEN (für difficulty)
-                    Console.WriteLine("roaming");               //DEBUG ROAMING
+                    Move(Globals.EnemySpeed);                                                 //NOTIZ AN TIL HIER KANNST DU ROAMING GESCHWINDIGKEIT ANPASSEN (für difficulty)
+                    Console.WriteLine("roaming [" + Globals.EnemySpeed+ "] ");               //DEBUG ROAMING
                     List<Intersection> intersections1 = GetIntersections();
                     foreach (Intersection intersection in intersections1)
                     {
