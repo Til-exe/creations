@@ -3693,6 +3693,11 @@
             <param name="tipX">Relative X-Position der Cursorspitze (von 0 bis 1, Standardwert: 0.5f)</param>
             <param name="tipY">Relative Y-Position der Cursorspitze (von 0 bis 1, Standardwert: 0.5f)</param>
         </member>
+        <member name="P:KWEngine3.GLWindow.Quality">
+            <summary>
+            Gibt die bei Programmstart gewählte Qualität für Post-Processing-Effekte zurück
+            </summary>
+        </member>
         <member name="T:KWEngine3.Helper.FlowField">
             <summary>
             Klasse zum Erstellen einer FlowField-Instanz für KI-Navigation
@@ -5319,17 +5324,17 @@
         </member>
         <member name="P:KWEngine3.KWEngine.GlowRadius">
             <summary>
-            Steuert das Ausmaß des durch Überbelichtung erzeugten Glow-Effekts (von 0 bis 1, Standard: 1.0)
+            Steuert das Ausmaß des durch Überbelichtung erzeugten Glow-Effekts (von 0 bis 1, Standard: 0.75)
             </summary>
         </member>
         <member name="P:KWEngine3.KWEngine.GlowStyleFactor1">
             <summary>
-            Steuert den Stil des Glühens (Faktor 1, erlaubte Werte zwischen 0 und 1, Standard: 0.2)
+            Steuert den Stil des Glühens (Faktor 1, erlaubte Werte zwischen 0 und 1, Standard: 0.15)
             </summary>
         </member>
         <member name="P:KWEngine3.KWEngine.GlowStyleFactor2">
             <summary>
-            Steuert den Stil des Glühens (Faktor 2, erlaubte Werte zwischen 0 und 1, Standard: 0.8)
+            Steuert den Stil des Glühens (Faktor 2, erlaubte Werte zwischen 0 und 1, Standard: 0.75)
             </summary>
         </member>
         <member name="P:KWEngine3.KWEngine.WorldUp">
