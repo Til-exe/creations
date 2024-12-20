@@ -59,8 +59,7 @@ namespace Gruppenprojekt.App.Classes
             _flashlight.SetNearFar(0.1f, 18f);
             _flashlight.SetColor(0, 0, 0, 0);
             _flashlight.SetFOV(140);
-            CurrentWorld.AddLightObject(_flashlight);
-            
+            CurrentWorld.AddLightObject(_flashlight);            
 
             colCount = new HUDObjectText("Sie haben kein Licht");
             colCount.Name = "BLA";
@@ -99,12 +98,11 @@ namespace Gruppenprojekt.App.Classes
             displayTimer.Name = "displayTimer";
             displayTimer.SetCharacterDistanceFactor(1.0f);
             displayTimer.SetColor(1.0f, 0.0f, 0.0f);
+
             if(Globals.choseGamemode != "Tutorial")
             {
                 CurrentWorld.AddHUDObject(displayTimer);
             }
-
-
 
             m2.SetPosition(160f, 250f);
             m2.Name = "Menu";
@@ -127,7 +125,6 @@ namespace Gruppenprojekt.App.Classes
             gamemode.Name = "gamemode";
             gamemode.SetCharacterDistanceFactor(1.0f);
             gamemode.SetColor(1.0f, 0.0f, 0.0f);
-
         }
         private Random _random = new Random();
         Random rnd = new Random();
@@ -135,12 +132,9 @@ namespace Gruppenprojekt.App.Classes
         public bool FirstAct = true;
         private bool _flickering = false;
         bool toggleSprint = false;
-
         private float _flickerVorbei = 0f;         
-        private float _nextFlicker = 0f; 
-        
+        private float _nextFlicker = 0f;         
         public double WorldTimeVar = 0;
-
         public int timedpenisboom = 0;
         static int removedTime = 0;
         static int sek = 0;
@@ -177,7 +171,11 @@ namespace Gruppenprojekt.App.Classes
                 _flashlight.SetColor(0, 0, 0, 0);
             }
             //random Flashlight Breaking
-            int random = rnd.Next(20000);
+            int random = 0;
+            if (Globals.gameRunning) 
+            {
+               random = rnd.Next(20000);
+            }
             _flashlight.SetPosition(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVectorLocalRight);
             _flashlight.SetTarget(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVector * 100); // KAR: Taschenlampe muss weiiiiit in die Ferne schauen
             if (random == 69 && flashlight == true || Keyboard.IsKeyPressed(Keys.Space) && flashlight == true)
@@ -280,8 +278,8 @@ namespace Gruppenprojekt.App.Classes
             }
             //Pause Menu Hauptmenu
             if (m2!= null)
-            {   
-                if (m2.IsMouseCursorOnMe() == true)
+            {  
+                if (m2.IsMouseCursorOnMe() == true && Globals.TutorialComplete)
                 {
                     m2.SetColorEmissiveIntensity(1.5f);
                 }
@@ -289,19 +287,20 @@ namespace Gruppenprojekt.App.Classes
                 {
                     m2.SetColorEmissiveIntensity(0.0f);
                 }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && m2.IsMouseCursorOnMe() == true)
-                {
-                    if (!Globals.TutorialComplete) 
+                if (Globals.TutorialComplete) {
+                    if (Mouse.IsButtonPressed(MouseButton.Left) && m2.IsMouseCursorOnMe() == true)
                     {
-                        Globals.TutorialComplete = true;
-                        Globals.choseGamemode = "Normal";
-                                                
+                        safeScore();
+                        GameWorldStartMenu gm = new GameWorldStartMenu();
+                        Window.SetWorld(gm);
                     }
-                    else { safeScore(); }
-                        
-                    GameWorldStartMenu gm = new GameWorldStartMenu();
-                    Window.SetWorld(gm);
                 }
+                else
+                {
+                    m2.SetOpacity(0.5f);
+                }
+                
+                
             }
             //Pause Menu Close
             if (m3 != null)
@@ -346,7 +345,7 @@ namespace Gruppenprojekt.App.Classes
                 MoveOffset(mtv);
                 if (collider is Collectable)
                 {
-                    (collider as Collectable).KillMe(0,1,0,2);
+                    (collider as Collectable).KillMe();
                     counter = counter + 1;
                     colCount.SetText("Gesammelte Orbs: " + counter);
                     collectablepos = collider.Position;
@@ -406,9 +405,27 @@ namespace Gruppenprojekt.App.Classes
             return (float)_random.NextDouble() * 0.08f + 0.02f;
         }
         public static void safeScore()
-        {            
-                Globals.Trys++;
-                Globals.displayCounter = Convert.ToString(CurrentWorld.WorldTime) + "\n";
+        {
+            if (sek + (min * 60) >= 180)
+            {
+                Globals.Experience += 5;
+                
+            }
+            else if (sek + (min * 60) >= 120)
+            {
+                Globals.Experience += 4;
+            }
+            else if (sek + (min * 60) >= 60)
+            {
+                Globals.Experience += 2;
+            }
+            else { Globals.Experience += 1;}
+            if ((Globals.Score) >= 5)
+            {
+                Globals.Experience += 1;
+            }
+
+            Globals.displayCounter = Convert.ToString(CurrentWorld.WorldTime) + "\n";
                 string appendText = Convert.ToString(Globals.Score) + "\n";
                 File.AppendAllText(Globals.timePath, Globals.displayCounter);
                 File.AppendAllText(Globals.path, appendText);
