@@ -18,7 +18,9 @@ namespace Gruppenprojekt.App
 {
     public class GameWindow : GLWindow
     {
+
         public GameWindow() : base(
+            
             Globals.fensterBreite,                               // Fensterbreite
             Globals.fensterHoehe,                                // Fensterhöhe
             true,                               // VSync?
@@ -32,6 +34,8 @@ namespace Gruppenprojekt.App
             GameWorldStartMenu StartMenu = new GameWorldStartMenu();
             IntroScreen intro = new IntroScreen();
             this.SetWorld(intro);
+            Console.WriteLine("[CONSOLE] Game Start");
+
         }
     }
 }

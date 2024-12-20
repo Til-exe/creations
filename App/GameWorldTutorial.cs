@@ -8,10 +8,6 @@ using System;
 using KWEngine3.Helper;
 using System.Collections.Generic;
 using System.Linq;
-using KWEngine3;
-using KWEngine3.Audio;
-using OpenTK.Windowing.GraphicsLibraryFramework;
-using OpenTK.Mathematics;
 using System.Diagnostics;
 using System.Threading;
 using OpenTK.Windowing.Common.Input;
@@ -21,7 +17,7 @@ using System.IO;
 using System.Text;
 using System.Transactions;
 using Gruppenprojekt.App.Menus;
-using Gruppenprojekt.App.Classes;
+using System.Diagnostics.Metrics;
 
 namespace Gruppenprojekt.App
 {
@@ -32,6 +28,8 @@ namespace Gruppenprojekt.App
         float finalPos = 0f;
         private float _HUDLastUpdate = 0;
         bool fullbright = false;
+        public static bool complete1 = true;
+        
         public float GetHUDLastUpdateTime()
         {
             HUDObjectText h = GetHUDObjectTextByName("MyHUDObject");
@@ -50,19 +48,67 @@ namespace Gruppenprojekt.App
                 {
                     MouseCursorGrab();
                 }
-            }
-            return _HUDLastUpdate;
+            } return _HUDLastUpdate;
         }
         public void UpdateHUDLastUpdateTime()
         {
             _HUDLastUpdate = WorldTime;
         }
         public override void Act()
-        {
-                    
-            
+        {            
+            HUDObjectText Text = GetHUDObjectTextByName("text");
+            HUDObjectText Text1 = GetHUDObjectTextByName("text1");
+            if (Globals.gameRunning ) {
 
 
+                if (Globals.TutorialProgress == 0) {
+                    Text.SetText("Collect the Red Collectable");
+                }
+                if (Globals.TutorialProgress == 1) {
+                    Text.SetText("Press 'F' to use the Flashlight");
+                }
+                if (Globals.TutorialProgress == 2) {
+                    Text.SetText("Press 'Shift' while Walking to Sprint");                    
+                }
+                if (Globals.TutorialProgress == 3) {
+                    Text.SetText("Press 'R' to Open the Map");
+                }
+                if (Globals.TutorialProgress == 4) {
+                    Text.SetText("Collect the Last Red Collectable");
+                    Text1.SetText("to End the Tutorial");
+                }
+                if (Globals.TutorialProgress == 1 && complete1)
+                {
+                    p.SetPosition(0, 2, 0); 
+                }
+                if (Globals.TutorialProgress == 4 && complete1)
+                {
+                    p.SetPosition(0, 2, 0);
+                    InteractionCollectable cComplete = new InteractionCollectable("1", 0f, 4f, 20f);
+                    cComplete.SetColorEmissive(1, 0, 0, 10);
+                    cComplete.l.SetColor(1, 0, 0, 10);
+                    AddGameObject(cComplete);
+                }
+                if (Globals.TutorialProgress == 5)
+                {
+                    Globals.Level = 1;
+                    Globals.Experience = 1;
+                    Globals.TutorialComplete = true;
+                    Globals.choseGamemode = "Normal";
+                    GameWorldStartMenu gm = new GameWorldStartMenu();
+                    Window.SetWorld(gm);
+                }
+                complete1 = false;
+            } 
+            else { Text.SetText(""); Text1.SetText(""); }
+            if (Keyboard.IsKeyPressed(Keys.LeftShift )
+                && (Keyboard.IsKeyPressed(Keys.W)
+                || Keyboard.IsKeyPressed(Keys.A)
+                || Keyboard.IsKeyPressed(Keys.D))
+                && Globals.TutorialProgress == 2
+                || Keyboard.IsKeyPressed(Keys.R) && Globals.TutorialProgress == 3
+                || Keyboard.IsKeyPressed(Keys.F) && Globals.TutorialProgress == 1)
+            { Globals.TutorialProgress++; complete1 = true; }
 
             if (Keyboard.IsKeyPressed(Keys.T))
             {
@@ -72,24 +118,25 @@ namespace Gruppenprojekt.App
                     f.IsVisible = !f.IsVisible;
                 }
             }
+            if (Keyboard.IsKeyPressed(Keys.Enter))
+            {
+                Globals.TutorialComplete = true;
+                Globals.choseGamemode = "Normal";
+                GameWorldStartMenu gm = new GameWorldStartMenu();
+                Window.SetWorld(gm);
+            }
             if (Keyboard.IsKeyPressed(Keys.B))
             {
                 if (fullbright)
                 {
                     SetColorAmbient(0.05f, 0.02f, 0.02f);
-
                 }
                 else
                 {
                     SetColorAmbient(0.5f, 0.5f, 0.5f);
-
                 }
                 fullbright = !fullbright;
             }
-            // WorldTime ist 2.5
-            // _HUDLastUpdate ist 2.2
-            // deltat = 0.3
-
             float deltat = Math.Clamp((WorldTime - _HUDLastUpdate) * 0.4f, 0, 1);
             HUDObjectText t = GetHUDObjectTextByName("ORBS");
             t.SetOpacity(1 - deltat);
@@ -129,16 +176,13 @@ namespace Gruppenprojekt.App
                     100);
                     finalPos = finalPos + 0.8f;
                 }
-
                 if (finalPos >= 80f)
                 {
                     // Optional: Map gemäß der Spielerposition verschieben und rotieren
                     Map.UpdateCameraRotation(CameraLookAtVectorXZ);
                     AddCameraRotationFromMouseDelta();
                 }
-
                 Wall dach = (Wall)GetGameObjectByName("10");
-
                 List<Collectable> list = GetGameObjectsByType<Collectable>();
                 for (int C_count = 0; C_count < list.Count; C_count++)
                 {
@@ -161,7 +205,21 @@ namespace Gruppenprojekt.App
         }
         public override void Prepare()
         {
-
+            HUDObjectText text = new HUDObjectText("");
+            text.SetPosition(Globals.fensterBreite/2, 40);
+            text.SetTextAlignment(TextAlignMode.Center);
+            text.Name = "text";
+            text.SetCharacterDistanceFactor(1.0f);
+            text.SetColor(1.0f, 0.0f, 0.0f);
+            AddHUDObject(text);
+            HUDObjectText text1 = new HUDObjectText("");
+            text1.SetPosition(Globals.fensterBreite / 2, 90);
+            text1.SetTextAlignment(TextAlignMode.Center);
+            text1.Name = "text1";
+            text1.SetCharacterDistanceFactor(1.0f);
+            text1.SetColor(1.0f, 0.0f, 0.0f);
+            AddHUDObject(text1);
+            Console.WriteLine("[CONSOLE] World: GameWorldTutorial");
             HUDObjectText score = new HUDObjectText("Sammle das Rote Collectable ein!");
             score.SetPosition(Globals.fensterBreite/2, 20);
             score.SetTextAlignment(TextAlignMode.Center);
@@ -170,66 +228,64 @@ namespace Gruppenprojekt.App
             score.SetColor(1.0f, 0.0f, 0.0f); 
             AddHUDObject(score);
 
-            PreLoadSounds();
             FlowField pathfinding = new FlowField(0, 2.5f, 0, 50, 50, 0.5f, 5, FlowFieldMode.Simple, typeof(Wall));
             pathfinding.IsVisible = false; //FLOWFIELD DEBUG VISIBILTY
             //AddFlowField(pathfinding);
 
+            PreLoadSounds();
             KWEngine.LoadModel("Pascal", "./App/Models/pascalbild.fbx");
-
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/shortsound.wav");
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/flashlight_click.wav");
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/flashlightexplode.wav");
 
-            SetFadeColor(0, 0, 0);
-
             SetBackgroundSkybox("./App/Textures/skybox.png");
-            SetCameraPosition(0.0f, 2.0f, 15.0f);
-            SetCameraTarget(0.0f, 0.0f, 0.0f);
             SetCameraFOV(100);
             SetColorAmbient(0.05f, 0.02f, 0.02f);
+            KWEngine.MouseSensitivity = 0.07f;
+            SetFadeColor(0, 0, 0);
+            MouseCursorGrab();
+            SetCameraPosition(0.0f, 2.0f, 15.0f);
+            SetCameraTarget(0.0f, 0.0f, 0.0f);
+
             Floor f = new Floor("floor", 1f, 1f, 1f);
             f.SetTexture("./app/Textures/wood1.png");
             if (Globals.ReturnCode == 0) { }
             if (Globals.ReturnCode == 1) { Globals.ReturnCode = 0; Globals.Score += 1000; }
-
-            f.SetTextureRepeat(100f, 100f);
+            f.SetTextureRepeat(100f, 100f);           
             AddGameObject(f);
 
-            p = new Player("Yasin", -13f, 2f, -4f);
+            p = new Player("Yasin", 0f, 2f, 0f);
             AddGameObject(p);
-
             SetCameraToFirstPersonGameObject(p, 2f);
-            KWEngine.MouseSensitivity = 0.07f;
-            MouseCursorGrab();
-
-
-
-            LightObject light = new LightObject(LightType.Sun, ShadowQuality.Low);
-            light.Name = ("scheiß auf den Namen");
-            light.SetNearFar(0.1f, 25f);
-            light.SetPosition(0f, 5f, 0);
-            //AddLightObject(light);
-
             //Enemy e = new Enemy("huso", -12.5f, 2, 13);
             //AddGameObject(e);
-
             float xCord = 4f;
             float ScaleHoehe = 5f;
-            Collectable c1 = new Collectable("1", 3f, 4f, 20f);
-            InteractionCollectable cComplete = new InteractionCollectable("1", 3f, 4f, 1f);
+            InteractionCollectable cComplete = new InteractionCollectable("1",0f, 4f, 20f);
             cComplete.SetColorEmissive(1,0,0,10);
             cComplete.l.SetColor(1, 0, 0,10);
-            AddGameObject(c1);
             AddGameObject(cComplete);
+            //InteractionCollectable cNext = new InteractionCollectable("1", 100f, 4f, 100f);
+            //cNext.SetColorEmissive(1,0,0,10);
+            //cNext.l.SetColor(1, 0, 0,10);
+            //AddGameObject(cNext);
+            //Collectable c1 = new Collectable("1", 3f, 4f, 20f);
+            //AddGameObject(c1);
             Wall borderNorth = new Wall("1", 100f, xCord, 0f);
             Wall borderSouth = new Wall("1", -100f, xCord, 0f);
             Wall borderWest = new Wall("1", 0f, xCord, 100f);
             Wall borderEast = new Wall("1", 0f, xCord, -100f);
-            Wall w1 = new Wall("1", 0f, xCord, 5f);
-
-            if (true)
-            {
+            Wall w1 = new Wall("1", 5f, xCord, 10f);
+            Wall w2 = new Wall("1", -5f, xCord, 10f);
+            Wall w3 = new Wall("1", 0f, xCord, 25f);
+            Wall w4 = new Wall("1", 0f, xCord, -5f);
+            if (true) {
+                w1.AddRotationY(90);
+                w1.SetScale(30,ScaleHoehe,1);
+                w1.SetTextureRepeat(15,3);
+                w2.AddRotationY(90);
+                w2.SetScale(30, ScaleHoehe, 1);
+                w2.SetTextureRepeat(15,3);
                 borderNorth.SetRotation(0, 90, 0);
                 borderNorth.SetScale(200, ScaleHoehe, 1);
                 borderNorth.SetTextureRepeat(100f, 5f);
@@ -240,17 +296,17 @@ namespace Gruppenprojekt.App
                 borderEast.SetTextureRepeat(100f, 5f);
                 borderWest.SetScale(200, ScaleHoehe, 1);
                 borderWest.SetTextureRepeat(100f, 5f);
-            } //Set Attributes            
-
-            if (true)
-            {
+            } //Set Attributes
+            if (true) {
                 AddGameObject(borderWest);
                 AddGameObject(borderEast);
                 AddGameObject(borderNorth);
                 AddGameObject(borderSouth);
                 AddGameObject(w1);
+                AddGameObject(w2);
+                AddGameObject(w3);
+                AddGameObject(w4);
             } //Add Game Objekts
-
             createMap();
         }
         public void createMap()
@@ -278,7 +334,7 @@ namespace Gruppenprojekt.App
                 1000,                           // Wie viele Einheiten der Spielwelt deckt der Hintergrund ab? (Höhe)
                 1f,                          // Sichtbarkeit 0 bis 1
                 50.0f,                          // Texturwiederholung  X
-                50.0f);                         // Texturwiederholung Y            
+                50.0f);                         // Texturwiederholung Y
 
         }
         public static void PreLoadSounds()

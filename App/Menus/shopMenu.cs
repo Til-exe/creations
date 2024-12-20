@@ -81,6 +81,7 @@ namespace Gruppenprojekt.App.Menus
         }
         public override void Prepare()
         {
+            //Console.WriteLine("[CONSOLE] World: shopMenu");
             float posY = 260f;
             HUDObjectText h1 = new HUDObjectText(Globals.backText);
             h1.SetPosition(50f, 80f);

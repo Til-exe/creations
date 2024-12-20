@@ -8,11 +8,13 @@ using System;
 
 namespace Gruppenprojekt.App.Menus
 {
-    public class CreditsMenu : World
+    public class LevelMenu : World
     {
+        int dLevel = 0;
         public override void Act()
         {
             HUDObjectText back = GetHUDObjectTextByName("back");
+            HUDObjectText dLevelText = GetHUDObjectTextByName("dLevelText");
             if (back != null)
             {
                 if (back.IsMouseCursorOnMe() == true)
@@ -30,10 +32,18 @@ namespace Gruppenprojekt.App.Menus
                     Window.SetWorld(gm);
                 }
             }
+            if(Keyboard.IsKeyPressed(Keys.Left))
+            {
+                dLevel--;   
+            }
+            if (Keyboard.IsKeyPressed(Keys.Right))
+            {
+                dLevel++;
+            }
+            dLevelText.SetText("Level " + Math.Clamp(dLevel, 0, 5));
         }
         public override void Prepare()
         {
-            //Console.WriteLine("[CONSOLE] World: CreditsMenu");
             int posX = 200;
             int posY = 200;
             HUDObjectText back = new HUDObjectText("BACK");
@@ -42,17 +52,16 @@ namespace Gruppenprojekt.App.Menus
             back.SetColor(1.0f, 0.0f, 0.0f);
             back.SetColorEmissive(1.0f, 1.0f, 1.0f);
 
-            HUDObjectText h2 = new HUDObjectText("Dieses Spiel wurde Inspiriert von");
-            h2.SetPosition(posX, posY);
-            h2.SetColor(1, 0, 0);
+            
             posY += 50;
 
-            HUDObjectText h3 = new HUDObjectText("IT STEALS");
-            h3.SetPosition(posX, posY);
-            h3.SetColor(1.0f, 0.0f, 0.0f);
+            HUDObjectText dLevelText = new HUDObjectText("Level " + Math.Clamp(dLevel, 0, 5));
+            dLevelText.SetPosition(posX, posY);
+            dLevelText.SetColor(1.0f, 0.0f, 0.0f);
+            dLevelText.Name = "dLevelText";
             posY += 50;
 
-            HUDObjectText h4 = new HUDObjectText("gemacht von Zeekerss");
+            HUDObjectText h4 = new HUDObjectText("NOCH NICHT FERTIG ");
             h4.SetPosition(posX, posY);
             h4.SetColor(1.0f, 0.0f, 0.0f);
             posY += 100;
@@ -67,9 +76,8 @@ namespace Gruppenprojekt.App.Menus
             h6.SetPosition(posX, posY);
             h6.SetColor(1.0f, 0.0f, 0.0f);
 
-            AddHUDObject(back);
-            AddHUDObject(h2);
-            AddHUDObject(h3);
+            AddHUDObject(back);            
+            AddHUDObject(dLevelText);
             AddHUDObject(h4);
             AddHUDObject(h5);
             AddHUDObject(h6);
