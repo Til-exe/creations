@@ -359,6 +359,15 @@ namespace Gruppenprojekt.App.Classes
                     colCount.SetText("Gesammelte Orbs: " + counter);
                 }
             }
+            Vector3 rayStart = this.Center;
+            Vector3 rayDirection = this.LookAtVector;
+            List<RayIntersection> results = HelperIntersection.RayTraceObjectsForViewVectorFast(rayStart, rayDirection, this, 5, false, typeof(Enemy));
+            if (flashlight == true && results.Count > 0)
+            {
+                RayIntersection raycollision = results[0];
+                Console.WriteLine(raycollision.ToString());
+                Console.WriteLine("Hit");
+            }
         } 
         public void Camera(int forward, int strafe)
         {
