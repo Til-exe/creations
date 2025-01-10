@@ -1,5 +1,7 @@
-﻿using KWEngine3;
+﻿using Gruppenprojekt.App.Menus;
+using KWEngine3;
 using KWEngine3.GameObjects;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,17 +13,15 @@ namespace Gruppenprojekt.App.death_winscreen
     public class death1 : World
     {
         float finalOP = float.Epsilon;
-        float framecounter = 0;
-        bool OPcheck = false;
-        bool HUD1_removed = false;
+        
         int counter = 0;
-        bool finish = false;
+       
         private HUDObjectText[] myTextObjects = new HUDObjectText[5];
         private bool[] myTextObjectsFall = new bool[5];
-        private int _phase = 0; // 0 = you died, 1 = try again, 2 = rest
+        
         public override void Act()
         {
-            framecounter++; 
+            
             
             myTextObjects[0] = GetHUDObjectTextByName("main");
             myTextObjects[1] = GetHUDObjectTextByName("tryagain");
@@ -69,47 +69,61 @@ namespace Gruppenprojekt.App.death_winscreen
                 }
                 
             }
-            /*
-            if (finalOP < 2.5f && OPcheck == false)
-            {
-                finalOP += 0.005f;
-            }
-            if (finalOP >=2.5f) { OPcheck = true; }
 
-            if(OPcheck && finish == false) {
-                Console.WriteLine(finalOP);
-                finalOP -= 0.005f; 
-            }
-            if (myTextObjects[counter] != null)
-            {
-                myTextObjects[counter].SetOpacity(finalOP);
 
-                if(HUD1_removed == true && finalOP < 0) 
+
+            if (myTextObjects[4] != null)
+            {
+                if (myTextObjects[4].IsMouseCursorOnMe() == true)
                 {
-                    finish = true;
-                    
-
-                    myTextObjects[2].SetOpacity(finalOP);
-                    myTextObjects[3].SetOpacity(finalOP);
-                    myTextObjects[4].SetOpacity(finalOP);
-                    OPcheck = false;
-
+                    myTextObjects[4].SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    myTextObjects[4].SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && myTextObjects[4].IsMouseCursorOnMe() == true)
+                {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
+                    GameWorldStartMenu gm = new GameWorldStartMenu();
+                    Window.SetWorld(gm);
                 }
             }
 
-            
-            
-
-            if(finalOP < 0 && finish == false )
+            if (myTextObjects[3] != null)
             {
-                RemoveHUDObject(myTextObjects[0]);
-                finalOP = 0;
-                
-                counter++;
-                HUD1_removed = true;
+                if (myTextObjects[3].IsMouseCursorOnMe() == true)
+                {
+                    myTextObjects[3].SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    myTextObjects[3].SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && myTextObjects[3].IsMouseCursorOnMe() == true)
+                {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
+                    Window.Close();
+                }
             }
-            if (finalOP < 0) { OPcheck = false; }
-            */
+
+            if (myTextObjects[2] != null)
+            {
+                if (myTextObjects[2].IsMouseCursorOnMe() == true)
+                {
+                    myTextObjects[2].SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    myTextObjects[2].SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && myTextObjects[2].IsMouseCursorOnMe() == true)
+                {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
+                    GameWorldStart gm = new GameWorldStart();   
+                    Window.SetWorld(gm);
+                }
+            }
         }
 
         public override void Prepare()
