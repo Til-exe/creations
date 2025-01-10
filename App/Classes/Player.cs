@@ -146,6 +146,12 @@ namespace Gruppenprojekt.App.Classes
             {
                 safeScore();
             }
+            if (counter == Globals.ColCount)
+            {
+                safeScore();
+                GameWorldStartMenu gwsm = new GameWorldStartMenu();
+                Window.SetWorld(gwsm);
+            }
             //Displaying Time
             string ActualTimeDisplay = min + "m " + sek + "s";
             sek = Convert.ToInt32(CurrentWorld.WorldTime) - removedTime;
