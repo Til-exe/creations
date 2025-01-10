@@ -162,6 +162,8 @@ namespace Gruppenprojekt.App
             AddFlowField(pathfinding);
 
             KWEngine.LoadModel("Pascal", "./App/Models/pascalbild.fbx");
+            KWEngine.LoadModel("Map", "./App/Models/knezi1.glb");
+            KWEngine.LoadModel("EscapeLadder", "./App/Models/knezi_ladderOnly.glb");
 
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/shortsound.wav");
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/flashlight_click.wav");
@@ -211,7 +213,17 @@ namespace Gruppenprojekt.App
             }
             float xCord = 4f;
             float ScaleHoehe = 5f;
-            
+
+            Wall map = new Wall("map", 0, 0, 0);
+            Wall leiter = new Wall("Leiter", 0, 0, 0);
+            //leiter.SetScale(1);
+            //map.SetScale(1);
+            map.SetModel("Map");
+            leiter.SetModel("EscapeLadder");
+            AddGameObject(map); 
+            AddGameObject(leiter);
+
+            /*
             Wall borderNorth = new Wall("1", 100f, xCord, 0f);
             Wall borderSouth = new Wall("1", -100f, xCord, 0f);
             Wall borderWest = new Wall("1", 0f, xCord, 100f);
@@ -227,6 +239,7 @@ namespace Gruppenprojekt.App
             Wall w9 = new Wall("9", 0f, xCord, -5f);
             Wall w10 = new Wall("10", -2.5f, xCord+3, 5);
             
+
             if (true) 
             {
                 w4.SetScale(30f, ScaleHoehe, 1f);
@@ -269,7 +282,7 @@ namespace Gruppenprojekt.App
                 AddGameObject(w9);
                 AddGameObject(w10);
             } //Add Game Objekts
-            
+            */
             createMap();
         }
         public void createMap()

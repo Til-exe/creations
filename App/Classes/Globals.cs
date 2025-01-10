@@ -39,7 +39,7 @@ namespace Gruppenprojekt.App.Classes
         public static bool deathreal = true;                           //deathreal - Indikator dafür ob der Enemy das spiel bei Collision beenden soll
         public static bool bgAnimation = true;                          //bgAnimation - gibt an ob der Hintergrund im Startmenu animiert sein soll oder nicht        
         public static bool TutorialComplete = false;                    //TutorialComplete - gibt an ob das Tutorial abgeschlossen wurde
-        public static bool debugMode = false;
+        public static bool debugMode = true;
         public static bool UseLevelProgess = true;                      //UseLevelProgress - gibt an ob die gesammelten Level Vorteile brigen sollen
         
         public static int TutorialProgress = 0;                         //TutorialProgress - gibt an wie weit das Tutorial abgeschlossen wurde
