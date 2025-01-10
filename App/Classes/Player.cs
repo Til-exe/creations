@@ -31,6 +31,7 @@ namespace Gruppenprojekt.App.Classes
         HUDObjectText mtitle = new HUDObjectText("Pausiert");
         private HUDObjectText colCount;
         private int counter = 0;
+        private float timestampLastWalkSound = 0;
 
 
         private bool IsBird() // Testmethode von KAR
@@ -153,7 +154,7 @@ namespace Gruppenprojekt.App.Classes
                 GameWorldStartMenu gwsm = new GameWorldStartMenu();
                 Window.SetWorld(gwsm);
             }
-            if (counter == Globals.ColCount)
+            if (counter == Globals.ColCount)    //Ende wenn alle Collectables eingesammelt worden sind
             {
                 safeScore();
                 GameWorldStartMenu gwsm = new GameWorldStartMenu();
@@ -257,6 +258,12 @@ namespace Gruppenprojekt.App.Classes
             //Movement
             if (Globals.gameRunning && !Globals.MapOpen )
             {
+                if (WorldTime - timestampLastWalkSound > 0.5f)
+                {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/Playersteps.wav", false, 0.3f);
+                    timestampLastWalkSound = WorldTime;
+                }
+
                 if (Keyboard.IsKeyDown(Keys.W)) { forward += 1; }
                 if (Keyboard.IsKeyDown(Keys.D)) { strafe += 1;  }
                 if (Keyboard.IsKeyDown(Keys.A)) { strafe -= 1;  }
@@ -301,7 +308,7 @@ namespace Gruppenprojekt.App.Classes
                     m2.SetColorEmissiveIntensity(0.0f);
                 }
                 if (Globals.TutorialComplete) {
-                    if (Mouse.IsButtonPressed(MouseButton.Left) && m2.IsMouseCursorOnMe() == true)
+                    if (Mouse.IsButtonPressed(MouseButton.Left) && m2.IsMouseCursorOnMe() == true )
                     {
                         KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
                         safeScore();

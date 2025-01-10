@@ -19,7 +19,7 @@ namespace Gruppenprojekt.App.Classes
     {                
         public static bool gameRunning = true;                          //gameRunning - Wenn dieses Bool auf False ist wird das gesamte Spiel pausiert        
         public static bool Sprinting = false;                           //Sprinitng - Indikator dafür ob der Spieler Sprintet        
-        public static string choseGamemode = "Tutorial";                //choseGamemode - gibt an welcher Spielmodus ausgewählt ist
+        public static string choseGamemode;                //choseGamemode - gibt an welcher Spielmodus ausgewählt ist
         public static string SetLanguage = "English";                   //SetLanguage - gibt an welche Sprache angezeigt werden soll
         public static float Score;                                      //Score - ist der Punktestand, dieser wird aus allen eingesammelten Orbs berechnet        
         public static int Trys;                                         //gibt an wie viele Spiele bereits bei Laufendem Programm gespielt wurden        

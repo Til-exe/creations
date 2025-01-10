@@ -52,8 +52,8 @@ namespace Gruppenprojekt.App.Menus
                 if (hochzähler == 2) {
                     hochzähler = 0;
                     tScale++;
-                    title.SetScale(tScale); }                    
-                if (tScale == 120.0f) {
+                    title.SetScale(tScale/2); }                    
+                if (tScale == 240.0f) {
                     hochzähler = -2;
                     maxGerreicht = false;
                     start.SetScale(50f);
@@ -88,6 +88,14 @@ namespace Gruppenprojekt.App.Menus
         }
         public override void Prepare()
         {
+            if(Globals.TutorialComplete)
+            {
+                Globals.choseGamemode ="Normal"; 
+            }
+            else
+            {
+                Globals.choseGamemode = "Tutorial";
+            }
             //Console.WriteLine("[CONSOLE] World: IntroScreen");
             /*
             int posX = 200;

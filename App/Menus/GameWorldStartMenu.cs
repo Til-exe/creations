@@ -16,10 +16,15 @@ using Assimp;
 namespace Gruppenprojekt.App.Menus
 {
     public class GameWorldStartMenu : World
-    {        
+    {
+        bool startbool = false;
+        float counter = 0;
+        private float timestampLastWalkSound = 0;
+
+        bool startsound = true;
         public override void Act()
         {
-
+            
             HUDObjectText start = GetHUDObjectTextByName("start");
             HUDObjectText option = GetHUDObjectTextByName("option");
             HUDObjectText leave = GetHUDObjectTextByName("leave");
@@ -30,6 +35,37 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectImage bbg = GetHUDObjectImageByName("bbg");
             HUDObjectText LevelScore = GetHUDObjectTextByName("LevelScore");
             HUDObjectText LevelNum = GetHUDObjectTextByName("LevelNum");
+            HUDObjectImage bbbg = GetHUDObjectImageByName("bbbg");
+            bbbg.SetZIndex(0);
+
+            if (startbool)
+            {
+                if (counter != -1f)
+                {
+                    counter += 0.002f;
+                    bbbg.SetOpacity(counter);
+                }
+                if(counter >= 1f)
+                {                    
+                    startGame();
+                    
+                }
+
+                
+            }
+            Console.WriteLine(WorldTime - timestampLastWalkSound);
+            if(startsound) 
+            {
+                KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/ScaryMenuMusic1.wav", false, 0.1f);
+                startsound = false;            
+            }
+
+            if (WorldTime - timestampLastWalkSound > 36f)
+            {
+                KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/ScaryMenuMusic1.wav", false, 0.1f);
+                timestampLastWalkSound = WorldTime;
+            }
+
 
             if (start != null)
             {
@@ -46,7 +82,7 @@ namespace Gruppenprojekt.App.Menus
                 if (Mouse.IsButtonPressed(MouseButton.Left) && start.IsMouseCursorOnMe() == true)
                 {
                     KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
-                    startGame();
+                    startbool = true;
 
                 }
             }
@@ -217,6 +253,7 @@ namespace Gruppenprojekt.App.Menus
             LightObject light = new LightObject(LightType.Sun, ShadowQuality.Low);
             Collectable c1 = new Collectable("1", 100f, 2.5f, 2.5f);                      
             HUDObjectImage bbg = new HUDObjectImage("./App/Textures/blackscreen.png");
+            HUDObjectImage bbbg = new HUDObjectImage("./App/Textures/blackscreen.png");
             HUDObjectText hSubtitle = new HUDObjectText("By PLUG-INC");
             HUDObjectText hTitle = new HUDObjectText("ITS STOLEN");
             
@@ -251,6 +288,13 @@ namespace Gruppenprojekt.App.Menus
             bbg.CenterOnScreen();
             bbg.SetZIndex(-100);
             bbg.SetOpacity(0.75f);
+
+            bbbg.SetScale(Globals.fensterBreite, Globals.fensterHoehe);
+            bbbg.Name = "bbbg";
+            bbbg.SetColor(0, 0, 0);
+            bbbg.CenterOnScreen();
+            bbbg.SetZIndex(-100);
+            bbbg.SetOpacity(0.0f);
 
             hSubtitle.SetPosition(Globals.fensterBreite / 2, 100f);
             hSubtitle.SetTextAlignment(TextAlignMode.Center);
@@ -334,6 +378,7 @@ namespace Gruppenprojekt.App.Menus
             AddGameObject(f);
             AddGameObject(f1);
             AddHUDObject(bbg);
+            AddHUDObject(bbbg);
             AddHUDObject(hSubtitle);
             AddHUDObject(hTitle);
 
