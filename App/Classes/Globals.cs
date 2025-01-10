@@ -38,7 +38,7 @@ namespace Gruppenprojekt.App.Classes
         public static bool MapOpen = false;                             //MapOpen - Indikator dafür ob die Karte geöffnet ist
         public static bool deathreal = true;                           //deathreal - Indikator dafür ob der Enemy das spiel bei Collision beenden soll
         public static bool bgAnimation = true;                          //bgAnimation - gibt an ob der Hintergrund im Startmenu animiert sein soll oder nicht        
-        public static bool TutorialComplete = false;                    //TutorialComplete - gibt an ob das Tutorial abgeschlossen wurde
+        public static bool TutorialComplete = true;                    //TutorialComplete - gibt an ob das Tutorial abgeschlossen wurde
         
         public static bool UseLevelProgess = true;                      //UseLevelProgress - gibt an ob die gesammelten Level Vorteile brigen sollen
         
