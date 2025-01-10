@@ -184,7 +184,7 @@ namespace Gruppenprojekt.App
             f.SetTextureRepeat(100f, 100f);
             AddGameObject(f);
 
-            p = new Player("Yasin", -13 , 2f, -4);
+            p = new Player("Yasin", 0 , 2f, 0);
             AddGameObject(p);
 
             SetCameraToFirstPersonGameObject(p, 2f);
@@ -216,12 +216,13 @@ namespace Gruppenprojekt.App
 
             Wall map = new Wall("map", 0, 0, 0);
             Wall leiter = new Wall("Leiter", 0, 0, 0);
-            //leiter.SetScale(1);
-            //map.SetScale(1);
             map.SetModel("Map");
             leiter.SetModel("EscapeLadder");
+            map.SetScale(5f,8f,5f);
+            map.SetPositionY(1f);
             AddGameObject(map); 
             AddGameObject(leiter);
+            
 
             /*
             Wall borderNorth = new Wall("1", 100f, xCord, 0f);

@@ -33,7 +33,7 @@ namespace Gruppenprojekt.App
             GameWorldStart game = new GameWorldStart();
             GameWorldStartMenu StartMenu = new GameWorldStartMenu();
             IntroScreen intro = new IntroScreen();
-            this.SetWorld(intro);
+            this.SetWorld(game);
             Console.WriteLine("[CONSOLE] Game Start");
 
         }
