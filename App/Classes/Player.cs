@@ -139,6 +139,10 @@ namespace Gruppenprojekt.App.Classes
         static int removedTime = 0;
         static int sek = 0;
         static int min = 0;
+        public static bool enemyspeedcap = false;
+        private float _enemySpeedResetTime = -1f;
+        float timestampLastSighting = 0;
+
         public override void Act()
         {
             //Death Action
@@ -364,7 +368,30 @@ namespace Gruppenprojekt.App.Classes
                     colCount.SetText("Gesammelte Orbs: " + counter);
                 }
             }
-        } 
+            //Flashlight slow of enemy
+            Vector3 rayStart = this.Center;
+            Vector3 rayDirection = this.LookAtVector;
+            List<RayIntersection> results = HelperIntersection.RayTraceObjectsForViewVectorFast(rayStart, rayDirection, this, 10, true, typeof(Enemy), typeof(Wall));
+            if (flashlight == true && results.Count > 0 && results[0].Object is Enemy)
+            {
+                RayIntersection raycollision = results[0];
+                Console.WriteLine(raycollision.ToString());
+                Console.WriteLine("Hit");
+                enemyspeedcap = true;
+                timestampLastSighting = WorldTime;
+                Globals.EnemySpeed = 0.01f;
+                Console.WriteLine("enemyspeedcap wird auf true gesetzt");
+            }
+            if (timestampLastSighting + 4f > WorldTime && timestampLastSighting != 0)
+            {
+                Globals.EnemySpeed = 0.01f;
+                enemyspeedcap = false;
+            }
+            else
+            {
+                Globals.EnemySpeed = 0.05f;
+            }
+        }
         public void Camera(int forward, int strafe)
         {
             if (Globals.gameRunning) {
