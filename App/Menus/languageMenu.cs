@@ -37,6 +37,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && h1.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
                     GameWorldStartMenu gm = new GameWorldStartMenu();
                     Window.SetWorld(gm);
                 }
@@ -53,6 +54,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && Deutsch.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/on.wav", false, 0.2f);
                     Deutsch.SetText("Deutsch");
                     English.SetText("English");
                     Spanisch.SetText("Spanisch");
@@ -71,6 +73,8 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && English.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/on.wav", false, 0.2f);
+
                     Deutsch.SetText("Deutsch");
                     English.SetText("English");
                     Spanisch.SetText("Spanisch");
@@ -89,6 +93,8 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && Spanisch.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/on.wav", false, 0.2f);
+
                     Deutsch.SetText("Deutsch");
                     English.SetText("English");
                     Spanisch.SetText("Spanisch");

@@ -110,7 +110,7 @@ namespace Gruppenprojekt.App
                 || Keyboard.IsKeyPressed(Keys.F) && Globals.TutorialProgress == 1)
             { Globals.TutorialProgress++; complete1 = true; }
 
-            if (Keyboard.IsKeyPressed(Keys.T))
+            if (Keyboard.IsKeyPressed(Keys.T) && Globals.debugMode)
             {
                 FlowField f = GetFlowField();
                 if (f != null)
@@ -118,14 +118,14 @@ namespace Gruppenprojekt.App
                     f.IsVisible = !f.IsVisible;
                 }
             }
-            if (Keyboard.IsKeyPressed(Keys.Enter))
+            if (Keyboard.IsKeyPressed(Keys.Enter) && Globals.debugMode)
             {
                 Globals.TutorialComplete = true;
                 Globals.choseGamemode = "Normal";
                 GameWorldStartMenu gm = new GameWorldStartMenu();
                 Window.SetWorld(gm);
             }
-            if (Keyboard.IsKeyPressed(Keys.B))
+            if (Keyboard.IsKeyPressed(Keys.B) && Globals.debugMode)
             {
                 if (fullbright)
                 {

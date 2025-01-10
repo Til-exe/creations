@@ -44,7 +44,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && buy1.IsMouseCursorOnMe() == true)
                 {
-                    
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/off.wav", false, 0.2f);
                 }
             }
             if (buy2 != null)
@@ -59,6 +59,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && buy2.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/off.wav", false, 0.2f);
 
                 }
             }
@@ -74,6 +75,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && buy3.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/off.wav", false, 0.2f);
 
                 }
             }

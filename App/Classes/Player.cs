@@ -190,7 +190,7 @@ namespace Gruppenprojekt.App.Classes
             }
             _flashlight.SetPosition(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVectorLocalRight);
             _flashlight.SetTarget(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVector * 100); // KAR: Taschenlampe muss weiiiiit in die Ferne schauen
-            if (random == 69 && flashlight == true || Keyboard.IsKeyPressed(Keys.Space) && flashlight == true)
+            if (random == 69 && flashlight == true || (Keyboard.IsKeyPressed(Keys.Space) && Globals.debugMode) && flashlight == true)
             {
                 _flickering = true;
                 _flickerVorbei = WorldTime + 0.5f;
@@ -284,7 +284,7 @@ namespace Gruppenprojekt.App.Classes
                 if ((Mouse.IsButtonPressed(MouseButton.Left) && m1.IsMouseCursorOnMe() == true))
                 {
                     CurrentWorld.MouseCursorResetPosition();
-                    
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
                     weiter();
                 }
             }
@@ -302,6 +302,7 @@ namespace Gruppenprojekt.App.Classes
                 if (Globals.TutorialComplete) {
                     if (Mouse.IsButtonPressed(MouseButton.Left) && m2.IsMouseCursorOnMe() == true)
                     {
+                        KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
                         safeScore();
                         GameWorldStartMenu gm = new GameWorldStartMenu();
                         Window.SetWorld(gm);
@@ -327,9 +328,10 @@ namespace Gruppenprojekt.App.Classes
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && m3.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
                     Globals.Trys++;
-                    string appendText = Convert.ToString(Globals.Score) + "\n";
-                    File.AppendAllText(Globals.path, appendText);
+                    string penistext = Convert.ToString(Globals.Score) + "\n";
+                    File.AppendAllText(Globals.path, penistext);
                     Window.Close();
                 }
             }
@@ -391,7 +393,14 @@ namespace Gruppenprojekt.App.Classes
             }
             else
             {
-                Globals.EnemySpeed = 0.05f;
+                if (Globals.choseGamemode == "Hard")
+                {
+                    Globals.EnemySpeed = 0.07f;
+                }
+                else
+                {
+                    Globals.EnemySpeed = 0.04f;
+                }                
             }
         }
         public void Camera(int forward, int strafe)

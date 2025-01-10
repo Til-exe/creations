@@ -60,7 +60,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && back.IsMouseCursorOnMe() == true)
                 {
-                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click1.wav", false, 0.2f);
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
                     GameWorldStartMenu gm = new GameWorldStartMenu();
                     Window.SetWorld(gm);
                 }
@@ -78,7 +78,8 @@ namespace Gruppenprojekt.App.Menus
                     enter.SetColorEmissiveIntensity(0.0f);
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && enter.IsMouseCursorOnMe() == true)
-                {                    
+                {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
                     if (value1 == 1 && 
                         value2 == 1 && 
                         value3 == 1 && 
@@ -101,6 +102,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && reset.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/on.wav", false, 0.2f);
                     code.SetText("");
                     value1 = 0;
                     value2 = 0;
@@ -357,6 +359,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && gamemode.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
                     choseGamemode cGm = new choseGamemode();
                     Window.SetWorld(cGm);
                 }
@@ -373,6 +376,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && shop.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
                     shopMenu shopmenu = new shopMenu();
                     Window.SetWorld(shopmenu);
                 }
@@ -389,6 +393,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && admin.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
                     AdminMenu adminM= new AdminMenu();
                     Window.SetWorld(adminM);
                 }
@@ -405,6 +410,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && language.IsMouseCursorOnMe() == true)
                 {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
                     languageMenu languageM = new languageMenu();
                     Window.SetWorld(languageM);
                 }

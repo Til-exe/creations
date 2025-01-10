@@ -48,10 +48,12 @@ namespace Gruppenprojekt.App.Classes
             this.SetScale(1, 2, 1);
 
             p = CurrentWorld.GetGameObjectByName<Player>("Yasin");
+            
         }
 
         public override void Act()
         {
+            
             if (Globals.gameRunning) 
             {
                

@@ -79,6 +79,9 @@
     <None Update="App\Models\WhatsApp Bild 2024-08-23 um 20.14.14_37f610a3.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="App\Sounds\basicClick.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="App\Sounds\click.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

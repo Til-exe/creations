@@ -46,7 +46,7 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && back.IsMouseCursorOnMe() == true)
                 {
-                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
                     GameWorldStartMenu gm = new GameWorldStartMenu();
                     Window.SetWorld(gm);
                 }
@@ -65,18 +65,18 @@ namespace Gruppenprojekt.App.Menus
                     clear.SetColorEmissiveIntensity(0.0f);
                 }
                 else if (clear.IsMouseCursorOnMe() == true && delete)
-                {
+                {                    
                     clear.SetColorEmissiveIntensity(0.5f);
                     clear.SetColor(1, 1, 1);
                 }
                 else if (clear.IsMouseCursorOnMe() == true && !deleted)
-                {
+                {                    
                     clear.SetColor(1, 0, 0);
                     clear.SetColorEmissiveIntensity(1.5f);
                     clear.SetText("clear Scores ?");
                 }
                 else
-                {
+                {                    
                     clear.SetColor(1, 0, 0);
                     clear.SetColorEmissiveIntensity(0.0f);
                     clear.SetText("clear");
@@ -86,12 +86,14 @@ namespace Gruppenprojekt.App.Menus
                 {
                     if (deleted)
                     {
+                        KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
                         GameWorldStartMenu gm = new GameWorldStartMenu();
                         Window.SetWorld(gm);
                         return;
                     }
                     if (delete)
                     {
+                        KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/off.wav", false, 0.2f);
                         string filePath = @"./App/data/data.txt";
                         string filePathTime = @"./App/data/time.txt";
 
@@ -116,6 +118,7 @@ namespace Gruppenprojekt.App.Menus
                     }
                     else if (!delete)
                     {
+                        KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
                         clear.SetText("Are you Sure you want to delete all Scores ?");
                         delete = true;
                     }

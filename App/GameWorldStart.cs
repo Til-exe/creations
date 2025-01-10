@@ -50,7 +50,7 @@ namespace Gruppenprojekt.App
         }
         public override void Act()
         {
-            if (Keyboard.IsKeyPressed(Keys.T))
+            if (Keyboard.IsKeyPressed(Keys.T) && Globals.debugMode)
             {
                 FlowField f = GetFlowField();
                 if (f != null)
@@ -58,7 +58,7 @@ namespace Gruppenprojekt.App
                     f.IsVisible = !f.IsVisible;
                 }
             }            
-            if (Keyboard.IsKeyPressed(Keys.B))
+            if (Keyboard.IsKeyPressed(Keys.B) && Globals.debugMode)
             {
                 if (fullbright)
                 {
@@ -311,6 +311,10 @@ namespace Gruppenprojekt.App
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/ScaryScream.wav");
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/click.wav");
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/click1.wav");
+            KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/basicClick.wav");
+
+
+
         }
     }
 }   
