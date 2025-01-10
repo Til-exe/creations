@@ -613,9 +613,16 @@ namespace Gruppenprojekt.App.Menus
         }
         public static string ErstellePunktestand(int punkte, int maxPunkte)
         {
-            string punkteTeil = new string('|', punkte);
-            string leerTeil = new string('-', maxPunkte - punkte);
-            return punkteTeil + (leerTeil );
+            try {
+                string punkteTeil = new string('|', punkte);
+                string leerTeil = new string('-', maxPunkte - punkte);
+                return punkteTeil + (leerTeil);
+            }
+            catch
+            {
+                return "";
+            }
+            
         }        
     }
 }

@@ -197,7 +197,13 @@ namespace Gruppenprojekt.App
             light.SetPosition(0f, 5f, 0);
             //AddLightObject(light);
 
-            
+            for(int i = 0; i <Globals.ColCount; i++)
+            {
+                Random rnd = new Random();
+                Collectable c1 = new Collectable("new", (float)rnd.Next(1,100), 4f, (float)rnd.Next(1, 100));
+                AddGameObject(c1);
+            }
+
             if (Globals.choseGamemode != "Peacefull" )
             {
                 Enemy e = new Enemy("huso", -12.5f, 2, 13);                
@@ -205,12 +211,7 @@ namespace Gruppenprojekt.App
             }
             float xCord = 4f;
             float ScaleHoehe = 5f;
-            Collectable c1 = new Collectable("1", 3f, 4f, 20f);
-            Collectable c2 = new Collectable("2", 10f, 3f, 20f);
-            Collectable c3 = new Collectable("3", 20f, 3f, 20f);
-            AddGameObject(c1);
-            AddGameObject(c2);
-            AddGameObject(c3);
+            
             Wall borderNorth = new Wall("1", 100f, xCord, 0f);
             Wall borderSouth = new Wall("1", -100f, xCord, 0f);
             Wall borderWest = new Wall("1", 0f, xCord, 100f);

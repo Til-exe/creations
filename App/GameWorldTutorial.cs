@@ -220,7 +220,7 @@ namespace Gruppenprojekt.App
             text1.SetColor(1.0f, 0.0f, 0.0f);
             AddHUDObject(text1);
             Console.WriteLine("[CONSOLE] World: GameWorldTutorial");
-            HUDObjectText score = new HUDObjectText("Sammle das Rote Collectable ein!");
+            HUDObjectText score = new HUDObjectText("");
             score.SetPosition(Globals.fensterBreite/2, 20);
             score.SetTextAlignment(TextAlignMode.Center);
             score.Name = "Punkte";

@@ -149,6 +149,8 @@ namespace Gruppenprojekt.App.Classes
             if (Globals.GameEnd && Globals.EndReal)
             {
                 safeScore();
+                GameWorldStartMenu gwsm = new GameWorldStartMenu();
+                Window.SetWorld(gwsm);
             }
             if (counter == Globals.ColCount)
             {

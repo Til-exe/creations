@@ -162,7 +162,9 @@ namespace Gruppenprojekt.App.Classes
                 {
                     Console.WriteLine("skill issue");
                     Player.safeScore();
-                }
+                        GameWorldStartMenu gwsm = new GameWorldStartMenu();
+                        Window.SetWorld(gwsm);
+                    }
             }
             }
         }
