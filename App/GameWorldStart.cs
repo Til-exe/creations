@@ -220,6 +220,10 @@ namespace Gruppenprojekt.App
             leiter.SetModel("EscapeLadder");
             map.SetScale(5f,8f,5f);
             map.SetPositionY(1f);
+            map.SetTextureRepeat(1, 1);
+            leiter.SetScale(5f, 8f, 5f);
+            leiter.SetPositionY(1f);
+            leiter.SetTextureRepeat(1, 1);
             AddGameObject(map); 
             AddGameObject(leiter);
             
