@@ -25,7 +25,7 @@ namespace Gruppenprojekt.App
             Globals.fensterHoehe,                                // Fensterhöhe
             true,                               // VSync?
             PostProcessingQuality.Standard,     // Qualität der PP-Effekte (Standard für iGPUs)
-            WindowMode.Default)                 // Fensterdekorationsmodus
+            WindowMode.BorderlessWindow)                 // Fensterdekorationsmodus
         {
 
             this.Title = "Its Stolen";      
@@ -33,7 +33,7 @@ namespace Gruppenprojekt.App
             GameWorldStart game = new GameWorldStart();
             GameWorldStartMenu StartMenu = new GameWorldStartMenu();
             IntroScreen intro = new IntroScreen();
-            this.SetWorld(game);
+            this.SetWorld(intro);
             Console.WriteLine("[CONSOLE] Game Start");
 
         }

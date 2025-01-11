@@ -75,7 +75,7 @@ namespace Gruppenprojekt.App.Classes
         public static string displayCounter = "";
         public static string choseGamemodeText = "";
 
-        public static int fensterBreite = 1280;                         //gibt die maße des Spiel Fensters an
-        public static int fensterHoehe = 720;
+        public static int fensterBreite = 2560;                         //gibt die maße des Spiel Fensters an
+        public static int fensterHoehe = 1440;
     }
 }
