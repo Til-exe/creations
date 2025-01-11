@@ -214,13 +214,17 @@ namespace Gruppenprojekt.App
             float xCord = 4f;
             float ScaleHoehe = 5f;
 
-            Wall map = new Wall("map", 0, 0, 0);
-            Wall leiter = new Wall("Leiter", 0, 0, 0);
+            Map map = new Map("map", 0, 0, 0);
+            Map leiter = new Map("Leiter", 0, 0, 0);
             map.SetModel("Map");
             leiter.SetModel("EscapeLadder");
             map.SetScale(5f,8f,5f);
             map.SetPositionY(1f);
             map.SetTextureRepeat(1, 1);
+            //map.IsCollisionObject = true;
+            //leiter.IsCollisionObject = true;
+            //map.FlowFieldCost = 255;               <-- die vier sind eigentlich schon in wall.cs?
+            //leiter.FlowFieldCost = 255;
             leiter.SetScale(5f, 8f, 5f);
             leiter.SetPositionY(1f);
             leiter.SetTextureRepeat(1, 1);
