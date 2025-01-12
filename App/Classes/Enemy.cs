@@ -156,10 +156,10 @@ namespace Gruppenprojekt.App.Classes
             List<Intersection> intersections = GetIntersections();
             foreach (Intersection intersection in intersections)            
             {
-                //ZUM AKTIVIEREN UND DEAKTIVIEREN DES TODES | Steht nun in Globals.cs
+                //Aktivieren und Deaktivieren des Todes aka deathreal? | Steht nun in Globals.cs
                 MoveOffset(intersection.MTV);
                 GameObject collider = intersection.Object;
-                if (collider is Player && Globals.deathreal)            //WIRD AUSGEFÜHRT BEI TOT
+                if (collider is Player && Globals.deathreal)            //Wird bei GameOver ausgeführt
                 {
                     Console.WriteLine("skill issue");
                     Player.safeScore();

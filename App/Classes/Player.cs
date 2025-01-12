@@ -13,6 +13,7 @@ using System.IO;
 using Assimp;
 using System;
 using Gruppenprojekt.App.Menus;
+using Assimp.Configs;
 namespace Gruppenprojekt.App.Classes
 {
     public class Player : GameObject
@@ -383,23 +384,23 @@ namespace Gruppenprojekt.App.Classes
                 Console.WriteLine("Hit");
                 enemyspeedcap = true;
                 timestampLastSighting = WorldTime;
-                Globals.EnemySpeed = 0.01f;
+                Globals.EnemySpeed = 0.04f;
                 Console.WriteLine("enemyspeedcap wird auf true gesetzt");
             }
             if (timestampLastSighting + 4f > WorldTime && timestampLastSighting != 0)
             {
-                Globals.EnemySpeed = 0.01f;
-                enemyspeedcap = false;
+                Globals.EnemySpeed = 0.04f;
+                enemyspeedcap = false;                                                      //Hier sind die Geschwindigkeitseinstellungen
             }
             else
             {
                 if (Globals.choseGamemode == "Hard")
                 {
-                    Globals.EnemySpeed = 0.07f;
+                    Globals.EnemySpeed = 0.12f;
                 }
                 else
                 {
-                    Globals.EnemySpeed = 0.04f;
+                    Globals.EnemySpeed = 0.08f;
                 }                
             }
         }

@@ -27,7 +27,7 @@ namespace Gruppenprojekt.App.Classes
         public static int SpawnColByDeath = 1;                          //SpawnColByDeath - gibt an wie viele Orbs bei einsammeln eines Orbes im 'Infinit' modus erstellt werden sollen
         public static float speed = 0.05f;                              //speed - ist die Geschwindingkeit des Spielers        
         public static int ColCount = 10;
-        public static float EnemySpeed;                        //EnemySpeed - ist die Geschwindigkeit des Enemy        
+        public static float EnemySpeed;                                 //EnemySpeed - ist die Geschwindigkeit des Enemy        
         public static float totalScore;                                 //totalScore - ist ein Wert der aus allen eingesammelten Orbs berechnet wird, bei laufendem Programm            
         public static float multiplikator = 1f;                         //totalScore - ist ein Wert der aus allen eingesammelten Orbs berechnet wird, bei laufendem Programm        
         public static float moveCameraX = 0f;                           //moveCameraX        
