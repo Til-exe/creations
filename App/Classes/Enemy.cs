@@ -45,7 +45,7 @@ namespace Gruppenprojekt.App.Classes
             this.SetColor(1f, 0f, 0f);
             this.IsCollisionObject = true;
             this.IsShadowCaster = true;
-            this.SetScale(2, 3, 2);
+            this.SetScale(1, 3, 1);
             this.SetColorEmissive(1, 0, 0, 10);
             p = CurrentWorld.GetGameObjectByName<Player>("Yasin");
         }
