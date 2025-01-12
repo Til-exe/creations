@@ -116,19 +116,20 @@ namespace Gruppenprojekt.App
                 }
 
                 Wall dach = (Wall)GetGameObjectByName("10");
+                Map map = (Map)GetGameObjectByName("map");
+                Map leiter = (Map)GetGameObjectByName("Leiter");
 
                 List<Collectable> list = GetGameObjectsByType<Collectable>();
                 for (int C_count = 0; C_count < list.Count; C_count++)
                 {
                     Map.Add(list[C_count], 0f, new Vector3(0, 1, 0), new Vector3(0, 1, 0), 1f, 0.6f, 3f, "./App/Textures/green.png");
                 }
-                List<Map> wlist = GetGameObjectsByType<Map>();                          //Falls du Panik bekommst Pascal, so war es vorher: List<Wall> wlist = GetGameObjectsByType<Wall>();  :)
-                for (int W_count = 0; W_count < wlist.Count; W_count++)
+                List<Map> wlist = GetGameObjectsByType<Map>();                          //du mulluch hab gefixt, lutsch meine eier
                 {
-                    if (wlist[W_count].Name != "10")
-                    {
-                        Map.Add(wlist[W_count], 0f, new Vector3(0, 0, 1), new Vector3(0, 0, 1), 1f, 0.6f, 0f, "./App/Textures/bl_wall.jpg");
-                    }
+                    
+                        Map.AddAsRealModel(map, 1f, new Vector3(1,0,0), Vector3.Zero, 0f, 1f);
+                        Map.AddAsRealModel(leiter, 1f, Vector3.One, Vector3.Zero, 0f, 1f);
+                    
                 }
                 List<Player> plist = GetGameObjectsByType<Player>();
                 for (int p_count = 0; p_count < plist.Count; p_count++)
