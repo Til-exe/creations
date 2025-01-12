@@ -33,7 +33,7 @@ namespace Gruppenprojekt.App.Classes
         Vector3 normal;
         static Vector3 collectableposlol;
         static bool OverridePathfinding = false;
-        private const int MAXDIRECTIONS = 32;
+        private const int MAXDIRECTIONS = 64;
         private Queue<Vector3> directions = new Queue<Vector3>(MAXDIRECTIONS);
 
 
