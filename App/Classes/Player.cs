@@ -375,7 +375,7 @@ namespace Gruppenprojekt.App.Classes
             //Flashlight slow of enemy
             Vector3 rayStart = this.Center;
             Vector3 rayDirection = this.LookAtVector;
-            List<RayIntersection> results = HelperIntersection.RayTraceObjectsForViewVectorFast(rayStart, rayDirection, this, 10, true, typeof(Enemy), typeof(Wall));
+            List<RayIntersection> results = HelperIntersection.RayTraceObjectsForViewVectorFast(rayStart, rayDirection, this, 10, true, typeof(Enemy), typeof(Wall), typeof(Map));
             if (flashlight == true && results.Count > 0 && results[0].Object is Enemy)
             {
                 RayIntersection raycollision = results[0];

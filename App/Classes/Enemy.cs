@@ -67,7 +67,7 @@ namespace Gruppenprojekt.App.Classes
                 {
                     f.SetPosition(this.Position.X, this.Position.Z);
                 }
-                List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 40f, true, this, typeof(Wall), typeof(Player));
+                List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 40f, true, this, typeof(Wall), typeof(Player), typeof(Map));
                 if (results.Count > 0)
                 {
                     raycollision = results[0];

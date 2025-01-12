@@ -134,7 +134,7 @@ namespace Gruppenprojekt.App
                 {
                     Map.Add(list[C_count], 0f, new Vector3(0, 1, 0), new Vector3(0, 1, 0), 1f, 0.6f, 3f, "./App/Textures/green.png");
                 }
-                List<Wall> wlist = GetGameObjectsByType<Wall>();
+                List<Map> wlist = GetGameObjectsByType<Map>();                          //Falls du Panik bekommst Pascal, so war es vorher: List<Wall> wlist = GetGameObjectsByType<Wall>();  :)
                 for (int W_count = 0; W_count < wlist.Count; W_count++)
                 {
                     if (wlist[W_count].Name != "10")
