@@ -127,7 +127,7 @@ namespace Gruppenprojekt.App
                 List<Map> wlist = GetGameObjectsByType<Map>();                          //du mulluch hab gefixt, lutsch meine eier
                 {
                     
-                        Map.AddAsRealModel(map, 1f, new Vector3(1,0,0), Vector3.Zero, 0f, 1f);
+                        Map.AddAsRealModel(map, 1f, new Vector3(0.4f,0,0), new Vector3(0.4f, 0,0), 0.4f, 1f);
                         Map.AddAsRealModel(leiter, 1f, Vector3.One, Vector3.Zero, 0f, 1f);
                     
                 }
