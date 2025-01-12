@@ -210,6 +210,11 @@ namespace Gruppenprojekt.App
             AddGameObject(map); 
             AddGameObject(leiter);
             createMap();
+
+            Wall w10 = new Wall("10", 25, 7, 20);
+            w10.SetScale(75f, 1f, 100f);
+            w10.SetTextureRepeat(75, 100);
+            AddGameObject(w10);
         }
         public void createMap()
         {

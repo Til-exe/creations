@@ -33,7 +33,7 @@ namespace Gruppenprojekt.App.Classes
         Vector3 normal;
         static Vector3 collectableposlol;
         static bool OverridePathfinding = false;
-        private const int MAXDIRECTIONS = 64;
+        private const int MAXDIRECTIONS = 32;
         private Queue<Vector3> directions = new Queue<Vector3>(MAXDIRECTIONS);
 
 
@@ -42,10 +42,11 @@ namespace Gruppenprojekt.App.Classes
             this.SetModel("KWCube");
             this.Name = name;
             this.SetPosition(x, y, z);
-            this.SetColor(0f, 0f, 0f);
+            this.SetColor(1f, 0f, 0f);
             this.IsCollisionObject = true;
             this.IsShadowCaster = true;
-            this.SetScale(1, 2, 1);
+            this.SetScale(2, 3, 2);
+            this.SetColorEmissive(1, 0, 0, 10);
             p = CurrentWorld.GetGameObjectByName<Player>("Yasin");
         }
 

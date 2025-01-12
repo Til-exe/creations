@@ -353,7 +353,7 @@ namespace Gruppenprojekt.App.Classes
                 GameObject collider = i.Object;
                 if (collider is Enemy)
                 {
-                    //??? Anscheinend haben wir eine komplett neue Funktion fürn Tod???? alter das war doch alles schon da. Geile Truppe
+                    //??? Anscheinend haben wir eine komplett neue Funktion fürn Tod???? alter das war doch alles schon da. Geile Truppe. egal
                 }
                 Vector3 mtv = i.MTV;
                 MoveOffset(mtv);
