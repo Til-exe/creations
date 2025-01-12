@@ -39,16 +39,14 @@ namespace Gruppenprojekt.App.Classes
 
         public Enemy(string name, float x, float y, float z)
         {
-            this.SetModel("Pascal");
+            this.SetModel("KWCube");
             this.Name = name;
             this.SetPosition(x, y, z);
             this.SetColor(0f, 0f, 0f);
             this.IsCollisionObject = true;
             this.IsShadowCaster = true;
             this.SetScale(1, 2, 1);
-
             p = CurrentWorld.GetGameObjectByName<Player>("Yasin");
-            
         }
 
         public override void Act()

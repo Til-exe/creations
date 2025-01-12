@@ -99,24 +99,12 @@ namespace Gruppenprojekt.App
                 if(finalPos < 0.03f )
                 {
                     finalPos = finalPos + 0.0001f;                   
-                    Map.SetCamera(
-                    p.Position.X, p.Position.Y, p.Position.Z,                   // Position der Map-Kamera
-                    ProjectionDirection.NegativeY, // Blickrichtung der Kamera (in diesem Beispiel nach unten)
-                    10 + finalPos,                            // Sichtfeld der Kamera (in z.B. Metern) in der Breite
-                    10 + finalPos,                            // Sichtfeld der Kamera (in z.B. Metern) in der Höhe
-                    1,                             // Naheinstellgrenze (Objekte näher als 1 Einheit werden ignoriert)
-                    100);
+                    Map.SetCamera(p.Position.X, p.Position.Y, p.Position.Z, ProjectionDirection.NegativeY, 10 + finalPos, 10 + finalPos, 1, 100);
                 }                
                
                 else if (finalPos < 80 )
                 {
-                    Map.SetCamera(
-                    p.Position.X, p.Position.Y, p.Position.Z,                   // Position der Map-Kamera
-                    ProjectionDirection.NegativeY, // Blickrichtung der Kamera (in diesem Beispiel nach unten)
-                    10 + finalPos,                            // Sichtfeld der Kamera (in z.B. Metern) in der Breite
-                    10 + finalPos,                            // Sichtfeld der Kamera (in z.B. Metern) in der Höhe
-                    1,                             // Naheinstellgrenze (Objekte näher als 1 Einheit werden ignoriert)
-                    100);
+                    Map.SetCamera(p.Position.X, p.Position.Y, p.Position.Z, ProjectionDirection.NegativeY, 10 + finalPos, 10 + finalPos, 1, 100); 
                     finalPos = finalPos + 0.8f;
                 }
                
@@ -157,11 +145,10 @@ namespace Gruppenprojekt.App
             KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/ScaryScream.wav", false, 0.2f);
 
             PreLoadSounds();
-            FlowField pathfinding = new FlowField(0, 2.5f, 0, 50, 50, 0.5f, 5, FlowFieldMode.Box, typeof(Wall), typeof(Map));
+            FlowField pathfinding = new FlowField(0, 2.5f, 0, 50, 50, 1f, 5, FlowFieldMode.Box, typeof(Wall), typeof(Map));
             pathfinding.IsVisible = false; //FLOWFIELD DEBUG VISIBILTY
             AddFlowField(pathfinding);
 
-            KWEngine.LoadModel("Pascal", "./App/Models/pascalbild.fbx");
             KWEngine.LoadModel("Map", "./App/Models/knezi1.glb");
             KWEngine.LoadModel("EscapeLadder", "./App/Models/knezi_ladderOnly.glb");
 
@@ -191,8 +178,6 @@ namespace Gruppenprojekt.App
             KWEngine.MouseSensitivity = 0.07f;
             MouseCursorGrab();
 
-
-
             LightObject light = new LightObject(LightType.Sun, ShadowQuality.Low);
             light.Name = ("scheiß auf den Namen");
             light.SetNearFar(0.1f, 25f);
@@ -211,8 +196,6 @@ namespace Gruppenprojekt.App
                 Enemy e = new Enemy("huso", 0f, 2, 0);                
                 AddGameObject(e);
             }
-            float xCord = 4f;
-            float ScaleHoehe = 5f;
 
             Map map = new Map("map", 0, 0, 0);
             Map leiter = new Map("Leiter", 0, 0, 0);
@@ -221,106 +204,19 @@ namespace Gruppenprojekt.App
             map.SetScale(5f,8f,5f);
             map.SetPositionY(1f);
             map.SetTextureRepeat(1, 1);
-            //map.IsCollisionObject = true;
-            //leiter.IsCollisionObject = true;
-            //map.FlowFieldCost = 255;               <-- die vier sind eigentlich schon in wall.cs?
-            //leiter.FlowFieldCost = 255;
             leiter.SetScale(5f, 8f, 5f);
             leiter.SetPositionY(1f);
             leiter.SetTextureRepeat(1, 1);
             AddGameObject(map); 
             AddGameObject(leiter);
-            
-
-            /*
-            Wall borderNorth = new Wall("1", 100f, xCord, 0f);
-            Wall borderSouth = new Wall("1", -100f, xCord, 0f);
-            Wall borderWest = new Wall("1", 0f, xCord, 100f);
-            Wall borderEast = new Wall("1", 0f, xCord, -100f);
-            Wall w1 = new Wall("1", 0f, xCord, 5f);
-            Wall w2 = new Wall("2", -5f, xCord, 0f);
-            Wall w3 = new Wall("3", -5f, xCord, 10f);
-            Wall w4 = new Wall("4", 0f, xCord, 15f);
-            Wall w5 = new Wall("5", 10f, xCord, 10f);
-            Wall w6 = new Wall("6", -15f, xCord, 10f);
-            Wall w7 = new Wall("7", -15f, xCord, 0f);
-            Wall w8 = new Wall("8", 10f, xCord, 0f);
-            Wall w9 = new Wall("9", 0f, xCord, -5f);
-            Wall w10 = new Wall("10", -2.5f, xCord+3, 5);
-            
-
-            if (true) 
-            {
-                w4.SetScale(30f, ScaleHoehe, 1f);
-                w5.SetRotation(0, 90, 0);
-                w5.SetScale(10f, ScaleHoehe, 1f);
-                w6.SetRotation(0, 90, 0);
-                w6.SetScale(10f, ScaleHoehe, 1f);
-                w7.SetRotation(0, 90, 0);
-                w7.SetScale(10f, ScaleHoehe, 1f);
-                w8.SetRotation(0, 90, 0);
-                w8.SetScale(10f, ScaleHoehe, 1f);
-                w10.SetScale(25f, 1f, 20f);
-
-                borderNorth.SetRotation(0, 90, 0);
-                borderNorth.SetScale(200, ScaleHoehe, 1);
-                borderNorth.SetTextureRepeat(100f, 5f);
-                borderSouth.SetRotation(0, 90, 0);
-                borderSouth.SetScale(200, ScaleHoehe, 1);
-                borderSouth.SetTextureRepeat(100f, 5f);
-                borderEast.SetScale(200, ScaleHoehe, 1);
-                borderEast.SetTextureRepeat(100f, 5f);
-                borderWest.SetScale(200, ScaleHoehe, 1);
-                borderWest.SetTextureRepeat(100f, 5f);
-            } //Set Attributes            
-
-            if (true) 
-            {
-                AddGameObject(borderWest);
-                AddGameObject(borderEast);
-                AddGameObject(borderNorth);
-                AddGameObject(borderSouth);
-                AddGameObject(w1);
-                AddGameObject(w2);
-                AddGameObject(w3);
-                AddGameObject(w4);
-                AddGameObject(w5);
-                AddGameObject(w6);
-                AddGameObject(w7);
-                AddGameObject(w8);
-                AddGameObject(w9);
-                AddGameObject(w10);
-            } //Add Game Objekts
-            */
             createMap();
         }
         public void createMap()
         {
             Map.SetCamera(
-                 p.Position.X, p.Position.Y, p.Position.Z,                   // Position der Map-Kamera
-                 ProjectionDirection.NegativeY, // Blickrichtung der Kamera (in diesem Beispiel nach unten)
-                 10,                            // Sichtfeld der Kamera (in z.B. Metern) in der Breite
-                 10,                            // Sichtfeld der Kamera (in z.B. Metern) in der Höhe
-                 1,                             // Naheinstellgrenze (Objekte näher als 1 Einheit werden ignoriert)
-                 100);                          // Ferneinstellgrenze (Weiter als 100 Einheiten entfernte Objekte werden ignoriert)
-
-            // Position der Map auf dem Bildschirm konfigurieren:
-            Map.SetViewport(
-                Window.Width -Globals.fensterBreite/2,        // X-Position der Mitte der Map auf dem Bildschirm
-                Window.Height - Globals.fensterHoehe/2,       // Y-Position der Mitte der Map auf dem Bildschirm
-                Globals.fensterBreite,                           // Breite der Map auf dem Bildschirm
-               Globals.fensterHoehe,                           // Höhe der Map auf dem Bildschirm
-               false);                         // Map soll als Kreis dargestellt werden
-
-                        // Optional: Hintergrund der Map konfigurieren
-            Map.SetBackground(
-                "./App/Textures/bgmap2.png",       // Hintergrundtextur
-                1000,                           // Wie viele Einheiten der Spielwelt deckt der Hintergrund ab? (Breite)
-                1000,                           // Wie viele Einheiten der Spielwelt deckt der Hintergrund ab? (Höhe)
-                1f,                          // Sichtbarkeit 0 bis 1
-                50.0f,                          // Texturwiederholung  X
-                50.0f);                         // Texturwiederholung Y            
-            
+            p.Position.X, p.Position.Y, p.Position.Z, ProjectionDirection.NegativeY, 10, 10, 1, 100);
+            Map.SetViewport(Window.Width -Globals.fensterBreite/2, Window.Height - Globals.fensterHoehe/2, Globals.fensterBreite, Globals.fensterHoehe, false);
+            Map.SetBackground("./App/Textures/bgmap2.png", 1000, 1000, 1f, 50.0f, 50.0f);                                   
         }
         public static void PreLoadSounds() {
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/shortsound.wav");
@@ -334,9 +230,6 @@ namespace Gruppenprojekt.App
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/click.wav");
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/click1.wav");
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/basicClick.wav");
-
-
-
         }
     }
 }   

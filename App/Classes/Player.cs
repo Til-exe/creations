@@ -353,7 +353,7 @@ namespace Gruppenprojekt.App.Classes
                 GameObject collider = i.Object;
                 if (collider is Enemy)
                 {
-                    //spieler kollidiert mit Enemy
+                    //??? Anscheinend haben wir eine komplett neue Funktion fürn Tod???? alter das war doch alles schon da. Geile Truppe
                 }
                 Vector3 mtv = i.MTV;
                 MoveOffset(mtv);
@@ -473,8 +473,6 @@ namespace Gruppenprojekt.App.Classes
                 string appendText = Convert.ToString(Globals.Score) + "\n";
                 File.AppendAllText(Globals.timePath, Globals.displayCounter);
                 File.AppendAllText(Globals.path, appendText);
-            
-            
         }
     }
 }
