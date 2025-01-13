@@ -39,16 +39,15 @@ namespace Gruppenprojekt.App.Classes
 
         public Enemy(string name, float x, float y, float z)
         {
-            this.SetModel("Pascal");
+            this.SetModel("KWCube");
             this.Name = name;
             this.SetPosition(x, y, z);
-            this.SetColor(0f, 0f, 0f);
+            this.SetColor(1f, 0f, 0f);
             this.IsCollisionObject = true;
             this.IsShadowCaster = true;
-            this.SetScale(1, 2, 1);
-
+            this.SetScale(1, 3, 1);
+            this.SetColorEmissive(1, 0, 0, 10);
             p = CurrentWorld.GetGameObjectByName<Player>("Yasin");
-            
         }
 
         public override void Act()
@@ -67,7 +66,7 @@ namespace Gruppenprojekt.App.Classes
                 {
                     f.SetPosition(this.Position.X, this.Position.Z);
                 }
-                List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 40f, true, this, typeof(Wall), typeof(Player));
+                List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 40f, true, this, typeof(Wall), typeof(Player), typeof(Map));
                 if (results.Count > 0)
                 {
                     raycollision = results[0];
@@ -157,10 +156,10 @@ namespace Gruppenprojekt.App.Classes
             List<Intersection> intersections = GetIntersections();
             foreach (Intersection intersection in intersections)            
             {
-                //ZUM AKTIVIEREN UND DEAKTIVIEREN DES TODES | Steht nun in Globals.cs
+                //Aktivieren und Deaktivieren des Todes aka deathreal? | Steht nun in Globals.cs
                 MoveOffset(intersection.MTV);
                 GameObject collider = intersection.Object;
-                if (collider is Player && Globals.deathreal)            //WIRD AUSGEFÜHRT BEI TOT
+                if (collider is Player && Globals.deathreal)            //Wird bei GameOver ausgeführt
                 {
                     Console.WriteLine("skill issue");
                     Player.safeScore();

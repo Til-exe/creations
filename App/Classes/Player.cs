@@ -13,6 +13,7 @@ using System.IO;
 using Assimp;
 using System;
 using Gruppenprojekt.App.Menus;
+using Assimp.Configs;
 namespace Gruppenprojekt.App.Classes
 {
     public class Player : GameObject
@@ -353,7 +354,7 @@ namespace Gruppenprojekt.App.Classes
                 GameObject collider = i.Object;
                 if (collider is Enemy)
                 {
-                    //spieler kollidiert mit Enemy
+                    //??? Anscheinend haben wir eine komplett neue Funktion fürn Tod???? alter das war doch alles schon da. Geile Truppe. egal
                 }
                 Vector3 mtv = i.MTV;
                 MoveOffset(mtv);
@@ -375,7 +376,7 @@ namespace Gruppenprojekt.App.Classes
             //Flashlight slow of enemy
             Vector3 rayStart = this.Center;
             Vector3 rayDirection = this.LookAtVector;
-            List<RayIntersection> results = HelperIntersection.RayTraceObjectsForViewVectorFast(rayStart, rayDirection, this, 10, true, typeof(Enemy), typeof(Wall));
+            List<RayIntersection> results = HelperIntersection.RayTraceObjectsForViewVectorFast(rayStart, rayDirection, this, 10, true, typeof(Enemy), typeof(Wall), typeof(Map));
             if (flashlight == true && results.Count > 0 && results[0].Object is Enemy)
             {
                 RayIntersection raycollision = results[0];
@@ -383,23 +384,23 @@ namespace Gruppenprojekt.App.Classes
                 Console.WriteLine("Hit");
                 enemyspeedcap = true;
                 timestampLastSighting = WorldTime;
-                Globals.EnemySpeed = 0.01f;
+                Globals.EnemySpeed = 0.04f;
                 Console.WriteLine("enemyspeedcap wird auf true gesetzt");
             }
             if (timestampLastSighting + 4f > WorldTime && timestampLastSighting != 0)
             {
-                Globals.EnemySpeed = 0.01f;
-                enemyspeedcap = false;
+                Globals.EnemySpeed = 0.04f;
+                enemyspeedcap = false;                                                      //Hier sind die Geschwindigkeitseinstellungen
             }
             else
             {
                 if (Globals.choseGamemode == "Hard")
                 {
-                    Globals.EnemySpeed = 0.07f;
+                    Globals.EnemySpeed = 0.12f;
                 }
                 else
                 {
-                    Globals.EnemySpeed = 0.04f;
+                    Globals.EnemySpeed = 0.08f;
                 }                
             }
         }
@@ -473,8 +474,6 @@ namespace Gruppenprojekt.App.Classes
                 string appendText = Convert.ToString(Globals.Score) + "\n";
                 File.AppendAllText(Globals.timePath, Globals.displayCounter);
                 File.AppendAllText(Globals.path, appendText);
-            
-            
         }
     }
 }
