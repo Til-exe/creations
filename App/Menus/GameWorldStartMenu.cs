@@ -351,23 +351,17 @@ namespace Gruppenprojekt.App.Menus
 
             //Neu
             int posSX = 250;
-            int posSY = 0;
+            int pusSY = 0;
             List<HUDObjectText> scoreboardIndex = new List<HUDObjectText>();
-            for(int i = 0; i < 10; i++)
-            {
-
-                if (i == 9)
-                {
-                    posSY = 23;
-                }
-
+            for(int i = 0; i < 10; i++) {
+                if (i == 9) {
+                    pusSY = 23;}
                 HUDObjectText s = new HUDObjectText(i + "#");                   
-                s.SetPosition(Globals.fensterBreite / 2 + Globals.fensterBreite / 6 - posSY, posSX);
+                s.SetPosition(Globals.fensterBreite / 2 + Globals.fensterBreite / 6 - pusSY, posSX);
                 s.SetColor(1.0f, 0.0f, 0.0f);
                 posSX += 40;
                 scoreboardIndex.Add(s);
-            }                       
-
+            }
             if(Globals.TutorialComplete) 
             {
                 AddHUDObject(sb);
