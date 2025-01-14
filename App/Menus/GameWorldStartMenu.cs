@@ -20,6 +20,11 @@ namespace Gruppenprojekt.App.Menus
         bool startbool = false;
         float counter = 0;
         private float timestampLastWalkSound = 0;
+        bool isAPressed = false;
+        bool isDPressed = false;
+        bool isMPressed = false;
+        bool isIressed = false;
+        bool isNPressed = false;
 
         bool startsound = true;
         public override void Act()
@@ -187,29 +192,60 @@ namespace Gruppenprojekt.App.Menus
                     Window.SetWorld(levelMenu);
                 }
             }
-
-            if (Keyboard.IsKeyPressed(Keys.W))
+            
+            
+            
+            
+            
+            if (Keyboard.IsKeyPressed(Keys.A) || isAPressed)
             {
-                Globals.DisplayStartGameButton = true;
-                Globals.DisplayOptionButton = true;
-                Globals.DisplayLanguageButton = true;
-                Globals.DisplayCreditsButton = true;
-                Globals.DisplayScoreboardButton = true;
-                Globals.DisplayLeaveButton = true;
-                RemoveHUDObject(start);
-                RemoveHUDObject(option);
-                RemoveHUDObject(leave);
-                RemoveHUDObject(credits);
-                RemoveHUDObject(language);
-                RemoveHUDObject(AdminSB);
-                Globals.posWert = 10;
-                displayClickableButtons();
-            }                   //Display all Sections Button
+                isAPressed = true;
+                if (Keyboard.IsKeyPressed(Keys.D) && isAPressed || isDPressed)
+                {
+                    isDPressed = true;
+                    if (Keyboard.IsKeyPressed(Keys.M) && isDPressed || isMPressed)
+                    {
+                        isMPressed = true;
+                        if (Keyboard.IsKeyPressed(Keys.I) && isMPressed || isIressed)
+                        {
+                            isIressed = true;
+                            if (Keyboard.IsKeyPressed(Keys.N) && isIressed)
+                            {
+                                
+                                Globals.DisplayStartGameButton = true;
+                                Globals.DisplayOptionButton = true;
+                                Globals.DisplayLanguageButton = true;
+                                Globals.DisplayCreditsButton = true;
+                                Globals.DisplayScoreboardButton = true;
+                                Globals.DisplayLeaveButton = true;
+                                RemoveHUDObject(start);
+                                RemoveHUDObject(option);
+                                RemoveHUDObject(leave);
+                                RemoveHUDObject(credits);
+                                RemoveHUDObject(language);
+                                RemoveHUDObject(AdminSB);
+                                Globals.posWert = 10;
+                                displayClickableButtons();
+
+
+                            }
+
+
+                        }
+
+
+                    }
+
+                }
+                
+
+            }
+                          //Display all Sections Button
             if (Keyboard.IsKeyPressed(Keys.Enter))
             {
                 startGame();
             }                            
-            if (Keyboard.IsKeyPressed(Keys.Up))
+            if (Keyboard.IsKeyPressed(Keys.Up) && Globals.debugMode)
             {
                 Globals.Experience++;
             }
@@ -312,6 +348,35 @@ namespace Gruppenprojekt.App.Menus
             sb.SetPosition(Globals.fensterBreite / 2 + Globals.fensterBreite / 6, 200f);
             sb.SetColor(1.0f, 0.0f, 0.0f);
 
+
+            //Neu
+            int posSX = 250;
+            int posSY = 0;
+            List<HUDObjectText> scoreboardIndex = new List<HUDObjectText>();
+            for(int i = 0; i < 10; i++)
+            {
+
+                if (i == 9)
+                {
+                    posSY = 23;
+                }
+
+                HUDObjectText s = new HUDObjectText(i + "#");                   
+                s.SetPosition(Globals.fensterBreite / 2 + Globals.fensterBreite / 6 - posSY, posSX);
+                s.SetColor(1.0f, 0.0f, 0.0f);
+                posSX += 40;
+                scoreboardIndex.Add(s);
+            }                       
+
+            if(Globals.TutorialComplete) 
+            {
+                AddHUDObject(sb);
+                for (int i = 0; i < 10; i++)
+                {
+                    AddHUDObject(scoreboardIndex[i]);
+                }
+            }
+            /* Alt
             HUDObjectText s1 = new HUDObjectText("1#");
             s1.SetPosition(Globals.fensterBreite / 2 + Globals.fensterBreite / 6, 250f);
             s1.SetColor(1.0f, 0.0f, 0.0f);
@@ -350,10 +415,10 @@ namespace Gruppenprojekt.App.Menus
 
             HUDObjectText s10 = new HUDObjectText("1O#");
             s10.SetPosition(Globals.fensterBreite / 2 + Globals.fensterBreite / 6 - 23, 610f);
-            s10.SetColor(1.0f, 0.0f, 0.0f); 
-            
+            s10.SetColor(1.0f, 0.0f, 0.0f);
 
-            if(Globals.TutorialComplete) 
+
+            if (Globals.TutorialComplete)
             {
                 AddHUDObject(sb);
                 AddHUDObject(s1);
@@ -367,10 +432,8 @@ namespace Gruppenprojekt.App.Menus
                 AddHUDObject(s8);
                 AddHUDObject(s9);
                 AddHUDObject(s10);
-
+            }*/
                 
-
-            }
             AddLightObject(light);
             AddGameObject(c1);
             AddGameObject(w1);
@@ -423,65 +486,15 @@ namespace Gruppenprojekt.App.Menus
                 int time = i < allTime.Length ? allTime[i] : 0; // Falls Zeit fehlt, Standardwert 0
                 res.Add(new Result() { Score = allNumbers[i], Time = time });
             }
-
             // Sortieren nach Score
             res.Sort((a, b) => a.Score.CompareTo(b.Score));
 
-            try
-            {
-                s1.SetText(displayValues(1, res));
-            }
-            catch
-            {//                                                                                                                                                                                                                                                                                    Ich hab hier drin gearbeitet und nun hat mir Pia erzählt das als ich vor ein paar monaten eine Freundin von ihr geil fand, sie ja nur nichts gemacht hat weil ich ihr bruder bin und wäre sie mit mir alleien gewesen sie nichts hätte garantieren können :O              
-                s1.SetText("1# 0");
-            }
-            try
-            {
-                s2.SetText(displayValues(2, res));
-                //                                                                                                                                                                                                                              Ich hab hier drin gearbeitet und nun hat mir Pia erzählt das als ich vor ein paar monaten eine Freundin von ihr geil fand, sie ja nur nichts gemacht hat weil ich ihr bruder bin und wäre sie mit mir alleien gewesen sie nichts hätte garantieren können :O              
-            }
-            catch { s2.SetText("2# 0"); }
-            try//                                                                                                                                                                                                                                                                                                                                 Schlampen-mia,Amilia,Mia 2,Jovi,Jule,Mia Magda,Pia,Chiara,Isabella,Hannah,Celine + + + Ronja, Hako, Julia, Diana, Linette, Livia, Susanne
-            {
-                s3.SetText(displayValues(3, res));
-            }
-            catch { s3.SetText("3# 0"); }
-            try
-            {
-                s4.SetText(displayValues(4, res));
-            }
-            catch { s4.SetText("4# 0"); }
-            try
-            {
-                s5.SetText(displayValues(5, res));
-            }
-            catch { s5.SetText("5# 0"); }
-            try
-            {
-                s6.SetText(displayValues(6, res));
-            }
-            catch { s6.SetText("6# 0"); }
-            try
-            {
-                s7.SetText(displayValues(7, res));
-            }
-            catch { s7.SetText("7# 0"); }
-            try
-            {
-                s8.SetText(displayValues(8, res));
-            }
-            catch { s8.SetText("8# 0"); }
-            try
-            {
-                s9.SetText(displayValues(9, res));
-            }
-            catch { s9.SetText("9# 0"); }
-            try
-            {
-                s10.SetText(displayValues(10, res));
-            }
-            catch { s10.SetText("10# 0"); }
             
+            for (int i = 0; i < 10; i++) {
+                try { scoreboardIndex[i].SetText(displayValues(i + 1, res)); }                
+                catch { scoreboardIndex[i].SetText(i + 1 + "# 0"); }                
+            }
+           
         }
         public void displayClickableButtons()
         {
