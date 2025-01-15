@@ -62,35 +62,23 @@ namespace Gruppenprojekt.App.Classes
                 Collectable c = new Collectable("New", rnd.Next(-100, 100), rnd.Next(1, 5), rnd.Next(-100, 100));                
                 CurrentWorld.AddGameObject(c);                
             }
-                CurrentWorld.AddExplosionObject(ex);
+            CurrentWorld.AddExplosionObject(ex);
 
-                CurrentWorld.RemoveGameObject(this);
+            CurrentWorld.RemoveGameObject(this);
             CurrentWorld.RemoveLightObject(l);
-        }        
+        }
         public override void Act()
         {
             if (Globals.gameRunning)
             {
-                this.SetRotation(this.Rotation.X + 0.01f,0,0);
-                if (movingUp && this.Position.Y < 4)
-                {
-                    if (this.Position.Y > 4) { }
-                    this.MoveOffset(0, ColMovementSpeed, 0) ;
-                    l.MoveOffset(0, ColMovementSpeed, 0);
-                }
-                if (this.Position.Y >= 4)
-                {
-                    movingUp = false;
-                }
-                if (movingUp == false && this.Position.Y > 2)
-                {
-                    this.MoveOffset(0, -ColMovementSpeed, 0);
-                    l.MoveOffset(0, -ColMovementSpeed, 0);
-                }
-                if (this.Position.Y <= 2)
-                {
-                    movingUp = true;
-                }
+                this.SetRotation(this.Rotation.X + 0.01f, 0, 0);
+                float time = CurrentWorld.WorldTime; 
+                float amplitude = 1f; 
+                float frequency = 2f;
+                float sinusValue = (float)Math.Sin(frequency * time); 
+                float newY = 2f + amplitude * sinusValue;        
+                this.MoveOffset(0, 1f +newY - this.Position.Y, 0);  
+                l.MoveOffset(0, 1f + newY - l.Position.Y, 0);
             }
         }
     }

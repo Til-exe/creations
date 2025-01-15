@@ -44,7 +44,6 @@ namespace Gruppenprojekt.App.Classes
         }
         public Player(string name, float x, float y, float z)
         {
-
             sek = 0;
             removedTime = 0;
             Globals.gameRunning = true;
@@ -52,8 +51,7 @@ namespace Gruppenprojekt.App.Classes
             this.SetPosition(x, y, z);
             this.SetColor(1, 0, 0);
             this.SetScale(1, 2, 1);
-            this.IsCollisionObject = true;
-            
+            this.IsCollisionObject = true;            
             
             //Taschenlampe
             _flashlight = new LightObject(LightType.Directional, ShadowQuality.Low);
@@ -74,7 +72,6 @@ namespace Gruppenprojekt.App.Classes
             colCount.SetScale(30f);
             colCount.SetOpacity(0);
             CurrentWorld.AddHUDObject(colCount);
-
 
             mtitle.Name = "PAUSE";                       
             mtitle.SetPosition(Globals.fensterBreite/2, 100f);   
@@ -460,8 +457,7 @@ namespace Gruppenprojekt.App.Classes
         {
             if (sek + (min * 60) >= 180)
             {
-                Globals.Experience += 5;
-                
+                Globals.Experience += 5;                
             }
             else if (sek + (min * 60) >= 120)
             {
@@ -476,11 +472,14 @@ namespace Gruppenprojekt.App.Classes
             {
                 Globals.Experience += 1;
             }
-
             Globals.displayCounter = Convert.ToString(CurrentWorld.WorldTime) + "\n";
-                string appendText = Convert.ToString(Globals.Score) + "\n";
-                File.AppendAllText(Globals.timePath, Globals.displayCounter);
-                File.AppendAllText(Globals.path, appendText);
+            string appendText = Convert.ToString(Globals.Score) + "\n";
+            File.AppendAllText(Globals.timePath, Globals.displayCounter);
+            File.AppendAllText(Globals.path, appendText);            
+            
+            
+            
+            
         }
     }
 }

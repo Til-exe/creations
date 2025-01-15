@@ -12,6 +12,8 @@ namespace Gruppenprojekt.App
 {
     public class GameWorldStart : World
     {
+        bool startbool = false;
+        float counter = 0.7f;          
         private Player p;
         float finalPos = 0f;
         private float _HUDLastUpdate = 0;
@@ -50,6 +52,21 @@ namespace Gruppenprojekt.App
         }
         public override void Act()
         {
+            HUDObjectImage bbg = GetHUDObjectImageByName("bbg");
+            if (startbool)
+            {
+                bbg.SetZIndex(0);
+                if (counter != -1f)
+                {
+                    counter -= 0.005f;
+                    bbg.SetOpacity(counter);
+                }
+                if (counter <= 0.1f)
+                {
+                    RemoveHUDObject(bbg);
+                    
+                }
+            }
             if (Keyboard.IsKeyPressed(Keys.T) && Globals.debugMode)
             {
                 FlowField f = GetFlowField();
@@ -142,6 +159,17 @@ namespace Gruppenprojekt.App
         }
         public override void Prepare()
         {
+
+            HUDObjectImage bbg = new HUDObjectImage("./App/Textures/blackscreen.png");
+            bbg.SetScale(Globals.fensterBreite, Globals.fensterHoehe);
+            bbg.Name = "bbg";
+            bbg.SetColor(0, 0, 0);
+            bbg.CenterOnScreen();
+            bbg.SetZIndex(0);
+            bbg.SetOpacity(1f);
+            AddHUDObject(bbg);
+
+
             Console.WriteLine("[CONSOLE] World: GameWorldStart");
             KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/ScaryScream.wav", false, 0.2f);
 

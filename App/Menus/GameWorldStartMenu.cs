@@ -13,12 +13,13 @@ using System.IO;
 using KWEngine3;
 using System;
 using Assimp;
+using OpenTK.Windowing.Common.Input;
 namespace Gruppenprojekt.App.Menus
 {
     public class GameWorldStartMenu : World
     {
         bool startbool = false;
-        float counter = 0;
+        float counter = 0.7f;
         private float timestampLastWalkSound = 0;
         bool isAPressed = false;
         bool isDPressed = false;
@@ -28,8 +29,7 @@ namespace Gruppenprojekt.App.Menus
 
         bool startsound = true;
         public override void Act()
-        {
-            
+        {            
             HUDObjectText start = GetHUDObjectTextByName("start");
             HUDObjectText option = GetHUDObjectTextByName("option");
             HUDObjectText leave = GetHUDObjectTextByName("leave");
@@ -40,41 +40,34 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectImage bbg = GetHUDObjectImageByName("bbg");
             HUDObjectText LevelScore = GetHUDObjectTextByName("LevelScore");
             HUDObjectText LevelNum = GetHUDObjectTextByName("LevelNum");
-            HUDObjectImage bbbg = GetHUDObjectImageByName("bbbg");
-            bbbg.SetZIndex(0);
-
-            if (startbool)
-            {
-                if (counter != -1f)
-                {
-                    counter += 0.002f;
-                    bbbg.SetOpacity(counter);
+            if (startbool) {
+                bbg.SetZIndex(0);
+                if (counter != -1f) {
+                    counter += 0.0005f;
+                    if(counter > 0.75) {                        
+                        bbg.SetOpacity(counter);                        
+                    }
                 }
-                if(counter >= 1f)
-                {                    
-                    startGame();
-                    
-                }
-
-                
+                if(counter >= 1f) {                    
+                    startGame();                    
+                }                
             }
-            Console.WriteLine(WorldTime - timestampLastWalkSound);
-            if(startsound) 
-            {
+
+
+            if(startsound) {
+                Audio.StopAllSound();
                 KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/ScaryMenuMusic1.wav", false, 0.1f);
                 startsound = false;            
             }
 
-            if (WorldTime - timestampLastWalkSound > 36f)
-            {
+            if (WorldTime - timestampLastWalkSound > 36f) {
                 KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/ScaryMenuMusic1.wav", false, 0.1f);
                 timestampLastWalkSound = WorldTime;
             }
 
-
             if (start != null)
             {
-                if (start.IsMouseCursorOnMe() == true)
+                if (start.IsMouseCursorOnMe() == true && !startbool)
                 {
                     start.SetColor(1, 1, 1);
                     start.SetColorEmissiveIntensity(0.5f);
@@ -84,7 +77,7 @@ namespace Gruppenprojekt.App.Menus
                     start.SetColor(1, 0, 0);
                     start.SetColorEmissiveIntensity(0.0f);
                 }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && start.IsMouseCursorOnMe() == true)
+                if (Mouse.IsButtonPressed(MouseButton.Left) && start.IsMouseCursorOnMe() == true && !startbool)
                 {
                     KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
                     startbool = true;
@@ -93,7 +86,7 @@ namespace Gruppenprojekt.App.Menus
             }
             if (option != null)
             {
-                if (option.IsMouseCursorOnMe() == true)
+                if (option.IsMouseCursorOnMe() == true && !startbool)
                 {
                     option.SetColorEmissiveIntensity(1.5f);
                 }
@@ -101,7 +94,7 @@ namespace Gruppenprojekt.App.Menus
                 {
                     option.SetColorEmissiveIntensity(0.0f);
                 }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && option.IsMouseCursorOnMe() == true)
+                if (Mouse.IsButtonPressed(MouseButton.Left) && option.IsMouseCursorOnMe() == true && !startbool)
                 {
                     KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
                     GwStartMenuOption GwSmOption = new GwStartMenuOption();
@@ -110,7 +103,7 @@ namespace Gruppenprojekt.App.Menus
             }
             if (leave != null)
             {
-                if (leave.IsMouseCursorOnMe() == true)
+                if (leave.IsMouseCursorOnMe() == true && !startbool)
                 {
                     leave.SetColorEmissiveIntensity(1.5f);
                 }
@@ -118,7 +111,7 @@ namespace Gruppenprojekt.App.Menus
                 {
                     leave.SetColorEmissiveIntensity(0.0f);
                 }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && leave.IsMouseCursorOnMe() == true)
+                if (Mouse.IsButtonPressed(MouseButton.Left) && leave.IsMouseCursorOnMe() == true && !startbool)
                 {
                     KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
                     Window.Close();
@@ -126,7 +119,7 @@ namespace Gruppenprojekt.App.Menus
             }
             if (credits != null)
             {
-                if (credits.IsMouseCursorOnMe() == true)
+                if (credits.IsMouseCursorOnMe() == true && !startbool)
                 {
                     credits.SetColorEmissiveIntensity(1.5f);
                 }
@@ -134,7 +127,7 @@ namespace Gruppenprojekt.App.Menus
                 {
                     credits.SetColorEmissiveIntensity(0.0f);
                 }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && credits.IsMouseCursorOnMe() == true)
+                if (Mouse.IsButtonPressed(MouseButton.Left) && credits.IsMouseCursorOnMe() == true && !startbool)
                 {
                     KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
                     CreditsMenu creditsMenu = new CreditsMenu();
@@ -143,7 +136,7 @@ namespace Gruppenprojekt.App.Menus
             }
             if (language != null)
             {
-                if (language.IsMouseCursorOnMe() == true)
+                if (language.IsMouseCursorOnMe() == true && !startbool)
                 {
                     language.SetColorEmissiveIntensity(1.5f);
                 }
@@ -151,7 +144,7 @@ namespace Gruppenprojekt.App.Menus
                 {
                     language.SetColorEmissiveIntensity(0.0f);
                 }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && language.IsMouseCursorOnMe() == true)
+                if (Mouse.IsButtonPressed(MouseButton.Left) && language.IsMouseCursorOnMe() == true && !startbool)
                 {
                     KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
                     languageMenu languageMenu = new languageMenu();
@@ -160,7 +153,7 @@ namespace Gruppenprojekt.App.Menus
             }
             if (AdminSB != null)
             {
-                if (AdminSB.IsMouseCursorOnMe() == true)
+                if (AdminSB.IsMouseCursorOnMe() == true && !startbool)
                 {
                     AdminSB.SetColorEmissiveIntensity(1.5f);
                 }
@@ -168,7 +161,7 @@ namespace Gruppenprojekt.App.Menus
                 {
                     AdminSB.SetColorEmissiveIntensity(0.0f);
                 }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && AdminSB.IsMouseCursorOnMe() == true)
+                if (Mouse.IsButtonPressed(MouseButton.Left) && AdminSB.IsMouseCursorOnMe() == true && !startbool)
                 {
                     KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
                     AdminMenu scoreboardMenu = new AdminMenu();
@@ -177,7 +170,7 @@ namespace Gruppenprojekt.App.Menus
             }
             if (LevelB != null)
             {
-                if (LevelB.IsMouseCursorOnMe() == true)
+                if (LevelB.IsMouseCursorOnMe() == true && !startbool)
                 {
                     LevelB.SetColorEmissiveIntensity(1.5f);
                 }
@@ -185,71 +178,62 @@ namespace Gruppenprojekt.App.Menus
                 {
                     LevelB.SetColorEmissiveIntensity(0.0f);
                 }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && LevelB.IsMouseCursorOnMe() == true)
+                if (Mouse.IsButtonPressed(MouseButton.Left) && LevelB.IsMouseCursorOnMe() == true && !startbool)
                 {
                     KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
                     LevelMenu levelMenu = new LevelMenu();  
                     Window.SetWorld(levelMenu);
                 }
             }
-            
-            
-            
-            
-            
+
             if (Keyboard.IsKeyPressed(Keys.A) || isAPressed)
             {
                 isAPressed = true;
-                if (Keyboard.IsKeyPressed(Keys.D) && isAPressed || isDPressed)
+
+                if (Keyboard.IsKeyPressed(Keys.D) || isDPressed)
                 {
                     isDPressed = true;
-                    if (Keyboard.IsKeyPressed(Keys.M) && isDPressed || isMPressed)
+
+                    if (Keyboard.IsKeyPressed(Keys.M) || isMPressed)
                     {
                         isMPressed = true;
-                        if (Keyboard.IsKeyPressed(Keys.I) && isMPressed || isIressed)
+
+                        if (Keyboard.IsKeyPressed(Keys.I) || isIressed)
                         {
                             isIressed = true;
-                            if (Keyboard.IsKeyPressed(Keys.N) && isIressed)
+
+                            if (Keyboard.IsKeyPressed(Keys.N))
                             {
-                                
+                                // Alle Buttons sichtbar machen
                                 Globals.DisplayStartGameButton = true;
                                 Globals.DisplayOptionButton = true;
                                 Globals.DisplayLanguageButton = true;
                                 Globals.DisplayCreditsButton = true;
                                 Globals.DisplayScoreboardButton = true;
                                 Globals.DisplayLeaveButton = true;
+
+                                // Alte HUD-Objekte entfernen
                                 RemoveHUDObject(start);
                                 RemoveHUDObject(option);
                                 RemoveHUDObject(leave);
                                 RemoveHUDObject(credits);
                                 RemoveHUDObject(language);
                                 RemoveHUDObject(AdminSB);
+
+                                // Position setzen und Buttons anzeigen
                                 Globals.posWert = 10;
                                 displayClickableButtons();
-
-
                             }
-
-
                         }
-
-
                     }
-
                 }
-                
-
             }
-                          //Display all Sections Button
+
             if (Keyboard.IsKeyPressed(Keys.Enter))
             {
                 startGame();
             }                            
-            if (Keyboard.IsKeyPressed(Keys.Up) && Globals.debugMode)
-            {
-                Globals.Experience++;
-            }
-
+            //if (Keyboard.IsKeyPressed(Keys.Up) && Globals.debugMode){Globals.Experience++;}
             SetCameraPosition(Globals.moveCameraX, 4, Globals.moveCameraY);
             SetCameraTarget(CameraPosition.X, CameraPosition.Y + 2, CameraPosition.Z);
 
@@ -260,8 +244,7 @@ namespace Gruppenprojekt.App.Menus
             if (Globals.moveCameraMultiplier == 4) { Globals.moveCameraX += 0.08f; }
             if (Globals.moveCameraMultiplier == 0.5) { Globals.moveCameraX += 0.01f; }
             if (Globals.moveCameraMultiplier == 0.25) { Globals.moveCameraX += 0.005f; }
-            if (Globals.bgAnimation) { bbg.SetOpacity(0.75f); } else { bbg.SetOpacity(1f); }
-
+            
             if (Globals.Experience > 10) { Globals.Experience = 0; Globals.Level++; }
             if (Globals.Level == 6)
             {
@@ -274,8 +257,7 @@ namespace Gruppenprojekt.App.Menus
             {
                 LevelNum.SetText("level #" + Globals.Level);
                 LevelScore.SetText(ErstellePunktestand(Globals.Experience, 11));
-            }
-            
+            }            
         }
         public override void Prepare()
         {
@@ -289,12 +271,11 @@ namespace Gruppenprojekt.App.Menus
             LightObject light = new LightObject(LightType.Sun, ShadowQuality.Low);
             Collectable c1 = new Collectable("1", 100f, 2.5f, 2.5f);                      
             HUDObjectImage bbg = new HUDObjectImage("./App/Textures/blackscreen.png");
-            HUDObjectImage bbbg = new HUDObjectImage("./App/Textures/blackscreen.png");
             HUDObjectText hSubtitle = new HUDObjectText("By PLUG-INC");
             HUDObjectText hTitle = new HUDObjectText("ITS STOLEN");
-            
 
-            
+            if (Globals.bgAnimation) { bbg.SetOpacity(0.75f); } else { bbg.SetOpacity(1f); }
+
             Globals.posWert = 10;
             Globals.posYWert = 100;           
 
@@ -316,7 +297,8 @@ namespace Gruppenprojekt.App.Menus
             
             light.Name = "light";
             light.SetNearFar(10000f, 2500f);
-            light.SetPosition(1f, 1f, 1);
+            light.SetPosition(1f, 1f, 1);           
+
 
             bbg.SetScale(Globals.fensterBreite, Globals.fensterHoehe);
             bbg.Name = "bbg";
@@ -324,13 +306,6 @@ namespace Gruppenprojekt.App.Menus
             bbg.CenterOnScreen();
             bbg.SetZIndex(-100);
             bbg.SetOpacity(0.75f);
-
-            bbbg.SetScale(Globals.fensterBreite, Globals.fensterHoehe);
-            bbbg.Name = "bbbg";
-            bbbg.SetColor(0, 0, 0);
-            bbbg.CenterOnScreen();
-            bbbg.SetZIndex(-100);
-            bbbg.SetOpacity(0.0f);
 
             hSubtitle.SetPosition(Globals.fensterBreite / 2, 100f);
             hSubtitle.SetTextAlignment(TextAlignMode.Center);
@@ -348,8 +323,6 @@ namespace Gruppenprojekt.App.Menus
             sb.SetPosition(Globals.fensterBreite / 2 + Globals.fensterBreite / 6, 200f);
             sb.SetColor(1.0f, 0.0f, 0.0f);
 
-
-            //Neu
             int posSX = 250;
             int pusSY = 0;
             List<HUDObjectText> scoreboardIndex = new List<HUDObjectText>();
@@ -435,7 +408,6 @@ namespace Gruppenprojekt.App.Menus
             AddGameObject(f);
             AddGameObject(f1);
             AddHUDObject(bbg);
-            AddHUDObject(bbbg);
             AddHUDObject(hSubtitle);
             AddHUDObject(hTitle);
 
@@ -600,56 +572,23 @@ namespace Gruppenprojekt.App.Menus
         }
         public static string leerstellen(int i)
         {
-            string lS;
-
-            if (i >= 10000)
-            {
-                lS = "\t";
-            }
-            else if (i >= 1000)
-            {
-                lS = "\t\t\t";
-            }
-            else if (i >= 100)
-            {
-                lS = "\t\t\t\t";
-            }
-            else if (i >= 10)
-            {
-                lS = "\t\t\t\t\t";
-            }
-            else
-            {
-                lS = "\t\t\t\t\t\t";
-            }
-            return lS;
+            int length = i.ToString().Length;
+            int tabs = 6 - length;
+            return new string('\t', tabs);
         }
         public static string displayValues(int i, List<Result> results)
         {
-            string x;
-            x = i + "# " + Convert.ToString(results[results.Count - i].Score + leerstellen(results[results.Count - i].Score) + results[results.Count - i].Time + "s");
-            return x;
+            return $"{i}# {results[results.Count - i].Score}{leerstellen(results[results.Count - i].Score)}{results[results.Count - i].Time}s";
         }
-        public static void functionBackButton(HUDObject leave) 
+        public static void functionBackButton(HUDObject leave)
         {
-            
-            if (leave != null)
+            if (leave == null) return;
+            leave.SetColorEmissiveIntensity(leave.IsMouseCursorOnMe() ? 1.5f : 0.0f);
+            if (leave.IsMouseCursorOnMe() && Mouse.IsButtonPressed(MouseButton.Left))
             {
-                if (leave.IsMouseCursorOnMe() == true)
-                {
-                    leave.SetColorEmissiveIntensity(1.5f);
-                }
-                else
-                {
-                    leave.SetColorEmissiveIntensity(0.0f);
-                }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && leave.IsMouseCursorOnMe() == true)
-                {
-                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
-
-                    GwStartMenuOption gm = new GwStartMenuOption();
-                    Window.SetWorld(gm);
-                }
+                KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
+                var startMenu = new GwStartMenuOption();
+                Window.SetWorld(startMenu);
             }
         }
         public static void startGame()
@@ -676,6 +615,7 @@ namespace Gruppenprojekt.App.Menus
                 return "";
             }
             
-        }        
+        }
+        
     }
 }
