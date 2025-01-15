@@ -24,7 +24,7 @@ namespace Gruppenprojekt.App
         {
             return bird;
         }
-
+         
         public float GetHUDLastUpdateTime()
         {            
             HUDObjectText h = GetHUDObjectTextByName("MyHUDObject");
