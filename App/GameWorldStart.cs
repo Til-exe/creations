@@ -12,7 +12,7 @@ namespace Gruppenprojekt.App
 {
     public class GameWorldStart : World
     {
-        bool startbool = false;
+        bool startbool = true;
         float counter = 0.7f;          
         private Player p;
         float finalPos = 0f;
@@ -52,21 +52,7 @@ namespace Gruppenprojekt.App
         }
         public override void Act()
         {
-            HUDObjectImage bbg = GetHUDObjectImageByName("bbg");
-            if (startbool)
-            {
-                bbg.SetZIndex(0);
-                if (counter != -1f)
-                {
-                    counter -= 0.005f;
-                    bbg.SetOpacity(counter);
-                }
-                if (counter <= 0.1f)
-                {
-                    RemoveHUDObject(bbg);
-                    
-                }
-            }
+            HUDObjectImage bbg = GetHUDObjectImageByName("bbg");           
             if (Keyboard.IsKeyPressed(Keys.T) && Globals.debugMode)
             {
                 FlowField f = GetFlowField();
@@ -154,6 +140,16 @@ namespace Gruppenprojekt.App
                     if (finalPos >= 0.02f) {
                         Map.Add(p, 0f, new Vector3(1, 0, 0), new Vector3(1, 0, 0), 1f, 0.6f, 3f);
                     }
+                }
+            }
+            bbg.SetZIndex(0);
+
+            if (startbool)
+            {
+                if (counter != -1f)
+                {
+                    counter -= 0.0005f;
+                    bbg.SetOpacity(counter);
                 }
             }
         }
