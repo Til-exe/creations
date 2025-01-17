@@ -3,6 +3,7 @@ using KWEngine3.GameObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,8 +16,10 @@ namespace Gruppenprojekt.App.Classes
         public LightObject l;
         bool movingUp = true;
         float ColMovementSpeed = 0.007f;
+        
         public Collectable(string name, float x, float y, float z) 
-        {            
+        {
+            
             this.SetModel("KWSphere"); // KWCube
             this.Name = name;
             this.SetPosition(x, rnd.Next(1,5), z);

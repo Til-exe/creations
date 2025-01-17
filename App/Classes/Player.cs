@@ -169,7 +169,7 @@ namespace Gruppenprojekt.App.Classes
             {
                 ActualTimeDisplay = sek + "s";
             }
-            displayTimer.SetText("Timer: " + ActualTimeDisplay);
+            displayTimer.SetText("Timer: " + ActualTimeDisplay +"\n" + Math.Round(this.Position.X) + " " + Math.Round(this.Position.Y) + " "+ Math.Round(this.Position.Z));
             //Flaschlight Action
             if (timedpenisboom < 50 && BOOM)
             {

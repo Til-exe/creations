@@ -209,11 +209,24 @@ namespace Gruppenprojekt.App
             light.SetPosition(0f, 5f, 0);
             //AddLightObject(light);
 
-            for(int i = 0; i <Globals.ColCount; i++)
+            List<Vector3> positions = new List<Vector3>();
+            
+            positions.Add(new Vector3(50, 3, 28));
+            positions.Add(new Vector3(45, 3, -10));
+            positions.Add(new Vector3(13, 3, -17));
+            positions.Add(new Vector3(12, 3, -8));
+            positions.Add(new Vector3(3, 3, -17));
+            positions.Add(new Vector3(7, 3, 26));
+            positions.Add(new Vector3(25, 3, 60));
+            positions.Add(new Vector3(38, 3, 55));
+            positions.Add(new Vector3(30, 3, 23));
+            positions.Add(new Vector3(40, 3, 23));
+
+            for (int i = 0; i <Globals.ColCount; i++)
             {
-                Random rnd = new Random();
-                Collectable c1 = new Collectable("new", (float)rnd.Next(1,100), 4f, (float)rnd.Next(1, 100));
-                AddGameObject(c1);
+                //positions.Add((HelperRandom.GetRandomNumber(3, 50), 3, HelperRandom.GetRandomNumber(-17, 60)));
+                Collectable c = new Collectable("new", positions[i].X, positions[i].Y, positions[i].Z);
+                AddGameObject(c);
             }
 
             if (Globals.choseGamemode != "Peacefull" )

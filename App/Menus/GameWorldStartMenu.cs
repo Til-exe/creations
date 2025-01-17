@@ -25,7 +25,6 @@ namespace Gruppenprojekt.App.Menus
         bool isDPressed = false;
         bool isMPressed = false;
         bool isIressed = false;
-        bool isNPressed = false;
         bool startsound = true;
         public override void Act()
         {            
@@ -579,7 +578,7 @@ namespace Gruppenprojekt.App.Menus
         }
         public static string displayValues(int i, List<Result> results)
         {
-            return $"{i}# {results[results.Count - i].Score}{leerstellen(results[results.Count - i].Score)}{results[results.Count - i].Time}s";
+            return i + "# " + results[results.Count - i].Score + leerstellen(results[results.Count - i].Score) + results[results.Count - i].Time + "s";
         }
         public static void functionBackButton(HUDObject leave)
         {
