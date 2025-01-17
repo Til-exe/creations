@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using OpenTK.Windowing.Common.Input;
 using System.Collections.Immutable;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
@@ -13,7 +14,6 @@ using System.IO;
 using KWEngine3;
 using System;
 using Assimp;
-using OpenTK.Windowing.Common.Input;
 namespace Gruppenprojekt.App.Menus
 {
     public class GameWorldStartMenu : World
@@ -26,7 +26,6 @@ namespace Gruppenprojekt.App.Menus
         bool isMPressed = false;
         bool isIressed = false;
         bool isNPressed = false;
-
         bool startsound = true;
         public override void Act()
         {            
@@ -52,6 +51,8 @@ namespace Gruppenprojekt.App.Menus
                     startGame();                    
                 }                
             }
+            else
+            { if (Globals.bgAnimation) { bbg.SetOpacity(0.75f); } else { bbg.SetOpacity(1f); } }
 
 
             if(startsound) {
@@ -274,7 +275,7 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectText hSubtitle = new HUDObjectText("By PLUG-INC");
             HUDObjectText hTitle = new HUDObjectText("ITS STOLEN");
 
-            if (Globals.bgAnimation) { bbg.SetOpacity(0.75f); } else { bbg.SetOpacity(1f); }
+            
 
             Globals.posWert = 10;
             Globals.posYWert = 100;           
