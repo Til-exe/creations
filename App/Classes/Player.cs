@@ -51,7 +51,8 @@ namespace Gruppenprojekt.App.Classes
             this.SetPosition(x, y, z);
             this.SetColor(1, 0, 0);
             this.SetScale(1, 2, 1);
-            this.IsCollisionObject = true;            
+            this.IsCollisionObject = true;
+            this.SetColorEmissive(1, 1, 1, 2);
             
             //Taschenlampe
             _flashlight = new LightObject(LightType.Directional, ShadowQuality.Low);
@@ -347,8 +348,8 @@ namespace Gruppenprojekt.App.Classes
                 if (Keyboard.IsKeyDown(Keys.S)) { MoveOffset(0, 0, +0.05f); }
                 if (Keyboard.IsKeyDown(Keys.A)) { MoveOffset(-0.05f, 0, 0); }
                 if (Keyboard.IsKeyDown(Keys.D)) { MoveOffset(0.05f, 0, 0); }
-                CurrentWorld.SetCameraPosition(0, 50, 0);
-                CurrentWorld.SetCameraTarget(0, 0, 0);
+                CurrentWorld.SetCameraPosition(5, 125, 20);
+                CurrentWorld.SetCameraTarget(5, 0, 20);
 
             }
             //Einsammeln von Collectable's

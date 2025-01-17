@@ -18,7 +18,7 @@ namespace Gruppenprojekt.App
         float finalPos = 0f;
         private float _HUDLastUpdate = 0;
         bool fullbright = false;
-        bool bird = false; // KAR: Vogelperspektive
+        bool bird = true; // KAR: Vogelperspektive
 
         public bool IsBird()
         {
@@ -170,7 +170,9 @@ namespace Gruppenprojekt.App
             KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/ScaryScream.wav", false, 0.2f);
 
             PreLoadSounds();
-            FlowField pathfinding = new FlowField(0, 2.5f, 0, 50, 50, 1f, 5, FlowFieldMode.Box, typeof(Wall), typeof(Map));
+            //FlowField pathfinding = new FlowField(0, 2.5f, 0, 50, 50, 1f, 5, FlowFieldMode.Simple, typeof(Wall), typeof(Map));
+            //FlowField pathfinding = new FlowField(25, 2.5f, 25, 40, 60, 1f, 5, FlowFieldMode.Simple, typeof(Wall), typeof(Map));
+            FlowField pathfinding = new FlowField(25, 2.5f, 25, 80, 120, 0.5f, 5, FlowFieldMode.Simple, typeof(Wall), typeof(Map));
             pathfinding.IsVisible = false; //FLOWFIELD DEBUG VISIBILTY
             AddFlowField(pathfinding);
 
@@ -239,7 +241,7 @@ namespace Gruppenprojekt.App
             Wall w10 = new Wall("10", 25, 7, 20);
             w10.SetScale(75f, 1f, 100f);
             w10.SetTextureRepeat(75, 100);
-            AddGameObject(w10);
+            //AddGameObject(w10);
         }
         public void createMap()
         {

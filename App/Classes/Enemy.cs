@@ -46,7 +46,9 @@ namespace Gruppenprojekt.App.Classes
             this.IsCollisionObject = true;
             this.IsShadowCaster = true;
             this.SetScale(1, 3, 1);
-            this.SetColorEmissive(1, 0, 0, 10);
+            this.SetColorEmissive(1, 1, 0, 10);
+            this.SetHitboxToCapsule(Vector3.Zero, CapsuleHitboxType.Default);
+            //this.SetHitboxScale(0.75f);
             p = CurrentWorld.GetGameObjectByName<Player>("Yasin");
         }
 
@@ -62,10 +64,12 @@ namespace Gruppenprojekt.App.Classes
                 Vector3 myDirection = Vector3.Zero;
                 playerPos = p.Position;
                 FlowField f = CurrentWorld.GetFlowField();
+                /* KAR: f nicht mehr mitbewegen!
                 if (f != null)
                 {
                     f.SetPosition(this.Position.X, this.Position.Z);
                 }
+                */
                 List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 40f, true, this, typeof(Wall), typeof(Player), typeof(Map));
                 if (results.Count > 0)
                 {
@@ -120,8 +124,15 @@ namespace Gruppenprojekt.App.Classes
                             {
                                 directions.Dequeue();
                             }
-                            directions.Enqueue(pathfinding.GetBestDirectionForPosition(this.Position));
 
+                            FlowFieldCell cell = pathfinding.GetCellForWorldPosition(this.Position);
+                            // KAR: Die Zelle nur für die Durchschnittsrichtung berücksichtigen, wenn 
+                            //      ihre Kosten unter 255 sind (also keine Wand dort ist).
+                            /*if(cell.Cost < 255)
+                            {
+                                directions.Enqueue(pathfinding.GetBestDirectionForPosition(this.Position));
+                            }*/
+                            directions.Enqueue(pathfinding.GetBestDirectionForPosition(this.Position));
                             myDirection = GetAverageDirection();
                             if(HelperVector.GetDistanceBetweenVectorsXZ(this.Position, collectableposlol) <= 3f)
                             {
