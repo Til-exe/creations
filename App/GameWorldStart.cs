@@ -190,7 +190,7 @@ namespace Gruppenprojekt.App
             SetCameraTarget(0.0f, 0.0f, 0.0f);
             SetCameraFOV(100);
             SetColorAmbient(0.05f, 0.02f, 0.02f);
-            Floor f = new Floor("floor", 1f, 1f, 1f);
+            Floor f = new Floor("floor", 25f, 1f, 20f);
             f.SetTexture("./app/Textures/wood1.png");
             if (Globals.ReturnCode == 0) {  }
             if (Globals.ReturnCode == 1) { Globals.ReturnCode = 0; Globals.Score += 1000; }
