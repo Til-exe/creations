@@ -1,4 +1,5 @@
-﻿using Gruppenprojekt.App.Menus;
+﻿using Gruppenprojekt.App.Classes;
+using Gruppenprojekt.App.Menus;
 using KWEngine3;
 using KWEngine3.GameObjects;
 using OpenTK.Windowing.GraphicsLibraryFramework;
@@ -132,32 +133,38 @@ namespace Gruppenprojekt.App.death_winscreen
             main.SetTextAlignment(TextAlignMode.Center);
             main.Name = "main";
             main.SetColor(1, 0, 0);
-            main.SetPosition(540, 360);
+            main.SetPosition(Globals.fensterBreite / 2, Globals.fensterHoehe / 2);
 
             HUDObjectText tryagain = new HUDObjectText("Do you want to try again ?");
             tryagain.SetTextAlignment(TextAlignMode.Center);
             tryagain.Name = "tryagain";
             tryagain.SetColor(1, 0, 0);
-            tryagain.SetPosition(590, 360);
+            tryagain.SetPosition(Globals.fensterBreite / 2, Globals.fensterHoehe / 2);
             tryagain.SetOpacity(0);
 
             HUDObjectText yes = new HUDObjectText("YES");
+            yes.SetTextAlignment(TextAlignMode.Center);
             yes.Name = "yes";
             yes.SetColor(1, 0, 0);
-            yes.SetPosition(350, 460);
+            yes.SetPosition(Globals.fensterBreite / 2 - 200, Globals.fensterHoehe / 2 + 100);
             yes.SetOpacity(0);
+            yes.SetColorEmissive(1, 1, 1);
 
             HUDObjectText no = new HUDObjectText("NO");
+            no.SetTextAlignment(TextAlignMode.Center);
             no.Name = "no"; 
             no.SetColor(1, 0, 0);
-            no.SetPosition(550, 460);
+            no.SetPosition(Globals.fensterBreite / 2 + 0, Globals.fensterHoehe / 2 + 100);
             no.SetOpacity(0);
+            no.SetColorEmissive(1, 1, 1);
 
             HUDObjectText menu = new HUDObjectText("MENU");
+            menu.SetTextAlignment(TextAlignMode.Center);
             menu.Name = "menu";
             menu.SetColor(1, 0, 0);
-            menu.SetPosition(750, 460);
+            menu.SetPosition(Globals.fensterBreite / 2 + 200, Globals.fensterHoehe / 2 + 100);
             menu.SetOpacity(0);
+            menu.SetColorEmissive(1,1,1);
 
             AddHUDObject(main);
             AddHUDObject(tryagain);
