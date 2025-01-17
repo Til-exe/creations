@@ -195,7 +195,7 @@ namespace Gruppenprojekt.App
             if (Globals.ReturnCode == 0) {  }
             if (Globals.ReturnCode == 1) { Globals.ReturnCode = 0; Globals.Score += 1000; }
 
-            f.SetTextureRepeat(100f, 100f);
+            f.SetTextureRepeat(50f, 75f);
             AddGameObject(f);
 
             p = new Player("Yasin", 30f , 2f, 3f);
