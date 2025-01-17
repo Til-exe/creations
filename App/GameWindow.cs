@@ -15,6 +15,7 @@ using System.IO;
 using KWEngine3;
 using System;
 using Gruppenprojekt.App.death_winscreen;
+using OpenTK.Windowing.Common.Input;
 
 namespace Gruppenprojekt.App
 {
@@ -31,7 +32,6 @@ namespace Gruppenprojekt.App
         {
 
             this.Title = "Its Stolen";      
-            
             GameWorldStart game = new GameWorldStart();
             GameWorldStartMenu StartMenu = new GameWorldStartMenu();
             IntroScreen intro = new IntroScreen();
