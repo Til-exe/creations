@@ -25,8 +25,9 @@ namespace Gruppenprojekt.App.Classes
         public static int ReturnCode;                                   //ReturnCode - ist ein Wert der dafür da ist funktionen zu aktivieren wenn in den Optionen ein bestimmter Code eingegeben wurde        
         public static int SpawnColByDeath = 1;                          //SpawnColByDeath - gibt an wie viele Orbs bei einsammeln eines Orbes im 'Infinit' modus erstellt werden sollen
         public static float speed = 0.05f;                              //speed - ist die Geschwindingkeit des Spielers        
-        public static int ColCount = 10;
-        public static float EnemySpeed;                                 //EnemySpeed - ist die Geschwindigkeit des Enemy        
+        public static int ColCount = 2;
+        public static int ColCollision = 0;
+        public static float EnemySpeed = 0.02f;                         //EnemySpeed - ist die Geschwindigkeit des Enemy        
         public static float totalScore;                                 //totalScore - ist ein Wert der aus allen eingesammelten Orbs berechnet wird, bei laufendem Programm            
         public static float multiplikator = 1f;                         //totalScore - ist ein Wert der aus allen eingesammelten Orbs berechnet wird, bei laufendem Programm        
         public static float moveCameraX = 0f;                           //moveCameraX        
@@ -37,6 +38,9 @@ namespace Gruppenprojekt.App.Classes
         public static bool MapOpen = false;                             //MapOpen - Indikator dafür ob die Karte geöffnet ist
         public static bool deathreal = true;                           //deathreal - Indikator dafür ob der Enemy das spiel bei Collision beenden soll
         public static bool bgAnimation = true;                          //bgAnimation - gibt an ob der Hintergrund im Startmenu animiert sein soll oder nicht        
+        public static bool TutorialComplete = true;                    //TutorialComplete - gibt an ob das Tutorial abgeschlossen wurde
+        
+        public static bool UseLevelProgess = true;                      //UseLevelProgress - gibt an ob die gesammelten Level Vorteile brigen sollen
         public static bool TutorialComplete = true;                    //TutorialComplete - gibt an ob das Tutorial abgeschlossen wurde
         public static bool debugMode = true;                            //Debug halt
         

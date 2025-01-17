@@ -18,6 +18,7 @@ using System.Transactions;
 using Gruppenprojekt.App.Menus;
 using System.Security.Cryptography.X509Certificates;
 using OpenTK.Platform.Windows;
+using Gruppenprojekt.App.death_winscreen;
 
 namespace Gruppenprojekt.App.Classes
 {
@@ -174,8 +175,8 @@ namespace Gruppenprojekt.App.Classes
                 {
                     Console.WriteLine("skill issue");
                     Player.safeScore();
-                        GameWorldStartMenu gwsm = new GameWorldStartMenu();
-                        Window.SetWorld(gwsm);
+                        death1 deathscreen = new death1();
+                        Window.SetWorld(deathscreen);
                     }
             }
             }

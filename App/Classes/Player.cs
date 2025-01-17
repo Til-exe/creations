@@ -13,6 +13,8 @@ using System.IO;
 using Assimp;
 using System;
 using Gruppenprojekt.App.Menus;
+using Gruppenprojekt.App.death_winscreen;
+
 using Assimp.Configs;
 namespace Gruppenprojekt.App.Classes
 {
@@ -29,6 +31,7 @@ namespace Gruppenprojekt.App.Classes
         HUDObjectText gamemode = new HUDObjectText("Gamemode:" + Globals.choseGamemode);
         HUDObjectImage bg = new HUDObjectImage("./App/Textures/blackscreen.png");
         HUDObjectText mtitle = new HUDObjectText("Pausiert");
+        HUDObjectText winCondition = new HUDObjectText("Verschwinde von hier !");
         private HUDObjectText colCount;
         private int counter = 0;
         private float timestampLastWalkSound = 0;
@@ -125,8 +128,15 @@ namespace Gruppenprojekt.App.Classes
             gamemode.Name = "gamemode";
             gamemode.SetCharacterDistanceFactor(1.0f);
             gamemode.SetColor(1.0f, 0.0f, 0.0f);
+
+            winCondition.Name = "win";
+            winCondition.SetPosition(Globals.fensterBreite / 2, 40f);
+            winCondition.SetCharacterDistanceFactor(1.0f);
+            winCondition.SetColor(1.0f, 0.0f, 0.0f);
+            winCondition.SetTextAlignment(TextAlignMode.Center);
         }
         private Random _random = new Random();
+        Win winscreen = new Win();
         Random rnd = new Random();
         public bool BOOM = false;
         public bool FirstAct = true;
@@ -142,6 +152,9 @@ namespace Gruppenprojekt.App.Classes
         public static bool enemyspeedcap = false;
         private float _enemySpeedResetTime = -1f;
         float timestampLastSighting = 0;
+        bool penis1 = true;
+        float penisZeit;
+        float digga;
 
         public override void Act()
         {
@@ -154,9 +167,23 @@ namespace Gruppenprojekt.App.Classes
             }
             if (counter == Globals.ColCount)    //Ende wenn alle Collectables eingesammelt worden sind
             {
-                safeScore();
-                GameWorldStartMenu gwsm = new GameWorldStartMenu();
-                Window.SetWorld(gwsm);
+                if(penis1)
+                {
+                    penisZeit = WorldTime;
+                    penis1 = false;
+                }
+                float penisNew = WorldTime - penisZeit;
+                digga = (WorldTime - penisNew) - 60;
+                
+                CurrentWorld.AddHUDObject(winCondition);
+
+                if (this.Position.X == -20 && this.Position.Z == 2.5f) 
+                {
+                    safeScore();
+                    
+                    Window.SetWorld(winscreen);
+                }
+                
             }
             //Displaying Time
             string ActualTimeDisplay = min + "m " + sek + "s";
@@ -165,6 +192,8 @@ namespace Gruppenprojekt.App.Classes
             {
                 removedTime += 60;
                 min++;
+
+                
             }
             if(Convert.ToInt32(WorldTime) < 60)
             {

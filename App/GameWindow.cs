@@ -14,6 +14,8 @@ using System.Linq;
 using System.IO;
 using KWEngine3;
 using System;
+using Gruppenprojekt.App.death_winscreen;
+
 namespace Gruppenprojekt.App
 {
     public class GameWindow : GLWindow
@@ -33,6 +35,8 @@ namespace Gruppenprojekt.App
             GameWorldStart game = new GameWorldStart();
             GameWorldStartMenu StartMenu = new GameWorldStartMenu();
             IntroScreen intro = new IntroScreen();
+            death1 death = new death1();
+            Win win = new Win();
             this.SetWorld(intro);
             Console.WriteLine("[CONSOLE] Game Start");
 

@@ -12,7 +12,7 @@ namespace Gruppenprojekt.App.Classes
     internal class Collectable : GameObject
     {
         Random rnd = new Random();
-        public LightObject l;
+        
         bool movingUp = true;
         float ColMovementSpeed = 0.007f;
         public Collectable(string name, float x, float y, float z) 
@@ -25,13 +25,9 @@ namespace Gruppenprojekt.App.Classes
             this.SetColor(0, 1, 0);
             this.SetColorEmissive(0, 1, 0, 10);
 
-            l = new LightObject(LightType.Point, ShadowQuality.NoShadow);
-            l.Name = name;
-            l.SetPosition(x, y, z);
-            l.SetNearFar(0.05f, 7f);
-            l.SetColor(0f, 1f, 0f, 10f);
             
-            CurrentWorld.AddLightObject(l);
+            
+            
         }
         public void KillMe()
         {
@@ -64,9 +60,9 @@ namespace Gruppenprojekt.App.Classes
             }
             CurrentWorld.AddExplosionObject(ex);
 
-            CurrentWorld.RemoveGameObject(this);
-            CurrentWorld.RemoveLightObject(l);
-        }
+                CurrentWorld.RemoveGameObject(this);
+           
+        }        
         public override void Act()
         {
             if (Globals.gameRunning)
