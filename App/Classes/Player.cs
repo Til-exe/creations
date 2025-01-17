@@ -168,8 +168,8 @@ namespace Gruppenprojekt.App.Classes
             if(Convert.ToInt32(WorldTime) < 60)
             {
                 ActualTimeDisplay = sek + "s";
-            }
-            displayTimer.SetText("Timer: " + ActualTimeDisplay +"\n" + Math.Round(this.Position.X) + " " + Math.Round(this.Position.Y) + " "+ Math.Round(this.Position.Z));
+            }                                                    //Coordinaten Displayn (in Klammern einfügen)
+            displayTimer.SetText("Timer: " + ActualTimeDisplay); //  +"\n" + Math.Round(this.Position.X) + " " + Math.Round(this.Position.Y) + " "+ Math.Round(this.Position.Z)
             //Flaschlight Action
             if (timedpenisboom < 50 && BOOM)
             {
