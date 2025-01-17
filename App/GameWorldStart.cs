@@ -170,7 +170,9 @@ namespace Gruppenprojekt.App
             KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/ScaryScream.wav", false, 0.2f);
 
             PreLoadSounds();
-            FlowField pathfinding = new FlowField(0, 2.5f, 0, 50, 50, 1f, 5, FlowFieldMode.Box, typeof(Wall), typeof(Map));
+            //FlowField pathfinding = new FlowField(0, 2.5f, 0, 50, 50, 1f, 5, FlowFieldMode.Simple, typeof(Wall), typeof(Map));
+            //FlowField pathfinding = new FlowField(25, 2.5f, 25, 40, 60, 1f, 5, FlowFieldMode.Simple, typeof(Wall), typeof(Map));
+            FlowField pathfinding = new FlowField(25, 2.5f, 25, 80, 120, 0.5f, 5, FlowFieldMode.Simple, typeof(Wall), typeof(Map));
             pathfinding.IsVisible = false; //FLOWFIELD DEBUG VISIBILTY
             AddFlowField(pathfinding);
 
