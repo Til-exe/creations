@@ -52,6 +52,8 @@ namespace Gruppenprojekt.App.Menus
                     startGame();                    
                 }                
             }
+            else
+            { if (Globals.bgAnimation) { bbg.SetOpacity(0.75f); } else { bbg.SetOpacity(1f); } }
 
 
             if(startsound) {
@@ -274,7 +276,7 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectText hSubtitle = new HUDObjectText("By PLUG-INC");
             HUDObjectText hTitle = new HUDObjectText("ITS STOLEN");
 
-            if (Globals.bgAnimation) { bbg.SetOpacity(0.75f); } else { bbg.SetOpacity(1f); }
+            
 
             Globals.posWert = 10;
             Globals.posYWert = 100;           

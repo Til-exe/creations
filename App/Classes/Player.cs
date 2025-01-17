@@ -333,8 +333,7 @@ namespace Gruppenprojekt.App.Classes
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && m3.IsMouseCursorOnMe() == true)
                 {
-                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
-                    Globals.Trys++;
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);                    
                     string penistext = Convert.ToString(Globals.Score) + "\n";
                     File.AppendAllText(Globals.path, penistext);
                     Window.Close();
