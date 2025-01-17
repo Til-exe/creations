@@ -18,7 +18,7 @@ namespace Gruppenprojekt.App
         float finalPos = 0f;
         private float _HUDLastUpdate = 0;
         bool fullbright = false;
-        bool bird = true; // KAR: Vogelperspektive
+        bool bird = false; // KAR: Vogelperspektive
 
         public bool IsBird()
         {
@@ -241,7 +241,7 @@ namespace Gruppenprojekt.App
             Wall w10 = new Wall("10", 25, 7, 20);
             w10.SetScale(75f, 1f, 100f);
             w10.SetTextureRepeat(75, 100);
-            //AddGameObject(w10);
+            AddGameObject(w10);
         }
         public void createMap()
         {
