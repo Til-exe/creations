@@ -21,8 +21,7 @@ namespace Gruppenprojekt.App.Classes
         public static bool Sprinting = false;                           //Sprinitng - Indikator dafür ob der Spieler Sprintet        
         public static string choseGamemode;                //choseGamemode - gibt an welcher Spielmodus ausgewählt ist
         public static string SetLanguage = "English";                   //SetLanguage - gibt an welche Sprache angezeigt werden soll
-        public static float Score;                                      //Score - ist der Punktestand, dieser wird aus allen eingesammelten Orbs berechnet        
-        public static int Trys;                                         //gibt an wie viele Spiele bereits bei Laufendem Programm gespielt wurden        
+        public static float Score;                                      //Score - ist der Punktestand, dieser wird aus allen eingesammelten Orbs berechnet      
         public static int ReturnCode;                                   //ReturnCode - ist ein Wert der dafür da ist funktionen zu aktivieren wenn in den Optionen ein bestimmter Code eingegeben wurde        
         public static int SpawnColByDeath = 1;                          //SpawnColByDeath - gibt an wie viele Orbs bei einsammeln eines Orbes im 'Infinit' modus erstellt werden sollen
         public static float speed = 0.05f;                              //speed - ist die Geschwindingkeit des Spielers        
@@ -40,14 +39,10 @@ namespace Gruppenprojekt.App.Classes
         public static bool bgAnimation = true;                          //bgAnimation - gibt an ob der Hintergrund im Startmenu animiert sein soll oder nicht        
         public static bool TutorialComplete = true;                    //TutorialComplete - gibt an ob das Tutorial abgeschlossen wurde
         public static bool debugMode = false;
-        public static bool UseLevelProgess = true;                      //UseLevelProgress - gibt an ob die gesammelten Level Vorteile brigen sollen
         
         public static int TutorialProgress = 0;                         //TutorialProgress - gibt an wie weit das Tutorial abgeschlossen wurde
         public static int Experience = 0;                               //Experience - gibt die Erfahrungspunkte an die gesammelt wurden
         public static int Level = 1;                                    //Level - gibt das Gesammelte Level an
-
-        public static int posWert;                                      //gibt an wie bestimmte Texte positioniert sind                             
-        public static int posYWert;
 
         public static string Cpath = @"./App/data/credits.txt";         //Cpath - allgemeiner Pfad für die "credits.txt" datei        
         public static string path = @"./App/data/data.txt";             //path - allgemeiner Pfad für die "data.txt" datei
@@ -75,6 +70,8 @@ namespace Gruppenprojekt.App.Classes
         public static string displayCounter = "";
         public static string choseGamemodeText = "";
 
+        public static int posWert;                                      //gibt an wie bestimmte Texte positioniert sind                             
+        public static int posYWert;
         public static int fensterBreite = 1920;                         //gibt die maße des Spiel Fensters an
         public static int fensterHoehe = 1080;
     }
