@@ -27,7 +27,7 @@ namespace Gruppenprojekt.App
             Globals.fensterHoehe,                                // Fensterhöhe
             true,                               // VSync?
             PostProcessingQuality.Standard,     // Qualität der PP-Effekte (Standard für iGPUs)
-            WindowMode.Default)                 // Fensterdekorationsmodus
+            WindowMode.BorderlessWindow)                 // Fensterdekorationsmodus
         {
 
             this.Title = "Its Stolen";      

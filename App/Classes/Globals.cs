@@ -73,7 +73,7 @@ namespace Gruppenprojekt.App.Classes
 
         public static int posWert;                                      //gibt an wie bestimmte Texte positioniert sind                             
         public static int posYWert;
-        public static int fensterBreite = 1280;                         //gibt die maße des Spiel Fensters an
-        public static int fensterHoehe = 720;
+        public static int fensterBreite = 1920;                         //gibt die maße des Spiel Fensters an
+        public static int fensterHoehe = 1080;
     }
 }
