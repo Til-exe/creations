@@ -41,7 +41,6 @@ namespace Gruppenprojekt.App.Classes
         public static bool TutorialComplete = true;                    //TutorialComplete - gibt an ob das Tutorial abgeschlossen wurde
         
         public static bool UseLevelProgess = true;                      //UseLevelProgress - gibt an ob die gesammelten Level Vorteile brigen sollen
-                                                                        
         public static bool debugMode = true;                            //Debug halt
         
         public static int TutorialProgress = 0;                         //TutorialProgress - gibt an wie weit das Tutorial abgeschlossen wurde

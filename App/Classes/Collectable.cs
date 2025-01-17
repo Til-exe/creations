@@ -74,7 +74,6 @@ namespace Gruppenprojekt.App.Classes
                 float sinusValue = (float)Math.Sin(frequency * time); 
                 float newY = 2f + amplitude * sinusValue;        
                 this.MoveOffset(0, 1f +newY - this.Position.Y, 0);  
-               
             }
         }
     }
