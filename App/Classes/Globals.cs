@@ -19,7 +19,7 @@ namespace Gruppenprojekt.App.Classes
     {                
         public static bool gameRunning = true;                          //gameRunning - Wenn dieses Bool auf False ist wird das gesamte Spiel pausiert        
         public static bool Sprinting = false;                           //Sprinitng - Indikator dafür ob der Spieler Sprintet        
-        public static string choseGamemode;                //choseGamemode - gibt an welcher Spielmodus ausgewählt ist
+        public static string choseGamemode;                              //choseGamemode - gibt an welcher Spielmodus ausgewählt ist
         public static string SetLanguage = "English";                   //SetLanguage - gibt an welche Sprache angezeigt werden soll
         public static float Score;                                      //Score - ist der Punktestand, dieser wird aus allen eingesammelten Orbs berechnet      
         public static int ReturnCode;                                   //ReturnCode - ist ein Wert der dafür da ist funktionen zu aktivieren wenn in den Optionen ein bestimmter Code eingegeben wurde        
@@ -73,7 +73,7 @@ namespace Gruppenprojekt.App.Classes
 
         public static int posWert;                                      //gibt an wie bestimmte Texte positioniert sind                             
         public static int posYWert;
-        public static int fensterBreite = 1920;                         //gibt die maße des Spiel Fensters an
-        public static int fensterHoehe = 1080;
+        public static int fensterBreite = 1280;                         //gibt die maße des Spiel Fensters an
+        public static int fensterHoehe = 720;
     }
 }

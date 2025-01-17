@@ -52,19 +52,15 @@ namespace Gruppenprojekt.App.Menus
             }
             else
             { if (Globals.bgAnimation) { bbg.SetOpacity(0.75f); } else { bbg.SetOpacity(1f); } }
-
-
             if(startsound) {
                 Audio.StopAllSound();
                 KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/ScaryMenuMusic1.wav", false, 0.1f);
                 startsound = false;            
             }
-
             if (WorldTime - timestampLastWalkSound > 36f) {
                 KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/ScaryMenuMusic1.wav", false, 0.1f);
                 timestampLastWalkSound = WorldTime;
             }
-
             if (start != null)
             {
                 if (start.IsMouseCursorOnMe() == true && !startbool)
@@ -81,7 +77,6 @@ namespace Gruppenprojekt.App.Menus
                 {
                     KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
                     startbool = true;
-
                 }
             }
             if (option != null)
@@ -204,23 +199,18 @@ namespace Gruppenprojekt.App.Menus
 
                             if (Keyboard.IsKeyPressed(Keys.N))
                             {
-                                // Alle Buttons sichtbar machen
                                 Globals.DisplayStartGameButton = true;
                                 Globals.DisplayOptionButton = true;
                                 Globals.DisplayLanguageButton = true;
                                 Globals.DisplayCreditsButton = true;
                                 Globals.DisplayScoreboardButton = true;
                                 Globals.DisplayLeaveButton = true;
-
-                                // Alte HUD-Objekte entfernen
                                 RemoveHUDObject(start);
                                 RemoveHUDObject(option);
                                 RemoveHUDObject(leave);
                                 RemoveHUDObject(credits);
                                 RemoveHUDObject(language);
                                 RemoveHUDObject(AdminSB);
-
-                                // Position setzen und Buttons anzeigen
                                 Globals.posWert = 10;
                                 displayClickableButtons();
                             }
@@ -233,10 +223,8 @@ namespace Gruppenprojekt.App.Menus
             {
                 startGame();
             }                            
-            //if (Keyboard.IsKeyPressed(Keys.Up) && Globals.debugMode){Globals.Experience++;}
             SetCameraPosition(Globals.moveCameraX, 4, Globals.moveCameraY);
             SetCameraTarget(CameraPosition.X, CameraPosition.Y + 2, CameraPosition.Z);
-
             do { SetCameraPosition(CameraPosition.X - 400, CameraPosition.Y, CameraPosition.Z); }
             while (CameraPosition.X > 130);
             if (Globals.moveCameraMultiplier == 1) { Globals.moveCameraX += 0.02f; }
@@ -244,7 +232,6 @@ namespace Gruppenprojekt.App.Menus
             if (Globals.moveCameraMultiplier == 4) { Globals.moveCameraX += 0.08f; }
             if (Globals.moveCameraMultiplier == 0.5) { Globals.moveCameraX += 0.01f; }
             if (Globals.moveCameraMultiplier == 0.25) { Globals.moveCameraX += 0.005f; }
-            
             if (Globals.Experience > 10) { Globals.Experience = 0; Globals.Level++; }
             if (Globals.Level == 6)
             {
@@ -273,56 +260,41 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectImage bbg = new HUDObjectImage("./App/Textures/blackscreen.png");
             HUDObjectText hSubtitle = new HUDObjectText("By PLUG-INC");
             HUDObjectText hTitle = new HUDObjectText("ITS STOLEN");
-
-            
-
             Globals.posWert = 10;
             Globals.posYWert = 100;           
-
             w1.SetTexture("./app/Textures/wood1.png");
             w1.SetTextureRepeat(500f, 5f);
             w1.SetScale(1000, 10, 1);
-
             w2.SetTexture("./app/Textures/wood1.png");
             w2.SetTextureRepeat(500f, 5f);
             w2.SetScale(1000, 10, 1);
-
             f.SetTexture("./app/Textures/wood1.png");
             f.SetTextureRepeat(500f, 5f);
             f.SetScale(1000, 1, 10);
-
             f1.SetTexture("./app/Textures/wood1.png");
             f1.SetTextureRepeat(500f, 5f);
             f1.SetScale(1000, 1, 10);
-            
             light.Name = "light";
             light.SetNearFar(10000f, 2500f);
             light.SetPosition(1f, 1f, 1);           
-
-
             bbg.SetScale(Globals.fensterBreite, Globals.fensterHoehe);
             bbg.Name = "bbg";
             bbg.SetColor(0, 0, 0);
             bbg.CenterOnScreen();
             bbg.SetZIndex(-100);
             bbg.SetOpacity(0.75f);
-
             hSubtitle.SetPosition(Globals.fensterBreite / 2, 100f);
             hSubtitle.SetTextAlignment(TextAlignMode.Center);
             hSubtitle.SetColor(1.0f, 0.0f, 0.0f);
-
             hTitle.SetPosition(Globals.fensterBreite / 2, 50f);
             hTitle.SetTextAlignment(TextAlignMode.Center);
             hTitle.SetColor(1.0f, 0.0f, 0.0f);
             hTitle.SetScale(80.0f);
-
             languageMenu.ChangeLanguage();
             displayClickableButtons();
-
             HUDObjectText sb = new HUDObjectText(Globals.ActualScoreboardText);
             sb.SetPosition(Globals.fensterBreite / 2 + Globals.fensterBreite / 6, 200f);
             sb.SetColor(1.0f, 0.0f, 0.0f);
-
             int posSX = 250;
             int pusSY = 0;
             List<HUDObjectText> scoreboardIndex = new List<HUDObjectText>();
@@ -343,64 +315,6 @@ namespace Gruppenprojekt.App.Menus
                     AddHUDObject(scoreboardIndex[i]);
                 }
             }
-            /* Alt
-            HUDObjectText s1 = new HUDObjectText("1#");
-            s1.SetPosition(Globals.fensterBreite / 2 + Globals.fensterBreite / 6, 250f);
-            s1.SetColor(1.0f, 0.0f, 0.0f);
-
-            HUDObjectText s2 = new HUDObjectText("2#");
-            s2.SetPosition(Globals.fensterBreite / 2 + Globals.fensterBreite / 6, 290f);
-            s2.SetColor(1.0f, 0.0f, 0.0f);
-
-            HUDObjectText s3 = new HUDObjectText("3#");
-            s3.SetPosition(Globals.fensterBreite / 2 + Globals.fensterBreite / 6, 330f);
-            s3.SetColor(1.0f, 0.0f, 0.0f);
-
-            HUDObjectText s4 = new HUDObjectText("4#");
-            s4.SetPosition(Globals.fensterBreite / 2 + Globals.fensterBreite / 6, 370f);
-            s4.SetColor(1.0f, 0.0f, 0.0f);
-
-            HUDObjectText s5 = new HUDObjectText("5#");
-            s5.SetPosition(Globals.fensterBreite / 2 + Globals.fensterBreite / 6, 410f);
-            s5.SetColor(1.0f, 0.0f, 0.0f);
-
-            HUDObjectText s6 = new HUDObjectText("6#");
-            s6.SetPosition(Globals.fensterBreite / 2 + Globals.fensterBreite / 6, 450f);
-            s6.SetColor(1.0f, 0.0f, 0.0f);
-
-            HUDObjectText s7 = new HUDObjectText("7#");
-            s7.SetPosition(Globals.fensterBreite / 2 + Globals.fensterBreite / 6, 490f);
-            s7.SetColor(1.0f, 0.0f, 0.0f);
-
-            HUDObjectText s8 = new HUDObjectText("8#");
-            s8.SetPosition(Globals.fensterBreite / 2 + Globals.fensterBreite / 6, 530f);
-            s8.SetColor(1.0f, 0.0f, 0.0f);
-
-            HUDObjectText s9 = new HUDObjectText("9#");
-            s9.SetPosition(Globals.fensterBreite / 2 + Globals.fensterBreite / 6, 570f);
-            s9.SetColor(1.0f, 0.0f, 0.0f);
-
-            HUDObjectText s10 = new HUDObjectText("1O#");
-            s10.SetPosition(Globals.fensterBreite / 2 + Globals.fensterBreite / 6 - 23, 610f);
-            s10.SetColor(1.0f, 0.0f, 0.0f);
-
-
-            if (Globals.TutorialComplete)
-            {
-                AddHUDObject(sb);
-                AddHUDObject(s1);
-                AddHUDObject(s2);
-                AddHUDObject(s3);
-                AddHUDObject(s3);
-                AddHUDObject(s4);
-                AddHUDObject(s5);
-                AddHUDObject(s6);
-                AddHUDObject(s7);
-                AddHUDObject(s8);
-                AddHUDObject(s9);
-                AddHUDObject(s10);
-            }*/
-                
             AddLightObject(light);
             AddGameObject(c1);
             AddGameObject(w1);
@@ -410,17 +324,13 @@ namespace Gruppenprojekt.App.Menus
             AddHUDObject(bbg);
             AddHUDObject(hSubtitle);
             AddHUDObject(hTitle);
-
             SetCameraPosition(0.0f, 5.0f, 15.0f);
-
             double[] doubleWerte = File.ReadAllLines(Globals.timePath)
                     .Select(line => double.Parse(line))
                     .ToArray();
             int[] intWerte = doubleWerte.Select(d => (int)d).ToArray();
-
             string[] readTime = intWerte.Select(i => i.ToString()).ToArray();
             string[] readScores = File.Exists(Globals.path) ? File.ReadAllLines(Globals.path) : new string[0];
-
             int[] allNumbers = new int[readScores.Length];
             int[] allTime = new int[readTime.Length];
             for (int i = 0; i < readScores.Length; i++)
@@ -445,22 +355,17 @@ namespace Gruppenprojekt.App.Menus
                     Console.WriteLine($"Ungültiger Wert in {Globals.timePath}: '{readTime[i]}' wird ignoriert.");
                 }
             }
-
             List<Result> res = new List<Result>();
             for (int i = 0; i < allNumbers.Length; i++)
             {
                 int time = i < allTime.Length ? allTime[i] : 0; // Falls Zeit fehlt, Standardwert 0
                 res.Add(new Result() { Score = allNumbers[i], Time = time });
             }
-            // Sortieren nach Score
             res.Sort((a, b) => a.Score.CompareTo(b.Score));
-
-            
             for (int i = 0; i < 10; i++) {
                 try { scoreboardIndex[i].SetText(displayValues(i + 1, res)); }                
                 catch { scoreboardIndex[i].SetText(i + 1 + "# 0"); }                
             }
-           
         }
         public void displayClickableButtons()
         {
@@ -474,16 +379,12 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectText leave = new HUDObjectText(Globals.LeaveButtonText);
             HUDObjectText LevelNum = new HUDObjectText("level #" + (Globals.Level) + "");
             HUDObjectText LevelScore = new HUDObjectText(Globals.Experience + "/10");
-
             LevelNum.SetPosition(10, Globals.fensterHoehe - 100);
             LevelNum.SetColor(1.0f, 0.0f, 0.0f);
             LevelNum.Name = "LevelNum";
-
             LevelScore.SetPosition(10, Globals.fensterHoehe - 50);
             LevelScore.SetColor(1.0f, 0.0f, 0.0f);
             LevelScore.Name = "LevelScore";
-
-
             if (Globals.Level >= 5 && Globals.Experience >= 10)
             {
                 LevelNum.SetText("level #MAX");
@@ -496,63 +397,48 @@ namespace Gruppenprojekt.App.Menus
                 LevelNum.SetText("level #" + Globals.Level);
                 LevelScore.SetText(ErstellePunktestand(Globals.Experience, 11));
             }
-
-
             start.SetPosition(Globals.posYWert, 200f);
             start.Name = "start";
             start.SetCharacterDistanceFactor(1.0f);
             start.SetColor(1.0f, 0.0f, 0.0f);
             start.SetColorEmissive(1.0f, 1.0f, 1.0f);
             start.SetScale(50.0f);
-
             if (Globals.DisplayStartGameButton) { Globals.posWert += 50; }
-
             option.SetPosition(Globals.posYWert, 200f + Globals.posWert);
             option.Name = "option";
             option.SetCharacterDistanceFactor(1.0f);
             option.SetColor(1.0f, 0.0f, 0.0f);
             option.SetColorEmissive(1.0f, 1.0f, 1.0f);
-
             if (Globals.DisplayOptionButton) { Globals.posWert += 50; }
-
             language.SetPosition(Globals.posYWert, 200f + Globals.posWert);
             language.Name = "language";
             language.SetCharacterDistanceFactor(1.0f);
             language.SetColor(1.0f, 0.0f, 0.0f);
             language.SetColorEmissive(1.0f, 1.0f, 1.0f);
-
             if (Globals.DisplayLanguageButton) { Globals.posWert += 50; }
-
             credits.SetPosition(Globals.posYWert, 200f + Globals.posWert);
             credits.Name = "credits";
             credits.SetCharacterDistanceFactor(1.0f);
             credits.SetColor(1.0f, 0.0f, 0.0f);
             credits.SetColorEmissive(1.0f, 1.0f, 1.0f);
-
             if (Globals.DisplayCreditsButton) { Globals.posWert += 50; }
-
             AdminSB.SetPosition(Globals.posYWert, 200f + Globals.posWert);
             AdminSB.Name = "AdminSB";
             AdminSB.SetCharacterDistanceFactor(1.0f);
             AdminSB.SetColor(1.0f, 0.0f, 0.0f);
             AdminSB.SetColorEmissive(1.0f, 1.0f, 1.0f);
-
             if (Globals.DisplayScoreboardButton) { Globals.posWert += 50; }
-
             LevelB.SetPosition(Globals.posYWert, 200f + Globals.posWert);
             LevelB.Name = "LevelB";
             LevelB.SetCharacterDistanceFactor(1.0f);
             LevelB.SetColor(1.0f, 0.0f, 0.0f);
             LevelB.SetColorEmissive(1.0f, 1.0f, 1.0f);
-
             if (Globals.DisplayLevelButton) { Globals.posWert += 50; }
-
             leave.SetPosition(Globals.posYWert, 200f + Globals.posWert);
             leave.Name = "leave";
             leave.SetCharacterDistanceFactor(1.0f);
             leave.SetColor(1.0f, 0.0f, 0.0f);
             leave.SetColorEmissive(1.0f, 1.0f, 1.0f);
-
             if (Globals.DisplayStartGameButton) { AddHUDObject(start); }
             if (Globals.DisplayOptionButton) { AddHUDObject(option); }
             if (Globals.DisplayLanguageButton) { AddHUDObject(language); }
@@ -560,15 +446,12 @@ namespace Gruppenprojekt.App.Menus
             if (Globals.DisplayScoreboardButton) { AddHUDObject(AdminSB); }
             if (Globals.DisplayLevelButton) { 
                 AddHUDObject(LevelB);
-                
             }
             if(Globals.TutorialComplete) {
                 AddHUDObject(LevelNum);
                 AddHUDObject(LevelScore);
             }
             if (Globals.DisplayLeaveButton) { AddHUDObject(leave); }
-
-
         }
         public static string leerstellen(int i)
         {
@@ -614,8 +497,6 @@ namespace Gruppenprojekt.App.Menus
             {
                 return "";
             }
-            
         }
-        
     }
 }
