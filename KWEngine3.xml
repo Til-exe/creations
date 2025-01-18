@@ -2122,6 +2122,12 @@
             <param name="other">anderes GameObjekt</param>
             <returns>1, wenn das aufrufende Objekt näher an der Kamera ist, sonst -1</returns>
         </member>
+        <member name="M:KWEngine3.GameObjects.GameObject.SetHitboxToCapsule(KWEngine3.CapsuleHitboxType)">
+            <summary>
+            Ersetzt die eigentliche Hitbox-Form mit der für Spielfiguren gängigen Kapselform
+            </summary>
+            <param name="type">Variation der Kapsel (CapsuleHitboxType.Default oder CapsuleHitboxType.Sloped)</param>
+        </member>
         <member name="M:KWEngine3.GameObjects.GameObject.SetHitboxToCapsule(OpenTK.Mathematics.Vector3,KWEngine3.CapsuleHitboxType)">
             <summary>
             Ersetzt die eigentliche Hitbox-Form mit der für Spielfiguren gängigen Kapselform
@@ -3532,22 +3538,24 @@
             Basisklasse für das Programmfenster
             </summary>
         </member>
-        <member name="M:KWEngine3.GLWindow.#ctor(System.Boolean,KWEngine3.PostProcessingQuality)">
+        <member name="M:KWEngine3.GLWindow.#ctor(System.Boolean,KWEngine3.PostProcessingQuality,OpenTK.Windowing.Common.Input.WindowIcon)">
             <summary>
             Standardkonstruktor für den exklusiven Fullscreen-Modus
             </summary>
             <param name="vSync">Begrenzung der FPS an die Bildwiederholrate des Monitors?</param>
             <param name="ppQuality">Qualität der Post-Processing-Pipeline (Standard: hohe Qualität)</param>
+            <param name="icon">Fenstersymbol</param>
         </member>
-        <member name="M:KWEngine3.GLWindow.#ctor(System.Int32,System.Int32,System.Boolean)">
+        <member name="M:KWEngine3.GLWindow.#ctor(System.Int32,System.Int32,System.Boolean,OpenTK.Windowing.Common.Input.WindowIcon)">
             <summary>
             Standardkonstruktor für den Fenstermodus
             </summary>
             <param name="width">Breite des Fensterinhalts in Pixeln</param>
             <param name="height">Höhe des Fenterinhalts in Pixeln</param>
             <param name="vSync">Begrenzung der FPS an die Bildwiederholrate des Monitors?</param>
+            <param name="icon">Fenstersymbol</param>
         </member>
-        <member name="M:KWEngine3.GLWindow.#ctor(System.Int32,System.Int32,System.Boolean,KWEngine3.PostProcessingQuality,KWEngine3.WindowMode)">
+        <member name="M:KWEngine3.GLWindow.#ctor(System.Int32,System.Int32,System.Boolean,KWEngine3.PostProcessingQuality,KWEngine3.WindowMode,OpenTK.Windowing.Common.Input.WindowIcon)">
             <summary>
             Standardkonstruktor für den Fenstermodus
             </summary>
@@ -3556,8 +3564,9 @@
             <param name="vSync">Begrenzung der FPS an die Bildwiederholrate des Monitors?</param>
             <param name="ppQuality">Qualität der Post-Processing-Pipeline (Standard: hohe Qualität)</param>
             <param name="windowMode">Art des Fensters (Standard oder rahmenlos)</param>
+            <param name="icon">Fenstersymbol</param>
         </member>
-        <member name="M:KWEngine3.GLWindow.#ctor(System.Int32,System.Int32,System.Boolean,KWEngine3.PostProcessingQuality,KWEngine3.WindowMode,System.IntPtr)">
+        <member name="M:KWEngine3.GLWindow.#ctor(System.Int32,System.Int32,System.Boolean,KWEngine3.PostProcessingQuality,KWEngine3.WindowMode,System.IntPtr,OpenTK.Windowing.Common.Input.WindowIcon)">
             <summary>
             Standardkonstruktor für den Fenstermodus
             </summary>
@@ -3567,6 +3576,7 @@
             <param name="ppQuality">Qualität der Post-Processing-Pipeline (Standard: hohe Qualität)</param>
             <param name="windowMode">Art des Fensters (Standard oder rahmenlos)</param>
             <param name="monitorHandle">Handle des Monitors, auf dem das Fenster geöffnet werden soll</param>
+            <param name="icon">Fenstersymbol</param>
         </member>
         <member name="P:KWEngine3.GLWindow.FPS">
             <summary>
@@ -3692,6 +3702,20 @@
             <param name="filename">Relativer Pfad zu der zu importierenden Datei</param>
             <param name="tipX">Relative X-Position der Cursorspitze (von 0 bis 1, Standardwert: 0.5f)</param>
             <param name="tipY">Relative Y-Position der Cursorspitze (von 0 bis 1, Standardwert: 0.5f)</param>
+        </member>
+        <member name="M:KWEngine3.GLWindow.SetWindowIcon(OpenTK.Windowing.Common.Input.WindowIcon)">
+            <summary>
+            Setzt bzw. ändert das Anwendungsfenstersymbol
+            </summary>
+            <param name="icon">WindowIcon-Instanz</param>
+        </member>
+        <member name="M:KWEngine3.GLWindow.CreateWindowIconFromFile(System.String)">
+            <summary>
+            Konvertiert eine Grafikdatei in das WindowIcon-Format
+            </summary>
+            <remarks>Method output may be null if file is invalid</remarks>
+            <param name="iconFile">Dateiname</param>
+            <returns>WindowIcon-Instanz</returns>
         </member>
         <member name="P:KWEngine3.GLWindow.Quality">
             <summary>
@@ -4566,6 +4590,27 @@
             <summary>
             Helferklasse für Vektoroperationen
             </summary>
+        </member>
+        <member name="M:KWEngine3.Helper.HelperVector.Mirror2DPointOverLine(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Spiegelt einen zweidimensionalen Punkt an einer durch zwei zweidimensionale Punkte definierten Geraden
+            </summary>
+            <param name="pX">X-Koordinate des zu spiegelnden Punkts</param>
+            <param name="pY">Y-Koordinate des zu spiegelnden Punkts</param>
+            <param name="linepoint1X">X-Koordinate von Punkt #1 auf der Geraden</param>
+            <param name="linepoint1Y">Y-Koordinate von Punkt #1 auf der Geraden</param>
+            <param name="linepoint2X">X-Koordinate von Punkt #2 auf der Geraden</param>
+            <param name="linepoint2Y">Y-Koordinate von Punkt #2 auf der Geraden</param>
+            <returns>Gespiegelter Punkt als Vector2-Instanz</returns>
+        </member>
+        <member name="M:KWEngine3.Helper.HelperVector.Mirror2DPointOverLine(OpenTK.Mathematics.Vector2,OpenTK.Mathematics.Vector2,OpenTK.Mathematics.Vector2)">
+            <summary>
+            Spiegelt einen zweidimensionalen Punkt an einer durch zwei zweidimensionale Punkte definierten Geraden
+            </summary>
+            <param name="p">zu spiegelnder Punkt</param>
+            <param name="linepoint1">Punkt #1 der Geraden</param>
+            <param name="linepoint2">Punkt #2 der Geraden</param>
+            <returns>Gespiegelter Punkt als Vector2-Instanz</returns>
         </member>
         <member name="M:KWEngine3.Helper.HelperVector.IsVectorPointingUpward(OpenTK.Mathematics.Vector3)">
             <summary>
