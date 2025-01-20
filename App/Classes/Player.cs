@@ -177,7 +177,7 @@ namespace Gruppenprojekt.App.Classes
                 
                 CurrentWorld.AddHUDObject(winCondition);
 
-                if (this.Position.X == -20 && this.Position.Z == 2.5f) 
+                if (this.Position.X > 25 && this.Position.Z > 5 && this.Position.X < 35 && this.Position.Z < 7) 
                 {
                     safeScore();
                     
