@@ -55,7 +55,7 @@ namespace Gruppenprojekt.App
             _HUDLastUpdate = WorldTime;
         }
         public override void Act()
-        {
+        { 
             HUDObjectImage bbg = GetHUDObjectImageByName("bbg");           
             if (Keyboard.IsKeyPressed(Keys.T) && Globals.debugMode)
             {

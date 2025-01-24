@@ -486,8 +486,16 @@ namespace Gruppenprojekt.App.Classes
         public void Camera(int forward, int strafe)
         {
             if (Globals.gameRunning) {
+
+                float ShakeSpeed;
+
+                if(Globals.Sprinting == true) { ShakeSpeed = 0.09f;  }
+                else { ShakeSpeed = 0.05f;  }
+
+
+
                 CurrentWorld.AddCameraRotationFromMouseDelta();
-                CurrentWorld.UpdateCameraPositionForFirstPersonView(Center, 2f);                
+                CurrentWorld.UpdateCameraPositionForFirstPersonView(Center + new Vector3(MathF.Sin(WorldTime * 5 + MathF.PI / 4) * ShakeSpeed,MathF.Sin(WorldTime * 5) * ShakeSpeed, 0), 2f);                
                 MoveAndStrafeAlongCameraXZ(forward, strafe, Globals.speed);
                 TurnTowardsXZ(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVector);
             }
