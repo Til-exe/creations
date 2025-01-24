@@ -18,12 +18,14 @@ using System.Text;
 using System.Transactions;
 using Gruppenprojekt.App.Menus;
 using System.Diagnostics.Metrics;
+using System.Reflection;
 
 namespace Gruppenprojekt.App
 {
     public class GameWorldTutorial : World
     {
-
+        bool startbool = true;
+        float counter = 1f;
         private Player p;
         float finalPos = 0f;
         private float _HUDLastUpdate = 0;
@@ -55,7 +57,20 @@ namespace Gruppenprojekt.App
             _HUDLastUpdate = WorldTime;
         }
         public override void Act()
-        {            
+        {
+            
+
+            if (startbool && !Globals.debugMode)
+            {
+                HUDObjectImage bbg = GetHUDObjectImageByName("bbg");
+                bbg.SetZIndex(0);
+                if (counter != -1f)
+                {
+                    counter -= 0.0005f;
+                    bbg.SetOpacity(counter);
+                }
+            }
+
             HUDObjectText Text = GetHUDObjectTextByName("text");
             HUDObjectText Text1 = GetHUDObjectTextByName("text1");
             if (Globals.gameRunning ) {
@@ -205,6 +220,21 @@ namespace Gruppenprojekt.App
         }
         public override void Prepare()
         {
+
+            HUDObjectImage bbg = new HUDObjectImage("./App/Textures/blackscreen.png");
+            bbg.SetScale(Globals.fensterBreite, Globals.fensterHoehe);
+            bbg.Name = "bbg";
+            bbg.SetColor(0, 0, 0);
+            bbg.CenterOnScreen();
+            bbg.SetZIndex(0);
+            bbg.SetOpacity(1f);
+            if(!Globals.debugMode) 
+            {
+                AddHUDObject(bbg);
+
+            }
+
+
             HUDObjectText text = new HUDObjectText("");
             text.SetPosition(Globals.fensterBreite/2, 40);
             text.SetTextAlignment(TextAlignMode.Center);
@@ -249,10 +279,19 @@ namespace Gruppenprojekt.App
 
             Floor f = new Floor("floor", 1f, 1f, 1f);
             f.SetTexture("./app/Textures/wood1.png");
+            f.SetTextureRepeat(37f, 50f);
+            AddGameObject(f);
+
+
+            Floor f1 = new Floor("floor", 1f, 8.8f, 1f);
+            f1.SetTexture("./app/Textures/wood1.png");
+            f1.SetTextureRepeat(37f, 50f);
+            AddGameObject(f1);
+
+
             if (Globals.ReturnCode == 0) { }
             if (Globals.ReturnCode == 1) { Globals.ReturnCode = 0; Globals.Score += 1000; }
-            f.SetTextureRepeat(100f, 100f);           
-            AddGameObject(f);
+
 
             p = new Player("Yasin", 0f, 2f, 0f);
             AddGameObject(p);
@@ -260,7 +299,7 @@ namespace Gruppenprojekt.App
             //Enemy e = new Enemy("huso", -12.5f, 2, 13);
             //AddGameObject(e);
             float xCord = 4f;
-            float ScaleHoehe = 5f;
+            float ScaleHoehe = 10.3f;
             InteractionCollectable cComplete = new InteractionCollectable("1",0f, 4f, 20f);
             cComplete.SetColorEmissive(1,0,0,10);
             cComplete.l.SetColor(1, 0, 0,10);
@@ -277,15 +316,19 @@ namespace Gruppenprojekt.App
             Wall borderEast = new Wall("1", 0f, xCord, -100f);
             Wall w1 = new Wall("1", 5f, xCord, 10f);
             Wall w2 = new Wall("1", -5f, xCord, 10f);
-            Wall w3 = new Wall("1", 0f, xCord, 25f);
-            Wall w4 = new Wall("1", 0f, xCord, -5f);
+            Wall w3 = new Wall("1", 0f, xCord, 24f);
+            Wall w4 = new Wall("1", 0f, xCord, -4f);
             if (true) {
                 w1.AddRotationY(90);
                 w1.SetScale(30,ScaleHoehe,1);
-                w1.SetTextureRepeat(15,3);
+                w1.SetTextureRepeat(15,6);
                 w2.AddRotationY(90);
                 w2.SetScale(30, ScaleHoehe, 1);
-                w2.SetTextureRepeat(15,3);
+                w2.SetTextureRepeat(15,6);
+                w3.SetScale(30, ScaleHoehe, 1);
+                w3.SetTextureRepeat(15, 6);
+                w4.SetTextureRepeat(15, 6);
+                w4.SetScale(30, ScaleHoehe, 1);
                 borderNorth.SetRotation(0, 90, 0);
                 borderNorth.SetScale(200, ScaleHoehe, 1);
                 borderNorth.SetTextureRepeat(100f, 5f);

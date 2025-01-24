@@ -24,20 +24,24 @@ namespace Gruppenprojekt.App
 
         public GameWindow() : base(
             
-            Globals.fensterBreite,                               // Fensterbreite
-            Globals.fensterHoehe,                                // Fensterhöhe
-            true,                               // VSync?
-            PostProcessingQuality.Standard,     // Qualität der PP-Effekte (Standard für iGPUs)
-            WindowMode.Default)                 // Fensterdekorationsmodus
-        {
+            Globals.fensterBreite,                                  // Fensterbreite
+            Globals.fensterHoehe,                                   // Fensterhöhe
+            true,                                                   // VSync?
+            PostProcessingQuality.Standard,                         // Qualität der PP-Effekte (Standard für iGPUs)
+            WindowMode.Default,
 
+            CreateWindowIconFromFile("./App/data/GameIcon.png")     
+            )                 // Fensterdekorationsmodus
+            
+        {
             this.Title = "Its Stolen";      
             GameWorldStart game = new GameWorldStart();
             GameWorldStartMenu StartMenu = new GameWorldStartMenu();
+            GameWorldTutorial gwt = new GameWorldTutorial();    
             IntroScreen intro = new IntroScreen();
             death1 death = new death1();
             Win win = new Win();
-            this.SetWorld(intro);
+            this.SetWorld(gwt);
             Console.WriteLine("[CONSOLE] Game Start");
 
         }
