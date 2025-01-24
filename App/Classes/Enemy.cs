@@ -36,6 +36,9 @@ namespace Gruppenprojekt.App.Classes
         static bool OverridePathfinding = false;
         private const int MAXDIRECTIONS = 64;
         private Queue<Vector3> directions = new Queue<Vector3>(MAXDIRECTIONS);
+        private float lastActionTime = 0;
+        private const float cooldownDuration = 0.5f;
+
 
 
         public Enemy(string name, float x, float y, float z)
@@ -55,10 +58,20 @@ namespace Gruppenprojekt.App.Classes
 
         public override void Act()
         {
-            
             if (Globals.gameRunning) 
             {
-               
+                float distance;
+                distance = GetDistanceTo(p);
+                float maxDistance = 100f;
+                float proximityPercent = 100f * (1f - (distance / maxDistance));
+                Console.WriteLine($"Nähe des penisman: {proximityPercent}%");
+                if (WorldTime - lastActionTime >= cooldownDuration)
+                {
+                    Audio.PlaySound(@"./App/Sounds/thump1.wav", false, proximityPercent);
+                    lastActionTime = WorldTime;
+                    Console.WriteLine("sound gemacht");
+                }
+                Stopwatch sw = Stopwatch.StartNew();
                 playerPos = p.Position;
                 Vector3 raystart = this.Center;
                 Vector3 rayDirection = HelperVector.GetDirectionFromVectorToVectorXZ(this.Position,playerPos);

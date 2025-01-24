@@ -156,6 +156,11 @@ namespace Gruppenprojekt.App.Classes
         float penisZeit;
         float digga;
 
+        private float GetVolumeForDistance(float distance)
+        {
+            return 1f / (distance + 1);
+        }
+
         public override void Act()
         {
             //Death Action
@@ -192,8 +197,6 @@ namespace Gruppenprojekt.App.Classes
             {
                 removedTime += 60;
                 min++;
-
-                
             }
             if(Convert.ToInt32(WorldTime) < 60)
             {
