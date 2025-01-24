@@ -23,6 +23,7 @@ namespace Gruppenprojekt.App.Classes
         public Vector3 collectablepos;
         bool flashlight = false;
         private LightObject _flashlight;
+       
         HUDObjectText displayTimer = new HUDObjectText("Timer: ");
         HUDObjectText m1 = new HUDObjectText("Zurück zum Spiel");
         HUDObjectText m2 = new HUDObjectText("Hauptmenu");
@@ -31,7 +32,8 @@ namespace Gruppenprojekt.App.Classes
         HUDObjectText gamemode = new HUDObjectText("Gamemode:" + Globals.choseGamemode);
         HUDObjectImage bg = new HUDObjectImage("./App/Textures/blackscreen.png");
         HUDObjectText mtitle = new HUDObjectText("Pausiert");
-        HUDObjectText winCondition = new HUDObjectText("Verschwinde von hier !");
+        HUDObjectText winCondition = new HUDObjectText("Verschwinde");
+        
         private HUDObjectText colCount;
         private int counter = 0;
         private float timestampLastWalkSound = 0;
@@ -56,7 +58,9 @@ namespace Gruppenprojekt.App.Classes
             this.SetScale(1, 2, 1);
             this.IsCollisionObject = true;
             this.SetColorEmissive(1, 1, 1, 2);
-            
+
+            countdown = new HUDObjectText(NegativeCountdown.ToString());
+
             //Taschenlampe
             _flashlight = new LightObject(LightType.Directional, ShadowQuality.Low);
             _flashlight.Name = "flashlight";
@@ -130,10 +134,13 @@ namespace Gruppenprojekt.App.Classes
             gamemode.SetColor(1.0f, 0.0f, 0.0f);
 
             winCondition.Name = "win";
-            winCondition.SetPosition(Globals.fensterBreite / 2, 40f);
+            winCondition.SetTextAlignment(TextAlignMode.Center);
+            winCondition.SetPosition(Globals.fensterBreite / 2, Globals.fensterHoehe / 2);
             winCondition.SetCharacterDistanceFactor(1.0f);
             winCondition.SetColor(1.0f, 0.0f, 0.0f);
-            winCondition.SetTextAlignment(TextAlignMode.Center);
+            winCondition.SetScale(60);
+            winCondition.SetOpacity(0);
+            CurrentWorld.AddHUDObject(winCondition);
         }
         private Random _random = new Random();
         Win winscreen = new Win();
@@ -152,9 +159,17 @@ namespace Gruppenprojekt.App.Classes
         public static bool enemyspeedcap = false;
         private float _enemySpeedResetTime = -1f;
         float timestampLastSighting = 0;
-        bool penis1 = true;
-        float penisZeit;
-        float digga;
+        
+
+        float finalOP = float.Epsilon;              //gehöhrt mir ihr Penner, Bruns zertifiziert
+        int tracker = 0;
+        bool nowDown = false;
+        bool WorldTimeSave = false;
+        float TimeCounter = 0;
+        float T = 0;
+        float NegativeCountdown = 0;
+        HUDObjectText countdown;
+
 
         public override void Act()
         {
@@ -165,17 +180,32 @@ namespace Gruppenprojekt.App.Classes
                 GameWorldStartMenu gwsm = new GameWorldStartMenu();
                 Window.SetWorld(gwsm);
             }
-            if (counter == Globals.ColCount)    //Ende wenn alle Collectables eingesammelt worden sind
+            if (counter == Globals.ColCount)    //Ende wenn alle Collectables eingesammelt worden sind ,,  ach ne 
             {
-                if(penis1)
-                {
-                    penisZeit = WorldTime;
-                    penis1 = false;
-                }
-                float penisNew = WorldTime - penisZeit;
-                digga = (WorldTime - penisNew) - 60;
+                if(WorldTimeSave == false) {  T = WorldTime;   WorldTimeSave = true;  }
+
+                TimeCounter = CurrentWorld.WorldTime - T;
+
+                NegativeCountdown = 250 - TimeCounter;
+
                 
-                CurrentWorld.AddHUDObject(winCondition);
+                winCondition.SetOpacity(finalOP);
+
+               
+               
+
+                if(tracker > 40) { CurrentWorld.RemoveHUDObject(winCondition); }
+
+                if( nowDown == false )
+                {
+                    finalOP += 0.25f;
+
+                }
+                else { finalOP -= 0.25f; }
+
+                if( finalOP >= 1) { nowDown = true; }
+                if( finalOP < 0 ) { nowDown = false;    tracker++; }
+
 
                 if (this.Position.X > 25 && this.Position.Z > 5 && this.Position.X < 35 && this.Position.Z < 7) 
                 {
