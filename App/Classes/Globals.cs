@@ -53,7 +53,7 @@ namespace Gruppenprojekt.App.Classes
         public static bool DisplayOptionButton = true;
         public static bool DisplayLanguageButton = false;
         public static bool DisplayCreditsButton = true;
-        public static bool DisplayLevelButton = false;
+        public static bool DisplayInfoButton = false;
         public static bool DisplayScoreboardButton = false;
         public static bool DisplayLeaveButton = true;
 
@@ -65,7 +65,7 @@ namespace Gruppenprojekt.App.Classes
         public static string LanguageButtonText = "";
         public static string CreditsButtonText = "";
         public static string ScoreboardButtonText = "";
-        public static string LevelButtonText = "";
+        public static string InfoButtonText = "";
         public static string LeaveButtonText = "";
         public static string ActualScoreboardText = "";
         public static string displayCounter = "";

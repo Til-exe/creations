@@ -17,7 +17,7 @@ using System;
 
 namespace Gruppenprojekt.App.Menus
 {
-    public class shopMenu : World
+    public class shopmenu : World
     {
         bool delete = false;
         bool deleted = false;
