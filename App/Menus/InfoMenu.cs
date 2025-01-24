@@ -18,6 +18,7 @@ namespace Gruppenprojekt.App.Menus
         int dLevel = 0;
         bool toggleEnemyText = true;
         bool displayText = true;
+        bool notDisplayed = true;
         public override void Act()
         {
             HUDObjectText back = GetHUDObjectTextByName("back");
