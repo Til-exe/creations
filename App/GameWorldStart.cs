@@ -20,6 +20,10 @@ namespace Gruppenprojekt.App
         bool fullbright = false;
         bool bird = false; // KAR: Vogelperspektive
 
+
+     
+           
+
         public bool IsBird()
         {
             return bird;

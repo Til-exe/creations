@@ -16,6 +16,8 @@ using Gruppenprojekt.App.Menus;
 using Gruppenprojekt.App.death_winscreen;
 
 using Assimp.Configs;
+using OpenTK.Audio.OpenAL;
+
 namespace Gruppenprojekt.App.Classes
 {
     public class Player : GameObject
@@ -59,7 +61,7 @@ namespace Gruppenprojekt.App.Classes
             this.IsCollisionObject = true;
             this.SetColorEmissive(1, 1, 1, 2);
 
-            countdown = new HUDObjectText(NegativeCountdown.ToString());
+            countdown = new HUDObjectText(NegativeCountdown.ToString("0.00"));
 
             //Taschenlampe
             _flashlight = new LightObject(LightType.Directional, ShadowQuality.Low);
@@ -141,6 +143,14 @@ namespace Gruppenprojekt.App.Classes
             winCondition.SetScale(60);
             winCondition.SetOpacity(0);
             CurrentWorld.AddHUDObject(winCondition);
+
+            countdown.Name = "countdown";
+            countdown.SetPosition(Globals.fensterBreite / 2, 40f);
+            countdown.SetOpacity(1);
+            countdown.SetTextAlignment(TextAlignMode.Center);
+            countdown.SetColor(1.0f, 0.0f, 0.0f);
+            
+
         }
         private Random _random = new Random();
         Win winscreen = new Win();
@@ -169,6 +179,7 @@ namespace Gruppenprojekt.App.Classes
         float T = 0;
         float NegativeCountdown = 0;
         HUDObjectText countdown;
+        
 
 
         public override void Act()
@@ -182,21 +193,26 @@ namespace Gruppenprojekt.App.Classes
             }
             if (counter == Globals.ColCount)    //Ende wenn alle Collectables eingesammelt worden sind ,,  ach ne 
             {
-                if(WorldTimeSave == false) {  T = WorldTime;   WorldTimeSave = true;  }
+                if(WorldTimeSave == false) {  T = WorldTime;   WorldTimeSave = true;  }             //hier 
 
                 TimeCounter = CurrentWorld.WorldTime - T;
 
                 NegativeCountdown = 250 - TimeCounter;
 
-                
+                countdown.SetText(NegativeCountdown.ToString("0.00"));
                 winCondition.SetOpacity(finalOP);
 
+               
+
+                
+              
                
                
 
                 if(tracker > 40) { CurrentWorld.RemoveHUDObject(winCondition); }
+                else if(tracker == 40) { CurrentWorld.AddHUDObject(countdown); }
 
-                if( nowDown == false )
+                if ( nowDown == false )
                 {
                     finalOP += 0.25f;
 
@@ -204,7 +220,7 @@ namespace Gruppenprojekt.App.Classes
                 else { finalOP -= 0.25f; }
 
                 if( finalOP >= 1) { nowDown = true; }
-                if( finalOP < 0 ) { nowDown = false;    tracker++; }
+                if( finalOP < 0 ) { nowDown = false;    tracker++; }                                // bis hier macht countdown nachdem alle Collectables eingesammelt wurden
 
 
                 if (this.Position.X > 25 && this.Position.Z > 5 && this.Position.X < 35 && this.Position.Z < 7) 
