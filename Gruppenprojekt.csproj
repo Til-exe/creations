@@ -79,6 +79,7 @@
     <None Update="App\data\GameIcon.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="App\data\time.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

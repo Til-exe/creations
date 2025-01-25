@@ -38,7 +38,7 @@ namespace Gruppenprojekt.App.Menus
                 if (Mouse.IsButtonPressed(MouseButton.Left) && h1.IsMouseCursorOnMe() == true)
                 {
                     KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
-                    GameWorldStartMenu gm = new GameWorldStartMenu();
+                    GwStartMenuOption gm = new GwStartMenuOption();
                     Window.SetWorld(gm);
                 }
             }

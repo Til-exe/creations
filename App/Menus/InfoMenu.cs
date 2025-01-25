@@ -247,7 +247,7 @@ namespace Gruppenprojekt.App.Menus
         public override void Prepare()
         {
             
-            HUDObjectText back = new HUDObjectText("BACK");
+            HUDObjectText back = new HUDObjectText("Back");
             back.SetPosition(50f, 80f);
             back.Name = "back";
             back.SetColor(1.0f, 0.0f, 0.0f);
