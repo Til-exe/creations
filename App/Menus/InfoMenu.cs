@@ -37,6 +37,12 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectText text6 =  GetHUDObjectTextByName("text6");
 
 
+            text1.SetText("");
+            text2.SetText("");
+            text3.SetText("");
+            text4.SetText("");
+            text5.SetText("");
+            text6.SetText("");
             if (back != null)
             {
                 if (back.IsMouseCursorOnMe() == true)
@@ -58,9 +64,7 @@ namespace Gruppenprojekt.App.Menus
             {
                 if (Enemy.IsMouseCursorOnMe() == true)
                 {
-                    Enemy.SetColorEmissiveIntensity(0.8f);
-                    Enemy.SetText("vEnemy");
-                    Flashlight.SetPosition(100, 400);                    
+                    Enemy.SetColorEmissiveIntensity(0.8f);                
                 }
                 else
                 {
@@ -73,7 +77,9 @@ namespace Gruppenprojekt.App.Menus
                 }
                 if (Mouse.IsButtonPressed(MouseButton.Left) && Enemy.IsMouseCursorOnMe() == true)
                 {
-                    if(toggleEnemyText)
+                    Enemy.SetText("vEnemy");
+                    Flashlight.SetPosition(100, 400);
+                    if (toggleEnemyText)
                     {
                         Attack.SetPosition(110, 280);
                         Benehmen.SetPosition(110, 310);
@@ -93,7 +99,6 @@ namespace Gruppenprojekt.App.Menus
             {
                 if (Flashlight.IsMouseCursorOnMe() == true)
                 {
-                    displayText = true;
                     Flashlight.SetColorEmissiveIntensity(0.8f);
                     text1.SetText("Du kannst die Taschenlampe nutzen um");
                     text2.SetText("den Gegner zu blenden wenn er vor dir");
@@ -102,26 +107,15 @@ namespace Gruppenprojekt.App.Menus
                     text5.SetText("Die Taschenlampe kann ganz zufällig");
                     text6.SetText("kaputt gehen und sich ausschalten.");
                 }
-                else if (!displayText)
+                else 
                 {
                     Flashlight.SetColorEmissiveIntensity(0.0f);
-                    text1.SetText("");
-                    text2.SetText("");
-                    text3.SetText("");
-                    text4.SetText("");
-                    text5.SetText("");
-                    text6.SetText("");
-                }
-                else
-                {
-                    displayText = false;
                 }
             }
             if (Attack != null)
             {
                 if (Attack.IsMouseCursorOnMe() == true)
                 {
-                    displayText = true;
                     Attack.SetColorEmissiveIntensity(0.8f);
                     text1.SetText("Sollte der Gegner dich sehen wird er ");
                     text2.SetText("dich verfolgen bis er dich aus den Augen");
@@ -130,74 +124,45 @@ namespace Gruppenprojekt.App.Menus
                     text5.SetText("Du kannst ihm entkommen indem du schnell um");
                     text6.SetText("Ecken läufst!");
                 }
-                else if (!displayText)
-                {
-                    Attack.SetColorEmissiveIntensity(0.0f);
-                    text1.SetText("");
-                    text2.SetText("");
-                    text3.SetText("");
-                    text4.SetText("");
-                    text5.SetText("");
-                    text6.SetText("");
-                }
                 else
                 {
-                    displayText = false;
+                    Attack.SetColorEmissiveIntensity(0.0f);
                 }
             }
             if (World != null)
             {
                 if (World.IsMouseCursorOnMe() == true)
                 {
-                    displayText = true;
                     World.SetColorEmissiveIntensity(0.8f);
                     text1.SetText("Im Spiel befindest du dich in einem");
                     text2.SetText("Labyrinth indem jeder gang einen");
                     text3.SetText("ausweg hat. Bisauf die großen Räume!");
                     text4.SetText("Die meisten sind Sackgassen.");
                 }
-                else if(!displayText)
+                else 
                 {
                     World.SetColorEmissiveIntensity(0.0f);
-                    text1.SetText("");
-                    text2.SetText("");
-                    text3.SetText("");
-                    text4.SetText("");
-                }
-                else
-                {
-                    displayText = false;
                 }
             }
             if (Map != null)
             {
                 if (Map.IsMouseCursorOnMe() == true)
                 {
-                    displayText = true;
                     Map.SetColorEmissiveIntensity(0.8f);
                     text1.SetText("Die Map zeigt nicht den Gegner an.");
                     text2.SetText("Sei Also vorsichtig wenn du ");
                     text3.SetText("die Map benutzt! Der Gegner könnte");
                     text4.SetText("bereits auf dem Weg sein!");
                 }
-                else if (!displayText)
-                {
-                    Map.SetColorEmissiveIntensity(0.0f);
-                    text1.SetText("");
-                    text2.SetText("");
-                    text3.SetText("");
-                    text4.SetText("");
-                }
                 else
                 {
-                    displayText = false;
+                    Map.SetColorEmissiveIntensity(0.0f);
                 }
             }
             if (Benehmen != null)
             {
                 if (Benehmen.IsMouseCursorOnMe() == true)
                 {
-                    displayText = true;
                     Benehmen.SetColorEmissiveIntensity(0.8f);
                     text1.SetText("Der Gegner wird durch das Labyrinth");
                     text2.SetText("laufen und dich suchen. Er kann hinter");
@@ -206,19 +171,10 @@ namespace Gruppenprojekt.App.Menus
                     text5.SetText("Du wirst ihn sehen, aber nicht immer sieht");
                     text6.SetText("er dich dann auch.");
                 }
-                else if (!displayText)
-                {
-                    Benehmen.SetColorEmissiveIntensity(0.0f);
-                    text1.SetText("");
-                    text2.SetText("");
-                    text3.SetText("");
-                    text4.SetText("");
-                    text5.SetText("");
-                    text6.SetText("");
-                }
                 else
                 {
-                    displayText = false;
+                    Benehmen.SetColorEmissiveIntensity(0.0f);
+                    
                 }
             }
             if (Movement != null)
@@ -231,16 +187,9 @@ namespace Gruppenprojekt.App.Menus
                     text2.SetText("und wird dich erbahmungslos durch die");
                     text3.SetText("gesamte Map jagen.");
                 }
-                else if (!displayText)
-                {
-                    Movement.SetColorEmissiveIntensity(0.0f);
-                    text1.SetText("");
-                    text2.SetText("");
-                    text3.SetText("");
-                }
                 else
                 {
-                    displayText = false;
+                    Movement.SetColorEmissiveIntensity(0.0f);
                 }
             }
         }
