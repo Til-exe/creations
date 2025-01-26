@@ -37,9 +37,7 @@ namespace Gruppenprojekt.App.Classes
         private const int MAXDIRECTIONS = 64;
         private Queue<Vector3> directions = new Queue<Vector3>(MAXDIRECTIONS);
         private float lastActionTime = 0;
-        private const float cooldownDuration = 0.5f;
-
-
+        float cooldownDuration = 1.5f;
 
         public Enemy(string name, float x, float y, float z)
         {
@@ -63,15 +61,37 @@ namespace Gruppenprojekt.App.Classes
                 float distance;
                 distance = GetDistanceTo(p);
                 float maxDistance = 100f;
-                float proximityPercent = 100f * (1f - (distance / maxDistance));
-                Console.WriteLine($"Nähe des penisman: {proximityPercent}%");
+
+                // Basis-Proximity-Wert berechnen (0 bis 1 linear)
+                float baseProximity = 1f - (distance / maxDistance);
+
+                // Zweistufige Anpassung
+                float proximityPercent;
+                if (baseProximity <= 0.8f)
+                {
+                    // Im Bereich von 0 bis 0.8 langsam ansteigen (lineares Verhalten)
+                    proximityPercent = baseProximity * 0.8f; // Skaliert langsam bis max 0.8
+                }
+                else
+                {
+                    // Im Bereich von 0.8 bis 1 schnell ansteigen (exponentiell)
+                    proximityPercent = 0.8f + (float)Math.Pow((baseProximity - 0.8f) / 0.2f, 2) * 0.2f;
+                }
+
+                double proxiround = Math.Round(proximityPercent, 2); // Runden auf 2 Nachkommastellen
+                Console.WriteLine($"Nähe des penisman: {proxiround}");
+
+                // Bedingung für den Cooldown
                 if (WorldTime - lastActionTime >= cooldownDuration)
                 {
-                    Audio.PlaySound(@"./App/Sounds/thump1.wav", false, proximityPercent);
+                    Audio.PlaySound(@"./App/Sounds/thump1.wav", false, (float)proxiround / 5); // proximityPercent im Bereich 0-1
                     lastActionTime = WorldTime;
                     Console.WriteLine("sound gemacht");
                 }
-                Stopwatch sw = Stopwatch.StartNew();
+
+
+
+
                 playerPos = p.Position;
                 Vector3 raystart = this.Center;
                 Vector3 rayDirection = HelperVector.GetDirectionFromVectorToVectorXZ(this.Position,playerPos);
@@ -111,7 +131,8 @@ namespace Gruppenprojekt.App.Classes
                     TurnTowardsXZ(playerPos);
                     if (myDirection != Vector3.Zero)
                     {
-                        MoveAlongVector(myDirection, Globals.EnemySpeed);                                //Attackgeschwindigkeit
+                        MoveAlongVector(myDirection, Globals.EnemySpeed);
+                        cooldownDuration = 0.5f;                                                        //Attackgeschwindigkeit
                     }
                 }
                 else if (timestampLastSighting + 4f > WorldTime && timestampLastSighting != 0)          //NOTIZ AN TIL: Wie lang kann der Gegner dich noch um Wände sehen und folgen
@@ -122,6 +143,7 @@ namespace Gruppenprojekt.App.Classes
                     if (myDirection != Vector3.Zero)
                     {
                         MoveAlongVector(myDirection, Globals.EnemySpeed);
+                        cooldownDuration = 1f;
                     }
                 }
                 else if (OverridePathfinding == true)
@@ -133,6 +155,7 @@ namespace Gruppenprojekt.App.Classes
                         pathfinding.SetTarget(collectableposlol, true);
                         if (pathfinding.HasTarget && pathfinding.ContainsXZ(collectableposlol))
                         {
+                            cooldownDuration = 0.5f;
                             Console.WriteLine("Aufsammeln erkannt und auf Weg [" + Globals.EnemySpeed+ "] ");
                             if(directions.Count >= MAXDIRECTIONS)
                             {
@@ -152,6 +175,7 @@ namespace Gruppenprojekt.App.Classes
                             {
                                 Console.WriteLine("angekommen bei location [" + Globals.EnemySpeed+ "]");
                                 OverridePathfinding = false;
+                                cooldownDuration = 1.5f;
                             }
                         }
                     }
@@ -168,6 +192,7 @@ namespace Gruppenprojekt.App.Classes
                 }
                 else
                 {
+                    cooldownDuration = 1.5f;
                     Player.enemyspeedcap = false;
                     Move(Globals.EnemySpeed);                                                 //NOTIZ AN TIL HIER KANNST DU ROAMING GESCHWINDIGKEIT ANPASSEN (für difficulty)
                     Console.WriteLine("roaming [" + Globals.EnemySpeed+ "] ");               //DEBUG ROAMING

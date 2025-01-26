@@ -37,7 +37,7 @@ namespace Gruppenprojekt.App
             IntroScreen intro = new IntroScreen();
             death1 death = new death1();
             Win win = new Win();
-            this.SetWorld(intro);
+            this.SetWorld(game);
             Console.WriteLine("[CONSOLE] Game Start");
 
         }
