@@ -7,6 +7,7 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 using System;
 using KWEngine3.Helper;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace Gruppenprojekt.App
 {
@@ -52,7 +53,8 @@ namespace Gruppenprojekt.App
         }
         public override void Act()
         {
-            HUDObjectImage bbg = GetHUDObjectImageByName("bbg");           
+            HUDObjectImage bbg = GetHUDObjectImageByName("bbg");   
+            
             if (Keyboard.IsKeyPressed(Keys.T) && Globals.debugMode)
             {
                 FlowField f = GetFlowField();
@@ -60,7 +62,8 @@ namespace Gruppenprojekt.App
                 {
                     f.IsVisible = !f.IsVisible;
                 }
-            }            
+            } 
+
             if (Keyboard.IsKeyPressed(Keys.B) && Globals.debugMode)
             {
                 if (fullbright)
@@ -74,9 +77,6 @@ namespace Gruppenprojekt.App
                 }
                 fullbright = !fullbright;
             }
-            // WorldTime ist 2.5
-            // _HUDLastUpdate ist 2.2
-            // deltat = 0.3
 
             float deltat = Math.Clamp((WorldTime - _HUDLastUpdate) * 0.4f, 0, 1);
             HUDObjectText t = GetHUDObjectTextByName("ORBS");
@@ -167,7 +167,7 @@ namespace Gruppenprojekt.App
 
 
             Console.WriteLine("[CONSOLE] World: GameWorldStart");
-            KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/ScaryScream.wav", false, 0.2f);
+            //KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/ScaryScream.wav", false, 0.2f);
 
             PreLoadSounds();
             //FlowField pathfinding = new FlowField(0, 2.5f, 0, 50, 50, 1f, 5, FlowFieldMode.Simple, typeof(Wall), typeof(Map));
@@ -275,5 +275,6 @@ namespace Gruppenprojekt.App
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/click1.wav");
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/basicClick.wav");
         }
+        
     }
 }   

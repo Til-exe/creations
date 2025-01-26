@@ -16,6 +16,7 @@ using Gruppenprojekt.App.Menus;
 using Gruppenprojekt.App.death_winscreen;
 
 using Assimp.Configs;
+using OpenTK.Graphics.ES11;
 namespace Gruppenprojekt.App.Classes
 {
     public class Player : GameObject
@@ -36,6 +37,28 @@ namespace Gruppenprojekt.App.Classes
         private int counter = 0;
         private float timestampLastWalkSound = 0;
 
+        private Random _random = new Random();
+        Win winscreen = new Win();
+        Random rnd = new Random();
+        public bool BOOM = false;
+        public bool FirstAct = true;
+        private bool _flickering = false;
+        bool toggleSprint = false;
+        private float _flickerVorbei = 0f;
+        private float _nextFlicker = 0f;
+        public double WorldTimeVar = 0;
+        public int timedpenisboom = 0;
+        static int removedTime = 0;
+        static int sek = 0;
+        static int min = 0;
+        public static bool enemyspeedcap = false;
+        private float _enemySpeedResetTime = -1f;
+        float timestampLastSighting = 0;
+        bool penis1 = true;
+        float penisZeit;
+        float digga;
+        static bool penis12 = true;
+        static float penis151 = 0f;
 
         private bool IsBird() // Testmethode von KAR
         {
@@ -135,29 +158,36 @@ namespace Gruppenprojekt.App.Classes
             winCondition.SetColor(1.0f, 0.0f, 0.0f);
             winCondition.SetTextAlignment(TextAlignMode.Center);
         }
-        private Random _random = new Random();
-        Win winscreen = new Win();
-        Random rnd = new Random();
-        public bool BOOM = false;
-        public bool FirstAct = true;
-        private bool _flickering = false;
-        bool toggleSprint = false;
-        private float _flickerVorbei = 0f;         
-        private float _nextFlicker = 0f;         
-        public double WorldTimeVar = 0;
-        public int timedpenisboom = 0;
-        static int removedTime = 0;
-        static int sek = 0;
-        static int min = 0;
-        public static bool enemyspeedcap = false;
-        private float _enemySpeedResetTime = -1f;
-        float timestampLastSighting = 0;
-        bool penis1 = true;
-        float penisZeit;
-        float digga;
-
-        public override void Act()
+        public static void AddBlackHUDBorder()
         {
+            HUDObjectImage bg = new HUDObjectImage("./App/Textures/blackscreen.png");
+            HUDObjectImage bg1 = new HUDObjectImage("./App/Textures/blackscreen.png");
+            if (penis12)
+            {
+                bg.SetScale(Globals.fensterBreite * 10, Globals.fensterHoehe / 5);
+                bg.Name = "bbg";
+                bg.SetColor(0, 0, 0);
+                bg.SetPosition(Globals.fensterBreite / 2, 0);
+                bg.SetZIndex(0);
+                bg.SetOpacity(1f);
+                CurrentWorld.AddHUDObject(bg);
+                Console.WriteLine("[HUDObject] added 'bg'");
+
+                bg1.SetScale(Globals.fensterBreite * 10, Globals.fensterHoehe / 5);
+                bg1.Name = "bbg";
+                bg1.SetColor(1, 0, 0);
+                bg1.SetPosition(Globals.fensterBreite / 2, Globals.fensterHoehe);
+                bg1.SetZIndex(0);
+                bg1.SetOpacity(1f);
+                CurrentWorld.AddHUDObject(bg1);
+                Console.WriteLine("[HUDObject] added 'bg1'");
+                penis12 = false;
+            }
+            //Console.WriteLine("X: " + bg1.Position.X + " Y: " + bg1.Position.Y + " penis151: " + penis151);
+            //Console.WriteLine("X: " + bg.Position.X + " Y: " + bg.Position.Y + " penis151: " + penis151);
+        }
+        public override void Act()
+        {            
             //Death Action
             if (Globals.GameEnd && Globals.EndReal)
             {
@@ -167,7 +197,8 @@ namespace Gruppenprojekt.App.Classes
             }
             if (counter == Globals.ColCount)    //Ende wenn alle Collectables eingesammelt worden sind
             {
-                if(penis1)
+                AddBlackHUDBorder();
+                if (penis1)
                 {
                     penisZeit = WorldTime;
                     penis1 = false;
@@ -176,27 +207,20 @@ namespace Gruppenprojekt.App.Classes
                 digga = (WorldTime - penisNew) - 60;
                 
                 CurrentWorld.AddHUDObject(winCondition);
-
                 if (this.Position.X > 25 && this.Position.Z > 5 && this.Position.X < 35 && this.Position.Z < 7) 
                 {
-                    safeScore();
-                    
+                    safeScore();                    
                     Window.SetWorld(winscreen);
-                }
-                
+                }                
             }
             //Displaying Time
             string ActualTimeDisplay = min + "m " + sek + "s";
             sek = Convert.ToInt32(CurrentWorld.WorldTime) - removedTime;
-            if (sek == 60)
-            {
+            if (sek == 60) {
                 removedTime += 60;
-                min++;
-
-                
+                min++;                
             }
-            if(Convert.ToInt32(WorldTime) < 60)
-            {
+            if(Convert.ToInt32(WorldTime) < 60) {
                 ActualTimeDisplay = sek + "s";
             }                                                    //Coordinaten Displayn (in Klammern einfügen)
             displayTimer.SetText("Timer: " + ActualTimeDisplay); //  +"\n" + Math.Round(this.Position.X) + " " + Math.Round(this.Position.Y) + " "+ Math.Round(this.Position.Z)

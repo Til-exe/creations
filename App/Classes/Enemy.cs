@@ -171,7 +171,7 @@ namespace Gruppenprojekt.App.Classes
                 //Aktivieren und Deaktivieren des Todes aka deathreal? | Steht nun in Globals.cs
                 MoveOffset(intersection.MTV);
                 GameObject collider = intersection.Object;
-                if (collider is Player && Globals.deathreal)            //Wird bei GameOver ausgeführt
+                if (collider is Player && Globals.deathreal && !Globals.debugMode)            //Wird bei GameOver ausgeführt
                 {
                     Console.WriteLine("skill issue");
                     Player.safeScore();
