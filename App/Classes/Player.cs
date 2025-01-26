@@ -40,6 +40,10 @@ namespace Gruppenprojekt.App.Classes
         private int counter = 0;
         private float timestampLastWalkSound = 0;
 
+        // 2025-01-26, KAR: Felder für View-Bobbing und FPS-Armmodellanimation hinzugefügt
+        private PlayerView _playerView;
+        private float _playerArmsAnimationCurrent = 0.25f;
+        private float _playerArmsAnimationBase = 0.25f;
 
         private bool IsBird() // Testmethode von KAR
         {
@@ -149,7 +153,12 @@ namespace Gruppenprojekt.App.Classes
             countdown.SetOpacity(1);
             countdown.SetTextAlignment(TextAlignMode.Center);
             countdown.SetColor(1.0f, 0.0f, 0.0f);
-            
+
+            // 2025-01-26, KAR: Player-Instanz unsichtbar + neues Feld für Camera-View-Bobbing + First-Person-Armmodell
+            PlayerArms arms = new PlayerArms();
+            CurrentWorld.SetViewSpaceGameObject(arms);
+            _playerView = new PlayerView();
+            this.SetOpacity(0f);
 
         }
         private Random _random = new Random();
@@ -263,8 +272,10 @@ namespace Gruppenprojekt.App.Classes
             {
                random = rnd.Next(20000);
             }
-            _flashlight.SetPosition(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVectorLocalRight);
-            _flashlight.SetTarget(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVector * 100); // KAR: Taschenlampe muss weiiiiit in die Ferne schauen
+
+            // 2025-01-26, KAR: Taschenlampenposition für FPS-Arme leicht angepasst
+            _flashlight.SetPosition(this.Center + new Vector3(0, 1.5f, 0) + CurrentWorld.CameraLookAtVectorLocalRight * 0.5f);
+            _flashlight.SetTarget(this.Center + new Vector3(0, 1, 0) + CurrentWorld.CameraLookAtVector * 10); // KAR: Taschenlampe muss weiiiiit in die Ferne schauen
             if (random == 69 && flashlight == true || (Keyboard.IsKeyPressed(Keys.Space) && Globals.debugMode) && flashlight == true)
             {
                 _flickering = true;
@@ -486,18 +497,43 @@ namespace Gruppenprojekt.App.Classes
         public void Camera(int forward, int strafe)
         {
             if (Globals.gameRunning) {
-
-                float ShakeSpeed;
-
-                if(Globals.Sprinting == true) { ShakeSpeed = 0.09f;  }
-                else { ShakeSpeed = 0.05f;  }
-
-
-
                 CurrentWorld.AddCameraRotationFromMouseDelta();
-                CurrentWorld.UpdateCameraPositionForFirstPersonView(Center + new Vector3(MathF.Sin(WorldTime * 5 + MathF.PI / 4) * ShakeSpeed,MathF.Sin(WorldTime * 5) * ShakeSpeed, 0), 2f);                
-                MoveAndStrafeAlongCameraXZ(forward, strafe, Globals.speed);
-                TurnTowardsXZ(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVector);
+
+                // 2025-01-26, KAR: View-Bobbing und First-Person-Arme animieren
+                {
+                    _playerView.Update(
+                        forward == 0 && strafe == 0 ? PlayerView.MovementMode.Idle : 
+                        Globals.Sprinting ? PlayerView.MovementMode.Run : 
+                        PlayerView.MovementMode.Walk
+                        );
+                    CurrentWorld.UpdateCameraPositionForFirstPersonView(
+                        Center, 
+                        _playerView.BobX * 0.0625f, 
+                        _playerView.BobY * 0.25f + 1.5f, 
+                        _playerView.BobZ * 0.0625f
+                        );
+
+                    MoveAndStrafeAlongCameraXZ(forward, strafe, Globals.speed);
+                    TurnTowardsXZ(this.Position + CurrentWorld.CameraLookAtVectorXZ * 1000f);
+
+                    if(CurrentWorld.IsViewSpaceGameObjectAttached)
+                    {
+                        ViewSpaceGameObject vsg = CurrentWorld.GetViewSpaceGameObject();
+                        if(forward == 0 && strafe == 0)
+                        {
+                            _playerArmsAnimationCurrent = _playerArmsAnimationBase + MathF.Sin(WorldTime * 0.5f) * 0.01f;
+                        }
+                        else if(Globals.Sprinting)
+                        {
+                            _playerArmsAnimationCurrent = (_playerArmsAnimationCurrent + 0.01f) % 1f;
+                        }
+                        else
+                        {
+                            _playerArmsAnimationCurrent = (_playerArmsAnimationCurrent + 0.005f) % 1f;
+                        }
+                        vsg.SetAnimationPercentage(_playerArmsAnimationCurrent);
+                    }
+                }
             }
         }
         public void removeAllHUD() 
