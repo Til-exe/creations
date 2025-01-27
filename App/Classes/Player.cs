@@ -18,6 +18,7 @@ using Gruppenprojekt.App.death_winscreen;
 using Assimp.Configs;
 using OpenTK.Audio.OpenAL;
 
+using OpenTK.Graphics.ES11;
 namespace Gruppenprojekt.App.Classes
 {
     public class Player : GameObject
@@ -161,6 +162,34 @@ namespace Gruppenprojekt.App.Classes
             this.SetOpacity(0f);
 
         }
+        public static void AddBlackHUDBorder()
+        {
+            HUDObjectImage bg = new HUDObjectImage("./App/Textures/blackscreen.png");
+            HUDObjectImage bg1 = new HUDObjectImage("./App/Textures/blackscreen.png");
+            if (penis12)
+            {
+                bg.SetScale(Globals.fensterBreite * 10, Globals.fensterHoehe / 5);
+                bg.Name = "bbg";
+                bg.SetColor(0, 0, 0);
+                bg.SetPosition(Globals.fensterBreite / 2, 0);
+                bg.SetZIndex(0);
+                bg.SetOpacity(1f);
+                CurrentWorld.AddHUDObject(bg);
+                Console.WriteLine("[HUDObject] added 'bg'");
+
+                bg1.SetScale(Globals.fensterBreite * 10, Globals.fensterHoehe / 5);
+                bg1.Name = "bbg";
+                bg1.SetColor(1, 0, 0);
+                bg1.SetPosition(Globals.fensterBreite / 2, Globals.fensterHoehe);
+                bg1.SetZIndex(0);
+                bg1.SetOpacity(1f);
+                CurrentWorld.AddHUDObject(bg1);
+                Console.WriteLine("[HUDObject] added 'bg1'");
+                penis12 = false;
+            }
+            //Console.WriteLine("X: " + bg1.Position.X + " Y: " + bg1.Position.Y + " penis151: " + penis151);
+            //Console.WriteLine("X: " + bg.Position.X + " Y: " + bg.Position.Y + " penis151: " + penis151);
+        }
         private Random _random = new Random();
         Win winscreen = new Win();
         Random rnd = new Random();
@@ -197,7 +226,7 @@ namespace Gruppenprojekt.App.Classes
         }
 
         public override void Act()
-        {
+        {            
             //Death Action
             if (Globals.GameEnd && Globals.EndReal)
             {
@@ -234,6 +263,8 @@ namespace Gruppenprojekt.App.Classes
                 else if(tracker == 40) { CurrentWorld.AddHUDObject(countdown);  Globals.FinalChase = true; tracker++; }
 
                 if ( nowDown == false )
+                AddBlackHUDBorder();
+                if (penis1)
                 {
                     finalOP += 0.25f;
 
@@ -246,8 +277,7 @@ namespace Gruppenprojekt.App.Classes
 
                 if (this.Position.X > 25 && this.Position.Z > 5 && this.Position.X < 35 && this.Position.Z < 7) 
                 {
-                    safeScore();
-                    
+                    safeScore();                    
                     Window.SetWorld(winscreen);
                     
                 }
@@ -256,13 +286,13 @@ namespace Gruppenprojekt.App.Classes
             //Displaying Time
             string ActualTimeDisplay = min + "m " + sek + "s";
             sek = Convert.ToInt32(CurrentWorld.WorldTime) - removedTime;
-            if (sek == 60)
-            {
+            if (sek == 60) {
                 removedTime += 60;
-                min++;
+                min++;                
+
+                
             }
-            if(Convert.ToInt32(WorldTime) < 60)
-            {
+            if(Convert.ToInt32(WorldTime) < 60) {
                 ActualTimeDisplay = sek + "s";
             }                                                    //Coordinaten Displayn (in Klammern einfügen)
             displayTimer.SetText("Timer: " + ActualTimeDisplay); //  +"\n" + Math.Round(this.Position.X) + " " + Math.Round(this.Position.Y) + " "+ Math.Round(this.Position.Z)

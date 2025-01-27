@@ -1,4 +1,5 @@
-﻿using KWEngine3;
+﻿using Gruppenprojekt.App.Menus;
+using KWEngine3;
 using KWEngine3.GameObjects;
 using System;
 using System.Collections.Generic;
@@ -58,7 +59,8 @@ namespace Gruppenprojekt.App.Classes
             }
             for (int i = 0; i < Globals.SpawnColByDeath; i++)
             {
-                Collectable c = new Collectable("New", rnd.Next(-100, 100), rnd.Next(1, 5), rnd.Next(-100, 100));                
+                int o = rnd.Next(0, 9);
+                Collectable c = new Collectable("New", GameWorldStart.positions[o].X, GameWorldStart.positions[i].Y, GameWorldStart.positions[o].Z);                
                 CurrentWorld.AddGameObject(c);                
             }
             CurrentWorld.AddExplosionObject(ex);

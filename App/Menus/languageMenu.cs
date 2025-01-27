@@ -38,7 +38,7 @@ namespace Gruppenprojekt.App.Menus
                 if (Mouse.IsButtonPressed(MouseButton.Left) && h1.IsMouseCursorOnMe() == true)
                 {
                     KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
-                    GameWorldStartMenu gm = new GameWorldStartMenu();
+                    GwStartMenuOption gm = new GwStartMenuOption();
                     Window.SetWorld(gm);
                 }
             }
@@ -85,7 +85,7 @@ namespace Gruppenprojekt.App.Menus
             {
                 if (Spanisch.IsMouseCursorOnMe() == true)
                 {
-                    Spanisch.SetColorEmissiveIntensity(1.5f);
+                    //Spanisch.SetColorEmissiveIntensity(1.5f);
                 }
                 else
                 {
@@ -95,10 +95,10 @@ namespace Gruppenprojekt.App.Menus
                 {
                     KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/on.wav", false, 0.2f);
 
-                    Deutsch.SetText("Deutsch");
-                    English.SetText("English");
-                    Spanisch.SetText("Spanisch");
-                    Globals.SetLanguage = "Spanisch";
+                    //Deutsch.SetText("Deutsch");
+                    //English.SetText("English");
+                    //Spanisch.SetText("Spanisch");
+                    //Globals.SetLanguage = "Spanisch";
                 }
             }
             if (Globals.SetLanguage == "Deutsch") { Deutsch.SetText("> Deutsch"); }
@@ -138,6 +138,7 @@ namespace Gruppenprojekt.App.Menus
             Spanisch.SetCharacterDistanceFactor(1.0f);
             Spanisch.SetColor(1.0f, 0.0f, 0.0f);
             Spanisch.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            Spanisch.SetOpacity(0.7f);
             AddHUDObject(Spanisch);
 
             Deutsch.SetText("Deutsch");
@@ -153,13 +154,15 @@ namespace Gruppenprojekt.App.Menus
                 Globals.LanguageButtonText = "Sprache";
                 Globals.CreditsButtonText = "Danksage";
                 Globals.ScoreboardButtonText = "Admin";
-                Globals.LevelButtonText = "Level"; 
+                Globals.InfoButtonText = "Info"; 
                 Globals.LeaveButtonText = "Verlassen";
                 Globals.ActualScoreboardText = "PUNKTETAFEL";
                 Globals.choseGamemodeText = "SPIELMODUS";
                 Globals.enabledText = "AKTIVIERT";
                 Globals.disabledText = "DEAKTIVIERT";
                 Globals.backText = "Zurück";
+                Globals.ResetCodeText = "Zurücksetzen";
+                Globals.EnterCodeText = "Code Eingeben";
             }
             if (Globals.SetLanguage == "English")
             {
@@ -168,13 +171,15 @@ namespace Gruppenprojekt.App.Menus
                 Globals.LanguageButtonText = "Language";
                 Globals.CreditsButtonText = "Credits";
                 Globals.ScoreboardButtonText = "Admin";
-                Globals.LevelButtonText = "Level";
+                Globals.InfoButtonText = "Info";
                 Globals.LeaveButtonText = "Leave";
                 Globals.ActualScoreboardText = "SCOREBOARD";
                 Globals.choseGamemodeText = "GAMEMODE";
                 Globals.enabledText = "ENABLED";
                 Globals.disabledText = "DISABLED";
                 Globals.backText = "Back";
+                Globals.ResetCodeText = "Reset";
+                Globals.EnterCodeText = "Enter Code";
 
 
             }
@@ -185,11 +190,11 @@ namespace Gruppenprojekt.App.Menus
                 Globals.LanguageButtonText = "Idioma";
                 Globals.CreditsButtonText = "Créditos";
                 Globals.ScoreboardButtonText = "Admin";
-                Globals.LevelButtonText = "Level";
+                Globals.InfoButtonText = "Info oder so";
                 Globals.LeaveButtonText = "Dejar";
                 Globals.ActualScoreboardText = "MARCADOR"; 
-                Globals.enabledText = "ist An, ich Kann kein Spanisch";
-                Globals.disabledText = "ist Aus, ich Kann kein Spanisch";
+                Globals.enabledText = "activades";
+                Globals.disabledText = "deactivades";
                 Globals.backText = "Baguette";
 
 

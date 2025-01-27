@@ -41,9 +41,9 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectText EnableCredits = GetHUDObjectTextByName("EnableCredits");
             HUDObjectText EnableLanguage = GetHUDObjectTextByName("EnableLanguage");
             HUDObjectText EnableScoreboard = GetHUDObjectTextByName("EnableScoreboard");
-            HUDObjectText EnableLevel = GetHUDObjectTextByName("EnableLevel");
+            HUDObjectText EnableInfo = GetHUDObjectTextByName("EnableInfo");
             HUDObjectText gamemode = GetHUDObjectTextByName("gamemode");
-            HUDObjectText shop = GetHUDObjectTextByName("shop");
+            HUDObjectText infoMenu = GetHUDObjectTextByName("info");
             HUDObjectText admin = GetHUDObjectTextByName("admin");
             HUDObjectText language = GetHUDObjectTextByName("language");
             if (back != null)
@@ -320,31 +320,31 @@ namespace Gruppenprojekt.App.Menus
 
                 }
             }
-            if (EnableLevel != null)
+            if (EnableInfo != null)
             {
-                if (EnableLevel.IsMouseCursorOnMe() == true)
+                if (EnableInfo.IsMouseCursorOnMe() == true)
                 {
-                    EnableLevel.SetColorEmissiveIntensity(1.5f);
+                    EnableInfo.SetColorEmissiveIntensity(1.5f);
                 }
                 else
                 {
-                    EnableLevel.SetColorEmissiveIntensity(0.0f);
+                    EnableInfo.SetColorEmissiveIntensity(0.0f);
                 }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && EnableLevel.IsMouseCursorOnMe() == true)
+                if (Mouse.IsButtonPressed(MouseButton.Left) && EnableInfo.IsMouseCursorOnMe() == true)
                 {
 
                     KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/on.wav", false, 0.2f);
-                    if (Globals.DisplayLevelButton)
+                    if (Globals.DisplayInfoButton)
                     {
-                        EnableLevel.SetText("LEVEL: " + Globals.disabledText);
+                        EnableInfo.SetText("INFO: " + Globals.disabledText);
 
                     }
                     else
                     {
-                        EnableLevel.SetText("LEVEL: " + Globals.enabledText);
+                        EnableInfo.SetText("INFO: " + Globals.enabledText);
 
                     }
-                    Globals.DisplayLevelButton = !Globals.DisplayLevelButton;
+                    Globals.DisplayInfoButton = !Globals.DisplayInfoButton;
                 }
             }
             if (gamemode != null)
@@ -364,21 +364,21 @@ namespace Gruppenprojekt.App.Menus
                     Window.SetWorld(cGm);
                 }
             }
-            if (shop != null)
+            if (infoMenu != null)
             {
-                if (shop.IsMouseCursorOnMe() == true)
+                if (infoMenu.IsMouseCursorOnMe() == true)
                 {
-                    shop.SetColorEmissiveIntensity(1.5f);
+                    infoMenu.SetColorEmissiveIntensity(1.5f);
                 }
                 else
                 {
-                    shop.SetColorEmissiveIntensity(0.0f);
+                    infoMenu.SetColorEmissiveIntensity(0.0f);
                 }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && shop.IsMouseCursorOnMe() == true)
+                if (Mouse.IsButtonPressed(MouseButton.Left) && infoMenu.IsMouseCursorOnMe() == true)
                 {
                     KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
-                    shopMenu shopmenu = new shopMenu();
-                    Window.SetWorld(shopmenu);
+                    InfoMenu infomenu = new InfoMenu();
+                    Window.SetWorld(infomenu);
                 }
             }
             if (admin != null)
@@ -415,7 +415,6 @@ namespace Gruppenprojekt.App.Menus
                     Window.SetWorld(languageM);
                 }
             }
-
             string text1 = transelateCode(Convert.ToString(value1));
             string text2 = transelateCode(Convert.ToString(value2));
             string text3 = transelateCode(Convert.ToString(value3));
@@ -429,6 +428,7 @@ namespace Gruppenprojekt.App.Menus
         public override void Prepare()
         {
 
+            languageMenu.ChangeLanguage();
             //Console.WriteLine("[CONSOLE] World: GwStartMenuOption");
             HUDObjectText h1 = new HUDObjectText(Globals.backText);
             h1.SetPosition(50f, 80f);
@@ -442,28 +442,28 @@ namespace Gruppenprojekt.App.Menus
             credits.Name = "EnableCredits";
             credits.SetColor(1.0f, 0.0f, 0.0f);
             credits.SetColorEmissive(1.0f, 1.0f, 1.0f);
-            AddHUDObject(credits);
+            //AddHUDObject(credits);
 
             HUDObjectText language = new HUDObjectText("LANGUAGE:");
             language.SetPosition(700f, 250f);
             language.Name = "EnableLanguage";
             language.SetColor(1.0f, 0.0f, 0.0f);
             language.SetColorEmissive(1.0f, 1.0f, 1.0f);
-            AddHUDObject(language);
+            //AddHUDObject(language);
 
             HUDObjectText scoreboard = new HUDObjectText("ADMIN:");
             scoreboard.SetPosition(700f, 300f);
             scoreboard.Name = "EnableScoreboard";
             scoreboard.SetColor(1.0f, 0.0f, 0.0f);
             scoreboard.SetColorEmissive(1.0f, 1.0f, 1.0f);
-            AddHUDObject(scoreboard);
+            //AddHUDObject(scoreboard);
 
-            HUDObjectText levelB = new HUDObjectText("LEVEL:");
-            levelB.SetPosition(700f, 350f);
-            levelB.Name = "EnableLevel";
-            levelB.SetColor(1.0f, 0.0f, 0.0f);
-            levelB.SetColorEmissive(1.0f, 1.0f, 1.0f);
-            AddHUDObject(levelB);
+            HUDObjectText EnableInfo = new HUDObjectText("INFO:");
+            EnableInfo.SetPosition(700f, 350f);
+            EnableInfo.Name = "EnableInfo";
+            EnableInfo.SetColor(1.0f, 0.0f, 0.0f);
+            EnableInfo.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            //AddHUDObject(EnableInfo);
 
             HUDObjectText admin = new HUDObjectText("ADMIN");
             admin.SetPosition(600f, Globals.fensterHoehe/2 + Globals.fensterHoehe /4 + Globals.fensterHoehe /10);
@@ -510,25 +510,25 @@ namespace Gruppenprojekt.App.Menus
             }
 
 
-            if (Globals.DisplayLevelButton == false)
+            if (Globals.DisplayInfoButton == false)
             {
-                levelB.SetText("LEVEL: " + Globals.disabledText);
+                EnableInfo.SetText("INFO: " + Globals.disabledText);
             }
             else
             {
-                levelB.SetText("LEVEL: " + Globals.enabledText);
-                Globals.DisplayLevelButton = true;
+                EnableInfo.SetText("INFO: " + Globals.enabledText);
+                Globals.DisplayInfoButton = true;
             }
 
-            HUDObjectText Enter = new HUDObjectText("ENTER CODE");
+            HUDObjectText Enter = new HUDObjectText(Globals.EnterCodeText);
             Enter.SetPosition(160f, 200f);
             Enter.Name = "Enter";
             Enter.SetColor(1.0f, 0.0f, 0.0f);
             Enter.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(Enter);
 
-            HUDObjectText Reset = new HUDObjectText("RESET");
-            Reset.SetPosition(460f, 200f);
+            HUDObjectText Reset = new HUDObjectText(Globals.ResetCodeText);
+            Reset.SetPosition(160f, 150f);
             Reset.Name = "Reset";
             Reset.SetColor(1.0f, 0.0f, 0.0f);
             Reset.SetColorEmissive(1.0f, 1.0f, 1.0f);
@@ -612,12 +612,12 @@ namespace Gruppenprojekt.App.Menus
             gamemode.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(gamemode);
 
-            HUDObjectText shop = new HUDObjectText("SHOP");
-            shop.SetPosition(420f, Globals.fensterHoehe / 2 + Globals.fensterHoehe / 4 + Globals.fensterHoehe / 10);
-            shop.Name = "shop";
-            shop.SetColor(1.0f, 0.0f, 0.0f);
-            shop.SetColorEmissive(1.0f, 1.0f, 1.0f);
-            AddHUDObject(shop);
+            HUDObjectText info = new HUDObjectText("INFO");
+            info.SetPosition(420f, Globals.fensterHoehe / 2 + Globals.fensterHoehe / 4 + Globals.fensterHoehe / 10);
+            info.Name = "info";
+            info.SetColor(1.0f, 0.0f, 0.0f);
+            info.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(info);
         }
         public string transelateCode(string text)
         {

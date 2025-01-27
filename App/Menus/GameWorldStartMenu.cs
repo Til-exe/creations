@@ -34,7 +34,7 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectText credits = GetHUDObjectTextByName("credits");
             HUDObjectText language = GetHUDObjectTextByName("language");
             HUDObjectText AdminSB = GetHUDObjectTextByName("AdminSB");
-            HUDObjectText LevelB = GetHUDObjectTextByName("LevelB");
+            HUDObjectText infoMenu = GetHUDObjectTextByName("infoMenu");
             HUDObjectImage bbg = GetHUDObjectImageByName("bbg");
             HUDObjectText LevelScore = GetHUDObjectTextByName("LevelScore");
             HUDObjectText LevelNum = GetHUDObjectTextByName("LevelNum");
@@ -163,20 +163,20 @@ namespace Gruppenprojekt.App.Menus
                     Window.SetWorld(scoreboardMenu);
                 }
             }
-            if (LevelB != null)
+            if (infoMenu != null)
             {
-                if (LevelB.IsMouseCursorOnMe() == true && !startbool)
+                if (infoMenu.IsMouseCursorOnMe() == true && !startbool)
                 {
-                    LevelB.SetColorEmissiveIntensity(1.5f);
+                    infoMenu.SetColorEmissiveIntensity(1.5f);
                 }
                 else
                 {
-                    LevelB.SetColorEmissiveIntensity(0.0f);
+                    infoMenu.SetColorEmissiveIntensity(0.0f);
                 }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && LevelB.IsMouseCursorOnMe() == true && !startbool)
+                if (Mouse.IsButtonPressed(MouseButton.Left) && infoMenu.IsMouseCursorOnMe() == true && !startbool)
                 {
                     KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
-                    LevelMenu levelMenu = new LevelMenu();  
+                    InfoMenu levelMenu = new InfoMenu();  
                     Window.SetWorld(levelMenu);
                 }
             }
@@ -290,6 +290,7 @@ namespace Gruppenprojekt.App.Menus
             hTitle.SetTextAlignment(TextAlignMode.Center);
             hTitle.SetColor(1.0f, 0.0f, 0.0f);
             hTitle.SetScale(80.0f);
+
             languageMenu.ChangeLanguage();
             displayClickableButtons();
             HUDObjectText sb = new HUDObjectText(Globals.ActualScoreboardText);
@@ -375,7 +376,7 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectText language = new HUDObjectText(Globals.LanguageButtonText);
             HUDObjectText credits = new HUDObjectText(Globals.CreditsButtonText);
             HUDObjectText AdminSB = new HUDObjectText(Globals.ScoreboardButtonText);
-            HUDObjectText LevelB = new HUDObjectText(Globals.LevelButtonText);
+            HUDObjectText infoMenu = new HUDObjectText(Globals.InfoButtonText);
             HUDObjectText leave = new HUDObjectText(Globals.LeaveButtonText);
             HUDObjectText LevelNum = new HUDObjectText("level #" + (Globals.Level) + "");
             HUDObjectText LevelScore = new HUDObjectText(Globals.Experience + "/10");
@@ -428,12 +429,12 @@ namespace Gruppenprojekt.App.Menus
             AdminSB.SetColor(1.0f, 0.0f, 0.0f);
             AdminSB.SetColorEmissive(1.0f, 1.0f, 1.0f);
             if (Globals.DisplayScoreboardButton) { Globals.posWert += 50; }
-            LevelB.SetPosition(Globals.posYWert, 200f + Globals.posWert);
-            LevelB.Name = "LevelB";
-            LevelB.SetCharacterDistanceFactor(1.0f);
-            LevelB.SetColor(1.0f, 0.0f, 0.0f);
-            LevelB.SetColorEmissive(1.0f, 1.0f, 1.0f);
-            if (Globals.DisplayLevelButton) { Globals.posWert += 50; }
+            infoMenu.SetPosition(Globals.posYWert, 200f + Globals.posWert);
+            infoMenu.Name = "infoMenu";
+            infoMenu.SetCharacterDistanceFactor(1.0f);
+            infoMenu.SetColor(1.0f, 0.0f, 0.0f);
+            infoMenu.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            if (Globals.DisplayInfoButton) { Globals.posWert += 50; }
             leave.SetPosition(Globals.posYWert, 200f + Globals.posWert);
             leave.Name = "leave";
             leave.SetCharacterDistanceFactor(1.0f);
@@ -444,8 +445,8 @@ namespace Gruppenprojekt.App.Menus
             if (Globals.DisplayLanguageButton) { AddHUDObject(language); }
             if (Globals.DisplayCreditsButton) { AddHUDObject(credits); }
             if (Globals.DisplayScoreboardButton) { AddHUDObject(AdminSB); }
-            if (Globals.DisplayLevelButton) { 
-                AddHUDObject(LevelB);
+            if (Globals.DisplayInfoButton) { 
+                AddHUDObject(infoMenu);
             }
             if(Globals.TutorialComplete) {
                 AddHUDObject(LevelNum);

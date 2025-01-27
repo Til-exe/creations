@@ -54,7 +54,7 @@ namespace Gruppenprojekt.App.Classes
         public static bool DisplayOptionButton = true;
         public static bool DisplayLanguageButton = false;
         public static bool DisplayCreditsButton = true;
-        public static bool DisplayLevelButton = false;
+        public static bool DisplayInfoButton = false;
         public static bool DisplayScoreboardButton = false;
         public static bool DisplayLeaveButton = true;
 
@@ -66,15 +66,23 @@ namespace Gruppenprojekt.App.Classes
         public static string LanguageButtonText = "";
         public static string CreditsButtonText = "";
         public static string ScoreboardButtonText = "";
-        public static string LevelButtonText = "";
+        public static string InfoButtonText = "";
         public static string LeaveButtonText = "";
         public static string ActualScoreboardText = "";
         public static string displayCounter = "";
         public static string choseGamemodeText = "";
+        public static string EnterCodeText = "";
+        public static string ResetCodeText = "";
 
         public static int posWert;                                      //gibt an wie bestimmte Texte positioniert sind                             
         public static int posYWert;
         public static int fensterBreite = 1280;                         //gibt die maße des Spiel Fensters an
         public static int fensterHoehe = 720;
+
+        public static void PreLoad3DTexture()
+        {
+
+        }
     }
+
 }

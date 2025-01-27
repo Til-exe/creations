@@ -35,15 +35,17 @@ namespace Gruppenprojekt.App
             
         {
             this.Title = "Its Stolen";      
-            GameWorldStart game = new GameWorldStart();
             GameWorldStartMenu StartMenu = new GameWorldStartMenu();
             GameWorldTutorial gwt = new GameWorldTutorial();    
+            GameWorldStart game = new GameWorldStart();
             IntroScreen intro = new IntroScreen();
+            InfoMenu im = new InfoMenu();
             death1 death = new death1();
             Win win = new Win();
-            this.SetWorld(game);
+            this.SetWorld(intro);
             Console.WriteLine("[CONSOLE] Game Start");
 
         }
+        
     }
 }

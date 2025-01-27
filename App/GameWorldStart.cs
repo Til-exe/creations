@@ -7,6 +7,7 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 using System;
 using KWEngine3.Helper;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace Gruppenprojekt.App
 {
@@ -19,6 +20,7 @@ namespace Gruppenprojekt.App
         private float _HUDLastUpdate = 0;
         bool fullbright = false;
         bool bird = false; // KAR: Vogelperspektive
+        public static List<Vector3> positions = new List<Vector3>();
 
 
      
@@ -64,7 +66,8 @@ namespace Gruppenprojekt.App
                 {
                     f.IsVisible = !f.IsVisible;
                 }
-            }            
+            } 
+
             if (Keyboard.IsKeyPressed(Keys.B) && Globals.debugMode)
             {
                 if (fullbright)
@@ -78,9 +81,6 @@ namespace Gruppenprojekt.App
                 }
                 fullbright = !fullbright;
             }
-            // WorldTime ist 2.5
-            // _HUDLastUpdate ist 2.2
-            // deltat = 0.3
 
             float deltat = Math.Clamp((WorldTime - _HUDLastUpdate) * 0.4f, 0, 1);
             HUDObjectText t = GetHUDObjectTextByName("ORBS");
@@ -159,6 +159,8 @@ namespace Gruppenprojekt.App
         }
         public override void Prepare()
         {
+            KWEngine.LoadModel("EnemyClown", "./App/Models/whiteclown_gltfbin_kwengine/WhiteClown.gltf");
+
 
             HUDObjectImage bbg = new HUDObjectImage("./App/Textures/blackscreen.png");
             bbg.SetScale(Globals.fensterBreite, Globals.fensterHoehe);
@@ -218,7 +220,6 @@ namespace Gruppenprojekt.App
             light.SetPosition(0f, 5f, 0);
             //AddLightObject(light);
 
-            List<Vector3> positions = new List<Vector3>();            
             positions.Add(new Vector3(50, 3, 28));
             positions.Add(new Vector3(45, 3, -10));
             positions.Add(new Vector3(13, 3, -17));
@@ -239,7 +240,7 @@ namespace Gruppenprojekt.App
 
             if (Globals.choseGamemode != "Peacefull" )
             {
-                Enemy e = new Enemy("huso", 0f, 2, 0);                
+                Enemy e = new Enemy("huso", 3f, 1.5f, -8);
                 AddGameObject(e);
             }
 
@@ -282,5 +283,6 @@ namespace Gruppenprojekt.App
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/click1.wav");
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/basicClick.wav");
         }
+        
     }
 }   

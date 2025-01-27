@@ -41,17 +41,19 @@ namespace Gruppenprojekt.App.Classes
 
         public Enemy(string name, float x, float y, float z)
         {
-            this.SetModel("KWCube");
+            this.SetModel("EnemyClown");
             this.Name = name;
             this.SetPosition(x, y, z);
-            this.SetColor(1f, 0f, 0f);
+            this.SetColor(1f, 1f, 1f);
             this.IsCollisionObject = true;
             this.IsShadowCaster = true;
-            this.SetScale(1, 3, 1);
-            this.SetColorEmissive(1, 1, 0, 10);
+            this.SetScale(2f, 2f,2f);
+            this.SetColorEmissive(1, 1, 1, 0);
             this.SetHitboxToCapsule(Vector3.Zero, CapsuleHitboxType.Default);
+            this.SetHitboxScale(0.25f, 1f, 1f);
             //this.SetHitboxScale(0.75f);
             p = CurrentWorld.GetGameObjectByName<Player>("Yasin");
+            this.SetAnimationID(2);
         }
 
         public override void Act()
@@ -97,9 +99,11 @@ namespace Gruppenprojekt.App.Classes
                     }
                 }
 
+                this.SetAnimationPercentageAdvance(0.005f);
+               
                 playerPos = p.Position;
                 Vector3 raystart = this.Center;
-                Vector3 rayDirection = HelperVector.GetDirectionFromVectorToVectorXZ(this.Position,playerPos);
+                Vector3 rayDirection = HelperVector.GetDirectionFromVectorToVectorXZ(this.Center,playerPos);
                 Vector3 myDirection = Vector3.Zero;
                 playerPos = p.Position;
                 FlowField f = CurrentWorld.GetFlowField();
@@ -136,14 +140,14 @@ namespace Gruppenprojekt.App.Classes
                     target = raycollision.IntersectionPoint;
                     normal = raycollision.SurfaceNormal;
                 }
-                if (f != null && f.Contains(playerPos) && f.Contains(this.Position))
+                if (f != null && f.Contains(playerPos) && f.Contains(this.Center))
                 {
                     f.SetTarget(playerPos);
 
                 }
-                if (f.Contains(this.Position) && f.HasTarget)
+                if (f.Contains(this.Center) && f.HasTarget)
                 {
-                    myDirection = f.GetBestDirectionForPosition(this.Position);
+                    myDirection = f.GetBestDirectionForPosition(this.Center);
                 }
 
                
@@ -190,16 +194,16 @@ namespace Gruppenprojekt.App.Classes
                                 directions.Dequeue();
                             }
 
-                            FlowFieldCell cell = pathfinding.GetCellForWorldPosition(this.Position);
+                            FlowFieldCell cell = pathfinding.GetCellForWorldPosition(this.Center);
                             // KAR: Die Zelle nur für die Durchschnittsrichtung berücksichtigen, wenn 
                             //      ihre Kosten unter 255 sind (also keine Wand dort ist).
                             /*if(cell.Cost < 255)
                             {
                                 directions.Enqueue(pathfinding.GetBestDirectionForPosition(this.Position));
                             }*/
-                            directions.Enqueue(pathfinding.GetBestDirectionForPosition(this.Position));
+                            directions.Enqueue(pathfinding.GetBestDirectionForPosition(this.Center));
                             myDirection = GetAverageDirection();
-                            if(HelperVector.GetDistanceBetweenVectorsXZ(this.Position, collectableposlol) <= 5f)
+                            if(HelperVector.GetDistanceBetweenVectorsXZ(this.Center, collectableposlol) <= 3f)
                             {
                                 Console.WriteLine("angekommen bei location [" + Globals.EnemySpeed+ "]");
                                 OverridePathfinding = false;
@@ -237,7 +241,7 @@ namespace Gruppenprojekt.App.Classes
                 //Aktivieren und Deaktivieren des Todes aka deathreal? | Steht nun in Globals.cs
                 MoveOffset(intersection.MTV);
                 GameObject collider = intersection.Object;
-                if (collider is Player && Globals.deathreal)            //Wird bei GameOver ausgeführt
+                if (collider is Player && Globals.deathreal && !Globals.debugMode)            //Wird bei GameOver ausgeführt
                 {
                     Console.WriteLine("skill issue");
                     Player.safeScore();
@@ -260,7 +264,7 @@ namespace Gruppenprojekt.App.Classes
             FlowField pathfinding = CurrentWorld.GetFlowField();
             if (pathfinding != null)
             {
-                FlowFieldCell cell = pathfinding.GetCellForWorldPosition(this.Position);
+                FlowFieldCell cell = pathfinding.GetCellForWorldPosition(this.Center);
                 if (cell != null)
                 {
                     FlowFieldCell neighbourNorth = cell.GetNeighbourCellAtOffset(0, -1);
@@ -288,7 +292,7 @@ namespace Gruppenprojekt.App.Classes
                     int minCost = directions.First().cost;
                     var bestDirections = directions.Where(d => d.cost == minCost).ToList();
                     var chosenDirection = bestDirections[new Random().Next(bestDirections.Count)];
-                    this.TurnTowardsXZ(this.Position + chosenDirection.target);
+                    this.TurnTowardsXZ(this.Center + chosenDirection.target);
                     UpdateBlockedDirections(chosenDirection.direction);
                 }
                 else
