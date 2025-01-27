@@ -207,7 +207,8 @@ namespace Gruppenprojekt.App.Classes
         public static bool enemyspeedcap = false;
         private float _enemySpeedResetTime = -1f;
         float timestampLastSighting = 0;
-        
+        static bool penis12 = true;
+        static float penis151 = 0f;
 
         float finalOP = float.Epsilon;              //gehöhrt mir ihr Penner, Bruns zertifiziert
         int tracker = 0;
@@ -217,6 +218,7 @@ namespace Gruppenprojekt.App.Classes
         float T = 0;
         float NegativeCountdown = 0;
         HUDObjectText countdown;
+
         
 
 
@@ -237,49 +239,35 @@ namespace Gruppenprojekt.App.Classes
             }
             if (counter == Globals.ColCount)    //Ende wenn alle Collectables eingesammelt worden sind ,,  ach ne 
             {
-                if(WorldTimeSave == false) {  T = WorldTime;   WorldTimeSave = true;  }             //hier 
 
+                AddBlackHUDBorder();
+                if (WorldTimeSave == false) {  T = WorldTime;   WorldTimeSave = true;  }             //hier 
                 TimeCounter = CurrentWorld.WorldTime - T;
-
                 NegativeCountdown = 10 - TimeCounter;
-
                 countdown.SetText(NegativeCountdown.ToString("0.00"));
                 winCondition.SetOpacity(finalOP);
-
                
                 if(NegativeCountdown == 0 || NegativeCountdown < 0) {
                     safeScore();
                     countDown0 count = new countDown0();
                     Window.SetWorld(count);
-                    
-
                 }
-                
-              
-               
-               
 
                 if(tracker > 40) { CurrentWorld.RemoveHUDObject(winCondition); }
                 else if(tracker == 40) { CurrentWorld.AddHUDObject(countdown);  Globals.FinalChase = true; tracker++; }
 
-                if ( nowDown == false )
-                AddBlackHUDBorder();
-                if (penis1)
-                {
+                if ( nowDown == false ) {                 
                     finalOP += 0.25f;
-
                 }
                 else { finalOP -= 0.25f; }
 
                 if( finalOP >= 1) { nowDown = true; }
                 if( finalOP < 0 ) { nowDown = false;    tracker++; }                                // bis hier macht countdown nachdem alle Collectables eingesammelt wurden
 
-
                 if (this.Position.X > 25 && this.Position.Z > 5 && this.Position.X < 35 && this.Position.Z < 7) 
                 {
                     safeScore();                    
-                    Window.SetWorld(winscreen);
-                    
+                    Window.SetWorld(winscreen);                    
                 }
                 
             }
