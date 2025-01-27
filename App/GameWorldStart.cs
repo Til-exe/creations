@@ -171,7 +171,7 @@ namespace Gruppenprojekt.App
 
 
             Console.WriteLine("[CONSOLE] World: GameWorldStart");
-            KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/ScaryScream.wav", false, 0.2f);
+            //KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/ScaryScream.wav", false, 0.2f);
 
             PreLoadSounds();
             //FlowField pathfinding = new FlowField(0, 2.5f, 0, 50, 50, 1f, 5, FlowFieldMode.Simple, typeof(Wall), typeof(Map));

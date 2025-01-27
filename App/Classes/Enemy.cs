@@ -36,7 +36,8 @@ namespace Gruppenprojekt.App.Classes
         static bool OverridePathfinding = false;
         private const int MAXDIRECTIONS = 64;
         private Queue<Vector3> directions = new Queue<Vector3>(MAXDIRECTIONS);
-
+        private float lastActionTime = 0;
+        float cooldownDuration = 1.5f;
 
         public Enemy(string name, float x, float y, float z)
         {
@@ -55,10 +56,47 @@ namespace Gruppenprojekt.App.Classes
 
         public override void Act()
         {
-            
             if (Globals.gameRunning) 
             {
-               
+                float distance;
+                distance = GetDistanceTo(p);
+                float maxDistance = 100f;
+                float baseProximity = 1f - (distance / maxDistance);
+                float proximityPercent;
+                if (baseProximity <= 0.8f)
+                {
+                    proximityPercent = baseProximity * 0.8f;
+                }
+                else
+                {
+                    proximityPercent = 0.8f + (float)Math.Pow((baseProximity - 0.8f) / 0.2f, 2) * 0.2f;
+                }
+                double proxiround = Math.Round(proximityPercent, 2);
+                Console.WriteLine($"Nähe des penisman: {proxiround}");
+                if (WorldTime - lastActionTime >= cooldownDuration)
+                {
+                    Random rnd = new Random();
+                    int rndsound = rnd.Next(1, 3);
+                    if(rndsound == 1)
+                    {
+                        Audio.PlaySound(@"./App/Sounds/thump3.wav", false, (float)proxiround);
+                        Console.WriteLine("sound 3 also 1 gemacht");
+                        lastActionTime = WorldTime;
+                    }
+                    else if(rndsound == 2)
+                    {
+                        Audio.PlaySound(@"./App/Sounds/thump2.wav", false, (float)proxiround);
+                        Console.WriteLine("sound 2 also 2 gemacht");
+                        lastActionTime = WorldTime;
+                    }
+                    else if(rndsound == 3)
+                    {
+                        Audio.PlaySound(@"./App/Sounds/thump1.wav", false, (float)proxiround);
+                        Console.WriteLine("sound 1 also 3 gemacht");
+                        lastActionTime = WorldTime;
+                    }
+                }
+
                 playerPos = p.Position;
                 Vector3 raystart = this.Center;
                 Vector3 rayDirection = HelperVector.GetDirectionFromVectorToVectorXZ(this.Position,playerPos);
@@ -71,7 +109,7 @@ namespace Gruppenprojekt.App.Classes
                     f.SetPosition(this.Position.X, this.Position.Z);
                 }
                 */
-                List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 40f, true, this, typeof(Wall), typeof(Player), typeof(Map));
+                List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 80f, true, this, typeof(Wall), typeof(Player), typeof(Map));
                 if (results.Count > 0)
                 {
                     raycollision = results[0];
@@ -98,7 +136,8 @@ namespace Gruppenprojekt.App.Classes
                     TurnTowardsXZ(playerPos);
                     if (myDirection != Vector3.Zero)
                     {
-                        MoveAlongVector(myDirection, Globals.EnemySpeed);                                //Attackgeschwindigkeit
+                        MoveAlongVector(myDirection, Globals.EnemySpeed);
+                        cooldownDuration = 0.5f;                                                        //Attackgeschwindigkeit
                     }
                 }
                 else if (timestampLastSighting + 4f > WorldTime && timestampLastSighting != 0)          //NOTIZ AN TIL: Wie lang kann der Gegner dich noch um Wände sehen und folgen
@@ -109,6 +148,7 @@ namespace Gruppenprojekt.App.Classes
                     if (myDirection != Vector3.Zero)
                     {
                         MoveAlongVector(myDirection, Globals.EnemySpeed);
+                        cooldownDuration = 1.5f;
                     }
                 }
                 else if (OverridePathfinding == true)
@@ -120,6 +160,7 @@ namespace Gruppenprojekt.App.Classes
                         pathfinding.SetTarget(collectableposlol, true);
                         if (pathfinding.HasTarget && pathfinding.ContainsXZ(collectableposlol))
                         {
+                            cooldownDuration = 0.5f;
                             Console.WriteLine("Aufsammeln erkannt und auf Weg [" + Globals.EnemySpeed+ "] ");
                             if(directions.Count >= MAXDIRECTIONS)
                             {
@@ -135,10 +176,11 @@ namespace Gruppenprojekt.App.Classes
                             }*/
                             directions.Enqueue(pathfinding.GetBestDirectionForPosition(this.Position));
                             myDirection = GetAverageDirection();
-                            if(HelperVector.GetDistanceBetweenVectorsXZ(this.Position, collectableposlol) <= 3f)
+                            if(HelperVector.GetDistanceBetweenVectorsXZ(this.Position, collectableposlol) <= 5f)
                             {
                                 Console.WriteLine("angekommen bei location [" + Globals.EnemySpeed+ "]");
                                 OverridePathfinding = false;
+                                cooldownDuration = 1.5f;
                             }
                         }
                     }
@@ -155,6 +197,7 @@ namespace Gruppenprojekt.App.Classes
                 }
                 else
                 {
+                    cooldownDuration = 1.5f;
                     Player.enemyspeedcap = false;
                     Move(Globals.EnemySpeed);                                                 //NOTIZ AN TIL HIER KANNST DU ROAMING GESCHWINDIGKEIT ANPASSEN (für difficulty)
                     Console.WriteLine("roaming [" + Globals.EnemySpeed+ "] ");               //DEBUG ROAMING
@@ -177,7 +220,7 @@ namespace Gruppenprojekt.App.Classes
                     Player.safeScore();
                         death1 deathscreen = new death1();
                         Window.SetWorld(deathscreen);
-                    }
+                }
             }
             }
         }
