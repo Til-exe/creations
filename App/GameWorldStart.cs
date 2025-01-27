@@ -155,6 +155,8 @@ namespace Gruppenprojekt.App
         }
         public override void Prepare()
         {
+            KWEngine.LoadModel("EnemyClown", "./App/Models/whiteclown_gltfbin_kwengine/WhiteClown.gltf");
+
 
             HUDObjectImage bbg = new HUDObjectImage("./App/Textures/blackscreen.png");
             bbg.SetScale(Globals.fensterBreite, Globals.fensterHoehe);
@@ -232,7 +234,7 @@ namespace Gruppenprojekt.App
 
             if (Globals.choseGamemode != "Peacefull" )
             {
-                Enemy e = new Enemy("huso", 0f, 2, 0);                
+                Enemy e = new Enemy("huso", 3f, 1.5f, -8);
                 AddGameObject(e);
             }
 

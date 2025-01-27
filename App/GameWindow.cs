@@ -46,5 +46,6 @@ namespace Gruppenprojekt.App
             Console.WriteLine("[CONSOLE] Game Start");
 
         }
+        
     }
 }

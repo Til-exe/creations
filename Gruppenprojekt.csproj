@@ -96,6 +96,21 @@
     <None Update="App\Models\WhatsApp Bild 2024-08-23 um 20.14.14_37f610a3.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="App\Models\whiteclown_gltfbin_kwengine\WhiteClown.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="App\Models\whiteclown_gltfbin_kwengine\WhiteClown.gltf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="App\Models\whiteclown_gltfbin_kwengine\whiteclown_diffuse.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="App\Models\whiteclown_gltfbin_kwengine\whiteclown_normal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="App\Models\whiteclown_gltfbin_kwengine\whiteclown_roughness.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="App\Sounds\basicClick.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
