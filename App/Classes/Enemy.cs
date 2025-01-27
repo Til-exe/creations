@@ -61,36 +61,24 @@ namespace Gruppenprojekt.App.Classes
                 float distance;
                 distance = GetDistanceTo(p);
                 float maxDistance = 100f;
-
-                // Basis-Proximity-Wert berechnen (0 bis 1 linear)
                 float baseProximity = 1f - (distance / maxDistance);
-
-                // Zweistufige Anpassung
                 float proximityPercent;
                 if (baseProximity <= 0.8f)
                 {
-                    // Im Bereich von 0 bis 0.8 langsam ansteigen (lineares Verhalten)
-                    proximityPercent = baseProximity * 0.8f; // Skaliert langsam bis max 0.8
+                    proximityPercent = baseProximity * 0.8f;
                 }
                 else
                 {
-                    // Im Bereich von 0.8 bis 1 schnell ansteigen (exponentiell)
                     proximityPercent = 0.8f + (float)Math.Pow((baseProximity - 0.8f) / 0.2f, 2) * 0.2f;
                 }
-
-                double proxiround = Math.Round(proximityPercent, 2); // Runden auf 2 Nachkommastellen
+                double proxiround = Math.Round(proximityPercent, 2);
                 Console.WriteLine($"Nähe des penisman: {proxiround}");
-
-                // Bedingung für den Cooldown
                 if (WorldTime - lastActionTime >= cooldownDuration)
                 {
-                    Audio.PlaySound(@"./App/Sounds/thump1.wav", false, (float)proxiround / 5); // proximityPercent im Bereich 0-1
+                    Audio.PlaySound(@"./App/Sounds/thump1.wav", false, (float)proxiround / 5);
                     lastActionTime = WorldTime;
                     Console.WriteLine("sound gemacht");
                 }
-
-
-
 
                 playerPos = p.Position;
                 Vector3 raystart = this.Center;

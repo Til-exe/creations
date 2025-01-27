@@ -31,7 +31,7 @@ namespace Gruppenprojekt.App
             WindowMode.Default)                 // Fensterdekorationsmodus
         {
 
-            this.Title = "Its Stolen";      
+            this.Title = "Its Stolen";
             GameWorldStart game = new GameWorldStart();
             GameWorldStartMenu StartMenu = new GameWorldStartMenu();
             IntroScreen intro = new IntroScreen();
