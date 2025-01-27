@@ -130,6 +130,12 @@ namespace Gruppenprojekt.App.death_winscreen
 
         public override void Prepare()
         {
+
+
+            Globals.FinalChase = false;
+
+
+
             HUDObjectText main = new HUDObjectText("You died");
             main.SetTextAlignment(TextAlignMode.Center);
             main.Name = "main";
