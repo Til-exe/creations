@@ -101,7 +101,7 @@ namespace Gruppenprojekt.App.Classes
 
                 this.SetAnimationPercentageAdvance(0.005f);
                
-                playerPos = p.Position;
+                playerPos = p.Center;
                 Vector3 raystart = this.Center;
                 Vector3 rayDirection = HelperVector.GetDirectionFromVectorToVectorXZ(this.Center,playerPos);
                 Vector3 myDirection = Vector3.Zero;
