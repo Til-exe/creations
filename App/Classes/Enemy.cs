@@ -75,7 +75,7 @@ namespace Gruppenprojekt.App.Classes
                 Console.WriteLine($"Nähe des penisman: {proxiround}");
                 if (WorldTime - lastActionTime >= cooldownDuration)
                 {
-                    Audio.PlaySound(@"./App/Sounds/thump1.wav", false, (float)proxiround / 5);
+                    Audio.PlaySound(@"./App/Sounds/thump1.wav", false, (float)proxiround / 3);
                     lastActionTime = WorldTime;
                     Console.WriteLine("sound gemacht");
                 }
@@ -131,7 +131,7 @@ namespace Gruppenprojekt.App.Classes
                     if (myDirection != Vector3.Zero)
                     {
                         MoveAlongVector(myDirection, Globals.EnemySpeed);
-                        cooldownDuration = 1f;
+                        cooldownDuration = 1.5f;
                     }
                 }
                 else if (OverridePathfinding == true)
@@ -159,7 +159,7 @@ namespace Gruppenprojekt.App.Classes
                             }*/
                             directions.Enqueue(pathfinding.GetBestDirectionForPosition(this.Position));
                             myDirection = GetAverageDirection();
-                            if(HelperVector.GetDistanceBetweenVectorsXZ(this.Position, collectableposlol) <= 3f)
+                            if(HelperVector.GetDistanceBetweenVectorsXZ(this.Position, collectableposlol) <= 5f)
                             {
                                 Console.WriteLine("angekommen bei location [" + Globals.EnemySpeed+ "]");
                                 OverridePathfinding = false;
@@ -203,7 +203,7 @@ namespace Gruppenprojekt.App.Classes
                     Player.safeScore();
                         death1 deathscreen = new death1();
                         Window.SetWorld(deathscreen);
-                    }
+                }
             }
             }
         }
