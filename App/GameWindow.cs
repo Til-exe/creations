@@ -42,7 +42,7 @@ namespace Gruppenprojekt.App
             InfoMenu im = new InfoMenu();
             death1 death = new death1();
             Win win = new Win();
-            this.SetWorld(game);
+            this.SetWorld(intro);
             Console.WriteLine("[CONSOLE] Game Start");
 
         }

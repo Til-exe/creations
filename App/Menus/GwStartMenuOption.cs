@@ -428,6 +428,7 @@ namespace Gruppenprojekt.App.Menus
         public override void Prepare()
         {
 
+            languageMenu.ChangeLanguage();
             //Console.WriteLine("[CONSOLE] World: GwStartMenuOption");
             HUDObjectText h1 = new HUDObjectText(Globals.backText);
             h1.SetPosition(50f, 80f);
@@ -519,15 +520,15 @@ namespace Gruppenprojekt.App.Menus
                 Globals.DisplayInfoButton = true;
             }
 
-            HUDObjectText Enter = new HUDObjectText("ENTER CODE");
+            HUDObjectText Enter = new HUDObjectText(Globals.EnterCodeText);
             Enter.SetPosition(160f, 200f);
             Enter.Name = "Enter";
             Enter.SetColor(1.0f, 0.0f, 0.0f);
             Enter.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(Enter);
 
-            HUDObjectText Reset = new HUDObjectText("RESET");
-            Reset.SetPosition(460f, 200f);
+            HUDObjectText Reset = new HUDObjectText(Globals.ResetCodeText);
+            Reset.SetPosition(160f, 150f);
             Reset.Name = "Reset";
             Reset.SetColor(1.0f, 0.0f, 0.0f);
             Reset.SetColorEmissive(1.0f, 1.0f, 1.0f);

@@ -20,6 +20,7 @@ namespace Gruppenprojekt.App
         private float _HUDLastUpdate = 0;
         bool fullbright = false;
         bool bird = false; // KAR: Vogelperspektive
+        public static List<Vector3> positions = new List<Vector3>();
 
         public bool IsBird()
         {
@@ -213,7 +214,6 @@ namespace Gruppenprojekt.App
             light.SetPosition(0f, 5f, 0);
             //AddLightObject(light);
 
-            List<Vector3> positions = new List<Vector3>();            
             positions.Add(new Vector3(50, 3, 28));
             positions.Add(new Vector3(45, 3, -10));
             positions.Add(new Vector3(13, 3, -17));

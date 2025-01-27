@@ -70,6 +70,8 @@ namespace Gruppenprojekt.App.Classes
         public static string ActualScoreboardText = "";
         public static string displayCounter = "";
         public static string choseGamemodeText = "";
+        public static string EnterCodeText = "";
+        public static string ResetCodeText = "";
 
         public static int posWert;                                      //gibt an wie bestimmte Texte positioniert sind                             
         public static int posYWert;

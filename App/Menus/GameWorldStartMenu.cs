@@ -290,6 +290,7 @@ namespace Gruppenprojekt.App.Menus
             hTitle.SetTextAlignment(TextAlignMode.Center);
             hTitle.SetColor(1.0f, 0.0f, 0.0f);
             hTitle.SetScale(80.0f);
+
             languageMenu.ChangeLanguage();
             displayClickableButtons();
             HUDObjectText sb = new HUDObjectText(Globals.ActualScoreboardText);

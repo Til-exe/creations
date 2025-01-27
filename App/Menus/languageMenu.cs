@@ -85,7 +85,7 @@ namespace Gruppenprojekt.App.Menus
             {
                 if (Spanisch.IsMouseCursorOnMe() == true)
                 {
-                    Spanisch.SetColorEmissiveIntensity(1.5f);
+                    //Spanisch.SetColorEmissiveIntensity(1.5f);
                 }
                 else
                 {
@@ -95,10 +95,10 @@ namespace Gruppenprojekt.App.Menus
                 {
                     KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/on.wav", false, 0.2f);
 
-                    Deutsch.SetText("Deutsch");
-                    English.SetText("English");
-                    Spanisch.SetText("Spanisch");
-                    Globals.SetLanguage = "Spanisch";
+                    //Deutsch.SetText("Deutsch");
+                    //English.SetText("English");
+                    //Spanisch.SetText("Spanisch");
+                    //Globals.SetLanguage = "Spanisch";
                 }
             }
             if (Globals.SetLanguage == "Deutsch") { Deutsch.SetText("> Deutsch"); }
@@ -138,6 +138,7 @@ namespace Gruppenprojekt.App.Menus
             Spanisch.SetCharacterDistanceFactor(1.0f);
             Spanisch.SetColor(1.0f, 0.0f, 0.0f);
             Spanisch.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            Spanisch.SetOpacity(0.7f);
             AddHUDObject(Spanisch);
 
             Deutsch.SetText("Deutsch");
@@ -160,6 +161,8 @@ namespace Gruppenprojekt.App.Menus
                 Globals.enabledText = "AKTIVIERT";
                 Globals.disabledText = "DEAKTIVIERT";
                 Globals.backText = "Zurück";
+                Globals.ResetCodeText = "Zurücksetzen";
+                Globals.EnterCodeText = "Code Eingeben";
             }
             if (Globals.SetLanguage == "English")
             {
@@ -175,6 +178,8 @@ namespace Gruppenprojekt.App.Menus
                 Globals.enabledText = "ENABLED";
                 Globals.disabledText = "DISABLED";
                 Globals.backText = "Back";
+                Globals.ResetCodeText = "Reset";
+                Globals.EnterCodeText = "Enter Code";
 
 
             }
