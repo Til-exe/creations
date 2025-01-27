@@ -58,7 +58,13 @@ namespace Gruppenprojekt.App.Classes
             
             if (Globals.gameRunning) 
             {
-               
+
+                
+
+
+
+
+
                 playerPos = p.Position;
                 Vector3 raystart = this.Center;
                 Vector3 rayDirection = HelperVector.GetDirectionFromVectorToVectorXZ(this.Position,playerPos);
@@ -71,6 +77,24 @@ namespace Gruppenprojekt.App.Classes
                     f.SetPosition(this.Position.X, this.Position.Z);
                 }
                 */
+
+                if (Globals.FinalChase == true)
+                {
+                    Player.enemyspeedcap = false;
+                    OverridePathfinding = false;
+                    Console.WriteLine("attack [" + Globals.EnemySpeed + "]");                  //DEBUG ATTACK
+                    timestampLastSighting = WorldTime;
+                    TurnTowardsXZ(playerPos);
+                    if (myDirection != Vector3.Zero)
+                    {
+                        MoveAlongVector(myDirection, Globals.EnemySpeed);                                //Attackgeschwindigkeit
+                    }
+                }
+
+
+
+
+
                 List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 40f, true, this, typeof(Wall), typeof(Player), typeof(Map));
                 if (results.Count > 0)
                 {
@@ -89,7 +113,11 @@ namespace Gruppenprojekt.App.Classes
                 {
                     myDirection = f.GetBestDirectionForPosition(this.Position);
                 }
-                if (objectHitByRay == p)
+
+               
+
+
+                if (objectHitByRay == p && Globals.FinalChase == false)
                 {
                     Player.enemyspeedcap = false;
                     OverridePathfinding = false;
@@ -101,6 +129,7 @@ namespace Gruppenprojekt.App.Classes
                         MoveAlongVector(myDirection, Globals.EnemySpeed);                                //Attackgeschwindigkeit
                     }
                 }
+               
                 else if (timestampLastSighting + 4f > WorldTime && timestampLastSighting != 0)          //NOTIZ AN TIL: Wie lang kann der Gegner dich noch um Wände sehen und folgen
                 {
                     Player.enemyspeedcap = false;

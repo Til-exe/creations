@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Gruppenprojekt.App.death_winscreen
 {
-    public class Win : World
+    internal class countDown0 : World
     {
         float finalOP = float.Epsilon;
 
@@ -22,8 +22,6 @@ namespace Gruppenprojekt.App.death_winscreen
 
         public override void Act()
         {
-
-
             myTextObjects[0] = GetHUDObjectTextByName("main");
             myTextObjects[1] = GetHUDObjectTextByName("tryagain");
             myTextObjects[2] = GetHUDObjectTextByName("yes");
@@ -77,7 +75,6 @@ namespace Gruppenprojekt.App.death_winscreen
             {
                 if (myTextObjects[4].IsMouseCursorOnMe() == true)
                 {
-                    
                     myTextObjects[4].SetColorEmissiveIntensity(1.5f);
                 }
                 else
@@ -126,36 +123,34 @@ namespace Gruppenprojekt.App.death_winscreen
                     Window.SetWorld(gm);
                 }
             }
-        }
+        
+    }
 
         public override void Prepare()
         {
 
-            Globals.FinalChase = false;
+            Globals.FinalChase = false; 
 
-
-            HUDObjectText main = new HUDObjectText("You won");
+            HUDObjectText main = new HUDObjectText("You suck");
             main.SetTextAlignment(TextAlignMode.Center);
             main.Name = "main";
             main.SetColor(1, 0, 0);
             main.SetPosition(Globals.fensterBreite / 2, Globals.fensterHoehe / 2);
-            
 
             HUDObjectText tryagain = new HUDObjectText("Do you want to try again ?");
             tryagain.SetTextAlignment(TextAlignMode.Center);
             tryagain.Name = "tryagain";
             tryagain.SetColor(1, 0, 0);
-            tryagain.SetPosition(Globals.fensterBreite/2,Globals.fensterHoehe/2);
+            tryagain.SetPosition(Globals.fensterBreite / 2, Globals.fensterHoehe / 2);
             tryagain.SetOpacity(0);
-            
 
             HUDObjectText yes = new HUDObjectText("YES");
             yes.SetTextAlignment(TextAlignMode.Center);
             yes.Name = "yes";
             yes.SetColor(1, 0, 0);
-            yes.SetPosition(Globals.fensterBreite / 2-200, Globals.fensterHoehe / 2+100);
+            yes.SetPosition(Globals.fensterBreite / 2 - 200, Globals.fensterHoehe / 2 + 100);
             yes.SetOpacity(0);
-            yes.SetColorEmissive(1,1,1);
+            yes.SetColorEmissive(1, 1, 1);
 
             HUDObjectText no = new HUDObjectText("NO");
             no.SetTextAlignment(TextAlignMode.Center);
@@ -163,7 +158,7 @@ namespace Gruppenprojekt.App.death_winscreen
             no.SetColor(1, 0, 0);
             no.SetPosition(Globals.fensterBreite / 2 + 0, Globals.fensterHoehe / 2 + 100);
             no.SetOpacity(0);
-            no.SetColorEmissive(1,1,1);
+            no.SetColorEmissive(1, 1, 1);
 
             HUDObjectText menu = new HUDObjectText("MENU");
             menu.SetTextAlignment(TextAlignMode.Center);

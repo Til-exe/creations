@@ -199,6 +199,7 @@ namespace Gruppenprojekt.App.Classes
                 safeScore();
                 GameWorldStartMenu gwsm = new GameWorldStartMenu();
                 Window.SetWorld(gwsm);
+                Globals.FinalChase = false;
             }
             if (counter == Globals.ColCount)    //Ende wenn alle Collectables eingesammelt worden sind ,,  ach ne 
             {
@@ -206,20 +207,26 @@ namespace Gruppenprojekt.App.Classes
 
                 TimeCounter = CurrentWorld.WorldTime - T;
 
-                NegativeCountdown = 250 - TimeCounter;
+                NegativeCountdown = 10 - TimeCounter;
 
                 countdown.SetText(NegativeCountdown.ToString("0.00"));
                 winCondition.SetOpacity(finalOP);
 
                
+                if(NegativeCountdown == 0 || NegativeCountdown < 0) {
+                    safeScore();
+                    countDown0 count = new countDown0();
+                    Window.SetWorld(count);
+                    
 
+                }
                 
               
                
                
 
                 if(tracker > 40) { CurrentWorld.RemoveHUDObject(winCondition); }
-                else if(tracker == 40) { CurrentWorld.AddHUDObject(countdown); }
+                else if(tracker == 40) { CurrentWorld.AddHUDObject(countdown);  Globals.FinalChase = true; tracker++; }
 
                 if ( nowDown == false )
                 {
@@ -237,6 +244,7 @@ namespace Gruppenprojekt.App.Classes
                     safeScore();
                     
                     Window.SetWorld(winscreen);
+                    
                 }
                 
             }
