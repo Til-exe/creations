@@ -16,6 +16,8 @@ using Gruppenprojekt.App.Menus;
 using Gruppenprojekt.App.death_winscreen;
 
 using Assimp.Configs;
+using OpenTK.Audio.OpenAL;
+
 namespace Gruppenprojekt.App.Classes
 {
     public class Player : GameObject
@@ -23,6 +25,7 @@ namespace Gruppenprojekt.App.Classes
         public Vector3 collectablepos;
         bool flashlight = false;
         private LightObject _flashlight;
+       
         HUDObjectText displayTimer = new HUDObjectText("Timer: ");
         HUDObjectText m1 = new HUDObjectText("Zurück zum Spiel");
         HUDObjectText m2 = new HUDObjectText("Hauptmenu");
@@ -31,11 +34,16 @@ namespace Gruppenprojekt.App.Classes
         HUDObjectText gamemode = new HUDObjectText("Gamemode:" + Globals.choseGamemode);
         HUDObjectImage bg = new HUDObjectImage("./App/Textures/blackscreen.png");
         HUDObjectText mtitle = new HUDObjectText("Pausiert");
-        HUDObjectText winCondition = new HUDObjectText("Verschwinde von hier !");
+        HUDObjectText winCondition = new HUDObjectText("Verschwinde");
+        
         private HUDObjectText colCount;
         private int counter = 0;
         private float timestampLastWalkSound = 0;
 
+        // 2025-01-26, KAR: Felder für View-Bobbing und FPS-Armmodellanimation hinzugefügt
+        private PlayerView _playerView;
+        private float _playerArmsAnimationCurrent = 0.25f;
+        private float _playerArmsAnimationBase = 0.25f;
 
         private bool IsBird() // Testmethode von KAR
         {
@@ -56,7 +64,9 @@ namespace Gruppenprojekt.App.Classes
             this.SetScale(1, 2, 1);
             this.IsCollisionObject = true;
             this.SetColorEmissive(1, 1, 1, 2);
-            
+
+            countdown = new HUDObjectText(NegativeCountdown.ToString("0.00"));
+
             //Taschenlampe
             _flashlight = new LightObject(LightType.Directional, ShadowQuality.Low);
             _flashlight.Name = "flashlight";
@@ -130,10 +140,26 @@ namespace Gruppenprojekt.App.Classes
             gamemode.SetColor(1.0f, 0.0f, 0.0f);
 
             winCondition.Name = "win";
-            winCondition.SetPosition(Globals.fensterBreite / 2, 40f);
+            winCondition.SetTextAlignment(TextAlignMode.Center);
+            winCondition.SetPosition(Globals.fensterBreite / 2, Globals.fensterHoehe / 2);
             winCondition.SetCharacterDistanceFactor(1.0f);
             winCondition.SetColor(1.0f, 0.0f, 0.0f);
-            winCondition.SetTextAlignment(TextAlignMode.Center);
+            winCondition.SetScale(60);
+            winCondition.SetOpacity(0);
+            CurrentWorld.AddHUDObject(winCondition);
+
+            countdown.Name = "countdown";
+            countdown.SetPosition(Globals.fensterBreite / 2, 40f);
+            countdown.SetOpacity(1);
+            countdown.SetTextAlignment(TextAlignMode.Center);
+            countdown.SetColor(1.0f, 0.0f, 0.0f);
+
+            // 2025-01-26, KAR: Player-Instanz unsichtbar + neues Feld für Camera-View-Bobbing + First-Person-Armmodell
+            PlayerArms arms = new PlayerArms();
+            CurrentWorld.SetViewSpaceGameObject(arms);
+            _playerView = new PlayerView();
+            this.SetOpacity(0f);
+
         }
         private Random _random = new Random();
         Win winscreen = new Win();
@@ -152,9 +178,18 @@ namespace Gruppenprojekt.App.Classes
         public static bool enemyspeedcap = false;
         private float _enemySpeedResetTime = -1f;
         float timestampLastSighting = 0;
-        bool penis1 = true;
-        float penisZeit;
-        float digga;
+        
+
+        float finalOP = float.Epsilon;              //gehöhrt mir ihr Penner, Bruns zertifiziert
+        int tracker = 0;
+        bool nowDown = false;
+        bool WorldTimeSave = false;
+        float TimeCounter = 0;
+        float T = 0;
+        float NegativeCountdown = 0;
+        HUDObjectText countdown;
+        
+
 
         public override void Act()
         {
@@ -165,17 +200,37 @@ namespace Gruppenprojekt.App.Classes
                 GameWorldStartMenu gwsm = new GameWorldStartMenu();
                 Window.SetWorld(gwsm);
             }
-            if (counter == Globals.ColCount)    //Ende wenn alle Collectables eingesammelt worden sind
+            if (counter == Globals.ColCount)    //Ende wenn alle Collectables eingesammelt worden sind ,,  ach ne 
             {
-                if(penis1)
-                {
-                    penisZeit = WorldTime;
-                    penis1 = false;
-                }
-                float penisNew = WorldTime - penisZeit;
-                digga = (WorldTime - penisNew) - 60;
+                if(WorldTimeSave == false) {  T = WorldTime;   WorldTimeSave = true;  }             //hier 
+
+                TimeCounter = CurrentWorld.WorldTime - T;
+
+                NegativeCountdown = 250 - TimeCounter;
+
+                countdown.SetText(NegativeCountdown.ToString("0.00"));
+                winCondition.SetOpacity(finalOP);
+
+               
+
                 
-                CurrentWorld.AddHUDObject(winCondition);
+              
+               
+               
+
+                if(tracker > 40) { CurrentWorld.RemoveHUDObject(winCondition); }
+                else if(tracker == 40) { CurrentWorld.AddHUDObject(countdown); }
+
+                if ( nowDown == false )
+                {
+                    finalOP += 0.25f;
+
+                }
+                else { finalOP -= 0.25f; }
+
+                if( finalOP >= 1) { nowDown = true; }
+                if( finalOP < 0 ) { nowDown = false;    tracker++; }                                // bis hier macht countdown nachdem alle Collectables eingesammelt wurden
+
 
                 if (this.Position.X > 25 && this.Position.Z > 5 && this.Position.X < 35 && this.Position.Z < 7) 
                 {
@@ -217,8 +272,10 @@ namespace Gruppenprojekt.App.Classes
             {
                random = rnd.Next(20000);
             }
-            _flashlight.SetPosition(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVectorLocalRight);
-            _flashlight.SetTarget(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVector * 100); // KAR: Taschenlampe muss weiiiiit in die Ferne schauen
+
+            // 2025-01-26, KAR: Taschenlampenposition für FPS-Arme leicht angepasst
+            _flashlight.SetPosition(this.Center + new Vector3(0, 1.5f, 0) + CurrentWorld.CameraLookAtVectorLocalRight * 0.5f);
+            _flashlight.SetTarget(this.Center + new Vector3(0, 1, 0) + CurrentWorld.CameraLookAtVector * 10); // KAR: Taschenlampe muss weiiiiit in die Ferne schauen
             if (random == 69 && flashlight == true || (Keyboard.IsKeyPressed(Keys.Space) && Globals.debugMode) && flashlight == true)
             {
                 _flickering = true;
@@ -441,9 +498,42 @@ namespace Gruppenprojekt.App.Classes
         {
             if (Globals.gameRunning) {
                 CurrentWorld.AddCameraRotationFromMouseDelta();
-                CurrentWorld.UpdateCameraPositionForFirstPersonView(Center, 2f);                
-                MoveAndStrafeAlongCameraXZ(forward, strafe, Globals.speed);
-                TurnTowardsXZ(CurrentWorld.CameraPosition + CurrentWorld.CameraLookAtVector);
+
+                // 2025-01-26, KAR: View-Bobbing und First-Person-Arme animieren
+                {
+                    _playerView.Update(
+                        forward == 0 && strafe == 0 ? PlayerView.MovementMode.Idle : 
+                        Globals.Sprinting ? PlayerView.MovementMode.Run : 
+                        PlayerView.MovementMode.Walk
+                        );
+                    CurrentWorld.UpdateCameraPositionForFirstPersonView(
+                        Center, 
+                        _playerView.BobX * 0.0625f, 
+                        _playerView.BobY * 0.25f + 1.5f, 
+                        _playerView.BobZ * 0.0625f
+                        );
+
+                    MoveAndStrafeAlongCameraXZ(forward, strafe, Globals.speed);
+                    TurnTowardsXZ(this.Position + CurrentWorld.CameraLookAtVectorXZ * 1000f);
+
+                    if(CurrentWorld.IsViewSpaceGameObjectAttached)
+                    {
+                        ViewSpaceGameObject vsg = CurrentWorld.GetViewSpaceGameObject();
+                        if(forward == 0 && strafe == 0)
+                        {
+                            _playerArmsAnimationCurrent = _playerArmsAnimationBase + MathF.Sin(WorldTime * 0.5f) * 0.01f;
+                        }
+                        else if(Globals.Sprinting)
+                        {
+                            _playerArmsAnimationCurrent = (_playerArmsAnimationCurrent + 0.01f) % 1f;
+                        }
+                        else
+                        {
+                            _playerArmsAnimationCurrent = (_playerArmsAnimationCurrent + 0.005f) % 1f;
+                        }
+                        vsg.SetAnimationPercentage(_playerArmsAnimationCurrent);
+                    }
+                }
             }
         }
         public void removeAllHUD() 

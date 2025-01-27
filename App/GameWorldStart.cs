@@ -20,6 +20,10 @@ namespace Gruppenprojekt.App
         bool fullbright = false;
         bool bird = false; // KAR: Vogelperspektive
 
+
+     
+           
+
         public bool IsBird()
         {
             return bird;
@@ -51,7 +55,7 @@ namespace Gruppenprojekt.App
             _HUDLastUpdate = WorldTime;
         }
         public override void Act()
-        {
+        { 
             HUDObjectImage bbg = GetHUDObjectImageByName("bbg");           
             if (Keyboard.IsKeyPressed(Keys.T) && Globals.debugMode)
             {
@@ -178,6 +182,9 @@ namespace Gruppenprojekt.App
 
             KWEngine.LoadModel("Map", "./App/Models/knezi1.glb");
             KWEngine.LoadModel("EscapeLadder", "./App/Models/knezi_ladderOnly.glb");
+
+            // 2025-01-26, KAR: FPS-Armmodell
+            KWEngine.LoadModel("FPSARMS", "./App/Models/fps_arms.fbx");
 
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/shortsound.wav");
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/flashlight_click.wav");

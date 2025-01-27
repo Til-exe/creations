@@ -264,6 +264,10 @@ namespace Gruppenprojekt.App
 
             PreLoadSounds();
             KWEngine.LoadModel("Pascal", "./App/Models/pascalbild.fbx");
+
+            // 2025-01-26, KAR: FPS-Armmodell
+            KWEngine.LoadModel("FPSARMS", "./App/Models/fps_arms.fbx");
+
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/shortsound.wav");
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/flashlight_click.wav");
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/flashlightexplode.wav");
