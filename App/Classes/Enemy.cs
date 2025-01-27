@@ -75,7 +75,7 @@ namespace Gruppenprojekt.App.Classes
                 Console.WriteLine($"Nähe des penisman: {proxiround}");
                 if (WorldTime - lastActionTime >= cooldownDuration)
                 {
-                    Audio.PlaySound(@"./App/Sounds/thump1.wav", false, (float)proxiround / 3);
+                    Audio.PlaySound(@"./App/Sounds/thump1.wav", false, (float)proxiround);
                     lastActionTime = WorldTime;
                     Console.WriteLine("sound gemacht");
                 }
@@ -92,7 +92,7 @@ namespace Gruppenprojekt.App.Classes
                     f.SetPosition(this.Position.X, this.Position.Z);
                 }
                 */
-                List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 40f, true, this, typeof(Wall), typeof(Player), typeof(Map));
+                List<RayIntersectionExt> results = HelperIntersection.RayTraceObjectsForViewVector(raystart, rayDirection, 80f, true, this, typeof(Wall), typeof(Player), typeof(Map));
                 if (results.Count > 0)
                 {
                     raycollision = results[0];
