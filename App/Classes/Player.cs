@@ -325,7 +325,7 @@ namespace Gruppenprojekt.App.Classes
                 if (Keyboard.IsKeyDown(Keys.A) && Globals.Sprinting) { Globals.speed = 0.069f; }
             }
             //pause Menu
-            if ((Keyboard.IsKeyPressed(Keys.Escape) || Keyboard.IsKeyPressed(Keys.Home) ||Keyboard.IsKeyPressed(Keys.Tab)  )&& !Globals.MapOpen)
+            if ((Keyboard.IsKeyPressed(Keys.Escape) || Keyboard.IsKeyPressed(Keys.Tab)  )&& !Globals.MapOpen)
             {
                 stop();
             }
