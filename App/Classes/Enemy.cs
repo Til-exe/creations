@@ -75,9 +75,26 @@ namespace Gruppenprojekt.App.Classes
                 Console.WriteLine($"Nähe des penisman: {proxiround}");
                 if (WorldTime - lastActionTime >= cooldownDuration)
                 {
-                    Audio.PlaySound(@"./App/Sounds/thump1.wav", false, (float)proxiround);
-                    lastActionTime = WorldTime;
-                    Console.WriteLine("sound gemacht");
+                    Random rnd = new Random();
+                    int rndsound = rnd.Next(1, 3);
+                    if(rndsound == 1)
+                    {
+                        Audio.PlaySound(@"./App/Sounds/thump3.wav", false, (float)proxiround);
+                        Console.WriteLine("sound 3 also 1 gemacht");
+                        lastActionTime = WorldTime;
+                    }
+                    else if(rndsound == 2)
+                    {
+                        Audio.PlaySound(@"./App/Sounds/thump2.wav", false, (float)proxiround);
+                        Console.WriteLine("sound 2 also 2 gemacht");
+                        lastActionTime = WorldTime;
+                    }
+                    else if(rndsound == 3)
+                    {
+                        Audio.PlaySound(@"./App/Sounds/thump1.wav", false, (float)proxiround);
+                        Console.WriteLine("sound 1 also 3 gemacht");
+                        lastActionTime = WorldTime;
+                    }
                 }
 
                 playerPos = p.Position;
