@@ -31,10 +31,10 @@ namespace Gruppenprojekt.App.Classes
         HUDObjectText m3 = new HUDObjectText("Verlassen");
         HUDObjectText score = new HUDObjectText("Punkte");
         HUDObjectText gamemode = new HUDObjectText("Gamemode:" + Globals.choseGamemode);
-        HUDObjectImage bg = new HUDObjectImage("./App/Textures/blackscreen.png");
         HUDObjectText mtitle = new HUDObjectText("Pausiert");
         HUDObjectText winCondition = new HUDObjectText("Verschwinde");
-        
+        HUDObjectImage bg = new HUDObjectImage("./App/Textures/blackscreen.png");
+
         private HUDObjectText colCount;
         private int counter = 0;
         private float timestampLastWalkSound = 0;
@@ -158,35 +158,38 @@ namespace Gruppenprojekt.App.Classes
             CurrentWorld.SetViewSpaceGameObject(arms);
             _playerView = new PlayerView();
             this.SetOpacity(0f);
-
         }
-        public static void AddBlackHUDBorder()
+        public void AddBlackHUDBorder()
         {
-            HUDObjectImage bg = new HUDObjectImage("./App/Textures/blackscreen.png");
-            HUDObjectImage bg1 = new HUDObjectImage("./App/Textures/blackscreen.png");
             if (penis12)
             {
-                bg.SetScale(Globals.fensterBreite * 10, Globals.fensterHoehe / 5);
-                bg.Name = "bbg";
-                bg.SetColor(0, 0, 0);
-                bg.SetPosition(Globals.fensterBreite / 2, 0);
-                bg.SetZIndex(0);
-                bg.SetOpacity(1f);
-                CurrentWorld.AddHUDObject(bg);
+                HUDObjectImage sbg = new HUDObjectImage("./App/Textures/blackscreen.png");
+                HUDObjectImage sbg1 = new HUDObjectImage("./App/Textures/blackscreen.png");
+                //Console.WriteLine("-");
+                //Console.WriteLine(Globals.ColCount);
+                //Console.WriteLine(penis12 );
+
+                sbg.SetScale(Globals.fensterBreite * 10, Globals.fensterHoehe / 5);
+                sbg.Name = "bbg";
+                sbg.SetColor(0, 0, 0);
+                sbg.SetPosition(Globals.fensterBreite / 2, 0);
+                sbg.SetZIndex(0);
+                sbg.SetOpacity(1f);
+                CurrentWorld.AddHUDObject(sbg);
                 Console.WriteLine("[HUDObject] added 'bg'");
 
-                bg1.SetScale(Globals.fensterBreite * 10, Globals.fensterHoehe / 5);
-                bg1.Name = "bbg";
-                bg1.SetColor(1, 0, 0);
-                bg1.SetPosition(Globals.fensterBreite / 2, Globals.fensterHoehe);
-                bg1.SetZIndex(0);
-                bg1.SetOpacity(1f);
-                CurrentWorld.AddHUDObject(bg1);
+                sbg1.SetScale(Globals.fensterBreite * 10, Globals.fensterHoehe / 5);
+                sbg1.Name = "bbg";
+                sbg1.SetColor(1, 0, 0);
+                sbg1.SetPosition(Globals.fensterBreite / 2, Globals.fensterHoehe);
+                sbg1.SetZIndex(0);
+                sbg1.SetOpacity(1f);
+                CurrentWorld.AddHUDObject(sbg1);
                 Console.WriteLine("[HUDObject] added 'bg1'");
                 penis12 = false;
             }
             //Console.WriteLine("X: " + bg1.Position.X + " Y: " + bg1.Position.Y + " penis151: " + penis151);
-            //Console.WriteLine("X: " + bg.Position.X + " Y: " + bg.Position.Y + " penis151: " + penis151);
+            //Console.WriteLine("X: " + bg.Position.X + " Y: " + bg.Position.Y + " penis151: " + penis151);        
         }
 
         Random _random = new Random();
@@ -204,13 +207,12 @@ namespace Gruppenprojekt.App.Classes
         static int removedTime = 0;
         static int sek = 0;
         static int min = 0;
-        static float penis151 = 0f;
-        static bool penis12 = true;
         float timestampLastSighting = 0;
         float finalOP = float.Epsilon;              //gehöhrt mir ihr Penner, Bruns zertifiziert
         float TimeCounter = 0;
         float T = 0;
         float NegativeCountdown = 0;
+        bool penis12 = true;
         bool toggleSprint = false;
         bool nowDown = false;
         bool WorldTimeSave = false;
@@ -221,7 +223,6 @@ namespace Gruppenprojekt.App.Classes
         {
             return 1f / (distance + 1);
         }
-
         public override void Act()
         {            
             //Death Action
@@ -233,8 +234,7 @@ namespace Gruppenprojekt.App.Classes
                 Globals.FinalChase = false;
             }
             if (counter == Globals.ColCount)    //Ende wenn alle Collectables eingesammelt worden sind ,,  ach ne 
-            {
-
+            {                
                 AddBlackHUDBorder();
                 if (WorldTimeSave == false) {  T = WorldTime;   WorldTimeSave = true;  }             //hier 
                 TimeCounter = CurrentWorld.WorldTime - T;
@@ -263,17 +263,14 @@ namespace Gruppenprojekt.App.Classes
                 {
                     safeScore();                    
                     Window.SetWorld(winscreen);                    
-                }
-                
+                }                
             }
             //Displaying Time
             string ActualTimeDisplay = min + "m " + sek + "s";
             sek = Convert.ToInt32(CurrentWorld.WorldTime) - removedTime;
             if (sek == 60) {
                 removedTime += 60;
-                min++;                
-
-                
+                min++;
             }
             if(Convert.ToInt32(WorldTime) < 60) {
                 ActualTimeDisplay = sek + "s";
@@ -371,7 +368,6 @@ namespace Gruppenprojekt.App.Classes
                     KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/Playersteps.wav", false, 0.3f);
                     timestampLastWalkSound = WorldTime;
                 }
-
                 if (Keyboard.IsKeyDown(Keys.W)) { forward += 1; }
                 if (Keyboard.IsKeyDown(Keys.D)) { strafe += 1;  }
                 if (Keyboard.IsKeyDown(Keys.A)) { strafe -= 1;  }
@@ -428,8 +424,6 @@ namespace Gruppenprojekt.App.Classes
                 {
                     m2.SetOpacity(0.5f);
                 }
-                
-                
             }
             //Pause Menu Close
             if (m3 != null)
@@ -483,8 +477,6 @@ namespace Gruppenprojekt.App.Classes
                 else if (collider is InteractionCollectable)
                 {
                     (collider as InteractionCollectable).KillMe(1, 0, 0, 2);
-                    counter = counter + 1;
-                    colCount.SetText("Gesammelte Orbs: " + counter);
                 }
             }
             //Flashlight slow of enemy
@@ -522,7 +514,6 @@ namespace Gruppenprojekt.App.Classes
         {
             if (Globals.gameRunning) {
                 CurrentWorld.AddCameraRotationFromMouseDelta();
-
                 // 2025-01-26, KAR: View-Bobbing und First-Person-Arme animieren
                 {
                     _playerView.Update(
@@ -536,7 +527,6 @@ namespace Gruppenprojekt.App.Classes
                         _playerView.BobY * 0.25f + 1.5f, 
                         _playerView.BobZ * 0.0625f
                         );
-
                     MoveAndStrafeAlongCameraXZ(forward, strafe, Globals.speed);
                     TurnTowardsXZ(this.Position + CurrentWorld.CameraLookAtVectorXZ * 1000f);
 
@@ -618,11 +608,7 @@ namespace Gruppenprojekt.App.Classes
             Globals.displayCounter = Convert.ToString(CurrentWorld.WorldTime) + "\n";
             string appendText = Convert.ToString(Globals.Score) + "\n";
             File.AppendAllText(Globals.timePath, Globals.displayCounter);
-            File.AppendAllText(Globals.path, appendText);            
-            
-            
-            
-            
+            File.AppendAllText(Globals.path, appendText);
         }
     }
 }
