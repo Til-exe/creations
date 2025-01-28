@@ -165,9 +165,27 @@ namespace Gruppenprojekt.App.Menus
                     }
                     if (Mouse.IsButtonPressed(MouseButton.Left) && user[i].IsMouseCursorOnMe() == true)
                     {
-                        KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
+                        KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/on.wav", false, 0.2f);
+                        if(adminmin)
+                        {
+                        }
+                        else
+                        {
+
+                        }
                     }
-                } }
+                    else if (Mouse.IsButtonPressed(MouseButton.Right) && user[i].IsMouseCursorOnMe() == true)
+                    {
+                        KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/off.wav", false, 0.2f);
+                        h.GetFocus(false);
+                        h.SetText("");
+                        h.SetPosition(200, Globals.fensterHoehe - (120 + 30 * i));
+
+                        user[i].SetText("U:" + h.Text);
+                    }
+                }
+
+            }
 
 
             // Wenn ein Objekt dieses Typs und dieses Namens gefunden werden
@@ -225,13 +243,12 @@ namespace Gruppenprojekt.App.Menus
             save.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(save);
 
-
             HUDObjectTextInput h = new HUDObjectTextInput("Name..");
             h.SetPosition(200, Globals.fensterHoehe - (120 + 30 * user.Count));
             h.Name = "input";
             h.SetColor(1.0f, 1.0f, 1.0f);
             h.CursorBehaviour = KeyboardCursorBehaviour.Fade;
-            h.CursorType = KeyboardCursorType.Underscore;     
+            h.CursorType = KeyboardCursorType.Underscore;
             AddHUDObject(h);
 
             HUDObjectText add = new HUDObjectText("add +");
