@@ -1,24 +1,22 @@
 ﻿using OpenTK.Windowing.GraphicsLibraryFramework;
+using Gruppenprojekt.App.death_winscreen;
 using OpenTK.Windowing.Common.Input;
 using System.Collections.Generic;
+using Gruppenprojekt.App.Menus;
 using System.Threading.Tasks;
 using KWEngine3.GameObjects;
+using OpenTK.Graphics.ES11;
+using OpenTK.Audio.OpenAL;
 using OpenTK.Mathematics;
 using System.Diagnostics;
 using KWEngine3.Helper;
 using System.Threading;
 using KWEngine3.Audio;
+using Assimp.Configs;
 using KWEngine3;
 using System.IO;
 using Assimp;
 using System;
-using Gruppenprojekt.App.Menus;
-using Gruppenprojekt.App.death_winscreen;
-
-using Assimp.Configs;
-using OpenTK.Audio.OpenAL;
-
-using OpenTK.Graphics.ES11;
 namespace Gruppenprojekt.App.Classes
 {
     public class Player : GameObject
@@ -190,37 +188,34 @@ namespace Gruppenprojekt.App.Classes
             //Console.WriteLine("X: " + bg1.Position.X + " Y: " + bg1.Position.Y + " penis151: " + penis151);
             //Console.WriteLine("X: " + bg.Position.X + " Y: " + bg.Position.Y + " penis151: " + penis151);
         }
-        private Random _random = new Random();
+
+        Random _random = new Random();
         Win winscreen = new Win();
         Random rnd = new Random();
         public bool BOOM = false;
         public bool FirstAct = true;
-        private bool _flickering = false;
-        bool toggleSprint = false;
-        private float _flickerVorbei = 0f;         
-        private float _nextFlicker = 0f;         
+        public static bool enemyspeedcap = false;
         public double WorldTimeVar = 0;
         public int timedpenisboom = 0;
+        private bool _flickering = false;
+        private float _enemySpeedResetTime = -1f;
+        private float _flickerVorbei = 0f;         
+        private float _nextFlicker = 0f;        
         static int removedTime = 0;
         static int sek = 0;
         static int min = 0;
-        public static bool enemyspeedcap = false;
-        private float _enemySpeedResetTime = -1f;
-        float timestampLastSighting = 0;
-        static bool penis12 = true;
         static float penis151 = 0f;
-
+        static bool penis12 = true;
+        float timestampLastSighting = 0;
         float finalOP = float.Epsilon;              //gehöhrt mir ihr Penner, Bruns zertifiziert
-        int tracker = 0;
-        bool nowDown = false;
-        bool WorldTimeSave = false;
         float TimeCounter = 0;
         float T = 0;
         float NegativeCountdown = 0;
+        bool toggleSprint = false;
+        bool nowDown = false;
+        bool WorldTimeSave = false;
+        int tracker = 0;
         HUDObjectText countdown;
-
-        
-
 
         private float GetVolumeForDistance(float distance)
         {
