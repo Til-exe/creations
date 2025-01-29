@@ -49,11 +49,13 @@ namespace Gruppenprojekt.App.Menus
             //wenn bestimmter werd
             //alles stoppt
 
-
-            if(allesStoppt)
+            Console.WriteLine("======================================");
+            if (allesStoppt)
             {
+                Console.WriteLine("-------------------------------------------");
                 for (float i = 0; i != 1; i += 0.01f) 
                 {
+                    Console.WriteLine("title +");
                     title.SetOpacity(i);
                     titleOpacity = i;
                 }
