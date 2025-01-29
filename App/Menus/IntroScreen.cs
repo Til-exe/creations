@@ -25,6 +25,10 @@ namespace Gruppenprojekt.App.Menus
         bool maxGerreicht = true;
         bool toggleSave = true;
         bool adminmin = false;
+
+        bool allesStoppt = true;
+        float titleOpacity = 0;
+        float startOpacity = 0;
         public override void Act()
         {
             
@@ -33,25 +37,67 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectText save = GetHUDObjectTextByName("save");
             HUDObjectText add = GetHUDObjectTextByName("add");
             HUDObjectTextInput h = GetHUDObjectTextInputByName("input");
-            if (maxGerreicht)
+
+
+            //bei start zählt hoch
+            //opacity von start wird damit erhöht
+            //wenn bestimmter wert
+            //opacity stoppt
+            //neuer zähler
+            //start zählt hoch
+            //opacity zählt mit hoch
+            //wenn bestimmter werd
+            //alles stoppt
+
+
+            if(allesStoppt)
             {
-                if (hochzähler != -1) { hochzähler++; }                    
-                if (hochzähler1 != -1) { hochzähler1++; }
-                if (hochzähler == 2) {
+                for (float i = 0; i != 1; i += 0.01f) 
+                {
+                    title.SetOpacity(i);
+                    titleOpacity = i;
+                }
+                if(titleOpacity == 1)
+                {
+                    for (float i = 0; i != 1; i += 0.01f)
+                    {
+                        start.SetOpacity(i);
+                        startOpacity = i;
+                    }
+                    if (startOpacity == 1)
+                    {
+                        allesStoppt = false;
+                    }
+                }
+                    
+            }
+
+
+            /*if (true)
+            {
+                if (hochzähler != -1)
+                { hochzähler++; }
+                
+
+                if (hochzähler == 4) {                              // (hochzähler == i) die Zahl i gibt die länge des Fade an
                     hochzähler = 0;
                     tScale++;
-                    title.SetScale(tScale/2); }                    
+                    title.SetOpacity(tScale/240); }                    
                 if (tScale == 240.0f) {
+                    
                     hochzähler = -2;
                     maxGerreicht = false;
-                    start.SetScale(50f);
+                    //Console.WriteLine("maxgerricht = " + maxGerreicht);
+
                 }
-                if (hochzähler1 == 240) 
+                if (!maxGerreicht) 
                 {
-                    
+                    if (hochzähler1 != -1)
+                    { hochzähler1++; }
+                    start.SetOpacity(hochzähler1 / 1000);
                 }
 
-            }
+            }*/
             if (start != null)
             {
                 if (start.IsMouseCursorOnMe() == true)
@@ -220,7 +266,7 @@ namespace Gruppenprojekt.App.Menus
             KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/IntroMusic1.wav", false, 0.06f);
             HUDObjectText title = new HUDObjectText("ITS STOLEN");
             title.Name = "itSteals";
-            title.SetScale(1f);
+            title.SetScale(120);
             title.SetPosition(Globals.fensterBreite/2,Globals.fensterHoehe/2-100);
             title.SetTextAlignment(TextAlignMode.Center);
             title.SetColor(1, 0, 0);
@@ -228,10 +274,11 @@ namespace Gruppenprojekt.App.Menus
 
             HUDObjectText start = new HUDObjectText("Start");
             start.Name = "start";
-            start.SetScale(1f);
+            start.SetScale(50);
             start.SetPosition(Globals.fensterBreite / 2, Globals.fensterHoehe / 2 + 100f);
             start.SetTextAlignment(TextAlignMode.Center);
             start.SetColor(1, 0, 0);
+            start.SetOpacity(0);
             start.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(start);
 
@@ -241,7 +288,7 @@ namespace Gruppenprojekt.App.Menus
             save.SetPosition(10, Globals.fensterHoehe-50);
             save.SetColor(1, 0, 0);
             save.SetColorEmissive(1.0f, 1.0f, 1.0f);
-            AddHUDObject(save);
+            //AddHUDObject(save);
 
             HUDObjectTextInput h = new HUDObjectTextInput("Name..");
             h.SetPosition(200, Globals.fensterHoehe - (120 + 30 * user.Count));
@@ -249,7 +296,7 @@ namespace Gruppenprojekt.App.Menus
             h.SetColor(1.0f, 1.0f, 1.0f);
             h.CursorBehaviour = KeyboardCursorBehaviour.Fade;
             h.CursorType = KeyboardCursorType.Underscore;
-            AddHUDObject(h);
+            //AddHUDObject(h);
 
             HUDObjectText add = new HUDObjectText("add +");
             add.Name = "add";

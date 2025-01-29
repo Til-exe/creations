@@ -38,7 +38,7 @@ namespace Gruppenprojekt.App.Classes
         public static bool MapOpen = false;                             //MapOpen - Indikator dafür ob die Karte geöffnet ist
         public static bool deathreal = true;                            //deathreal - Indikator dafür ob der Enemy das spiel bei Collision beenden soll
         public static bool bgAnimation = true;                          //bgAnimation - gibt an ob der Hintergrund im Startmenu animiert sein soll oder nicht        
-        public static bool TutorialComplete = false;                    //TutorialComplete - gibt an ob das Tutorial abgeschlossen wurde
+        public static bool TutorialComplete = !debugMode;                    //TutorialComplete - gibt an ob das Tutorial abgeschlossen wurde
         public static bool debugMode = true;
         public static bool FinalChase = false;                          //selbst erklärend 
         
@@ -46,7 +46,6 @@ namespace Gruppenprojekt.App.Classes
         public static int Experience = 0;                               //Experience - gibt die Erfahrungspunkte an die gesammelt wurden
         public static int Level = 1;                                    //Level - gibt das Gesammelte Level an
 
-        public static string Cpath = @"./App/data/credits.txt";         //Cpath - allgemeiner Pfad für die "credits.txt" datei        
         public static string path = @"./App/data/data.txt";             //path - allgemeiner Pfad für die "data.txt" datei
         public static string timePath = @"./App/data/time.txt";         //timePath - allgemeiner Pfad für die "time.txt" datei
 
