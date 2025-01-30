@@ -43,6 +43,7 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectText EnableScoreboard = GetHUDObjectTextByName("EnableScoreboard");
             HUDObjectText EnableInfo = GetHUDObjectTextByName("EnableInfo");
             HUDObjectText gamemode = GetHUDObjectTextByName("gamemode");
+            HUDObjectText intro = GetHUDObjectTextByName("intro");
             HUDObjectText infoMenu = GetHUDObjectTextByName("info");
             HUDObjectText admin = GetHUDObjectTextByName("admin");
             HUDObjectText language = GetHUDObjectTextByName("language");
@@ -364,6 +365,25 @@ namespace Gruppenprojekt.App.Menus
                     Window.SetWorld(cGm);
                 }
             }
+            if (intro != null)
+            {
+                //BACK
+
+                if (intro.IsMouseCursorOnMe() == true)
+                {
+                    intro.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    intro.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && intro.IsMouseCursorOnMe() == true)
+                {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
+                    IntroScreen i = new IntroScreen();
+                    Window.SetWorld(i);
+                }
+            }
             if (infoMenu != null)
             {
                 if (infoMenu.IsMouseCursorOnMe() == true)
@@ -415,9 +435,9 @@ namespace Gruppenprojekt.App.Menus
                     Window.SetWorld(languageM);
                 }
             }
-            string text1 = transelateCode(Convert.ToString(value1));
-            string text2 = transelateCode(Convert.ToString(value2));
-            string text3 = transelateCode(Convert.ToString(value3));
+            string text1 = translateCode(Convert.ToString(value1));
+            string text2 = translateCode(Convert.ToString(value2));
+            string text3 = translateCode(Convert.ToString(value3));
             if (value1 == 37) { value1 = 0; }
             if (value2 == 37) { value2 = 0; }
             if (value3 == 37) { value3 = 0; }
@@ -612,6 +632,13 @@ namespace Gruppenprojekt.App.Menus
             gamemode.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(gamemode);
 
+            HUDObjectText intro = new HUDObjectText("INTRO");
+            intro.SetPosition(160f, Globals.fensterHoehe / 2 + Globals.fensterHoehe / 4 + Globals.fensterHoehe / 10 - 50);
+            intro.Name = "intro";
+            intro.SetColor(1.0f, 0.0f, 0.0f);
+            intro.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(intro);
+
             HUDObjectText info = new HUDObjectText("INFO");
             info.SetPosition(420f, Globals.fensterHoehe / 2 + Globals.fensterHoehe / 4 + Globals.fensterHoehe / 10);
             info.Name = "info";
@@ -619,46 +646,49 @@ namespace Gruppenprojekt.App.Menus
             info.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(info);
         }
-        public string transelateCode(string text)
+        public string translateCode(string text)
         {
-            if (text == "1") { text = "1"; }
-            if (text == "2") { text = "2"; }
-            if (text == "3") { text = "3"; }
-            if (text == "4") { text = "4"; }
-            if (text == "5") { text = "5"; }
-            if (text == "6") { text = "6"; }
-            if (text == "7") { text = "7"; }
-            if (text == "8") { text = "8"; }
-            if (text == "9") { text = "9"; }
-            if (text == "10") { text = "0"; }
-
-            if (text == "11") { text = "A"; }
-            if (text == "12") { text = "B"; }
-            if (text == "13") { text = "C"; }
-            if (text == "14") { text = "D"; }
-            if (text == "15") { text = "E"; }
-            if (text == "16") { text = "F"; }
-            if (text == "17") { text = "G"; }
-            if (text == "18") { text = "H"; }
-            if (text == "19") { text = "I"; }
-            if (text == "20") { text = "J"; }
-            if (text == "21") { text = "K"; }
-            if (text == "22") { text = "L"; }
-            if (text == "23") { text = "M"; }
-            if (text == "24") { text = "N"; }
-            if (text == "25") { text = "O"; }
-            if (text == "26") { text = "P"; }
-            if (text == "27") { text = "Q"; }
-            if (text == "28") { text = "R"; }
-            if (text == "29") { text = "S"; }
-            if (text == "30") { text = "T"; }
-            if (text == "31") { text = "U"; }
-            if (text == "32") { text = "V"; }
-            if (text == "33") { text = "W"; }
-            if (text == "34") { text = "X"; }
-            if (text == "35") { text = "Y"; }
-            if (text == "36") { text = "Z"; }
-            return text;
+            switch (text)
+            {
+                case "1": return "1";
+                case "2": return "2";
+                case "3": return "3";
+                case "4": return "4";
+                case "5": return "5";
+                case "6": return "6";
+                case "7": return "7";
+                case "8": return "8";
+                case "9": return "9";
+                case "10": return "0";
+                case "11": return "A";
+                case "12": return "B";
+                case "13": return "C";
+                case "14": return "D";
+                case "15": return "E";
+                case "16": return "F";
+                case "17": return "G";
+                case "18": return "H";
+                case "19": return "I";
+                case "20": return "J";
+                case "21": return "K";
+                case "22": return "L";
+                case "23": return "M";
+                case "24": return "N";
+                case "25": return "O";
+                case "26": return "P";
+                case "27": return "Q";
+                case "28": return "R";
+                case "29": return "S";
+                case "30": return "T";
+                case "31": return "U";
+                case "32": return "V";
+                case "33": return "W";
+                case "34": return "X";
+                case "35": return "Y";
+                case "36": return "Z";
+                default: return text; // Falls keine Übereinstimmung gefunden wird, bleibt der Text unverändert.
+            }
         }
+
     }
 }

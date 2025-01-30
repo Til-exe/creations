@@ -27,6 +27,7 @@ namespace Gruppenprojekt.App.Menus
         bool adminmin = false;
 
         bool allesStoppt = true;
+        bool bool1 = false;
         float titleOpacity = 0;
         float startOpacity = 0;
         public override void Act()
@@ -49,29 +50,26 @@ namespace Gruppenprojekt.App.Menus
             //wenn bestimmter werd
             //alles stoppt
 
-            Console.WriteLine("======================================");
-            if (allesStoppt)
-            {
-                Console.WriteLine("-------------------------------------------");
-                for (float i = 0; i != 1; i += 0.01f) 
+            if (allesStoppt){
+                if(titleOpacity != -1f && !bool1)
                 {
-                    Console.WriteLine("title +");
-                    title.SetOpacity(i);
-                    titleOpacity = i;
+                    titleOpacity += 0.003f;
+                    title.SetOpacity(titleOpacity);
                 }
-                if(titleOpacity == 1)
+                if(titleOpacity > 1f && !bool1)
                 {
-                    for (float i = 0; i != 1; i += 0.01f)
-                    {
-                        start.SetOpacity(i);
-                        startOpacity = i;
-                    }
-                    if (startOpacity == 1)
-                    {
-                        allesStoppt = false;
-                    }
+                    bool1 = true;
                 }
-                    
+                if (startOpacity != -1f && bool1 == true) 
+                {
+                    startOpacity += 0.003f;
+                    start.SetOpacity(startOpacity);
+
+                }
+                if(startOpacity > 1f && bool1 == true)
+                {
+                    allesStoppt = false;
+                }
             }
 
 
