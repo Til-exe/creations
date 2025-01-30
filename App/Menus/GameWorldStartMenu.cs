@@ -478,10 +478,13 @@ namespace Gruppenprojekt.App.Menus
         public static void startGame()
         {
             KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
-            if (Globals.choseGamemode == "Tutorial") {
+            if (Globals.choseGamemode == "Tutorial")
+            {
                 GameWorldTutorial gwt = new GameWorldTutorial();
-                Window.SetWorld(gwt);}
-            else {
+                Window.SetWorld(gwt);
+            }
+            else
+            {
                 GameWorldStart gws = new GameWorldStart();
                 Window.SetWorld(gws);
                 Globals.Score = 0;
@@ -489,7 +492,8 @@ namespace Gruppenprojekt.App.Menus
         }
         public static string ErstellePunktestand(int punkte, int maxPunkte)
         {
-            try {
+            try
+            {
                 string punkteTeil = new string('|', punkte);
                 string leerTeil = new string('-', maxPunkte - punkte);
                 return punkteTeil + (leerTeil);
