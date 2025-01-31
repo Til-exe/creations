@@ -291,7 +291,7 @@ namespace Gruppenprojekt.App.Classes
             int random = 0;
             if (Globals.gameRunning) 
             {
-               random = rnd.Next(20000);
+               random = rnd.Next(13000);
             }
 
             // 2025-01-26, KAR: Taschenlampenposition für FPS-Arme leicht angepasst

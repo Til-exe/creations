@@ -87,7 +87,7 @@ namespace Gruppenprojekt.App.Classes
                     }
                     else if(rndsound == 2)
                     {
-                        Audio.PlaySound(@"./App/Sounds/thump2.wav", false, (float)proxiround);
+                        Audio.PlaySound(@"./App/Sounds/thunp2.wav", false, (float)proxiround);
                         Console.WriteLine("sound 2 also 2 gemacht");
                         lastActionTime = WorldTime;
                     }
