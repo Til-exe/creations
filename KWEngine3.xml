@@ -1523,6 +1523,14 @@
             <param name="target">Ziel</param>
             <returns>Rotation (als Quaternion)</returns>
         </member>
+        <member name="M:KWEngine3.GameObjects.EngineObject.TurnTowardsXYZ(System.Single,System.Single,System.Single)">
+            <summary>
+            Dreht das Objekt, so dass es zur Zielkoordinate blickt
+            </summary>
+            <param name="x">x-Zielkoordinate</param>
+            <param name="y">y-Zielkoordinate</param>
+            <param name="z">z-Zielkoordinate</param>
+        </member>
         <member name="M:KWEngine3.GameObjects.EngineObject.TurnTowardsXYZ(OpenTK.Mathematics.Vector3)">
             <summary>
             Dreht das Objekt, so dass es zur Zielkoordinate blickt
@@ -1573,6 +1581,7 @@
             <summary>
             Setzt die Rotation passend zum übergebenen Ebenenvektor (surface normal), um z.B. das Objekt zu kippen, wenn es auf einer Schräge steht.
             </summary>
+            <remarks>Hinweis: Kann bei KWQuad-Modellen zu fehlerhaften Rotationen führen. Hier muss ggf. manuell mit AddRotation...() nachgebessert werden.</remarks>
             <param name="surfaceNormal">Ebenenvektor</param>
         </member>
         <member name="P:KWEngine3.GameObjects.EngineObject.IsAnimated">
@@ -2575,6 +2584,11 @@
             Oberklasse für alle Eingabe-HUDObject-Klassen
             </summary>
         </member>
+        <member name="P:KWEngine3.GameObjects.HUDObjectTextInput.TimeoutDuration">
+            <summary>
+            Erfragt oder setzt die Zeit, in der nach dem Fokusverlust des Eingabefeldes keine Tastaturbefehle entgegengenommen werden sollen (Standardwert: 0.5f)
+            </summary>
+        </member>
         <member name="P:KWEngine3.GameObjects.HUDObjectTextInput.CursorBehaviour">
             <summary>
             Regelt das Blinkverhalten des Eingabecursors
@@ -2591,6 +2605,11 @@
             </summary>
             <param name="moveCursorToEnd">gibt an, ob der Cursor beim Erlangen des Fokus an das Ende der Zeichenkette gesetzt werden soll (Standard: true)</param> 
         </member>
+        <member name="M:KWEngine3.GameObjects.HUDObjectTextInput.ReleaseFocus">
+            <summary>
+            Veranlasst die Instanz, den erzwungenen Keyboard-Eingabefokus sofort zu verlassen - ohne ein Event zu generieren
+            </summary>
+        </member>
         <member name="M:KWEngine3.GameObjects.HUDObjectTextInput.SetText(System.String,System.Boolean)">
             <summary>
             Setzt den Text für die Instanz
@@ -2604,14 +2623,14 @@
             </summary>
             <param name="reason">Gibt optional den Grund für das Verlassen des Fokus an. Dieser wird der Event-Beschreibung angehängt.</param>
         </member>
-        <member name="M:KWEngine3.GameObjects.HUDObjectTextInput.ConfirmAndReleaseFocus">
+        <member name="M:KWEngine3.GameObjects.HUDObjectTextInput.ConfirmAndRaiseWorldEvent">
             <summary>
-            Bestätigt die aktuelle Eingabe und gibt den Eingabefokus für den kommenden Simulatiosschritt wieder frei
+            Bestätigt die aktuelle Eingabe und erzeugt ein WorldEvent, das in der jeweiligen OnWorldEvent()-Methode der Welt-Klasse abgefangen werden kann
             </summary>
         </member>
-        <member name="M:KWEngine3.GameObjects.HUDObjectTextInput.AbortAndReleaseFocus">
+        <member name="M:KWEngine3.GameObjects.HUDObjectTextInput.AbortAndRaiseWorldEvent">
             <summary>
-            Bricht die aktuelle Eingabe ab und gibt den Eingabefokus für den kommenden Simulatiosschritt wieder frei
+            Bricht die aktuelle Eingabe ab und erzeugt ein WorldEvent, das in der jeweiligen OnWorldEvent()-Methode der Welt-Klasse abgefangen werden kann
             </summary>
         </member>
         <member name="P:KWEngine3.GameObjects.HUDObjectTextInput.CursorPosition">
@@ -2643,6 +2662,11 @@
         <member name="P:KWEngine3.GameObjects.HUDObjectTextInput.CursorBlinkSpeed">
             <summary>
             Gibt die Blinkgeschwindigkeit des Eingabecursors an
+            </summary>
+        </member>
+        <member name="P:KWEngine3.GameObjects.HUDObjectTextInput.MaxInputLength">
+            <summary>
+            Setzt oder erfragt die Anzahl maximal einzugebender Zeichen im Bereich [1, 128] (Standardwert: 128)
             </summary>
         </member>
         <member name="M:KWEngine3.GameObjects.HUDObjectTextInput.AddCharacters(System.String)">
@@ -4314,6 +4338,20 @@
             <param name="includeNonCollisionObjects">Sollen Objekte berücksichtigt werden, die NICHT als Kollisionsobjekt markiert sind?</param>
             <returns>true, wenn der Strahl das GameObject getroffen hat</returns>
         </member>
+        <member name="M:KWEngine3.Helper.HelperIntersection.RaytraceObject(KWEngine3.GameObjects.GameObject,OpenTK.Mathematics.Vector3,OpenTK.Mathematics.Vector3,OpenTK.Mathematics.Vector3@,OpenTK.Mathematics.Vector3@,System.String@,System.Single@,System.Boolean)">
+            <summary>
+            Berechnet den Schnittpunkt eines Strahls mit dem angegebenen GameObject
+            </summary>
+            <param name="g">zu prüfendes GameObject</param>
+            <param name="rayOrigin">Ursprungsposition des Strahls</param>
+            <param name="rayDirection">Richtung des Strahls (MUSS normalisiert sein!)</param>
+            <param name="intersectionPoint">Schnittpunkt (Ausgabe)</param>
+            <param name="faceNormal">Ebene des Schnittpunkts (Ausgabe)</param>
+            <param name="hitboxname">Name der getroffenen Hitbox</param>
+            <param name="distance">Gemessene Distanz bis zum Schnittpunkt</param>
+            <param name="includeNonCollisionObjects">Sollen Objekte berücksichtigt werden, die NICHT als Kollisionsobjekt markiert sind?</param>
+            <returns>true, wenn der Strahl das GameObject getroffen hat</returns>
+        </member>
         <member name="M:KWEngine3.Helper.HelperIntersection.RaytraceObjectFast(KWEngine3.GameObjects.GameObject,OpenTK.Mathematics.Vector3,OpenTK.Mathematics.Vector3)">
             <summary>
             Prüft, ob ein Strahl die Hitbox der angegebenen GameObject-Instanz trifft
@@ -4324,6 +4362,19 @@
             <param name="g">zu prüfendes GameObject</param>
             <param name="rayOrigin">Ursprungsposition des Strahls</param>
             <param name="rayDirection">Richtung des Strahls (MUSS normalisiert sein!)</param>
+            <returns>true, wenn der Strahl das GameObject trifft</returns>
+        </member>
+        <member name="M:KWEngine3.Helper.HelperIntersection.RaytraceObjectFast(KWEngine3.GameObjects.GameObject,OpenTK.Mathematics.Vector3,OpenTK.Mathematics.Vector3,System.Single@)">
+            <summary>
+            Prüft, ob ein Strahl die Hitbox der angegebenen GameObject-Instanz trifft
+            </summary>
+            <remarks>
+            Diese Methode ist schnell aber unpräzise, da sie sich an der quaderförmigen Hitbox des Objekts orientiert.
+            </remarks>
+            <param name="g">zu prüfendes GameObject</param>
+            <param name="rayOrigin">Ursprungsposition des Strahls</param>
+            <param name="rayDirection">Richtung des Strahls (MUSS normalisiert sein!)</param>
+            <param name="distance">Gibt die Distanz zum Schnittpunkt an</param>
             <returns>true, wenn der Strahl das GameObject trifft</returns>
         </member>
         <member name="M:KWEngine3.Helper.HelperIntersection.RaytraceObjectFastest(KWEngine3.GameObjects.GameObject,OpenTK.Mathematics.Vector3,OpenTK.Mathematics.Vector3)">
@@ -4337,6 +4388,20 @@
             <param name="g">zu prüfendes GameObject</param>
             <param name="rayOrigin">Ursprungsposition des Strahls</param>
             <param name="rayDirection">Richtung des Strahls (MUSS normalisiert sein!)</param>
+            <returns>true, wenn der Strahl das GameObject trifft</returns>
+        </member>
+        <member name="M:KWEngine3.Helper.HelperIntersection.RaytraceObjectFastest(KWEngine3.GameObjects.GameObject,OpenTK.Mathematics.Vector3,OpenTK.Mathematics.Vector3,System.Single@)">
+            <summary>
+            Prüft, ob ein Strahl die achsenparallele Hitbox der angegebenen GameObject-Instanz trifft
+            </summary>
+            <remarks>
+            Diese Methode ist schnell aber sehr unpräzise, da sie die Rotation von Objekten nur näherungsweise einbezieht.
+            Es kann vermehrt zu falsch-positiven Rückmeldungen kommen.
+            </remarks>
+            <param name="g">zu prüfendes GameObject</param>
+            <param name="rayOrigin">Ursprungsposition des Strahls</param>
+            <param name="rayDirection">Richtung des Strahls (MUSS normalisiert sein!)</param>
+            <param name="distance">Gibt die Distanz zum Schnittpunkt an</param>
             <returns>true, wenn der Strahl das GameObject trifft</returns>
         </member>
         <member name="M:KWEngine3.Helper.HelperIntersection.IsPointInsideBox(OpenTK.Mathematics.Vector3,OpenTK.Mathematics.Vector3,System.Single,System.Single,System.Single)">
