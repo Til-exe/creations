@@ -36,7 +36,7 @@ namespace Gruppenprojekt.App
             this.Title = "Its Stolen";      
             var world = new IntroScreen();
             this.SetWorld(world);
-            Console.WriteLine("[CONSOLE] Start  \n [WORLD] " + world);
+            Console.WriteLine("[CONSOLE] Start  \n[WORLD] " + world);
 
         }
         

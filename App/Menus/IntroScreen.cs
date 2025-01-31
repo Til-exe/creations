@@ -71,38 +71,21 @@ namespace Gruppenprojekt.App.Menus
                     allesStoppt = false;
                 }
             }
+            if(!allesStoppt && !start.IsMouseCursorOnMe())
+            {                
+                float time = WorldTime;
+                float amplitude = 1f;
+                float frequency = 2f;
+                float sinusValue = (float)Math.Sin(frequency * time);
+                float newY = 1f + amplitude * sinusValue;
+                start.SetOpacity(newY);
+            }            
             if(Keyboard.IsKeyDown(Keys.Space)) 
             {
                 titleOpacity = 1f;
                 startOpacity = 1f;
             }
 
-
-            /*if (true)
-            {
-                if (hochzähler != -1)
-                { hochzähler++; }
-                
-
-                if (hochzähler == 4) {                              // (hochzähler == i) die Zahl i gibt die länge des Fade an
-                    hochzähler = 0;
-                    tScale++;
-                    title.SetOpacity(tScale/240); }                    
-                if (tScale == 240.0f) {
-                    
-                    hochzähler = -2;
-                    maxGerreicht = false;
-                    //Console.WriteLine("maxgerricht = " + maxGerreicht);
-
-                }
-                if (!maxGerreicht) 
-                {
-                    if (hochzähler1 != -1)
-                    { hochzähler1++; }
-                    start.SetOpacity(hochzähler1 / 1000);
-                }
-
-            }*/
             if (start != null)
             {
                 if (start.IsMouseCursorOnMe() == true)
