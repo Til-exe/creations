@@ -72,14 +72,15 @@ namespace Gruppenprojekt.App
             {
                 if (fullbright)
                 {
+                    bbg.SetOpacity(0);
                     SetColorAmbient(0.05f, 0.02f, 0.02f);
-
                 }
                 else {
+                    bbg.SetOpacity(counter);
                     SetColorAmbient(0.5f, 0.5f, 0.5f);
-
                 }
                 fullbright = !fullbright;
+                //Console.WriteLine(fullbright);
             }
 
             float deltat = Math.Clamp((WorldTime - _HUDLastUpdate) * 0.4f, 0, 1);
@@ -150,7 +151,7 @@ namespace Gruppenprojekt.App
 
             if (startbool)
             {
-                if (counter != -1f)
+                if (counter != -1f && !fullbright)
                 {
                     counter -= 0.0005f;
                     bbg.SetOpacity(counter);

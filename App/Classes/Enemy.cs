@@ -74,7 +74,7 @@ namespace Gruppenprojekt.App.Classes
                     proximityPercent = 0.8f + (float)Math.Pow((baseProximity - 0.8f) / 0.2f, 2) * 0.2f;
                 }
                 double proxiround = Math.Round(proximityPercent, 2);
-                Console.WriteLine($"Nähe des penisman: {proxiround}");
+                //Console.WriteLine($"Nähe des penisman: {proxiround}");
                 if (WorldTime - lastActionTime >= cooldownDuration)
                 {
                     Random rnd = new Random();
@@ -117,7 +117,7 @@ namespace Gruppenprojekt.App.Classes
                 {
                     Player.enemyspeedcap = false;
                     OverridePathfinding = false;
-                    Console.WriteLine("attack [" + Globals.EnemySpeed + "]");                  //DEBUG ATTACK
+                    //Console.WriteLine("attack [" + Globals.EnemySpeed + "]");                  //DEBUG ATTACK
                     timestampLastSighting = WorldTime;
                     TurnTowardsXZ(playerPos);
                     if (myDirection != Vector3.Zero)
@@ -156,7 +156,7 @@ namespace Gruppenprojekt.App.Classes
                 {
                     Player.enemyspeedcap = false;
                     OverridePathfinding = false;
-                    Console.WriteLine("attack [" + Globals.EnemySpeed+ "]");                  //DEBUG ATTACK
+                    //Console.WriteLine("attack [" + Globals.EnemySpeed+ "]");                  //DEBUG ATTACK
                     timestampLastSighting = WorldTime;
                     TurnTowardsXZ(playerPos);
                     if (myDirection != Vector3.Zero)
@@ -170,7 +170,7 @@ namespace Gruppenprojekt.App.Classes
                 {
                     Player.enemyspeedcap = false;
                     OverridePathfinding = false;
-                    Console.WriteLine("not in sight still attack [" + Globals.EnemySpeed+ "]");       //DEBUG NOT IN SIGHT
+                    //Console.WriteLine("not in sight still attack [" + Globals.EnemySpeed+ "]");       //DEBUG NOT IN SIGHT
                     if (myDirection != Vector3.Zero)
                     {
                         MoveAlongVector(myDirection, Globals.EnemySpeed);
@@ -187,7 +187,7 @@ namespace Gruppenprojekt.App.Classes
                         if (pathfinding.HasTarget && pathfinding.ContainsXZ(collectableposlol))
                         {
                             cooldownDuration = 0.5f;
-                            Console.WriteLine("Aufsammeln erkannt und auf Weg [" + Globals.EnemySpeed+ "] ");
+                            //Console.WriteLine("Aufsammeln erkannt und auf Weg [" + Globals.EnemySpeed+ "] ");
                             if(directions.Count >= MAXDIRECTIONS)
                             {
                                 directions.Dequeue();
@@ -204,7 +204,7 @@ namespace Gruppenprojekt.App.Classes
                             myDirection = GetAverageDirection();
                             if(HelperVector.GetDistanceBetweenVectorsXZ(this.Center, collectableposlol) <= 3f)
                             {
-                                Console.WriteLine("angekommen bei location [" + Globals.EnemySpeed+ "]");
+                                //Console.WriteLine("angekommen bei location [" + Globals.EnemySpeed+ "]");
                                 OverridePathfinding = false;
                                 cooldownDuration = 1.5f;
                             }
@@ -226,7 +226,7 @@ namespace Gruppenprojekt.App.Classes
                     cooldownDuration = 1.5f;
                     Player.enemyspeedcap = false;
                     Move(Globals.EnemySpeed);                                                 //NOTIZ AN TIL HIER KANNST DU ROAMING GESCHWINDIGKEIT ANPASSEN (für difficulty)
-                    Console.WriteLine("roaming [" + Globals.EnemySpeed+ "] ");               //DEBUG ROAMING
+                    //Console.WriteLine("roaming [" + Globals.EnemySpeed+ "] ");               //DEBUG ROAMING
                     List<Intersection> intersections1 = GetIntersections();
                     foreach (Intersection intersection in intersections1)
                     {
@@ -330,7 +330,7 @@ namespace Gruppenprojekt.App.Classes
 
         public static void Collectabletarget(Vector3 collectablepos)
         {
-            Console.WriteLine($"Collectable target: {collectablepos}");
+            //Console.WriteLine($"Collectable target: {collectablepos}");
             collectableposlol = collectablepos;
             OverridePathfinding = true;
             

@@ -38,6 +38,7 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectImage bbg = GetHUDObjectImageByName("bbg");
             HUDObjectText LevelScore = GetHUDObjectTextByName("LevelScore");
             HUDObjectText LevelNum = GetHUDObjectTextByName("LevelNum");
+            HUDObjectText title = GetHUDObjectTextByName("title");
             if (startbool) {
                 bbg.SetZIndex(0);
                 if (counter != -1f) {
@@ -61,6 +62,16 @@ namespace Gruppenprojekt.App.Menus
                 KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/ScaryMenuMusic1.wav", false, 0.1f);
                 timestampLastWalkSound = WorldTime;
             }
+            if(!startbool)
+            {
+                float time = WorldTime;
+                float amplitude = 1f;
+                float frequency = 2f;
+                float sinusValue = (float)Math.Sin(frequency * time);
+                float newY = amplitude * sinusValue;
+                title.SetColorEmissiveIntensity(newY);
+            }
+            
             if (start != null)
             {
                 if (start.IsMouseCursorOnMe() == true && !startbool)
@@ -180,6 +191,11 @@ namespace Gruppenprojekt.App.Menus
                     Window.SetWorld(levelMenu);
                 }
             }
+            if (Keyboard.IsKeyPressed(Keys.Escape))
+            {
+                IntroScreen i = new IntroScreen();
+                Window.SetWorld(i);
+            }
 
             if (Keyboard.IsKeyPressed(Keys.A) || isAPressed)
             {
@@ -248,7 +264,7 @@ namespace Gruppenprojekt.App.Menus
         }
         public override void Prepare()
         {
-            Console.WriteLine("[CONSOLE] World: GameWorldStartMenu");
+            Console.WriteLine("[WORLD] " + new GameWorldStartMenu());
             //KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/ScaryMenuMusic1.wav", false, 0.5f);
             Globals.gameRunning = true;
             Wall w1 = new Wall("1", 0f, 4f, 5f);
@@ -288,8 +304,11 @@ namespace Gruppenprojekt.App.Menus
             hSubtitle.SetColor(1.0f, 0.0f, 0.0f);
             hTitle.SetPosition(Globals.fensterBreite / 2, 50f);
             hTitle.SetTextAlignment(TextAlignMode.Center);
+            hTitle.SetColorEmissiveIntensity(0f);
+            hTitle.SetColorEmissive(0.3f,0f,0f);
             hTitle.SetColor(1.0f, 0.0f, 0.0f);
             hTitle.SetScale(80.0f);
+            hTitle.Name = "title";
 
             languageMenu.ChangeLanguage();
             displayClickableButtons();
@@ -478,10 +497,13 @@ namespace Gruppenprojekt.App.Menus
         public static void startGame()
         {
             KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
-            if (Globals.choseGamemode == "Tutorial") {
+            if (Globals.choseGamemode == "Tutorial")
+            {
                 GameWorldTutorial gwt = new GameWorldTutorial();
-                Window.SetWorld(gwt);}
-            else {
+                Window.SetWorld(gwt);
+            }
+            else
+            {
                 GameWorldStart gws = new GameWorldStart();
                 Window.SetWorld(gws);
                 Globals.Score = 0;
@@ -489,7 +511,8 @@ namespace Gruppenprojekt.App.Menus
         }
         public static string ErstellePunktestand(int punkte, int maxPunkte)
         {
-            try {
+            try
+            {
                 string punkteTeil = new string('|', punkte);
                 string leerTeil = new string('-', maxPunkte - punkte);
                 return punkteTeil + (leerTeil);

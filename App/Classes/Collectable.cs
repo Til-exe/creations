@@ -19,26 +19,21 @@ namespace Gruppenprojekt.App.Classes
         float ColMovementSpeed = 0.007f;
         
         public Collectable(string name, float x, float y, float z) 
-        {
-            
+        {            
             this.SetModel("KWSphere"); // KWCube
             this.Name = name;
             this.SetPosition(x, rnd.Next(1,5), z);
             this.IsCollisionObject = true;
             this.IsShadowCaster = true;
             this.SetColor(0, 1, 0);
-            this.SetColorEmissive(0, 1, 0, 10);
-
-            
-            
-            
+            this.SetColorEmissive(0, 1, 0, 10);            
         }
         public void KillMe()
         {
             Random rn = new Random();
             Globals.Score+=(100 * Globals.multiplikator);
             KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/Collecting1.wav", false, 0.2f);
-
+             
             
             ExplosionObject ex = new ExplosionObject(128, 0.5f, 4f, 2.0f, ExplosionType.Skull);
             ex.SetAlgorithm(ExplosionAnimation.WindUp);

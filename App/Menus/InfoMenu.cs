@@ -35,7 +35,7 @@ namespace Gruppenprojekt.App.Menus
             HUDObjectText text4 =  GetHUDObjectTextByName("text4");
             HUDObjectText text5 =  GetHUDObjectTextByName("text5");
             HUDObjectText text6 =  GetHUDObjectTextByName("text6");
-
+            HUDObjectText text7 =  GetHUDObjectTextByName("text7");
 
             text1.SetText("");
             text2.SetText("");
@@ -43,6 +43,7 @@ namespace Gruppenprojekt.App.Menus
             text4.SetText("");
             text5.SetText("");
             text6.SetText("");
+            text7.SetText("");
             if (back != null)
             {
                 if (back.IsMouseCursorOnMe() == true)
@@ -100,12 +101,25 @@ namespace Gruppenprojekt.App.Menus
                 if (Flashlight.IsMouseCursorOnMe() == true)
                 {
                     Flashlight.SetColorEmissiveIntensity(0.8f);
-                    text1.SetText("Du kannst die Taschenlampe nutzen um");
-                    text2.SetText("den Gegner zu blenden wenn er vor dir");
-                    text3.SetText("ist. Er wird sich für kurze Zeit");
-                    text4.SetText("Langsamer bewegen. Doch pass auf..");
-                    text5.SetText("Die Taschenlampe kann ganz zufällig");
-                    text6.SetText("kaputt gehen und sich ausschalten.");
+                    if (Globals.SetLanguage == "Deutsch")
+                    {
+                        text1.SetText("Tastenbelegung: 'F'");
+                        text2.SetText("Du kannst die Taschenlampe nutzen um");
+                        text3.SetText("den Gegner zu blenden wenn er vor dir");
+                        text4.SetText("ist. Er wird sich für kurze Zeit");
+                        text5.SetText("Langsamer bewegen. Doch pass auf..");
+                        text6.SetText("Die Taschenlampe kann ganz zufällig");
+                        text7.SetText("kaputt gehen und sich ausschalten.");
+                    }
+                    else if (Globals.SetLanguage == "English")
+                    {
+                        text1.SetText("Hotkey: 'F'");
+                        text2.SetText("U are able to use the Flashlight to");
+                        text3.SetText("slow the Enemy. He will be slowed");
+                        text4.SetText("for a couple of seconds but ");
+                        text5.SetText("Attention.. the Flashlight may ");
+                        text6.SetText("break randomly");
+                    }
                 }
                 else 
                 {
@@ -116,13 +130,29 @@ namespace Gruppenprojekt.App.Menus
             {
                 if (Attack.IsMouseCursorOnMe() == true)
                 {
+
                     Attack.SetColorEmissiveIntensity(0.8f);
-                    text1.SetText("Sollte der Gegner dich sehen wird er ");
-                    text2.SetText("dich verfolgen bis er dich aus den Augen");
-                    text3.SetText("verloren hat. Sei Vorsichtig. Der Gegner");
-                    text4.SetText("ist schneller als du. LAUF!");
-                    text5.SetText("Du kannst ihm entkommen indem du schnell um");
-                    text6.SetText("Ecken läufst!");
+                    if (Globals.SetLanguage == "Deutsch")
+                    {
+                        text1.SetText("");
+                        text2.SetText("Sollte der Gegner dich sehen wird er ");
+                        text3.SetText("dich verfolgen bis er dich aus den Augen");
+                        text4.SetText("verloren hat. Sei Vorsichtig. Der Gegner");
+                        text5.SetText("ist schneller als du. LAUF!");
+                        text6.SetText("Du kannst ihm entkommen indem du schnell um");
+                        text7.SetText("Ecken läufst!");
+                    }
+                    else if (Globals.SetLanguage == "English")
+                    {
+                        text1.SetText("");
+                        text2.SetText("When the Enemy see's you, he will start ");
+                        text3.SetText("following you until you will be out of");
+                        text4.SetText("his sight. Pay Attention he is faster ");
+                        text5.SetText("then you are and if he catches you..");
+                        text6.SetText("Its over. You can escape more easily");
+                        text7.SetText("when your run around corners alot.");
+                    }
+                    
                 }
                 else
                 {
@@ -134,10 +164,19 @@ namespace Gruppenprojekt.App.Menus
                 if (World.IsMouseCursorOnMe() == true)
                 {
                     World.SetColorEmissiveIntensity(0.8f);
-                    text1.SetText("Im Spiel befindest du dich in einem");
-                    text2.SetText("Labyrinth indem jeder gang einen");
-                    text3.SetText("ausweg hat. Bisauf die großen Räume!");
-                    text4.SetText("Die meisten sind Sackgassen.");
+                    if (Globals.SetLanguage == "Deutsch")
+                    {
+                        text1.SetText("Im Spiel befindest du dich in einem");
+                        text2.SetText("Labyrinth indem jeder gang einen");
+                        text3.SetText("ausweg hat. Bisauf die großen Räume!");
+                        text4.SetText("Die meisten sind Sackgassen.");
+                    }
+                    else if (Globals.SetLanguage == "English")
+                    {
+                        text1.SetText("In the Game, you will be in a Mace where");
+                        text2.SetText("every Way has 2 ways to enter, except");
+                        text3.SetText("some of the larger Rooms");
+                    }
                 }
                 else 
                 {
@@ -148,11 +187,25 @@ namespace Gruppenprojekt.App.Menus
             {
                 if (Map.IsMouseCursorOnMe() == true)
                 {
-                    Map.SetColorEmissiveIntensity(0.8f);
-                    text1.SetText("Die Map zeigt nicht den Gegner an.");
-                    text2.SetText("Sei Also vorsichtig wenn du ");
-                    text3.SetText("die Map benutzt! Der Gegner könnte");
-                    text4.SetText("bereits auf dem Weg sein!");
+                        Map.SetColorEmissiveIntensity(0.8f);
+                    if (Globals.SetLanguage == "Deutsch")
+                    {
+                        text1.SetText("Tastenbelegung: 'R'");
+                        text2.SetText("Die Map zeigt nicht den Gegner an. Sei Also");
+                        text3.SetText("vorsichtig wenn du die Map benutzt!");
+                        text4.SetText("Der Gegner könnte bereits auf dem Weg sein!");
+                        text5.SetText("Dafür wirst du alle einsammelbaren");
+                        text6.SetText("Objekte auf der Map finden");
+                    }
+                    else if (Globals.SetLanguage == "English")
+                    {
+                        text1.SetText("Hotkey: 'R'");
+                        text2.SetText("The Map wont show you the Position of the");
+                        text3.SetText("Enemy, but will reveal every collectable");
+                        text4.SetText("Object. But be carefull, the Enemy will");
+                        text5.SetText("be able to attack you.");
+                    }
+                    
                 }
                 else
                 {
@@ -164,12 +217,25 @@ namespace Gruppenprojekt.App.Menus
                 if (Benehmen.IsMouseCursorOnMe() == true)
                 {
                     Benehmen.SetColorEmissiveIntensity(0.8f);
-                    text1.SetText("Der Gegner wird durch das Labyrinth");
-                    text2.SetText("laufen und dich suchen. Er kann hinter");
-                    text3.SetText("jeder ecke lauern. Sobald er dich berührt");
-                    text4.SetText("ist es aus für dich und du musst neustarten!");
-                    text5.SetText("Du wirst ihn sehen, aber nicht immer sieht");
-                    text6.SetText("er dich dann auch.");
+                    if (Globals.SetLanguage == "Deutsch")
+                    {
+                        text1.SetText("Der Gegner wird durch das Labyrinth");
+                        text2.SetText("laufen und dich suchen. Er kann hinter");
+                        text3.SetText("jeder ecke lauern. Sobald er dich berührt");
+                        text4.SetText("ist es aus für dich und du musst neustarten!");
+                        text5.SetText("Du wirst ihn sehen, aber nicht immer sieht");
+                        text6.SetText("er dich dann auch.");
+                    }
+                    else if (Globals.SetLanguage == "English")
+                    {
+                        text1.SetText("The Enemy will move through the Mace ");
+                        text2.SetText("searching you. He can be everywhere and");
+                        text3.SetText("if he reaches you, its over for you and you");
+                        text4.SetText("have to restart the Game. But not everytime");
+                        text5.SetText("you see him, he see's you too.");
+                        text6.SetText("");
+                    }
+
                 }
                 else
                 {
@@ -183,9 +249,19 @@ namespace Gruppenprojekt.App.Menus
                 {
                     displayText = true;
                     Movement.SetColorEmissiveIntensity(0.8f);
-                    text1.SetText("Der Gegner ist viel Schneller als du");
-                    text2.SetText("und wird dich erbahmungslos durch die");
-                    text3.SetText("gesamte Map jagen.");
+                    if (Globals.SetLanguage == "Deutsch")
+                    {
+                        text1.SetText("Der Gegner ist viel Schneller als du");
+                        text2.SetText("und wird dich erbahmungslos durch die");
+                        text3.SetText("gesamte Map jagen.");
+                    }
+                    else if (Globals.SetLanguage == "English")
+                    {
+                        text1.SetText("The Enemy is way faster as you are an");
+                        text2.SetText("will show no mercy chasing you through");
+                        text3.SetText("the Mace.");
+                    }
+                    
                 }
                 else
                 {
@@ -264,32 +340,38 @@ namespace Gruppenprojekt.App.Menus
             text1.Name = "text1";
             text1.SetPosition(400, 100);
             text1.SetColor(1.0f, 0.0f, 0.0f);
+            text1.SetScale(20f);
             AddHUDObject(text1);
             HUDObjectText text2 = new HUDObjectText("");
             text2.Name = "text2";
             text2.SetPosition(400, 150);
-            text2.SetColor(1.0f, 0.0f, 0.0f);
+            text2.SetColor(1.0f, 0.0f, 0.0f); text2.SetScale(20f);
             AddHUDObject(text2);
             HUDObjectText text3 = new HUDObjectText("");
             text3.Name = "text3";
             text3.SetPosition(400, 200);
-            text3.SetColor(1.0f, 0.0f, 0.0f);
+            text3.SetColor(1.0f, 0.0f, 0.0f); text3.SetScale(20f);
             AddHUDObject(text3);
             HUDObjectText text4 = new HUDObjectText("");
             text4.Name = "text4";
             text4.SetPosition(400, 250);
-            text4.SetColor(1.0f, 0.0f, 0.0f);
+            text4.SetColor(1.0f, 0.0f, 0.0f); text4.SetScale(20f);
             AddHUDObject(text4);
             HUDObjectText text5 = new HUDObjectText("");
             text5.Name = "text5";
             text5.SetPosition(400, 300);
-            text5.SetColor(1.0f, 0.0f, 0.0f);
+            text5.SetColor(1.0f, 0.0f, 0.0f); text5.SetScale(20f);
             AddHUDObject(text5);
             HUDObjectText text6 = new HUDObjectText("");
             text6.Name = "text6";
             text6.SetPosition(400, 350);
-            text6.SetColor(1.0f, 0.0f, 0.0f);
+            text6.SetColor(1.0f, 0.0f, 0.0f); text6.SetScale(20f);
             AddHUDObject(text6);
+            HUDObjectText text7 = new HUDObjectText("");
+            text7.Name = "text7";
+            text7.SetPosition(400, 400);
+            text7.SetColor(1.0f, 0.0f, 0.0f); text7.SetScale(20f);
+            AddHUDObject(text7);
 
 
 
