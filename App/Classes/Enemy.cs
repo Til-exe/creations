@@ -103,7 +103,7 @@ namespace Gruppenprojekt.App.Classes
                
                 playerPos = p.Center;
                 Vector3 raystart = this.Center;
-                Vector3 rayDirection = HelperVector.GetDirectionFromVectorToVectorXZ(this.Center,playerPos);
+                Vector3 rayDirection = HelperVector.GetDirectionFromVectorToVectorXZ(new Vector3(this.Position.X, (this.Position.Y - 1f),this.Position.Z) ,playerPos);
                 Vector3 myDirection = Vector3.Zero;
                 FlowField f = CurrentWorld.GetFlowField();
                 /* KAR: f nicht mehr mitbewegen!

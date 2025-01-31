@@ -131,7 +131,7 @@ namespace Gruppenprojekt.App
                 {
                     Map.Add(list[C_count], 0f, new Vector3(0, 1, 0), new Vector3(0, 1, 0), 1f, 0.6f, 3f, "./App/Textures/green.png");
                 }
-                List<Map> wlist = GetGameObjectsByType<Map>();                          //du mulluch hab gefixt, lutsch meine eier
+                List<Map> wlist = GetGameObjectsByType<Map>();                          //du mulluch hab gefixt, lutsch meine eier, nix is gefixt, lutsch meine eier
                 {
                     
                         Map.AddAsRealModel(map, 1f, new Vector3(0.4f,0,0), new Vector3(0.4f, 0,0), 0.4f, 1f);
