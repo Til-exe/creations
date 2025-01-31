@@ -29,21 +29,14 @@ namespace Gruppenprojekt.App
             true,                                                   // VSync?
             PostProcessingQuality.Standard,                         // Qualität der PP-Effekte (Standard für iGPUs)
             WindowMode.Default,
-
             CreateWindowIconFromFile("./App/data/GameIcon.png")     
             )                 // Fensterdekorationsmodus
             
         {
             this.Title = "Its Stolen";      
-            GameWorldStartMenu StartMenu = new GameWorldStartMenu();
-            GameWorldTutorial gwt = new GameWorldTutorial();    
-            GameWorldStart game = new GameWorldStart();
-            IntroScreen intro = new IntroScreen();
-            InfoMenu im = new InfoMenu();
-            death1 death = new death1();
-            Win win = new Win();
-            this.SetWorld(intro);
-            Console.WriteLine("[CONSOLE] Game Start");
+            var world = new IntroScreen();
+            this.SetWorld(world);
+            Console.WriteLine("[CONSOLE] Start  \n [WORLD] " + world);
 
         }
         

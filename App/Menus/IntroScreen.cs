@@ -71,6 +71,11 @@ namespace Gruppenprojekt.App.Menus
                     allesStoppt = false;
                 }
             }
+            if(Keyboard.IsKeyDown(Keys.Space)) 
+            {
+                titleOpacity = 1f;
+                startOpacity = 1f;
+            }
 
 
             /*if (true)

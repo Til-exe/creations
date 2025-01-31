@@ -180,6 +180,11 @@ namespace Gruppenprojekt.App.Menus
                     Window.SetWorld(levelMenu);
                 }
             }
+            if (Keyboard.IsKeyPressed(Keys.Escape))
+            {
+                IntroScreen i = new IntroScreen();
+                Window.SetWorld(i);
+            }
 
             if (Keyboard.IsKeyPressed(Keys.A) || isAPressed)
             {
