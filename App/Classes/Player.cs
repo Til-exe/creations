@@ -233,13 +233,16 @@ namespace Gruppenprojekt.App.Classes
                 Window.SetWorld(gwsm);
                 Globals.FinalChase = false;
             }
-            if (counter == Globals.ColCount)    //Ende wenn alle Collectables eingesammelt worden sind ,,  ach ne 
+            if (counter == Globals.ColCount && Globals.choseGamemode != "Infinit")    //Ende wenn alle Collectables eingesammelt worden sind ,,  ach ne 
             {                
+                if(Globals.choseGamemode == "Normal") { Globals.FinalCountDown = 30; }
+                if(Globals.choseGamemode == "Hard") { Globals.FinalCountDown = 15; }
                 AddBlackHUDBorder();
                 if (WorldTimeSave == false) {  T = WorldTime;   WorldTimeSave = true;  }             //hier 
                 TimeCounter = CurrentWorld.WorldTime - T;
-                NegativeCountdown = 10 - TimeCounter;
+                NegativeCountdown = Globals.FinalCountDown - TimeCounter;
                 countdown.SetText(NegativeCountdown.ToString("0.00"));
+                countdown.SetZIndex(10);
                 winCondition.SetOpacity(finalOP);
                
                 if(NegativeCountdown == 0 || NegativeCountdown < 0) {
@@ -261,6 +264,7 @@ namespace Gruppenprojekt.App.Classes
 
                 if (this.Position.X > 25 && this.Position.Z > 5 && this.Position.X < 35 && this.Position.Z < 7) 
                 {
+                    Globals.Score += 500;
                     safeScore();                    
                     Window.SetWorld(winscreen);                    
                 }                
