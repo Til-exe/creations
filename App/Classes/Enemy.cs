@@ -5,19 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using KWEngine3;
 using KWEngine3.Audio;
-using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Mathematics;
-using System.Diagnostics;
-using System.Threading;
-using OpenTK.Windowing.Common.Input;
-using Assimp;
-using System.Threading.Tasks;
-using System.IO;
-using System.Text;
-using System.Transactions;
-using Gruppenprojekt.App.Menus;
-using System.Security.Cryptography.X509Certificates;
-using OpenTK.Platform.Windows;
+
 using Gruppenprojekt.App.death_winscreen;
 
 namespace Gruppenprojekt.App.Classes
@@ -42,16 +31,15 @@ namespace Gruppenprojekt.App.Classes
         public Enemy(string name, float x, float y, float z)
         {
             this.SetModel("EnemyClown");
+            this.SetHitboxToCapsule(CapsuleHitboxType.Default);
             this.Name = name;
             this.SetPosition(x, y, z);
             this.SetColor(1f, 1f, 1f);
             this.IsCollisionObject = true;
             this.IsShadowCaster = true;
-            this.SetScale(2f, 2f,2f);
-            this.SetColorEmissive(1, 1, 1, 0);
-            this.SetHitboxToCapsule(Vector3.Zero, CapsuleHitboxType.Default);
+            this.SetScale(2f);
+            this.SetColorEmissive(1, 1, 1, 0);            
             this.SetHitboxScale(0.25f, 1f, 1f);
-            //this.SetHitboxScale(0.75f);
             p = CurrentWorld.GetGameObjectByName<Player>("Yasin");
             this.SetAnimationID(2);
         }
