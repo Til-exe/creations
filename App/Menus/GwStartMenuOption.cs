@@ -87,8 +87,8 @@ namespace Gruppenprojekt.App.Menus
                         codeEnterd)
                     { 
                         code.SetText("CODE AKTIVIERT"); codeEnterd = false;
+                        Globals.ReturnCode = 1;
                     }                       
-                    Globals.ReturnCode = 1;
                 }
             }
             if (reset != null)
