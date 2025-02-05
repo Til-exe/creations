@@ -2141,12 +2141,14 @@
             <summary>
             Ersetzt die eigentliche Hitbox-Form mit der für Spielfiguren gängigen Kapselform
             </summary>
+            <remarks>Achtung: Setzt die Skalierung der Instanz zurück!</remarks>
             <param name="type">Variation der Kapsel (CapsuleHitboxType.Default oder CapsuleHitboxType.Sloped)</param>
         </member>
         <member name="M:KWEngine3.GameObjects.GameObject.SetHitboxToCapsule(OpenTK.Mathematics.Vector3,KWEngine3.CapsuleHitboxType)">
             <summary>
             Ersetzt die eigentliche Hitbox-Form mit der für Spielfiguren gängigen Kapselform
             </summary>
+            <remarks>Achtung: Setzt die Skalierung der Instanz zurück!</remarks>
             <param name="offset">Verschiebt die Kapsel-Hitbox bei Bedarf. Hier sollte als Standardwert zunächst Vector3.Zero probiert werden.</param>
             <param name="type">Variation der Kapsel (CapsuleHitboxType.Default oder CapsuleHitboxType.Sloped)</param>
         </member>
@@ -2154,6 +2156,7 @@
             <summary>
             Ersetzt die eigentliche Hitbox-Form mit der für Spielfiguren gängigen Kapselform
             </summary>
+            <remarks>Achtung: Setzt die Skalierung der Instanz zurück!</remarks>
             <param name="width">Breite der Kapsel (X-Achse)</param>
             <param name="height">Höhe der Kapsel (Y-Achse)</param>
             <param name="depth">Tiefe der Kapsel (Z-Achse)</param>
