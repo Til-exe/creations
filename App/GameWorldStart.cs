@@ -235,9 +235,30 @@ namespace Gruppenprojekt.App
             for (int i = 0; i <Globals.ColCount; i++)
             {
                 //positions.Add((HelperRandom.GetRandomNumber(3, 50), 3, HelperRandom.GetRandomNumber(-17, 60)));
-                Collectable c = new Collectable("new", positions[i].X, positions[i].Y, positions[i].Z);
+                //Collectable c = new Collectable("new", positions[i].X, positions[i].Y, positions[i].Z);
+                //AddGameObject(c);
+            }
+
+            if (Globals.ColCount > positions.Count)
+            {
+                Console.WriteLine("Nicht genug Positionen verfügbar!");
+                return;
+            }
+
+            // Liste zufällig mischen
+            Random rnd = new Random();
+            List<Vector3> shuffledPositions = new List<Vector3>(positions);
+            shuffledPositions.Sort((a, b) => rnd.Next(-1, 2));
+
+            // Collectables an zufälligen Positionen erstellen
+            for (int i = 0; i < Globals.ColCount; i++)
+            {
+                Vector3 pos = shuffledPositions[i];
+                Collectable c = new Collectable("new", pos.X, pos.Y, pos.Z);
                 AddGameObject(c);
             }
+
+
 
             if (Globals.choseGamemode != "Peacefull" )
             {
@@ -284,6 +305,6 @@ namespace Gruppenprojekt.App
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/click1.wav");
             KWEngine3.Audio.Audio.PreloadSound(@"./App/Sounds/basicClick.wav");
         }
-        
+
     }
 }   

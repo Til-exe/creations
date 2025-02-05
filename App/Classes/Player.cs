@@ -494,24 +494,31 @@ namespace Gruppenprojekt.App.Classes
                 Console.WriteLine("Hit");
                 enemyspeedcap = true;
                 timestampLastSighting = WorldTime;
-                Globals.EnemySpeed = 0.04f;
+                Globals.EnemySpeed = 0.03f;
                 Console.WriteLine("enemyspeedcap wird auf true gesetzt");
             }
-            if (timestampLastSighting + 4f > WorldTime && timestampLastSighting != 0)
+            float slowTime = 4;
+            if (Globals.choseGamemode == "Hard") { slowTime = 3.5f; }
+            if (Globals.choseGamemode == "Normal") { slowTime = 5f; }
+            if (timestampLastSighting + slowTime > WorldTime && timestampLastSighting != 0)
             {
-                Globals.EnemySpeed = 0.04f;
+                Globals.EnemySpeed = 0.035f;
                 enemyspeedcap = false;                                                      //Hier sind die Geschwindigkeitseinstellungen
             }
             else
             {
                 if (Globals.choseGamemode == "Hard")
                 {
-                    Globals.EnemySpeed = 0.12f;
+                    Globals.EnemySpeed = 0.10f;
+                }
+                if(Globals.choseGamemode == "Normal")
+                {
+                    Globals.EnemySpeed = 0.069f;
                 }
                 else
                 {
-                    Globals.EnemySpeed = 0.08f;
-                }                
+                    Globals.EnemySpeed = 0.04f;
+                }
             }
         }
         public void Camera(int forward, int strafe)

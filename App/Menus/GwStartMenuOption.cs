@@ -81,9 +81,9 @@ namespace Gruppenprojekt.App.Menus
                 if (Mouse.IsButtonPressed(MouseButton.Left) && enter.IsMouseCursorOnMe() == true)
                 {
                     KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
-                    if (value1 == 1 && 
-                        value2 == 1 && 
-                        value3 == 1 && 
+                    if (value1 == 14 && 
+                        value2 == 26 && 
+                        value3 == 30 && 
                         codeEnterd)
                     { 
                         code.SetText("CODE AKTIVIERT"); codeEnterd = false;
@@ -637,7 +637,7 @@ namespace Gruppenprojekt.App.Menus
             intro.Name = "intro";
             intro.SetColor(1.0f, 0.0f, 0.0f);
             intro.SetColorEmissive(1.0f, 1.0f, 1.0f);
-            AddHUDObject(intro);
+            //AddHUDObject(intro);
 
             HUDObjectText info = new HUDObjectText("INFO");
             info.SetPosition(420f, Globals.fensterHoehe / 2 + Globals.fensterHoehe / 4 + Globals.fensterHoehe / 10);

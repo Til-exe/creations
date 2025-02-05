@@ -149,8 +149,11 @@ namespace Gruppenprojekt.App.Classes
                     myDirection = f.GetBestDirectionForPosition(this.Center);
                 }
 
-               
 
+                float followTime = 0f;
+                if (Globals.choseGamemode == "Hard") { followTime = 5f; }
+                if (Globals.choseGamemode == "Normal") { followTime = 3f; }
+                else { followTime = 4f; }
 
                 if (objectHitByRay == p && Globals.FinalChase == false)
                 {
@@ -165,8 +168,8 @@ namespace Gruppenprojekt.App.Classes
                         cooldownDuration = 0.5f;                                                        //Attackgeschwindigkeit
                     }
                 }
-               
-                else if (timestampLastSighting + 4f > WorldTime && timestampLastSighting != 0)          //NOTIZ AN TIL: Wie lang kann der Gegner dich noch um Wände sehen und folgen
+                
+                else if (timestampLastSighting + followTime > WorldTime && timestampLastSighting != 0)          //NOTIZ AN TIL: Wie lang kann der Gegner dich noch um Wände sehen und folgen
                 {
                     Player.enemyspeedcap = false;
                     OverridePathfinding = false;
