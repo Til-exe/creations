@@ -2045,6 +2045,12 @@
             <param name="y">Skalierung in lokale x-Richtung</param>
             <param name="z">Skalierung in lokale x-Richtung</param>
         </member>
+        <member name="M:KWEngine3.GameObjects.GameObject.SetHitboxScale(OpenTK.Mathematics.Vector3)">
+            <summary>
+            Setzt die Größenskalierung der Objekt-Hitbox (muss > 0 sein)
+            </summary>
+            <param name="s">Skalierung in lokaler x-/y-z-Richtung</param>
+        </member>
         <member name="M:KWEngine3.GameObjects.GameObject.MoveAndStrafeAlongCamera(System.Int32,System.Int32,System.Single)">
             <summary>
             Bewegt das Objekt entlang der Blickrichtung der Kamera
@@ -5597,6 +5603,16 @@
         <member name="T:KWEngine3.MouseExt">
             <summary>
             Mouse-Klasse für Mauseingaben (mit Engine-Anpassungen)
+            </summary>
+        </member>
+        <member name="P:KWEngine3.MouseExt.MouseScrollPosition">
+            <summary>
+            Gibt die absolute Scrollradposition der Maus wieder
+            </summary>
+        </member>
+        <member name="P:KWEngine3.MouseExt.MouseScrollDelta">
+            <summary>
+            Gibt den Unterschied der Scrollradposition der Maus im Vergleich zur zuletzt gemessenen Position wieder
             </summary>
         </member>
         <member name="P:KWEngine3.MouseExt.Position">
