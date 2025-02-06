@@ -86,7 +86,7 @@ namespace Gruppenprojekt.App
             float deltat = Math.Clamp((WorldTime - _HUDLastUpdate) * 0.4f, 0, 1);
             HUDObjectText t = GetHUDObjectTextByName("ORBS");
             t.SetOpacity(1 - deltat);
-            if (Keyboard.IsKeyPressed(Keys.R) == true && Globals.gameRunning)
+            if ((Keyboard.IsKeyPressed(Keys.R)  || Keyboard.IsKeyPressed(Keys.M)) && Globals.gameRunning)
             {
                 Map.UpdateCameraRotation(CameraLookAtVectorXZ);
 

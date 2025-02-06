@@ -317,7 +317,7 @@ namespace Gruppenprojekt.App.Menus
             EnemyBehaviour.SetColorEmissive(1.0f, 1.0f, 1.0f);
             AddHUDObject(EnemyBehaviour);
             pusSY += 30;                                        //340
-            HUDObjectText EnemyMovement = new HUDObjectText(">MOVEMENT");
+            HUDObjectText EnemyMovement = new HUDObjectText("MOVEMENT");
             EnemyMovement.SetPosition(posSX + 10, 3400);
             EnemyMovement.SetColor(1.0f, 0.0f, 0.0f);
             EnemyMovement.SetColorEmissive(1.0f, 1.0f, 1.0f);

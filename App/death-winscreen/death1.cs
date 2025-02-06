@@ -105,7 +105,8 @@ namespace Gruppenprojekt.App.death_winscreen
                 if (Mouse.IsButtonPressed(MouseButton.Left) && myTextObjects[3].IsMouseCursorOnMe() == true)
                 {
                     KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
-                    Window.Close();
+                    IntroScreen gm = new IntroScreen();
+                    Window.SetWorld(gm);
                 }
             }
 

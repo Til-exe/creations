@@ -107,6 +107,19 @@ namespace Gruppenprojekt.App.Menus
 
                 }
             }
+            if(Keyboard.IsKeyPressed(Keys.Escape))
+            {
+                //Window.Close();
+            }
+            if (Keyboard.IsKeyPressed(Keys.Enter
+                ))
+            {
+                GameWorldStartMenu gwo = new GameWorldStartMenu();
+                Window.SetWorld(gwo);
+
+                KWEngine3.Audio.Audio.StopAllSound();
+                KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
+            }
             if (save != null)
             {
                 if (save.IsMouseCursorOnMe() == true)

@@ -116,8 +116,8 @@ namespace Gruppenprojekt.App
                 complete1 = false;
             } 
             else { Text.SetText(""); Text1.SetText(""); }
-            if (Keyboard.IsKeyPressed(Keys.LeftShift )
-                && (Keyboard.IsKeyPressed(Keys.W)
+            if (Keyboard.IsKeyDown(Keys.LeftShift )
+                && (Keyboard.IsKeyDown(Keys.W)
                 || Keyboard.IsKeyPressed(Keys.A)
                 || Keyboard.IsKeyPressed(Keys.D))
                 && Globals.TutorialProgress == 2
@@ -241,12 +241,14 @@ namespace Gruppenprojekt.App
             text.Name = "text";
             text.SetCharacterDistanceFactor(1.0f);
             text.SetColor(1.0f, 0.0f, 0.0f);
+            text.SetScale(50f);
             AddHUDObject(text);
             HUDObjectText text1 = new HUDObjectText("");
             text1.SetPosition(Globals.fensterBreite / 2, 90);
             text1.SetTextAlignment(TextAlignMode.Center);
             text1.Name = "text1";
             text1.SetCharacterDistanceFactor(1.0f);
+            text1.SetScale(50f);
             text1.SetColor(1.0f, 0.0f, 0.0f);
             AddHUDObject(text1);
             Console.WriteLine("[CONSOLE] World: GameWorldTutorial");
