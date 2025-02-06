@@ -401,23 +401,32 @@ namespace Gruppenprojekt.App.Menus
                     Window.SetWorld(infomenu);
                 }
             }
-            if (admin != null)
+            if(GameWorldStartMenu.AdminMode)
             {
-                if (admin.IsMouseCursorOnMe() == true)
+                if (admin != null)
                 {
-                    admin.SetColorEmissiveIntensity(1.5f);
-                }
-                else
-                {
-                    admin.SetColorEmissiveIntensity(0.0f);
-                }
-                if (Mouse.IsButtonPressed(MouseButton.Left) && admin.IsMouseCursorOnMe() == true)
-                {
-                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
-                    AdminMenu adminM= new AdminMenu();
-                    Window.SetWorld(adminM);
+                    if (admin.IsMouseCursorOnMe() == true)
+                    {
+                        admin.SetColorEmissiveIntensity(1.5f);
+                    }
+                    else
+                    {
+                        admin.SetColorEmissiveIntensity(0.0f);
+                    }
+                    if (Mouse.IsButtonPressed(MouseButton.Left) && admin.IsMouseCursorOnMe() == true)
+                    {
+                        KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
+                        AdminMenu adminM = new AdminMenu();
+                        Window.SetWorld(adminM);
+                    }
                 }
             }
+            else
+            {
+                admin.SetOpacity(0.7f);
+                admin.SetColorEmissiveIntensity(0.0f);
+            }
+            
             if (language != null)
             {
                 if (language.IsMouseCursorOnMe() == true)

@@ -26,6 +26,7 @@ namespace Gruppenprojekt.App.Menus
         bool isMPressed = false;
         bool isIressed = false;
         bool startsound = true;
+        public static bool AdminMode = false;
         public override void Act()
         {            
             HUDObjectText start = GetHUDObjectTextByName("start");
@@ -215,12 +216,13 @@ namespace Gruppenprojekt.App.Menus
 
                             if (Keyboard.IsKeyPressed(Keys.N))
                             {
-                                Globals.DisplayStartGameButton = true;
-                                Globals.DisplayOptionButton = true;
-                                Globals.DisplayLanguageButton = true;
-                                Globals.DisplayCreditsButton = true;
-                                Globals.DisplayScoreboardButton = true;
-                                Globals.DisplayLeaveButton = true;
+                                //Globals.DisplayStartGameButton = true;
+                                //Globals.DisplayOptionButton = true;
+                                //Globals.DisplayLanguageButton = true;
+                                //Globals.DisplayCreditsButton = true;
+                                Globals.DisplayScoreboardButton = !Globals.DisplayScoreboardButton;
+                                //Globals.DisplayLeaveButton = true;
+                                AdminMode = !AdminMode;
                                 RemoveHUDObject(start);
                                 RemoveHUDObject(option);
                                 RemoveHUDObject(leave);
