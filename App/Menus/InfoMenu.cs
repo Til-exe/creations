@@ -1,0 +1,380 @@
+﻿using KWEngine3;
+using KWEngine3.Audio;
+using KWEngine3.GameObjects;
+using Gruppenprojekt.App.Classes;
+using OpenTK.Mathematics;
+using OpenTK.Windowing.GraphicsLibraryFramework;
+using System;
+using System.Xml.Linq;
+
+namespace Gruppenprojekt.App.Menus
+{
+    public class InfoMenu : World
+    {
+        int posX = 200;
+        int posY = 200;
+        int posSX = 100;
+        int pusSY = 150;
+        int dLevel = 0;
+        bool toggleEnemyText = true;
+        bool displayText = true;
+        bool notDisplayed = true;
+        public override void Act()
+        {
+            HUDObjectText back = GetHUDObjectTextByName("back");
+            HUDObjectText Map = GetHUDObjectTextByName("Map");
+            HUDObjectText World = GetHUDObjectTextByName("World");
+            HUDObjectText Enemy= GetHUDObjectTextByName("Enemy");
+            HUDObjectText Attack = GetHUDObjectTextByName("Attack");
+            HUDObjectText Benehmen = GetHUDObjectTextByName("Benehmen");
+            HUDObjectText Movement = GetHUDObjectTextByName("Movement");
+            HUDObjectText Flashlight = GetHUDObjectTextByName("Flashlight");
+            HUDObjectText text1 =  GetHUDObjectTextByName("text1");
+            HUDObjectText text2 =  GetHUDObjectTextByName("text2");
+            HUDObjectText text3 =  GetHUDObjectTextByName("text3");
+            HUDObjectText text4 =  GetHUDObjectTextByName("text4");
+            HUDObjectText text5 =  GetHUDObjectTextByName("text5");
+            HUDObjectText text6 =  GetHUDObjectTextByName("text6");
+            HUDObjectText text7 =  GetHUDObjectTextByName("text7");
+
+            text1.SetText("");
+            text2.SetText("");
+            text3.SetText("");
+            text4.SetText("");
+            text5.SetText("");
+            text6.SetText("");
+            text7.SetText("");
+            if (back != null)
+            {
+                if (back.IsMouseCursorOnMe() == true)
+                {
+                    back.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    back.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && back.IsMouseCursorOnMe() == true)
+                {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/click.wav", false, 0.2f);
+                    GwStartMenuOption gwo = new GwStartMenuOption();
+                    Window.SetWorld(gwo);
+                }
+            }
+            if (Enemy != null)
+            {
+                if (Enemy.IsMouseCursorOnMe() == true)
+                {
+                    Enemy.SetColorEmissiveIntensity(0.8f);                
+                }
+                else
+                {
+                    Enemy.SetColorEmissiveIntensity(0.0f);
+                    Enemy.SetText(">Enemy");
+                    if (toggleEnemyText)
+                    {
+                        Flashlight.SetPosition(100, 300);
+                    }      
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && Enemy.IsMouseCursorOnMe() == true)
+                {
+                    Enemy.SetText("vEnemy");
+                    Flashlight.SetPosition(100, 400);
+                    if (toggleEnemyText)
+                    {
+                        Attack.SetPosition(110, 280);
+                        Benehmen.SetPosition(110, 310);
+                        Movement.SetPosition(110, 340);
+                    }
+                    else
+                    {
+                        Attack.SetPosition(110, 2800);
+                        Benehmen.SetPosition(110, 3100);
+                        Movement.SetPosition(110, 3400);
+                    }
+                    toggleEnemyText = !toggleEnemyText;
+                    
+                }
+            }            
+            if (Flashlight != null)
+            {
+                if (Flashlight.IsMouseCursorOnMe() == true)
+                {
+                    Flashlight.SetColorEmissiveIntensity(0.8f);
+                    if (Globals.SetLanguage == "Deutsch")
+                    {
+                        text1.SetText("Tastenbelegung: 'F'");
+                        text2.SetText("Du kannst die Taschenlampe nutzen um");
+                        text3.SetText("den Gegner zu blenden wenn er vor dir");
+                        text4.SetText("ist. Er wird sich für kurze Zeit");
+                        text5.SetText("Langsamer bewegen. Doch pass auf..");
+                        text6.SetText("Die Taschenlampe kann ganz zufällig");
+                        text7.SetText("kaputt gehen und sich ausschalten.");
+                    }
+                    else if (Globals.SetLanguage == "English")
+                    {
+                        text1.SetText("Hotkey: 'F'");
+                        text2.SetText("U are able to use the Flashlight to");
+                        text3.SetText("slow the Enemy. He will be slowed");
+                        text4.SetText("for a couple of seconds but ");
+                        text5.SetText("Attention.. the Flashlight may ");
+                        text6.SetText("break randomly");
+                    }
+                }
+                else 
+                {
+                    Flashlight.SetColorEmissiveIntensity(0.0f);
+                }
+            }
+            if (Attack != null)
+            {
+                if (Attack.IsMouseCursorOnMe() == true)
+                {
+
+                    Attack.SetColorEmissiveIntensity(0.8f);
+                    if (Globals.SetLanguage == "Deutsch")
+                    {
+                        text1.SetText("");
+                        text2.SetText("Sollte der Gegner dich sehen wird er ");
+                        text3.SetText("dich verfolgen bis er dich aus den Augen");
+                        text4.SetText("verloren hat. Sei Vorsichtig. Der Gegner");
+                        text5.SetText("ist schneller als du. LAUF!");
+                        text6.SetText("Du kannst ihm entkommen indem du schnell um");
+                        text7.SetText("Ecken läufst!");
+                    }
+                    else if (Globals.SetLanguage == "English")
+                    {
+                        text1.SetText("");
+                        text2.SetText("When the Enemy see's you, he will start ");
+                        text3.SetText("following you until you will be out of");
+                        text4.SetText("his sight. Pay Attention he is faster ");
+                        text5.SetText("then you are and if he catches you..");
+                        text6.SetText("Its over. You can escape more easily");
+                        text7.SetText("when your run around corners alot.");
+                    }
+                    
+                }
+                else
+                {
+                    Attack.SetColorEmissiveIntensity(0.0f);
+                }
+            }
+            if (World != null)
+            {
+                if (World.IsMouseCursorOnMe() == true)
+                {
+                    World.SetColorEmissiveIntensity(0.8f);
+                    if (Globals.SetLanguage == "Deutsch")
+                    {
+                        text1.SetText("Im Spiel befindest du dich in einem");
+                        text2.SetText("Labyrinth indem jeder gang einen");
+                        text3.SetText("ausweg hat. Bisauf die großen Räume!");
+                        text4.SetText("Die meisten sind Sackgassen.");
+                    }
+                    else if (Globals.SetLanguage == "English")
+                    {
+                        text1.SetText("In the Game, you will be in a Mace where");
+                        text2.SetText("every Way has 2 ways to enter, except");
+                        text3.SetText("some of the larger Rooms");
+                    }
+                }
+                else 
+                {
+                    World.SetColorEmissiveIntensity(0.0f);
+                }
+            }
+            if (Map != null)
+            {
+                if (Map.IsMouseCursorOnMe() == true)
+                {
+                        Map.SetColorEmissiveIntensity(0.8f);
+                    if (Globals.SetLanguage == "Deutsch")
+                    {
+                        text1.SetText("Tastenbelegung: 'R'");
+                        text2.SetText("Die Map zeigt nicht den Gegner an. Sei Also");
+                        text3.SetText("vorsichtig wenn du die Map benutzt!");
+                        text4.SetText("Der Gegner könnte bereits auf dem Weg sein!");
+                        text5.SetText("Dafür wirst du alle einsammelbaren");
+                        text6.SetText("Objekte auf der Map finden");
+                    }
+                    else if (Globals.SetLanguage == "English")
+                    {
+                        text1.SetText("Hotkey: 'R'");
+                        text2.SetText("The Map wont show you the Position of the");
+                        text3.SetText("Enemy, but will reveal every collectable");
+                        text4.SetText("Object. But be carefull, the Enemy will");
+                        text5.SetText("be able to attack you.");
+                    }
+                    
+                }
+                else
+                {
+                    Map.SetColorEmissiveIntensity(0.0f);
+                }
+            }
+            if (Benehmen != null)
+            {
+                if (Benehmen.IsMouseCursorOnMe() == true)
+                {
+                    Benehmen.SetColorEmissiveIntensity(0.8f);
+                    if (Globals.SetLanguage == "Deutsch")
+                    {
+                        text1.SetText("Der Gegner wird durch das Labyrinth");
+                        text2.SetText("laufen und dich suchen. Er kann hinter");
+                        text3.SetText("jeder ecke lauern. Sobald er dich berührt");
+                        text4.SetText("ist es aus für dich und du musst neustarten!");
+                        text5.SetText("Du wirst ihn sehen, aber nicht immer sieht");
+                        text6.SetText("er dich dann auch.");
+                    }
+                    else if (Globals.SetLanguage == "English")
+                    {
+                        text1.SetText("The Enemy will move through the Mace ");
+                        text2.SetText("searching you. He can be everywhere and");
+                        text3.SetText("if he reaches you, its over for you and you");
+                        text4.SetText("have to restart the Game. But not everytime");
+                        text5.SetText("you see him, he see's you too.");
+                        text6.SetText("");
+                    }
+
+                }
+                else
+                {
+                    Benehmen.SetColorEmissiveIntensity(0.0f);
+                    
+                }
+            }
+            if (Movement != null)
+            {
+                if (Movement.IsMouseCursorOnMe() == true)
+                {
+                    displayText = true;
+                    Movement.SetColorEmissiveIntensity(0.8f);
+                    if (Globals.SetLanguage == "Deutsch")
+                    {
+                        text1.SetText("Der Gegner ist viel Schneller als du");
+                        text2.SetText("und wird dich erbahmungslos durch die");
+                        text3.SetText("gesamte Map jagen.");
+                    }
+                    else if (Globals.SetLanguage == "English")
+                    {
+                        text1.SetText("The Enemy is way faster as you are an");
+                        text2.SetText("will show no mercy chasing you through");
+                        text3.SetText("the Mace.");
+                    }
+                    
+                }
+                else
+                {
+                    Movement.SetColorEmissiveIntensity(0.0f);
+                }
+            }
+        }
+        public override void Prepare()
+        {
+            
+            HUDObjectText back = new HUDObjectText("Back");
+            back.SetPosition(50f, 80f);
+            back.Name = "back";
+            back.SetColor(1.0f, 0.0f, 0.0f);
+            back.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(back);
+            
+            posY += 50;
+
+
+            HUDObjectText Map = new HUDObjectText("MAP");
+            Map.SetColor(1.0f, 0.0f, 0.0f);
+            Map.SetPosition(posSX, pusSY);
+            Map.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            Map.Name = "Map"; 
+            AddHUDObject(Map);
+            pusSY += 50;                                        //200
+            HUDObjectText World = new HUDObjectText("WORLD");
+            World.Name = "World";
+            World.SetPosition(posSX, pusSY);
+            World.SetColor(1.0f, 0.0f, 0.0f);
+            World.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(World);
+            pusSY += 50;                                        //250
+            HUDObjectText Enemy = new HUDObjectText("ENEMY");
+            Enemy.Name = "Enemy";
+            Enemy.SetPosition(posSX, pusSY);
+            Enemy.SetColor(1.0f, 0.0f, 0.0f);
+            Enemy.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(Enemy);
+            pusSY += 30;                                        //280
+            HUDObjectText EnemyAttack = new HUDObjectText("ATTACK");
+            EnemyAttack.Name = "Attack";
+            EnemyAttack.SetPosition(posSX+10, 2800);
+            EnemyAttack.SetColor(1.0f, 0.0f, 0.0f);
+            EnemyAttack.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(EnemyAttack);
+            pusSY += 30;                                        //310
+            HUDObjectText EnemyBehaviour = new HUDObjectText("BEHAVIOUR");
+            EnemyBehaviour.Name = "Benehmen";
+            EnemyBehaviour.SetPosition(posSX + 10, 3100);
+            EnemyBehaviour.SetColor(1.0f, 0.0f, 0.0f);
+            EnemyBehaviour.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            AddHUDObject(EnemyBehaviour);
+            pusSY += 30;                                        //340
+            HUDObjectText EnemyMovement = new HUDObjectText("MOVEMENT");
+            EnemyMovement.SetPosition(posSX + 10, 3400);
+            EnemyMovement.SetColor(1.0f, 0.0f, 0.0f);
+            EnemyMovement.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            EnemyMovement.Name = "Movement";
+            AddHUDObject(EnemyMovement);
+            pusSY += 50;                                        //390
+            HUDObjectText Flashlight = new HUDObjectText("FLASHLIGHT");
+            Flashlight.Name = "Flashlight";
+            Flashlight.SetColorEmissive(1.0f, 1.0f, 1.0f);
+            Flashlight.SetPosition(posSX, 390);
+            Flashlight.SetColor(1.0f, 0.0f, 0.0f);
+            AddHUDObject(Flashlight);
+
+            HUDObjectText border1 = new HUDObjectText("|");
+            border1.SetScale(10f,800.0f);
+            border1.SetPosition(350, 450);
+            AddHUDObject(border1);
+
+            HUDObjectText text1 = new HUDObjectText("");
+            text1.Name = "text1";
+            text1.SetPosition(400, 100);
+            text1.SetColor(1.0f, 0.0f, 0.0f);
+            text1.SetScale(20f);
+            AddHUDObject(text1);
+            HUDObjectText text2 = new HUDObjectText("");
+            text2.Name = "text2";
+            text2.SetPosition(400, 150);
+            text2.SetColor(1.0f, 0.0f, 0.0f); text2.SetScale(20f);
+            AddHUDObject(text2);
+            HUDObjectText text3 = new HUDObjectText("");
+            text3.Name = "text3";
+            text3.SetPosition(400, 200);
+            text3.SetColor(1.0f, 0.0f, 0.0f); text3.SetScale(20f);
+            AddHUDObject(text3);
+            HUDObjectText text4 = new HUDObjectText("");
+            text4.Name = "text4";
+            text4.SetPosition(400, 250);
+            text4.SetColor(1.0f, 0.0f, 0.0f); text4.SetScale(20f);
+            AddHUDObject(text4);
+            HUDObjectText text5 = new HUDObjectText("");
+            text5.Name = "text5";
+            text5.SetPosition(400, 300);
+            text5.SetColor(1.0f, 0.0f, 0.0f); text5.SetScale(20f);
+            AddHUDObject(text5);
+            HUDObjectText text6 = new HUDObjectText("");
+            text6.Name = "text6";
+            text6.SetPosition(400, 350);
+            text6.SetColor(1.0f, 0.0f, 0.0f); text6.SetScale(20f);
+            AddHUDObject(text6);
+            HUDObjectText text7 = new HUDObjectText("");
+            text7.Name = "text7";
+            text7.SetPosition(400, 400);
+            text7.SetColor(1.0f, 0.0f, 0.0f); text7.SetScale(20f);
+            AddHUDObject(text7);
+
+
+
+        }
+    }
+}

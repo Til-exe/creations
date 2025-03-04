@@ -1,19 +1,625 @@
-﻿using KWEngine3;
-using KWEngine3.Audio;
-using KWEngine3.GameObjects;
-using KWEngine3.Helper;
-using OpenTK.Windowing.GraphicsLibraryFramework;
-using OpenTK.Mathematics;
-using System;
+﻿using OpenTK.Windowing.GraphicsLibraryFramework;
+using Gruppenprojekt.App.death_winscreen;
+using OpenTK.Windowing.Common.Input;
 using System.Collections.Generic;
-
+using Gruppenprojekt.App.Menus;
+using System.Threading.Tasks;
+using KWEngine3.GameObjects;
+using OpenTK.Graphics.ES11;
+using OpenTK.Audio.OpenAL;
+using OpenTK.Mathematics;
+using System.Diagnostics;
+using KWEngine3.Helper;
+using System.Threading;
+using KWEngine3.Audio;
+using Assimp.Configs;
+using KWEngine3;
+using System.IO;
+using Assimp;
+using System;
 namespace Gruppenprojekt.App.Classes
 {
     public class Player : GameObject
     {
-        public override void Act()
+        public Vector3 collectablepos;
+        bool flashlight = false;
+        private LightObject _flashlight;
+       
+        HUDObjectText displayTimer = new HUDObjectText("Timer: ");
+        HUDObjectText m1 = new HUDObjectText("Zurück zum Spiel");
+        HUDObjectText m2 = new HUDObjectText("Hauptmenu");
+        HUDObjectText m3 = new HUDObjectText("Verlassen");
+        HUDObjectText score = new HUDObjectText("Punkte");
+        HUDObjectText gamemode = new HUDObjectText("Gamemode:" + Globals.choseGamemode);
+        HUDObjectText mtitle = new HUDObjectText("Pausiert");
+        HUDObjectText winCondition = new HUDObjectText("Verschwinde");
+        HUDObjectImage bg = new HUDObjectImage("./App/Textures/blackscreen.png");
+
+        private HUDObjectText colCount;
+        private int counter = 0;
+        private float timestampLastWalkSound = 0;
+
+        // 2025-01-26, KAR: Felder für View-Bobbing und FPS-Armmodellanimation hinzugefügt
+        private PlayerView _playerView;
+        private float _playerArmsAnimationCurrent = 0.25f;
+        private float _playerArmsAnimationBase = 0.25f;
+
+        private bool IsBird() // Testmethode von KAR
         {
-            
+            if(CurrentWorld is GameWorldStart)
+            {
+                return (CurrentWorld as GameWorldStart).IsBird();
+            }
+            return false;
+        }
+        public Player(string name, float x, float y, float z)
+        {
+            sek = 0;
+            removedTime = 0;
+            Globals.gameRunning = true;
+            this.Name = name;
+            this.SetPosition(x, y, z);
+            this.SetColor(1, 0, 0);
+            this.SetScale(1, 2, 1);
+            this.IsCollisionObject = true;
+            this.SetColorEmissive(1, 1, 1, 2);
+
+            countdown = new HUDObjectText(NegativeCountdown.ToString("0.00"));
+
+            //Taschenlampe
+            _flashlight = new LightObject(LightType.Directional, ShadowQuality.Low);
+            _flashlight.Name = "flashlight";
+            _flashlight.SetNearFar(0.1f, 18f);
+            _flashlight.SetColor(0, 0, 0, 0);
+            _flashlight.SetFOV(140);
+            CurrentWorld.AddLightObject(_flashlight);            
+
+            colCount = new HUDObjectText("Sie haben kein Licht");
+            colCount.Name = "BLA";
+            colCount.SetPosition(Globals.fensterBreite/2, 32f);
+            colCount = new HUDObjectText("");
+            colCount.Name = "ORBS";
+            colCount.SetPosition(Globals.fensterBreite/2, 20f);
+            colCount.SetTextAlignment(TextAlignMode.Center);
+            colCount.SetFont(FontFace.NovaMono);
+            colCount.SetScale(30f);
+            colCount.SetOpacity(0);
+            CurrentWorld.AddHUDObject(colCount);
+
+            mtitle.Name = "PAUSE";                       
+            mtitle.SetPosition(Globals.fensterBreite/2, 100f);   
+            mtitle.SetTextAlignment(TextAlignMode.Center);
+            mtitle.SetScale(100f);                       
+            mtitle.SetCharacterDistanceFactor(1.0f);            
+            mtitle.SetColor(1.0f, 0.0f, 0.0f);
+
+            bg.Name = "background";
+            bg.SetScale(Window.Width, Window.Height);
+            bg.SetColor(0, 0, 0);
+            bg.CenterOnScreen();
+            bg.SetZIndex(-100);
+            bg.SetOpacity(0.65f);
+
+            m1.SetPosition(160f, 200f);
+            m1.Name = "Weiter";
+            m1.SetCharacterDistanceFactor(1.0f);
+            m1.SetColor(1.0f, 0.0f, 0.0f);
+            m1.SetColorEmissive(1.0f, 1.0f, 1.0f);
+
+            displayTimer.SetPosition(50f, 50f);
+            displayTimer.Name = "displayTimer";
+            displayTimer.SetCharacterDistanceFactor(1.0f);
+            displayTimer.SetColor(1.0f, 0.0f, 0.0f);
+
+            if(Globals.choseGamemode != "Tutorial")
+            {
+                CurrentWorld.AddHUDObject(displayTimer);
+            }
+
+            m2.SetPosition(160f, 250f);
+            m2.Name = "Menu";
+            m2.SetCharacterDistanceFactor(1.0f);
+            m2.SetColor(1.0f, 0.0f, 0.0f);
+            m2.SetColorEmissive(1.0f, 1.0f, 1.0f);
+
+            m3.SetPosition(160f, 300f);
+            m3.Name = "Leave";
+            m3.SetCharacterDistanceFactor(1.0f);
+            m3.SetColor(1.0f, 0.0f, 0.0f);
+            m3.SetColorEmissive(1.0f, 1.0f, 1.0f);
+
+            score.SetPosition(700f, 200f);
+            score.Name = "Punkte";
+            score.SetCharacterDistanceFactor(1.0f);
+            score.SetColor(1.0f, 0.0f, 0.0f);
+
+            gamemode.SetPosition(700f, 300f);
+            gamemode.Name = "gamemode";
+            gamemode.SetCharacterDistanceFactor(1.0f);
+            gamemode.SetColor(1.0f, 0.0f, 0.0f);
+
+            winCondition.Name = "win";
+            winCondition.SetTextAlignment(TextAlignMode.Center);
+            winCondition.SetPosition(Globals.fensterBreite / 2, Globals.fensterHoehe / 2);
+            winCondition.SetCharacterDistanceFactor(1.0f);
+            winCondition.SetColor(1.0f, 0.0f, 0.0f);
+            winCondition.SetScale(60);
+            winCondition.SetOpacity(0);
+            CurrentWorld.AddHUDObject(winCondition);
+
+            countdown.Name = "countdown";
+            countdown.SetPosition(Globals.fensterBreite / 2, 40f);
+            countdown.SetOpacity(1);
+            countdown.SetTextAlignment(TextAlignMode.Center);
+            countdown.SetColor(1.0f, 0.0f, 0.0f);
+
+            // 2025-01-26, KAR: Player-Instanz unsichtbar + neues Feld für Camera-View-Bobbing + First-Person-Armmodell
+            PlayerArms arms = new PlayerArms();
+            CurrentWorld.SetViewSpaceGameObject(arms);
+            _playerView = new PlayerView();
+            this.SetOpacity(0f);
+        }
+        public void AddBlackHUDBorder()
+        {
+            if (penis12)
+            {
+                HUDObjectImage sbg = new HUDObjectImage("./App/Textures/blackscreen.png");
+                HUDObjectImage sbg1 = new HUDObjectImage("./App/Textures/blackscreen.png");
+                //Console.WriteLine("-");
+                //Console.WriteLine(Globals.ColCount);
+                //Console.WriteLine(penis12 );
+
+                sbg.SetScale(Globals.fensterBreite * 10, Globals.fensterHoehe / 5);
+                sbg.Name = "bbg";
+                sbg.SetColor(0, 0, 0);
+                sbg.SetPosition(Globals.fensterBreite / 2, 0);
+                sbg.SetZIndex(0);
+                sbg.SetOpacity(1f);
+                CurrentWorld.AddHUDObject(sbg);
+                Console.WriteLine("[HUDObject] added 'bg'");
+
+                sbg1.SetScale(Globals.fensterBreite * 10, Globals.fensterHoehe / 5);
+                sbg1.Name = "bbg";
+                sbg1.SetColor(1, 0, 0);
+                sbg1.SetPosition(Globals.fensterBreite / 2, Globals.fensterHoehe);
+                sbg1.SetZIndex(0);
+                sbg1.SetOpacity(1f);
+                CurrentWorld.AddHUDObject(sbg1);
+                Console.WriteLine("[HUDObject] added 'bg1'");
+                penis12 = false;
+            }
+            //Console.WriteLine("X: " + bg1.Position.X + " Y: " + bg1.Position.Y + " penis151: " + penis151);
+            //Console.WriteLine("X: " + bg.Position.X + " Y: " + bg.Position.Y + " penis151: " + penis151);        
+        }
+
+        Random _random = new Random();
+        Win winscreen = new Win();
+        Random rnd = new Random();
+        public bool BOOM = false;
+        public bool FirstAct = true;
+        public static bool enemyspeedcap = false;
+        public double WorldTimeVar = 0;
+        public int timedpenisboom = 0;
+        private bool _flickering = false;
+        private float _enemySpeedResetTime = -1f;
+        private float _flickerVorbei = 0f;         
+        private float _nextFlicker = 0f;        
+        static int removedTime = 0;
+        static int sek = 0;
+        static int min = 0;
+        float timestampLastSighting = 0;
+        float finalOP = float.Epsilon;              //gehöhrt mir ihr Penner, Bruns zertifiziert
+        float TimeCounter = 0;
+        float T = 0;
+        float NegativeCountdown = 0;
+        bool penis12 = true;
+        bool toggleSprint = false;
+        bool nowDown = false;
+        bool WorldTimeSave = false;
+        int tracker = 0;
+        HUDObjectText countdown;
+
+        private float GetVolumeForDistance(float distance)
+        {
+            return 1f / (distance + 1);
+        }
+        public override void Act()
+        {            
+            //Death Action
+            if (Globals.GameEnd && Globals.EndReal)
+            {
+                safeScore();
+                GameWorldStartMenu gwsm = new GameWorldStartMenu();
+                Window.SetWorld(gwsm);
+                Globals.FinalChase = false;
+            }
+            if (counter == Globals.ColCount && Globals.choseGamemode != "Infinit")    //Ende wenn alle Collectables eingesammelt worden sind ,,  ach ne 
+            {                
+                if(Globals.choseGamemode == "Normal") { Globals.FinalCountDown = 30; }
+                if(Globals.choseGamemode == "Hard") { Globals.FinalCountDown = 15; }
+                AddBlackHUDBorder();
+                if (WorldTimeSave == false) {  T = WorldTime;   WorldTimeSave = true;  }             //hier 
+                TimeCounter = CurrentWorld.WorldTime - T;
+                NegativeCountdown = Globals.FinalCountDown - TimeCounter;
+                countdown.SetText(NegativeCountdown.ToString("0.00"));
+                countdown.SetZIndex(10);
+                winCondition.SetOpacity(finalOP);
+               
+                if(NegativeCountdown == 0 || NegativeCountdown < 0) {
+                    safeScore();
+                    countDown0 count = new countDown0();
+                    Window.SetWorld(count);
+                }
+
+                if(tracker > 40) { CurrentWorld.RemoveHUDObject(winCondition); }
+                else if(tracker == 40) { CurrentWorld.AddHUDObject(countdown);  Globals.FinalChase = true; tracker++; }
+
+                if ( nowDown == false ) {                 
+                    finalOP += 0.25f;
+                }
+                else { finalOP -= 0.25f; }
+
+                if( finalOP >= 1) { nowDown = true; }
+                if( finalOP < 0 ) { nowDown = false;    tracker++; }                                // bis hier macht countdown nachdem alle Collectables eingesammelt wurden
+
+                if (this.Position.X > 25 && this.Position.Z > 5 && this.Position.X < 35 && this.Position.Z < 7) 
+                {
+                    Globals.Score += 500;
+                    safeScore();                    
+                    Window.SetWorld(winscreen);                    
+                }                
+            }
+            //Displaying Time
+            string ActualTimeDisplay = min + "m " + sek + "s";
+            sek = Convert.ToInt32(CurrentWorld.WorldTime) - removedTime;
+            if (sek == 60) {
+                removedTime += 60;
+                min++;
+            }
+            if(Convert.ToInt32(WorldTime) < 60) {
+                ActualTimeDisplay = sek + "s";
+            }                                                    //Coordinaten Displayn (in Klammern einfügen)
+            displayTimer.SetText("Timer: " + ActualTimeDisplay); //  +"\n" + Math.Round(this.Position.X) + " " + Math.Round(this.Position.Y) + " "+ Math.Round(this.Position.Z)
+            //Flaschlight Action
+            if (timedpenisboom < 50 && BOOM)
+            {
+                timedpenisboom++;
+            }
+            if (timedpenisboom == 50)
+            {                
+                timedpenisboom = 0;
+                BOOM = false;
+                _flashlight.SetColor(0, 0, 0, 0);
+            }
+            //random Flashlight Breaking
+            int random = 0;
+            if (Globals.gameRunning) 
+            {
+               random = rnd.Next(13000);
+            }
+
+            // 2025-01-26, KAR: Taschenlampenposition für FPS-Arme leicht angepasst
+            _flashlight.SetPosition(this.Center + new Vector3(0, 1.5f, 0) + CurrentWorld.CameraLookAtVectorLocalRight * 0.5f);
+            _flashlight.SetTarget(this.Center + new Vector3(0, 1, 0) + CurrentWorld.CameraLookAtVector * 10); // KAR: Taschenlampe muss weiiiiit in die Ferne schauen
+            if (random == 69 && flashlight == true || (Keyboard.IsKeyPressed(Keys.Space) && Globals.debugMode) && flashlight == true)
+            {
+                _flickering = true;
+                _flickerVorbei = WorldTime + 0.5f;
+                _nextFlicker = WorldTime + GetRandomFlickerDelay(); 
+                Console.WriteLine("penis flackern");
+                KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/shortsound.wav", false, (float)0.1);
+            }
+            if (_flickering)
+            {                
+                if (WorldTime >= _nextFlicker)
+                {
+                    if (_flashlight.Color.W > 0) 
+                    { 
+                        _flashlight.SetColor(0,0,0,0); 
+                    }
+                    else
+                    {
+                        _flashlight.SetColor(1, 1, 1, 8); 
+                    }
+                    _nextFlicker = WorldTime + GetRandomFlickerDelay();
+                }
+                if (WorldTime >= _flickerVorbei)
+                {
+                    BOOM = true;
+                    timedpenisboom = 0;
+                    flashlight = false;
+                    _flickering = false;
+                    _flashlight.SetColor(1, 1, 1, 13);
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/flashlightexplode.wav", false, 0.1f);
+                    Console.WriteLine("penis flacker vorbei");
+                    Console.WriteLine("Penis aus");
+                }
+            }
+            //Activate Flashlight
+            if (Keyboard.IsKeyPressed(Keys.F) && flashlight == false)
+            {
+                _flashlight.SetColor(1, 1, 1, 4);
+                flashlight = true;
+                Console.WriteLine("Penis an");
+                KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/flashlight_click.wav", false, (float)0.1);
+            }
+            else if (Keyboard.IsKeyPressed(Keys.F) && flashlight == true)
+            {
+                _flashlight.SetColor(0, 0, 0, 0);
+                flashlight = false;
+                Console.WriteLine("Penis aus");
+                KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/flashlight_click.wav", false, (float)0.1);
+            }
+            //Sprinting
+            if (!toggleSprint) 
+            {
+                if (Keyboard.IsKeyDown(Keys.LeftShift)) { Globals.Sprinting = true; }
+                else { Globals.Sprinting = false; }
+            }
+            //Sprint Toggle
+            if (Keyboard.IsKeyPressed(Keys.CapsLock))
+            {
+                toggleSprint = !toggleSprint;
+                Globals.Sprinting = true;                
+            }
+            int forward = 0;
+            int strafe = 0;
+            //Movement
+            if (Globals.gameRunning && !Globals.MapOpen )
+            {
+                if (WorldTime - timestampLastWalkSound > 0.5f)
+                {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/Playersteps.wav", false, 0.3f);
+                    timestampLastWalkSound = WorldTime;
+                }
+                if (Keyboard.IsKeyDown(Keys.W)) { forward += 1; }
+                if (Keyboard.IsKeyDown(Keys.D)) { strafe += 1;  }
+                if (Keyboard.IsKeyDown(Keys.A)) { strafe -= 1;  }
+                if (Keyboard.IsKeyDown(Keys.S)) { forward -= 1;  }
+                Globals.speed = 0.05f;
+                if (Keyboard.IsKeyDown(Keys.W) && Globals.Sprinting) { Globals.speed = 0.105f; }
+                if (Keyboard.IsKeyDown(Keys.D) && Globals.Sprinting) { Globals.speed = 0.069f; }
+                if (Keyboard.IsKeyDown(Keys.A) && Globals.Sprinting) { Globals.speed = 0.069f; }
+            }
+            //pause Menu
+            if ((Keyboard.IsKeyPressed(Keys.Escape) || Keyboard.IsKeyPressed(Keys.Tab)  )&& !Globals.MapOpen)
+            {
+                stop();
+            }
+            //Pause Menu Weiter spielen
+            if (m1 != null)
+            {   
+                if (m1.IsMouseCursorOnMe() == true)
+                {
+                    m1.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    m1.SetColorEmissiveIntensity(0.0f);
+                }
+                if ((Mouse.IsButtonPressed(MouseButton.Left) && m1.IsMouseCursorOnMe() == true))
+                {
+                    CurrentWorld.MouseCursorResetPosition();
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
+                    weiter();
+                }
+            }
+            //Pause Menu Hauptmenu
+            if (m2!= null)
+            {  
+                if (m2.IsMouseCursorOnMe() == true && Globals.TutorialComplete)
+                {
+                    m2.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    m2.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Globals.TutorialComplete) {
+                    if (Mouse.IsButtonPressed(MouseButton.Left) && m2.IsMouseCursorOnMe() == true )
+                    {
+                        KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);
+                        safeScore();
+                        GameWorldStartMenu gm = new GameWorldStartMenu();
+                        Window.SetWorld(gm);
+                    }
+                }
+                else
+                {
+                    m2.SetOpacity(0.5f);
+                }
+            }
+            //Pause Menu Close
+            if (m3 != null)
+            {   
+                if (m3.IsMouseCursorOnMe() == true)
+                {
+                    m3.SetColorEmissiveIntensity(1.5f);
+                }
+                else
+                {
+                    m3.SetColorEmissiveIntensity(0.0f);
+                }
+                if (Mouse.IsButtonPressed(MouseButton.Left) && m3.IsMouseCursorOnMe() == true)
+                {
+                    KWEngine3.Audio.Audio.PlaySound(@"./App/Sounds/basicClick.wav", false, 0.2f);                    
+                    string penistext = Convert.ToString(Globals.Score) + "\n";
+                    File.AppendAllText(Globals.path, penistext);
+                    Window.Close();
+                }
+            }
+            if(IsBird() == false) Camera(forward, strafe);
+            else
+            {
+                if(Keyboard.IsKeyDown(Keys.W)){ MoveOffset(0, 0, -0.05f); }
+                if (Keyboard.IsKeyDown(Keys.S)) { MoveOffset(0, 0, +0.05f); }
+                if (Keyboard.IsKeyDown(Keys.A)) { MoveOffset(-0.05f, 0, 0); }
+                if (Keyboard.IsKeyDown(Keys.D)) { MoveOffset(0.05f, 0, 0); }
+                CurrentWorld.SetCameraPosition(5, 125, 20);
+                CurrentWorld.SetCameraTarget(5, 0, 20);
+
+            }
+            //Einsammeln von Collectable's
+            List<Intersection> intersections = GetIntersections();
+            foreach (Intersection i in intersections)
+            {
+                GameObject collider = i.Object;
+                if (collider is Enemy)
+                {
+                    //??? Anscheinend haben wir eine komplett neue Funktion fürn Tod???? alter das war doch alles schon da. Geile Truppe. egal
+                }
+                Vector3 mtv = i.MTV;
+                MoveOffset(mtv);
+                if (collider is Collectable)
+                {
+                    (collider as Collectable).KillMe();
+                    counter = counter + 1;
+                    colCount.SetText("Gesammelte Orbs: " + counter);
+                    collectablepos = collider.Position;
+                    Enemy.Collectabletarget(collectablepos);
+                }
+                else if (collider is InteractionCollectable)
+                {
+                    (collider as InteractionCollectable).KillMe(1, 0, 0, 2);
+                }
+            }
+            //Flashlight slow of enemy
+            Vector3 rayStart = this.Center;
+            Vector3 rayDirection = this.LookAtVector;
+            List<RayIntersection> results = HelperIntersection.RayTraceObjectsForViewVectorFast(rayStart, rayDirection, this, 10, true, typeof(Enemy), typeof(Wall), typeof(Map));
+            if (flashlight == true && results.Count > 0 && results[0].Object is Enemy)
+            {
+                RayIntersection raycollision = results[0];
+                Console.WriteLine(raycollision.ToString());
+                Console.WriteLine("Hit");
+                enemyspeedcap = true;
+                timestampLastSighting = WorldTime;
+                Globals.EnemySpeed = 0.03f;
+                Console.WriteLine("enemyspeedcap wird auf true gesetzt");
+            }
+            float slowTime = 4;
+            if (Globals.choseGamemode == "Hard") { slowTime = 3.5f; }
+            if (Globals.choseGamemode == "Normal") { slowTime = 5f; }
+            if (timestampLastSighting + slowTime > WorldTime && timestampLastSighting != 0)
+            {
+                Globals.EnemySpeed = 0.035f;
+                enemyspeedcap = false;                                                      //Hier sind die Geschwindigkeitseinstellungen
+            }
+            else
+            {
+                if (Globals.choseGamemode == "Hard")
+                {
+                    Globals.EnemySpeed = 0.10f;
+                }
+                if(Globals.choseGamemode == "Normal")
+                {
+                    Globals.EnemySpeed = 0.069f;
+                }
+                else
+                {
+                    Globals.EnemySpeed = 0.04f;
+                }
+            }
+        }
+        public void Camera(int forward, int strafe)
+        {
+            if (Globals.gameRunning) {
+                CurrentWorld.AddCameraRotationFromMouseDelta();
+                // 2025-01-26, KAR: View-Bobbing und First-Person-Arme animieren
+                {
+                    _playerView.Update(
+                        forward == 0 && strafe == 0 ? PlayerView.MovementMode.Idle : 
+                        Globals.Sprinting ? PlayerView.MovementMode.Run : 
+                        PlayerView.MovementMode.Walk
+                        );
+                    CurrentWorld.UpdateCameraPositionForFirstPersonView(
+                        Center, 
+                        _playerView.BobX * 0.0625f, 
+                        _playerView.BobY * 0.25f + 1.5f, 
+                        _playerView.BobZ * 0.0625f
+                        );
+                    MoveAndStrafeAlongCameraXZ(forward, strafe, Globals.speed);
+                    TurnTowardsXZ(this.Position + CurrentWorld.CameraLookAtVectorXZ * 1000f);
+
+                    if(CurrentWorld.IsViewSpaceGameObjectAttached)
+                    {
+                        ViewSpaceGameObject vsg = CurrentWorld.GetViewSpaceGameObject();
+                        if(forward == 0 && strafe == 0)
+                        {
+                            _playerArmsAnimationCurrent = _playerArmsAnimationBase + MathF.Sin(WorldTime * 0.5f) * 0.01f;
+                        }
+                        else if(Globals.Sprinting)
+                        {
+                            _playerArmsAnimationCurrent = (_playerArmsAnimationCurrent + 0.01f) % 1f;
+                        }
+                        else
+                        {
+                            _playerArmsAnimationCurrent = (_playerArmsAnimationCurrent + 0.005f) % 1f;
+                        }
+                        vsg.SetAnimationPercentage(_playerArmsAnimationCurrent);
+                    }
+                }
+            }
+        }
+        public void removeAllHUD() 
+        {
+            CurrentWorld.RemoveHUDObject(bg);
+            CurrentWorld.RemoveHUDObject(m1);
+            CurrentWorld.RemoveHUDObject(m2);
+            CurrentWorld.RemoveHUDObject(m3);
+            CurrentWorld.RemoveHUDObject(mtitle);
+            CurrentWorld.RemoveHUDObject(score);
+            CurrentWorld.RemoveHUDObject(gamemode);
+            displayTimer.SetPosition(50f, 50f);
+        }
+        public void stop()
+        {
+            Globals.gameRunning = false;
+            CurrentWorld.MouseCursorReset();
+            CurrentWorld.MouseCursorResetPosition();
+            CurrentWorld.AddHUDObject(m1);
+            CurrentWorld.AddHUDObject(m2);
+            CurrentWorld.AddHUDObject(m3);
+            CurrentWorld.AddHUDObject(bg);
+            CurrentWorld.AddHUDObject(mtitle);
+            CurrentWorld.AddHUDObject(score);
+            CurrentWorld.AddHUDObject(gamemode);
+            displayTimer.SetPosition(700f,250f);
+            score.SetText("Punktestand: " + Globals.Score);
+        }
+        public void weiter()
+        {
+            Globals.gameRunning = true;            
+            CurrentWorld.MouseCursorGrab();
+            removeAllHUD();
+        }
+        private float GetRandomFlickerDelay()
+        {
+            return (float)_random.NextDouble() * 0.08f + 0.02f;
+        }
+        public static void safeScore()
+        {
+            if (sek + (min * 60) >= 180)
+            {
+                Globals.Experience += 5;                
+            }
+            else if (sek + (min * 60) >= 120)
+            {
+                Globals.Experience += 4;
+            }
+            else if (sek + (min * 60) >= 60)
+            {
+                Globals.Experience += 2;
+            }
+            else { Globals.Experience += 1;}
+            if ((Globals.Score) >= 5)
+            {
+                Globals.Experience += 1;
+            }
+            Globals.displayCounter = Convert.ToString(CurrentWorld.WorldTime) + "\n";
+            string appendText = Convert.ToString(Globals.Score) + "\n";
+            File.AppendAllText(Globals.timePath, Globals.displayCounter);
+            File.AppendAllText(Globals.path, appendText);
         }
     }
 }
