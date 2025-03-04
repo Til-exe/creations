@@ -166,6 +166,56 @@
             Frees all graphics resources used by the renderer.
             </summary>
         </member>
+        <member name="T:KWEngine3.CardinalDirection">
+            <summary>
+            Himmelsrichtung
+            </summary>
+        </member>
+        <member name="F:KWEngine3.CardinalDirection.North">
+            <summary>
+            Nord
+            </summary>
+        </member>
+        <member name="F:KWEngine3.CardinalDirection.NorthEast">
+            <summary>
+            Nordost
+            </summary>
+        </member>
+        <member name="F:KWEngine3.CardinalDirection.East">
+            <summary>
+            Ost
+            </summary>
+        </member>
+        <member name="F:KWEngine3.CardinalDirection.SouthEast">
+            <summary>
+            Südost
+            </summary>
+        </member>
+        <member name="F:KWEngine3.CardinalDirection.South">
+            <summary>
+            Süd
+            </summary>
+        </member>
+        <member name="F:KWEngine3.CardinalDirection.SouthWest">
+            <summary>
+            Südwest
+            </summary>
+        </member>
+        <member name="F:KWEngine3.CardinalDirection.West">
+            <summary>
+            West
+            </summary>
+        </member>
+        <member name="F:KWEngine3.CardinalDirection.NorthWest">
+            <summary>
+            Nordwest
+            </summary>
+        </member>
+        <member name="F:KWEngine3.CardinalDirection.None">
+            <summary>
+            Keine
+            </summary>
+        </member>
         <member name="T:KWEngine3.KeyboardCursorType">
             <summary>
             Listet die Anzeigemöglichkeiten für Eingabecursor auf
@@ -181,9 +231,9 @@
             Unterstrich
             </summary>
         </member>
-        <member name="F:KWEngine3.KeyboardCursorType.Block">
+        <member name="F:KWEngine3.KeyboardCursorType.Dot">
             <summary>
-            Block
+            Vertikal zentrierter Punkt
             </summary>
         </member>
         <member name="T:KWEngine3.KeyboardCursorBehaviour">
@@ -414,6 +464,21 @@
         <member name="F:KWEngine3.PositionMode.BottomOfAABBHitbox">
             <summary>
             Bezieht sich auf die unterste Kante der achsenparallelen Hitbox (z.B. für 2D-Platformer)
+            </summary>
+        </member>
+        <member name="T:KWEngine3.FlowFieldDirections">
+            <summary>
+            Gibt an, welche Richtungen die Flowfield-Instanz bei der Berechnung des kürzesten Wegs verwenden darf (Standard: CardinalAndIntercardinalDirections)
+            </summary>
+        </member>
+        <member name="F:KWEngine3.FlowFieldDirections.CardinalDirections">
+            <summary>
+            Es werden lediglich die Richtungen Nord, Ost, Süd und West verwendet
+            </summary>
+        </member>
+        <member name="F:KWEngine3.FlowFieldDirections.CardinalAndIntercardinalDirections">
+            <summary>
+            Es werden die Richtungen Nord, Nordost, Ost, Südost, Süd, Südwest, West, Nordwest verwendet
             </summary>
         </member>
         <member name="T:KWEngine3.FlowFieldMode">
@@ -919,6 +984,11 @@
         <member name="F:KWEngine3.FontFace.XanhMono">
             <summary>
             "Xanh Mono"
+            </summary>
+        </member>
+        <member name="F:KWEngine3.FontFace.OpenSans">
+            <summary>
+            "Open Sans"
             </summary>
         </member>
         <member name="T:KWEngine3.PostProcessingQuality">
@@ -2016,6 +2086,22 @@
             <param name="absolute">wenn true, wird die Position-Eigenschaft verwendet, andernfalls die Hitbox-Mitte</param>
             <returns>Distanz</returns>
         </member>
+        <member name="M:KWEngine3.GameObjects.GameObject.GetDistanceToXZ(OpenTK.Mathematics.Vector3,System.Boolean)">
+            <summary>
+            Misst die Distanz zu einem Punkt entlang der XZ-Ebene
+            </summary>
+            <param name="position">Zielpunkt</param>
+            <param name="absolute">wenn true, wird die Position-Eigenschaft der Instanz verwendet, andernfalls die Hitbox-Mitte</param>
+            <returns>Distanz entlang der XZ-Ebene</returns>
+        </member>
+        <member name="M:KWEngine3.GameObjects.GameObject.GetDistanceToXZ(KWEngine3.GameObjects.GameObject,System.Boolean)">
+            <summary>
+            Misst die Distanz zu einem GameObject entlang der XZ-Ebene
+            </summary>
+            <param name="g">GameObject-Instanz</param>
+            <param name="absolute">wenn true, wird die Position-Eigenschaft der Instanz verwendet, andernfalls die Hitbox-Mitte</param>
+            <returns>Distanz entlang der XZ-Ebene</returns>
+        </member>
         <member name="P:KWEngine3.GameObjects.GameObject.Keyboard">
             <summary>
             Verweis auf die Keyboard-Aktivitäten
@@ -2434,19 +2520,6 @@
             </summary>
             <param name="intensity">Intensität (zwischen 0 und 10)</param>
         </member>
-        <member name="M:KWEngine3.GameObjects.HUDObject.SetScale(System.Single,System.Single)">
-            <summary>
-            Setzt die Größe (bei Text gilt die Größe je Zeichen)
-            </summary>
-            <param name="width">Breite (gültige Werte zwischen 0.001 und 2048)</param>
-            <param name="height">Höhe (gültige Werte zwischen 0.001 und 2048)</param>
-        </member>
-        <member name="M:KWEngine3.GameObjects.HUDObject.SetScale(System.Single)">
-            <summary>
-            Setzt die Größe (Breite und Höhe gleichermaßen)
-            </summary>
-            <param name="scale">Größe der Buchstaben bzw. des Bilds (in Pixeln)</param>
-        </member>
         <member name="M:KWEngine3.GameObjects.HUDObject.CompareTo(KWEngine3.GameObjects.HUDObject)">
             <summary>
             Vergleicht diese Instanz mit einer anderen hinsichtlich des Z-Index (nur für interne Zwecke benötigt)
@@ -2493,6 +2566,19 @@
             Gibt die aktuelle Skalierung in Pixeln zurück
             </summary>
         </member>
+        <member name="M:KWEngine3.GameObjects.HUDObjectImage.SetScale(System.Single)">
+            <summary>
+            Setzt die Größe (Breite und Höhe gleichermaßen)
+            </summary>
+            <param name="scale">Größe des Bilds (in Pixeln)</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.HUDObjectImage.SetScale(System.Single,System.Single)">
+            <summary>
+            Setzt die Größe des Bildes in Pixeln
+            </summary>
+            <param name="width">Breite (gültige Werte zwischen 0.001 und 4096)</param>
+            <param name="height">Höhe (gültige Werte zwischen 0.001 und 4096)</param>
+        </member>
         <member name="M:KWEngine3.GameObjects.HUDObjectImage.IsMouseCursorOnMe">
             <summary>
             Prüft, ob der Mauszeiger über dem Bildobjekt liegt
@@ -2527,6 +2613,11 @@
             Klasse zur Darstellung von einfachen Textzeilen
             </summary>
         </member>
+        <member name="F:KWEngine3.GameObjects.HUDObjectText.MAX_CHARS">
+            <summary>
+            Anzahl der maximal je Instanz gleichzeitig verwendbarer Zeichen
+            </summary>
+        </member>
         <member name="M:KWEngine3.GameObjects.HUDObjectText.#ctor(System.String)">
             <summary>
             Standardkonstruktor der HUDObjectText-Instanz
@@ -2535,7 +2626,7 @@
         </member>
         <member name="P:KWEngine3.GameObjects.HUDObjectText.Font">
             <summary>
-            Schriftart des HUD-Objekts
+            Verwendeter Schriftartname des HUD-Objekts
             </summary>
         </member>
         <member name="M:KWEngine3.GameObjects.HUDObjectText.SetFont(KWEngine3.FontFace)">
@@ -2543,6 +2634,13 @@
             Setzt die Schriftart der Instanz
             </summary>
             <param name="fontFace">zu nutzende Schriftart</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.HUDObjectText.SetFont(System.String)">
+            <summary>
+            Setzt die Schriftart anhand des Namens
+            </summary>
+            <remarks>Schriftart muss zuvor via KWEngine.LoadFont() importiert worden sein</remarks>
+            <param name="fontname">Name der Schriftart</param>
         </member>
         <member name="P:KWEngine3.GameObjects.HUDObjectText.TextAlignment">
             <summary>
@@ -2562,7 +2660,7 @@
         </member>
         <member name="M:KWEngine3.GameObjects.HUDObjectText.SetText(System.String,System.Boolean)">
             <summary>
-            Setzt den Text (maximal 256 Zeichen)
+            Setzt den Text (maximal 127 Zeichen)
             </summary>
             <param name="text">zu setzender Text</param>
             <param name="trim">Leerzeichen zu Beginn und am Ende der Zeichenkette werden abgeschnitten (Standardwert: true)</param>
@@ -2577,6 +2675,12 @@
             <summary>
             Gibt den aktuellen Distanzfaktor für die Abstände zwischen Zeichen an
             </summary>
+        </member>
+        <member name="M:KWEngine3.GameObjects.HUDObjectText.SetScale(System.Single)">
+            <summary>
+            Setzt die Größe pro Zeichen in Pixeln (Standardwert: 32)
+            </summary>
+            <param name="scale">Größe (in Pixeln, Maximalwert: 512)</param>
         </member>
         <member name="M:KWEngine3.GameObjects.HUDObjectText.IsInsideScreenSpace">
             <summary>
@@ -2677,7 +2781,7 @@
         </member>
         <member name="P:KWEngine3.GameObjects.HUDObjectTextInput.MaxInputLength">
             <summary>
-            Setzt oder erfragt die Anzahl maximal einzugebender Zeichen im Bereich [1, 128] (Standardwert: 128)
+            Setzt oder erfragt die Anzahl maximal einzugebender Zeichen im Bereich [1, 127] (Standardwert: 127)
             </summary>
         </member>
         <member name="M:KWEngine3.GameObjects.HUDObjectTextInput.AddCharacters(System.String)">
@@ -2796,11 +2900,6 @@
         <member name="T:KWEngine3.GameObjects.LightObject">
             <summary>
             Klasse für Sonnen-/Punktlichter und gerichtete Lichter (spot lights)
-            </summary>
-        </member>
-        <member name="P:KWEngine3.GameObjects.LightObject.IsInsideScreenSpace">
-            <summary>
-            Befinden sich das Lichtobjekt und seine Lichtstrahlen aktuell auf dem Bildschirm?
             </summary>
         </member>
         <member name="P:KWEngine3.GameObjects.LightObject.ID">
@@ -3234,9 +3333,9 @@
             </summary>
             <param name="text">Anzuzeigender Text</param>
         </member>
-        <member name="P:KWEngine3.GameObjects.TextObject.IsShadowCaster">
+        <member name="P:KWEngine3.GameObjects.TextObject.IsShadowReceiver">
             <summary>
-            Gibt an, ob das Objekt Schatten werfen und empfangen kann (Standard: false)
+            Gibt an, ob das Objekt Schatten empfangen kann (Standard: false)
             </summary>
         </member>
         <member name="P:KWEngine3.GameObjects.TextObject.IsAffectedByLight">
@@ -3345,6 +3444,12 @@
             </summary>
             <param name="font">Name der zu benutzenden Schriftart</param>
         </member>
+        <member name="M:KWEngine3.GameObjects.TextObject.SetFont(System.String)">
+            <summary>
+            Setzt die anzuzeigende Schriftart anhand ihres Namens
+            </summary>
+            <param name="font">Name der zu benutzenden Schriftart</param>
+        </member>
         <member name="P:KWEngine3.GameObjects.TextObject.Color">
             <summary>
             Erfragt die aktuell gewählte Farbe der Instanz
@@ -3405,11 +3510,6 @@
             Gibt an, ob sich das Objekt aktuell im Blickfeld der Kamera befindet
             </summary>
         </member>
-        <member name="P:KWEngine3.GameObjects.TextObject.Width">
-            <summary>
-            Erfragt die aktuelle Breite des Objekts (mit Rücksicht auf CharacterSpreadFactor und Skalierung)
-            </summary>
-        </member>
         <member name="P:KWEngine3.GameObjects.TextObject.Keyboard">
             <summary>
             Verweis auf Keyboardeingaben
@@ -3418,6 +3518,11 @@
         <member name="P:KWEngine3.GameObjects.TextObject.Mouse">
             <summary>
             Verweis auf Mauseingaben
+            </summary>
+        </member>
+        <member name="F:KWEngine3.GameObjects.TextObject.MAX_CHARS">
+            <summary>
+            Anzahl der maximal je Instanz gleichzeitig verwendbarer Zeichen
             </summary>
         </member>
         <member name="T:KWEngine3.GameObjects.ViewSpaceGameObject">
@@ -3644,6 +3749,26 @@
             </summary>
             <param name="e">Parameter</param>
         </member>
+        <member name="P:KWEngine3.GLWindow.ProjectionMatrixHUD">
+            <summary>
+            Enthält die aktuelle Projektionsmatrix für HUD-Objekte
+            </summary>
+        </member>
+        <member name="P:KWEngine3.GLWindow.ViewMatrixHUD">
+            <summary>
+            Enthält die aktuelle Viewmatrix für HUD-Objekte
+            </summary>
+        </member>
+        <member name="P:KWEngine3.GLWindow.ViewProjectionMatrixHUD">
+            <summary>
+            Enthält die aktuelle View-Projektionsmatrix für HUD-Objekte
+            </summary>
+        </member>
+        <member name="P:KWEngine3.GLWindow.ViewProjectionMatrix">
+            <summary>
+            Enthält die aktuelle View-Projektionsmatrix für die In-Game-Kamera
+            </summary>
+        </member>
         <member name="M:KWEngine3.GLWindow.OnRenderFrame(OpenTK.Windowing.Common.FrameEventArgs)">
             <summary>
             Wird ausgeführt, wenn ein neues Bild gezeichnet werden soll
@@ -3767,6 +3892,12 @@
             Erfragt oder setzt den Namen der Instanz
             </summary>
         </member>
+        <member name="P:KWEngine3.Helper.FlowField.AllowPartialNesting">
+            <summary>
+            Erfragt oder setzt, ob beim Scan nach Objekten auch die Objekte zählen, die sich eine Kante mit einer Flowfield-Zelle teilen (Standard: true)
+            </summary>
+            <remarks>Wenn false, muss die Hitbox eines Objekts vollständig in einer Zelle eingeschlossen sein</remarks>
+        </member>
         <member name="P:KWEngine3.Helper.FlowField.GridCellCount">
             <summary>
             Anzahl der Zellen im Feld (in allen drei Dimensionen, wobei nur X- und Z-Dimension zählen)
@@ -3796,6 +3927,22 @@
             <summary>
             Messmodus für die Erstellung der Streckenkosten (Simple oder Box)
             </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.FlowField.AllowedDirections">
+            <summary>
+            Gibt an, welche Richtungsanweisungen vom Flowfield ausgegeben werden (Standard: CardinalAndIntercardinalDirections)
+            </summary>
+        </member>
+        <member name="M:KWEngine3.Helper.FlowField.#ctor(System.Int32,System.Int32,System.Single,System.Int32,KWEngine3.FlowFieldMode,System.Type[])">
+            <summary>
+            Erzeugt ein FlowField für die angegebenen GameObject-Typen
+            </summary>
+            <param name="cellCountX">Anzahl Zellen in X-Richtung</param>
+            <param name="cellCountZ">Anzahl Zellen in Z-Richtung</param>
+            <param name="cellRadius">Radius je Zelle</param>
+            <param name="fieldHeight">Höhe des Felds</param>
+            <param name="mode">Genauigkeit bei der Messung der Hindernisse (Simple oder Box)</param>
+            <param name="types">Liste der Klassen, die das FlowField scannen soll</param>
         </member>
         <member name="M:KWEngine3.Helper.FlowField.#ctor(System.Single,System.Single,System.Single,System.Int32,System.Int32,System.Single,System.Int32,KWEngine3.FlowFieldMode,System.Type[])">
             <summary>
@@ -3882,7 +4029,14 @@
             Gibt die bestmögliche Bewegungsrichtung gemäß der aktuellen Position zurück
             </summary>
             <param name="position">aktuelle Position</param>
-            <returns>bestmögliche Bewegungsrichtung</returns>
+            <returns>bestmögliche Bewegungsrichtung für die gegebene Position</returns>
+        </member>
+        <member name="M:KWEngine3.Helper.FlowField.GetBestCardinalDirectionForPosition(OpenTK.Mathematics.Vector3)">
+            <summary>
+            Gibt die bestmögliche Bewegungsrichtung als Himmelsrichtung gemäß der aktuellen Position zurück
+            </summary>
+            <param name="position">aktuelle Position</param>
+            <returns>bestmögliche Himmelsrichtung für die gegebene Position</returns>
         </member>
         <member name="M:KWEngine3.Helper.FlowField.GetCellForWorldPosition(OpenTK.Mathematics.Vector3,System.Boolean)">
             <summary>
@@ -3905,6 +4059,12 @@
             </summary>
             <param name="x">Verschiebung des FlowField in x-Richtung</param>
             <param name="z">Verschiebung des FlowField in z-Richtung</param>
+        </member>
+        <member name="M:KWEngine3.Helper.FlowField.SetAllowedDirections(KWEngine3.FlowFieldDirections)">
+            <summary>
+            Setzt die vom Flowfield zu verwendenden Himmelsrichtungen (Standard: CardinalAndIntercardinal)
+            </summary>
+            <param name="directions">Zu verwendende Richtungen</param>
         </member>
         <member name="P:KWEngine3.Helper.FlowField.HasTarget">
             <summary>
@@ -3936,6 +4096,16 @@
             Gibt den vertikalen Index der Zelle im FlowField an (nullbasiert)
             </summary>
         </member>
+        <member name="P:KWEngine3.Helper.FlowFieldCell.BestDirection">
+            <summary>
+            Gibt die aktuelle Zielrichtung für diese Zelle an (kann der Nullvektor sein)
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Helper.FlowFieldCell.BestDirectionCardinal">
+            <summary>
+            Gibt die aktuelle Zielrichtung in Form einer Himmelsrichtung an
+            </summary>
+        </member>
         <member name="M:KWEngine3.Helper.FlowFieldCell.GetNeighbourCellAtOffset(System.Int32,System.Int32)">
             <summary>
             Erfragt die Zelle, die von der aktuellen Zelle ausgehend am angegebenen Offset liegt
@@ -3948,6 +4118,36 @@
             <summary>
             Gibt die aktuell gemessenen Kosten der Zelle an
             </summary>
+        </member>
+        <member name="M:KWEngine3.Helper.FlowFieldCell.ContainsXZ(KWEngine3.GameObjects.GameObject,System.Boolean)">
+            <summary>
+            Prüft anhand der XZ-Achsen, ob ein Objekt ansatzweise innerhalb der Zelle liegt
+            </summary>
+            <param name="g">zu prüfendes Objekt</param>
+            <param name="partial">wenn true, zählen auch teilweise enthaltene Objekte (Standard: true)</param>
+            <returns>true, wenn das Objekt im Feld liegt</returns>
+        </member>
+        <member name="M:KWEngine3.Helper.FlowFieldCell.ContainsXZ(OpenTK.Mathematics.Vector3)">
+            <summary>
+            Prüft anhand der XZ-Achsen, ob eine Position innerhalb der Zelle liegt
+            </summary>
+            <param name="position">zu prüfende Position</param>
+            <returns>true, wenn die Position im Feld liegt</returns>
+        </member>
+        <member name="M:KWEngine3.Helper.FlowFieldCell.Contains(KWEngine3.GameObjects.GameObject,System.Boolean)">
+            <summary>
+            Prüft, ob ein Objekt ansatzweise innerhalb der Zelle liegt
+            </summary>
+            <param name="g">zu prüfendes Objekt</param>
+            <param name="partial">wenn true, zählen auch teilweise enthaltene Objekte (Standard: true)</param>
+            <returns>true, wenn das Objekt im Feld liegt</returns>
+        </member>
+        <member name="M:KWEngine3.Helper.FlowFieldCell.Contains(OpenTK.Mathematics.Vector3)">
+            <summary>
+            Prüft, ob eine Position innerhalb der Zelle liegt
+            </summary>
+            <param name="position">zu prüfende Position</param>
+            <returns>true, wenn die Position im Feld liegt</returns>
         </member>
         <member name="P:KWEngine3.Helper.HelperDDS.BitmapImage">
             <summary>
@@ -5326,6 +5526,11 @@
             Kernbibliothek der Engine
             </summary>
         </member>
+        <member name="P:KWEngine3.KWEngine.MouseSensitivity">
+            <summary>
+            Empfindlichkeit des Mauszeigers im First-Person-Modus (Standard: 0.05f, negative Werte für die Invertierung der y-Achse)
+            </summary>
+        </member>
         <member name="P:KWEngine3.KWEngine.ViewSpaceGameObjectShakeFactor">
             <summary>
             Gibt an oder setzt den Faktor, der bei der Berechnung des Kameraschüttelns einer ViewSpaceGameObject-Instanz zugerechnet wird (Standard: 0.1f, gültiger Wertebereich liegt zwischen 0f und 1f)
@@ -5460,14 +5665,15 @@
             Steuert den Stil des Glühens (Faktor 2, erlaubte Werte zwischen 0 und 1, Standard: 0.75)
             </summary>
         </member>
+        <member name="P:KWEngine3.KWEngine.ScreenInformation">
+            <summary>
+            Erfragt Informationen über die aktuell angeschlossenen Monitore/Bildschirme
+            </summary>
+            <returns>Monitor-/Bildschirminformationen</returns>
+        </member>
         <member name="P:KWEngine3.KWEngine.WorldUp">
             <summary>
             Welt-Vektor, der angibt, wo 'oben' ist
-            </summary>
-        </member>
-        <member name="P:KWEngine3.KWEngine.MouseSensitivity">
-            <summary>
-            Empfindlichkeit des Mauszeigers im First-Person-Modus (Standard: 0.05f, negative Werte für die Invertierung der y-Achse)
             </summary>
         </member>
         <member name="M:KWEngine3.KWEngine.BuildTerrainModel(System.String,System.String,System.Int32)">
@@ -5492,6 +5698,14 @@
             <param name="name">Name, unter dem das Collider-Modell gespeichert werden soll</param>
             <param name="filename">Dateiname des Collider-Modells</param>
             <param name="colliderType">Art des Collider-Modells</param>
+            <returns>true, wenn der Import funktioniert hat</returns>
+        </member>
+        <member name="M:KWEngine3.KWEngine.LoadFont(System.String,System.String)">
+            <summary>
+            Lädt eine Truetype-Schriftart (TTF) aus einer Datei und speichert Sie intern unter dem im ersten Parameter angegebenen Namen ab
+            </summary>
+            <param name="name">Name der Schriftart (wird später zum Setzen der Schriftart bei textbasierten Objekten verwendet)</param>
+            <param name="filename">Dateiname der Schriftart (inkl. Pfad) - muss eine TTF-Datei sein</param>
         </member>
         <member name="M:KWEngine3.KWEngine.LoadModel(System.String,System.String)">
             <summary>
@@ -5506,12 +5720,6 @@
             </summary>
             <param name="modelname">Name des Modells (muss zuvor importiert worden sein)</param>
             <returns>Liste der Knochennamen</returns>
-        </member>
-        <member name="P:KWEngine3.KWEngine.ScreenInformation">
-            <summary>
-            Erfragt Informationen über die aktuell angeschlossenen Monitore/Bildschirme
-            </summary>
-            <returns>Monitor-/Bildschirminformationen</returns>
         </member>
         <member name="T:KWEngine3.Model.GeoAnimation">
             <summary>

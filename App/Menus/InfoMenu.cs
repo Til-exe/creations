@@ -332,8 +332,8 @@ namespace Gruppenprojekt.App.Menus
             AddHUDObject(Flashlight);
 
             HUDObjectText border1 = new HUDObjectText("|");
-            border1.SetScale(10f,800.0f);
-            border1.SetPosition(350, 450);
+            border1.SetScale(800f);
+            border1.SetPosition(300, 250);
             AddHUDObject(border1);
 
             HUDObjectText text1 = new HUDObjectText("");
