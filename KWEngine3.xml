@@ -166,6 +166,46 @@
             Frees all graphics resources used by the renderer.
             </summary>
         </member>
+        <member name="T:KWEngine3.RenderType">
+            <summary>
+            Art des Draw Calls (für das Debugging)
+            </summary>
+        </member>
+        <member name="F:KWEngine3.RenderType.Deferred">
+            <summary>
+            Deferred Rendering pass (nicht-transparente Objekte)
+            </summary>
+        </member>
+        <member name="F:KWEngine3.RenderType.Lighting">
+            <summary>
+            Lighting pass (Belichtung der Objekte, die im Deferred rendering pass gezeichnet wurden)
+            </summary>
+        </member>
+        <member name="F:KWEngine3.RenderType.ShadowMapping">
+            <summary>
+            Shadow mapping pass (Schattenberechnung)
+            </summary>
+        </member>
+        <member name="F:KWEngine3.RenderType.Forward">
+            <summary>
+            Forward rendering (transparente Objekte inkl. Lichtberechnungen)
+            </summary>
+        </member>
+        <member name="F:KWEngine3.RenderType.HUD">
+            <summary>
+            HUD-Objekte
+            </summary>
+        </member>
+        <member name="F:KWEngine3.RenderType.PostProcessing">
+            <summary>
+            Post-Processing-Effekte
+            </summary>
+        </member>
+        <member name="F:KWEngine3.RenderType.SSAO">
+            <summary>
+            Screen-Space Ambient Occlusion
+            </summary>
+        </member>
         <member name="T:KWEngine3.CardinalDirection">
             <summary>
             Himmelsrichtung
@@ -1742,7 +1782,7 @@
             <summary>
             Explosionskonstruktormethode
             </summary>
-            <param name="particleCount">Anzahl der Partikel</param>
+            <param name="particleCount">Anzahl der Partikel (max: 512)</param>
             <param name="particleSize">Größe der Partikel</param>
             <param name="explosionRadius">Radius der Explosion</param>
             <param name="durationInSeconds">Dauer der Explosion in Sekunden</param>
@@ -2616,6 +2656,11 @@
         <member name="F:KWEngine3.GameObjects.HUDObjectText.MAX_CHARS">
             <summary>
             Anzahl der maximal je Instanz gleichzeitig verwendbarer Zeichen
+            </summary>
+        </member>
+        <member name="P:KWEngine3.GameObjects.HUDObjectText.ForceMonospace">
+            <summary>
+            Wenn 'true', werden gleiche Abstände zwischen allen Zeichen erzwungen (Standard: false)
             </summary>
         </member>
         <member name="M:KWEngine3.GameObjects.HUDObjectText.#ctor(System.String)">
@@ -5530,6 +5575,26 @@
             <summary>
             Empfindlichkeit des Mauszeigers im First-Person-Modus (Standard: 0.05f, negative Werte für die Invertierung der y-Achse)
             </summary>
+        </member>
+        <member name="P:KWEngine3.KWEngine.DebugPerformanceEnabled">
+            <summary>
+            Gibt an, ob die Performance für alle draw calls gemessen wird und mit der Methode KWEngine.GetRenderTime() abgefragt werden kann (Standard: false)
+            </summary>
+        </member>
+        <member name="M:KWEngine3.KWEngine.GetRenderTime(KWEngine3.RenderType)">
+            <summary>
+            Gibt die für das Rendern eines bestimmten Passes benötigte Zeit in Millisekunden zurück
+            </summary>
+            <remarks>Sollte KWEngine.DebugPerformanceEnabled nicht 'true' sein, wird stets der Wert 0 zurückgegeben</remarks>
+            <param name="type">Art des Render Pass</param>
+            <returns>Anzahl der für den Pass benötigten Millisekunden</returns>
+        </member>
+        <member name="M:KWEngine3.KWEngine.GetCPUTime">
+            <summary>
+            Gibt die für das Berechnen der Frame-Informationen benötigte CPU-Zeit in Millisekunden zurück
+            </summary>
+            <remarks>Sollte KWEngine.DebugPerformanceEnabled nicht 'true' sein, wird stets der Wert 0 zurückgegeben</remarks>
+            <returns>Durchschnittliche CPU-Zeit in Millisekunden</returns>
         </member>
         <member name="P:KWEngine3.KWEngine.ViewSpaceGameObjectShakeFactor">
             <summary>
