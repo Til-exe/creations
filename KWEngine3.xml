@@ -1392,17 +1392,17 @@
             <summary>
             Setzt die selbstleuchtende Farbtönung des Objekts
             </summary>
-            <param name="r">Rotanteil (zwischen 0 und 2)</param>
-            <param name="g">Grünanteil (zwischen 0 und 2)</param>
-            <param name="b">Blauanteil (zwischen 0 und 2)</param>
-            <param name="intensity">Helligkeit (zwischen 0 und 10)</param>
+            <param name="r">Rotanteil (zwischen 0 und 1)</param>
+            <param name="g">Grünanteil (zwischen 0 und 1)</param>
+            <param name="b">Blauanteil (zwischen 0 und 1)</param>
+            <param name="intensity">Helligkeit (zwischen 0 und 2)</param>
         </member>
         <member name="M:KWEngine3.GameObjects.EngineObject.SetColorEmissive(OpenTK.Mathematics.Vector3,System.Single)">
             <summary>
             Setzt die selbstleuchtende Farbtönung des Objekts
             </summary>
-            <param name="color">Rot-/Grün-/Blauanteil (zwischen 0 und 2)</param>
-            <param name="intensity">Helligkeit (zwischen 0 und 10)</param>
+            <param name="color">Rot-/Grün-/Blauanteil (zwischen 0 und 1)</param>
+            <param name="intensity">Helligkeit (zwischen 0 und 2)</param>
         </member>
         <member name="M:KWEngine3.GameObjects.EngineObject.SetMetallic(System.Single,System.Int32)">
             <summary>
@@ -1741,10 +1741,10 @@
             <summary>
             Setzt die Glühfarbe der Explosionspartikel
             </summary>
-            <param name="red">Rot (0 bis 2)</param>
-            <param name="green">Grün (0 bis 2)</param>
-            <param name="blue">Blau (0 bis 2)</param>
-            <param name="intensity">Helligkeit (0 bis 10)</param>
+            <param name="red">Rot (0 bis 1)</param>
+            <param name="green">Grün (0 bis 1)</param>
+            <param name="blue">Blau (0 bis 1)</param>
+            <param name="intensity">Helligkeit (0 bis 2)</param>
         </member>
         <member name="M:KWEngine3.GameObjects.ExplosionObject.SetPosition(System.Single,System.Single,System.Single)">
             <summary>
@@ -3275,10 +3275,10 @@
             <summary>
             Setzt die selbstleuchtende Farbtönung des Objekts
             </summary>
-            <param name="r">Rotanteil (0 bis 2)</param>
-            <param name="g">Grünanteil (0 bis 2)</param>
-            <param name="b">Blauanteil (0 bis 2)</param>
-            <param name="intensity">Intensität der Lichtabstrahlung (0 bis 10)</param>
+            <param name="r">Rotanteil (0 bis 1)</param>
+            <param name="g">Grünanteil (0 bis 1)</param>
+            <param name="b">Blauanteil (0 bis 1)</param>
+            <param name="intensity">Intensität der Lichtabstrahlung (0 bis 2)</param>
         </member>
         <member name="M:KWEngine3.GameObjects.TerrainObject.SetMetallic(System.Single)">
             <summary>
@@ -3533,10 +3533,10 @@
             <summary>
             Setzt die selbstleuchtende Farbe der Instanz
             </summary>
-            <param name="r">Rotanteil (zwischen 0 und 2)</param>
-            <param name="g">Grünanteil (zwischen 0 und 2)</param>
-            <param name="b">Blauanteil (zwischen 0 und 2)</param>
-            <param name="intensity">Intensität (zwischen 0 und 10)</param>
+            <param name="r">Rotanteil (zwischen 0 und 1)</param>
+            <param name="g">Grünanteil (zwischen 0 und 1)</param>
+            <param name="b">Blauanteil (zwischen 0 und 1)</param>
+            <param name="intensity">Intensität (zwischen 0 und 2)</param>
         </member>
         <member name="M:KWEngine3.GameObjects.TextObject.CompareTo(KWEngine3.GameObjects.TextObject)">
             <summary>
@@ -6843,6 +6843,21 @@
             <param name="texture">Texturdateiname (darf null sein, wenn keine Textur verwendet werden soll)</param>
             <param name="textureRepeatX">Texturwiederholung in X-Richtung (Standard: 1f)</param>
             <param name="textureRepeatY">Texturwiederholung in Y-Richtung (Standard: 1f)</param>
+        </member>
+        <member name="T:KWEngine3.WorldPerformance">
+            <summary>
+            Stellt eine Erweiterung der Welt-Klasse zur Messung der Performance dar
+            </summary>
+        </member>
+        <member name="M:KWEngine3.WorldPerformance.Act">
+            <summary>
+            Erweitert die Act()-Methode um das Aktualisieren der gemessenen Performance-Werte und stellt diese Werte dar
+            </summary>
+        </member>
+        <member name="M:KWEngine3.WorldPerformance.Prepare">
+            <summary>
+            Erweitert die Prepare()-Methode um das Vorbereiten der Darstellung von Performance-Werten
+            </summary>
         </member>
     </members>
 </doc>
