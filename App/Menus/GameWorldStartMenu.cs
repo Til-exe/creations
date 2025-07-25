@@ -273,7 +273,7 @@ namespace Gruppenprojekt.App.Menus
             Wall w2 = new Wall("2", 0f, 4f, 0f);
             Floor f = new Floor("floor", 1f, 1f, 1f);
             Floor f1 = new Floor("floor", 1f, 10f, 1f);            
-            LightObject light = new LightObject(LightType.Sun, ShadowQuality.Low);
+            LightObject light = new LightObjectSun(ShadowQuality.Low, SunShadowType.Default);
             Collectable c1 = new Collectable("1", 100f, 2.5f, 2.5f);                      
             HUDObjectImage bbg = new HUDObjectImage("./App/Textures/blackscreen.png");
             HUDObjectText hSubtitle = new HUDObjectText("By PLUG-INC");

@@ -26,7 +26,7 @@ namespace Gruppenprojekt.App.Classes
             this.SetColor(0, 1, 0);
             this.SetColorEmissive(1, 0, 0, 10);
 
-            l = new LightObject(LightType.Point, ShadowQuality.NoShadow);
+            l = new LightObjectPoint(ShadowQuality.NoShadow);
             l.Name = name;
             l.SetPosition(x, y, z);
             l.SetNearFar(0.05f, 7f);

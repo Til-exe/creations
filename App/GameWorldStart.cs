@@ -215,7 +215,7 @@ namespace Gruppenprojekt.App
             KWEngine.MouseSensitivity = 0.07f;
             MouseCursorGrab();
 
-            LightObject light = new LightObject(LightType.Sun, ShadowQuality.Low);
+            LightObject light = new LightObjectSun(ShadowQuality.Low, SunShadowType.Default);
             light.Name = ("scheiß auf den Namen");
             light.SetNearFar(0.1f, 25f);
             light.SetPosition(0f, 5f, 0);
