@@ -9,6 +9,12 @@
             Helfer-Klasse für Audioeffekte
             </summary>
         </member>
+        <member name="P:KWEngine3.Audio.Audio.BufferSizeMs">
+            <summary>
+            Gibt die Puffergröße in Millisekunden für alle Audiokanäle an (Minimum: 20ms, Standardwert: 50ms)
+            </summary>
+            <remarks>Es sind nur 10er-Schritte erlaubt (20, 30, usw.)</remarks>
+        </member>
         <member name="M:KWEngine3.Audio.Audio.PlaySound(System.String,System.Boolean,System.Single)">
             <summary>
             Spielt einen Ton ab
@@ -22,7 +28,7 @@
             <summary>
             Ändert die Lautstärke eines Tons
             </summary>
-            <param name="sourceId">id der Audiospur</param>
+            <param name="channel">Kanalnummer</param>
             <param name="gain">Lautstärke (0.0f bis 1.0f)</param>
         </member>
         <member name="M:KWEngine3.Audio.Audio.StopSound(System.String)">
@@ -41,11 +47,231 @@
             <summary>
             Stoppt den angegebenen Audiokanal
             </summary>
-            <param name="sourceId">Lanalnummer</param>
+            <param name="channel">Kanalnummer</param>
+        </member>
+        <member name="M:KWEngine3.Audio.Audio.PauseSound(System.String)">
+            <summary>
+            Pausiert den ersten Audiokanal, der die angegebene Datei gerade abspielt
+            </summary>
+            <param name="audiofile">zu pausierende Audiodatei</param>
+        </member>
+        <member name="M:KWEngine3.Audio.Audio.PauseSound(System.Int32)">
+            <summary>
+            Pausiert den angegebenen Audiokanal
+            </summary>
+            <param name="channel">Kanalnummer</param>
+        </member>
+        <member name="M:KWEngine3.Audio.Audio.IsChannelPlaying(System.Int32)">
+            <summary>
+            Erfragt, ob der angegebene Audiokanal gerade etwas abspielt
+            </summary>
+            <param name="channel">Kanalnummer</param>
+            <returns>true, wenn der Kanal abgespielt wird</returns>
+        </member>
+        <member name="M:KWEngine3.Audio.Audio.IsChannelPaused(System.Int32)">
+            <summary>
+            Erfragt, ob der angegebene Audiokanal gerade pausiert ist
+            </summary>
+            <param name="channel">Kanalnummer</param>
+            <returns>true, wenn der Kanal pausiert ist</returns>
+        </member>
+        <member name="M:KWEngine3.Audio.Audio.IsChannelPlayingOrPaused(System.Int32)">
+            <summary>
+            Erfragt, ob der angegebene Audiokanal gerade etwas abspielt oder pausiert ist
+            </summary>
+            <param name="channel">Kanalnummer</param>
+            <returns>true, wenn der Kanal abgespielt wird oder pausiert ist</returns>
+        </member>
+        <member name="M:KWEngine3.Audio.Audio.ContinueSound(System.String)">
+            <summary>
+            Setzt die Wiedergabe der angegebenen Audiodatei fort
+            </summary>
+            <param name="audiofile">fortzusetzende Audiodatei</param>
+        </member>
+        <member name="M:KWEngine3.Audio.Audio.ContinueSound(System.Int32)">
+            <summary>
+            Setzt die Wiedergabe des Audiokanals fort
+            </summary>
+            <param name="channel">Kanalnummer</param>
+        </member>
+        <member name="M:KWEngine3.Audio.Audio.PauseAllSound">
+            <summary>
+            Pausiert alle gerade wiedergegebenen Töne
+            </summary>
+        </member>
+        <member name="M:KWEngine3.Audio.Audio.ContinueAllSound">
+            <summary>
+            Setzt die Wiedergabe aller gerade pausierten Töne fort
+            </summary>
         </member>
         <member name="M:KWEngine3.Audio.Audio.StopAllSound">
             <summary>
             Stoppt alle Töne
+            </summary>
+        </member>
+        <member name="M:KWEngine3.Audio.Audio.GetAudioAnalysisForChannel(System.Int32)">
+            <summary>
+            Ruft die spektrografische Analysedaten für den angegebenen (gerade spielenden) Kanal ab
+            </summary>
+            <param name="channel">Kanalnummer</param>
+            <returns>Analysedaten</returns>
+        </member>
+        <member name="M:KWEngine3.Audio.Audio.IsNewAudioAnalysisDataAvailable(System.Int32,System.Single)">
+            <summary>
+            Prüft, ob neue Analysedaten für den gegebenen Kanal verfügbar sind
+            </summary>
+            <param name="channel">Kanalnummer</param>
+            <param name="timestampWorldOfPreviousData">Zeitstempel (Weltzeit) der vorherigen Daten</param>
+            <returns></returns>
+        </member>
+        <member name="T:KWEngine3.Audio.AudioAnalysis">
+            <summary>
+            Analysedatencontainer für die spektrografische Audioanalyse
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.IsValid">
+            <summary>
+            Gibt an, ob der Datensatz gültig ist
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.TimestampApplication">
+            <summary>
+            Messzeitpunkt in Relation zum Anwendungsstartzeitpunkt
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.TimestampWorld">
+            <summary>
+            Messzeitpunkt in Relation zum Weltstartzeitpunkt
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.Volume">
+            <summary>
+            Lautstärkewert (0.0f = lautlos, 1.0f = laut)
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.Band01">
+            <summary>
+            Daten zu Frequenzband 1
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.Band02">
+            <summary>
+            Daten zu Frequenzband 2
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.Band03">
+            <summary>
+            Daten zu Frequenzband 3
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.Band04">
+            <summary>
+            Daten zu Frequenzband 4
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.Band05">
+            <summary>
+            Daten zu Frequenzband 5
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.Band06">
+            <summary>
+            Daten zu Frequenzband 6
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.Band07">
+            <summary>
+            Daten zu Frequenzband 7
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.Band08">
+            <summary>
+            Daten zu Frequenzband 8
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.Band09">
+            <summary>
+            Daten zu Frequenzband 9
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.Band10">
+            <summary>
+            Daten zu Frequenzband 10
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.Band11">
+            <summary>
+            Daten zu Frequenzband 11
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.Band12">
+            <summary>
+            Daten zu Frequenzband 12
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.Band13">
+            <summary>
+            Daten zu Frequenzband 13
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.Band14">
+            <summary>
+            Daten zu Frequenzband 14
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.Band15">
+            <summary>
+            Daten zu Frequenzband 15
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.Band16">
+            <summary>
+            Daten zu Frequenzband 16
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.Band17">
+            <summary>
+            Daten zu Frequenzband 17
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.Band18">
+            <summary>
+            Daten zu Frequenzband 18
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.Band19">
+            <summary>
+            Daten zu Frequenzband 19
+            </summary>
+        </member>
+        <member name="P:KWEngine3.Audio.AudioAnalysis.Band20">
+            <summary>
+            Daten zu Frequenzband 20
+            </summary>
+        </member>
+        <member name="M:KWEngine3.Audio.AudioAnalysis.#ctor">
+            <summary>
+            Konstruktormethode
+            </summary>
+        </member>
+        <member name="T:KWEngine3.Audio.AudioAnalysisBand">
+            <summary>
+            Daten eines Frequenzbands bei der spektrografischen Analyse
+            </summary>
+        </member>
+        <member name="F:KWEngine3.Audio.AudioAnalysisBand.FrequencyStart">
+            <summary>
+            Startfrequenz des Bands
+            </summary>
+        </member>
+        <member name="F:KWEngine3.Audio.AudioAnalysisBand.FrequencyEnd">
+            <summary>
+            Endfrequenz des Bands
+            </summary>
+        </member>
+        <member name="F:KWEngine3.Audio.AudioAnalysisBand.Decibel">
+            <summary>
+            Gemessene Decibel
             </summary>
         </member>
         <member name="T:KWEngine3.Audio.CachedSound">
@@ -53,7 +279,7 @@
             Vorgeladener Audioton
             </summary>
         </member>
-        <member name="P:KWEngine3.Audio.CachedSound.AudioData">
+        <member name="F:KWEngine3.Audio.CachedSound.AudioData">
             <summary>
             Audiodaten
             </summary>
@@ -101,6 +327,112 @@
             <summary>
             Entlädt alle Audioressourcen aus dem Arbeitsspeicher
             </summary>
+        </member>
+        <member name="T:KWEngine3.Audio.Lomont.LomontFFT">
+            <summary>                                                                                                
+            Represent a class that performs real or complex valued Fast Fourier                                      
+            Transforms. Instantiate it and use the FFT or TableFFT methods to                                        
+            compute complex to complex FFTs. Use FFTReal for real to complex                                         
+            FFTs which are much faster than standard complex to complex FFTs.                                        
+            Properties A and B allow selecting various FFT sign and scaling                                          
+            conventions.                                                                                             
+            </summary>                                                                                               
+        </member>
+        <member name="M:KWEngine3.Audio.Lomont.LomontFFT.FFT(System.Double[],System.Boolean)">
+            <summary>                                                                                            
+            Compute the forward or inverse Fourier Transform of data, with                                       
+            data containing complex valued data as alternating real and                                          
+            imaginary parts. The length must be a power of 2. The data is                                        
+            modified in place.                                                                                   
+            </summary>                                                                                           
+            <param name="data">The complex data stored as alternating real                                       
+            and imaginary parts</param>                                                                          
+            <param name="forward">true for a forward transform, false for                                        
+            inverse transform</param>                                                                            
+        </member>
+        <member name="M:KWEngine3.Audio.Lomont.LomontFFT.TableFFT(System.Double[],System.Boolean)">
+            <summary>                                                                                            
+            Compute the forward or inverse Fourier Transform of data, with data                                  
+            containing complex valued data as alternating real and imaginary                                     
+            parts. The length must be a power of 2. This method caches values                                    
+            and should be slightly faster on than the FFT method for repeated uses.                              
+            It is also slightly more accurate. Data is transformed in place.                                     
+            </summary>                                                                                           
+            <param name="data">The complex data stored as alternating real                                       
+            and imaginary parts</param>                                                                          
+            <param name="forward">true for a forward transform, false for                                        
+            inverse transform</param>                                                                            
+        </member>
+        <member name="M:KWEngine3.Audio.Lomont.LomontFFT.RealFFT(System.Double[],System.Boolean)">
+            <summary>                                                                                            
+            Compute the forward or inverse Fourier Transform of data, with                                       
+            data containing real valued data only. The output is complex                                         
+            valued after the first two entries, stored in alternating real                                       
+            and imaginary parts. The first two returned entries are the real                                     
+            parts of the first and last value from the conjugate symmetric                                       
+            output, which are necessarily real. The length must be a power                                       
+            of 2.                                                                                                
+            </summary>                                                                                           
+            <param name="data">The complex data stored as alternating real                                       
+            and imaginary parts</param>                                                                          
+            <param name="forward">true for a forward transform, false for                                        
+            inverse transform</param>                                                                            
+        </member>
+        <member name="P:KWEngine3.Audio.Lomont.LomontFFT.A">
+            <summary>                                                                                            
+            Determine how scaling works on the forward and inverse transforms.                                   
+            For size N=2^n transforms, the forward transform gets divided by                                     
+            N^((1-a)/2) and the inverse gets divided by N^((1+a)/2). Common                                      
+            values for (A,B) are                                                                                 
+                ( 0, 1)  - default                                                                               
+                (-1, 1)  - data processing                                                                       
+                ( 1,-1)  - signal processing                                                                     
+            Usual values for A are 1, 0, or -1                                                                   
+            </summary>                                                                                           
+        </member>
+        <member name="P:KWEngine3.Audio.Lomont.LomontFFT.B">
+            <summary>                                                                                            
+            Determine how phase works on the forward and inverse transforms.                                     
+            For size N=2^n transforms, the forward transform uses an                                             
+            exp(B*2*pi/N) term and the inverse uses an exp(-B*2*pi/N) term.                                      
+            Common values for (A,B) are                                                                          
+                ( 0, 1)  - default                                                                               
+                (-1, 1)  - data processing                                                                       
+                ( 1,-1)  - signal processing                                                                     
+            Abs(B) should be relatively prime to N.                                                              
+            Setting B=-1 effectively corresponds to conjugating both input and                                   
+            output data.                                                                                         
+            Usual values for B are 1 or -1.                                                                      
+            </summary>                                                                                           
+        </member>
+        <member name="M:KWEngine3.Audio.Lomont.LomontFFT.Scale(System.Double[],System.Int32,System.Boolean)">
+            <summary>                                                                                            
+            Scale data using n samples for forward and inverse transforms as needed                              
+            </summary>                                                                                           
+            <param name="data"></param>                                                                          
+            <param name="n"></param>                                                                             
+            <param name="forward"></param>                                                                       
+        </member>
+        <member name="M:KWEngine3.Audio.Lomont.LomontFFT.Initialize(System.Int32)">
+            <summary>                                                                                            
+            Call this with the size before using the TableFFT version                                            
+            Fills in tables for speed. Done automatically in TableFFT                                            
+            </summary>                                                                                           
+            <param name="size">The size of the FFT in samples</param>                                            
+        </member>
+        <member name="M:KWEngine3.Audio.Lomont.LomontFFT.Reverse(System.Double[],System.Int32)">
+            <summary>                                                                                            
+            Swap data indices whenever index i has binary                                                        
+            digits reversed from index j, where data is                                                          
+            two doubles per index.                                                                               
+            </summary>                                                                                           
+            <param name="data"></param>                                                                          
+            <param name="n"></param>                                                                             
+        </member>
+        <member name="F:KWEngine3.Audio.Lomont.LomontFFT.cosTable">
+            <summary>                                                                                            
+            Pre-computed sine/cosine tables for speed                                                            
+            </summary>                                                                                           
         </member>
         <member name="P:KWEngine3.Audio.OggDecoder.OggDecodeStream.BitsPerSample">
             <summary>
@@ -164,6 +496,21 @@
         <member name="M:KWEngine3.Editor.KWBuilderOverlay.Dispose">
             <summary>
             Frees all graphics resources used by the renderer.
+            </summary>
+        </member>
+        <member name="T:KWEngine3.GBufferLightingMode">
+            <summary>
+            Gibt an, wie der Beleuchtungsschritt in der Engine ablaufen soll
+            </summary>
+        </member>
+        <member name="F:KWEngine3.GBufferLightingMode.Default">
+            <summary>
+            Standard: Instanziiertes GBuffer-Grid
+            </summary>
+        </member>
+        <member name="F:KWEngine3.GBufferLightingMode.SeparateDrawCalls">
+            <summary>
+            Das GBuffer-Grid wird in separaten Draw-Calls gezeichnet
             </summary>
         </member>
         <member name="T:KWEngine3.RenderType">
@@ -953,17 +1300,52 @@
         </member>
         <member name="F:KWEngine3.ShadowQuality.Low">
             <summary>
-            Niedrige Qualität
+            Niedrige Qualität (512 * 512)
             </summary>
         </member>
         <member name="F:KWEngine3.ShadowQuality.Medium">
             <summary>
-            Mittlere Qualität (Standard)
+            Mittlere Qualität (Standard, 1024 * 1024)
             </summary>
         </member>
         <member name="F:KWEngine3.ShadowQuality.High">
             <summary>
-            Hohe Qualität
+            Hohe Qualität (2048 * 2048)
+            </summary>
+        </member>
+        <member name="T:KWEngine3.SunShadowType">
+            <summary>
+            Art des Schattentyps (nur für Sonnenlicht relevant)
+            </summary>
+        </member>
+        <member name="F:KWEngine3.SunShadowType.Default">
+            <summary>
+            Standard
+            </summary>
+        </member>
+        <member name="F:KWEngine3.SunShadowType.CascadedShadowMap">
+            <summary>
+            Cascaded: Schatten nahe des Lichtziels sind detaillierter, weiter weg liegende Objekte werfen gröbere Schatten
+            </summary>
+        </member>
+        <member name="T:KWEngine3.CSMFactor">
+            <summary>
+            Gibt an, wie viel größer die weiteste Shadow Map im CSM-Array als die innerste Shadow Map ist.
+            </summary>
+        </member>
+        <member name="F:KWEngine3.CSMFactor.Two">
+            <summary>
+            Zweimal so groß
+            </summary>
+        </member>
+        <member name="F:KWEngine3.CSMFactor.Four">
+            <summary>
+            Viermal so groß
+            </summary>
+        </member>
+        <member name="F:KWEngine3.CSMFactor.Eight">
+            <summary>
+            Achtmal so groß
             </summary>
         </member>
         <member name="T:KWEngine3.ProjectionType">
@@ -1031,19 +1413,24 @@
             "Open Sans"
             </summary>
         </member>
-        <member name="T:KWEngine3.PostProcessingQuality">
+        <member name="T:KWEngine3.RenderQualityLevel">
             <summary>
-            Aktivierung von Post-Processing-Effekten (Standard: hohe Qualität)
+            Renderqualität [Standard: ausgeglichene Qualität]
             </summary>
         </member>
-        <member name="F:KWEngine3.PostProcessingQuality.High">
+        <member name="F:KWEngine3.RenderQualityLevel.High">
             <summary>
-            Hoch
+            Hohe Qualität (für leistungsstarke GPUs)
             </summary>
         </member>
-        <member name="F:KWEngine3.PostProcessingQuality.Standard">
+        <member name="F:KWEngine3.RenderQualityLevel.Default">
             <summary>
             Standard (vorausgewählt)
+            </summary>
+        </member>
+        <member name="F:KWEngine3.RenderQualityLevel.Low">
+            <summary>
+            Niedrige Qualität (für Onboard-GPUs)
             </summary>
         </member>
         <member name="T:KWEngine3.CubeSide">
@@ -1121,6 +1508,11 @@
             Transparency Map
             </summary>
         </member>
+        <member name="F:KWEngine3.TextureType.Height">
+            <summary>
+            Height Map (wird aus Performance-Gründen via Parallax Occlusion Mapping umgesetzt)
+            </summary>
+        </member>
         <member name="T:KWEngine3.Plane">
             <summary>
             Bezeichnet die beiden Achsen, die die gewünschte Ebene aufspannen.
@@ -1170,6 +1562,34 @@
             <summary>
             Kamerablickebene
             </summary>
+        </member>
+        <member name="T:KWEngine3.HighlightMode">
+            <summary>
+            Gibt an, nach welcher Methodik eine GameObject-Instanz hervorgehoben werden soll
+            </summary>
+        </member>
+        <member name="F:KWEngine3.HighlightMode.Disabled">
+            <summary>
+            Deaktiviert (Standard)
+            </summary>
+        </member>
+        <member name="F:KWEngine3.HighlightMode.WhenOccluded">
+            <summary>
+            Hervorhebung findet nur dann statt, wenn das Objekt von anderen Objekten verdeckt wird
+            </summary>
+        </member>
+        <member name="F:KWEngine3.HighlightMode.WhenOccludedOutline">
+            <summary>
+            Hervorhebung als Silhouette findet nur dann statt, wenn das Objekt von anderen Objekten verdeckt wird
+            </summary>
+        </member>
+        <member name="F:KWEngine3.HighlightMode.Permanent">
+            <summary>
+            Hervorhebung findet permanent statt
+            </summary>
+        </member>
+        <member name="F:KWEngine3.HighlightMode.PermanentOutline">
+            Hervorhebung als Silhouette findet permanent statt
         </member>
         <member name="T:KWEngine3.Exceptions.EngineException">
             <summary>
@@ -1432,6 +1852,13 @@
             <param name="type">Art der Textur (Standard: Albedo)</param>
             <param name="meshId">ID des 3D-Modellanteils (Standard: 0)</param>
         </member>
+        <member name="M:KWEngine3.GameObjects.EngineObject.SetParallaxOcclusionMappingScale(System.Single)">
+            <summary>
+            Setzt die Skalierung für das Parallax-Occlusion-Mapping (falls eine Height-Textur für das Objekt verwendet wird)
+            </summary>
+            <remarks>RenderQuality muss auf 'Default' oder höher eingestellt sein, damit dieser Effekt eintritt</remarks>
+            <param name="scale">Skalierungsfaktor (Standardwert: 0.0f, Wertebereich: 0.0f bis 1.0f)</param>
+        </member>
         <member name="M:KWEngine3.GameObjects.EngineObject.SetTextureOffset(System.Single,System.Single)">
             <summary>
             Setzt die Texturverschiebung auf dem Objekt
@@ -1484,6 +1911,13 @@
             Setzt die Größenskalierung des Objekts (muss > 0 sein)
             </summary>
             <param name="s">Skalierung</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.EngineObject.SetScale(System.Single,System.Single)">
+            <summary>
+            Setzt die Größenskalierung des Objekts (muss > 0 sein)
+            </summary>
+            <param name="x">Skalierung entlang der x-Achse</param>
+            <param name="y">Skalierung entlang der y-Achse</param>
         </member>
         <member name="M:KWEngine3.GameObjects.EngineObject.Move(System.Single)">
             <summary>
@@ -1721,6 +2155,20 @@
             Führt die Animation um einen gegebenen Teil fort
             </summary>
             <param name="p">relativer Fortschritt der Animation</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.EngineObject.SetHue(System.Single,System.Int32)">
+            <summary>
+            Setzt die Farbverschiebung (Hue) in Grad
+            </summary>
+            <param name="hue">Farbverschiebung (in Grad)</param>
+            <param name="meshIndex">Index des Model-Meshs (Standard: 0)</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.EngineObject.GetHue(System.Int32)">
+            <summary>
+            Erfragt die aktuelle Farbverschiebung (Hue) in Grad
+            </summary>
+            <param name="meshIndex">Index des Model-Meshs (Standard: 0)</param>
+            <returns>Aktuelle Farbverschiebung (in Grad)</returns>
         </member>
         <member name="T:KWEngine3.GameObjects.ExplosionObject">
             <summary>
@@ -1971,6 +2419,29 @@
             Gibt an, ob das Objekt ein Kollisionen erzeugen und überprüfen kann
             </summary>
         </member>
+        <member name="M:KWEngine3.GameObjects.GameObject.SetColorHighlight(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Setzt die Hervorhebungsfarbe für das Objekt (RGB und Intensität)
+            </summary>
+            <param name="r">Rotanteil (0.0f bis 1.0f)</param>
+            <param name="g">Grünanteil (0.0f bis 1.0f)</param>
+            <param name="b">Blauanteil (0.0f bis 1.0f)</param>
+            <param name="intensity">Intensität (0.0f bis 2.0f)</param>
+        </member>
+        <member name="P:KWEngine3.GameObjects.GameObject.ColorHighlight">
+            <summary>
+            Erfragt die aktuell gesetze Farbe (RGB und Intensität) für die Hervorhebung
+            </summary>
+        </member>
+        <member name="M:KWEngine3.GameObjects.GameObject.SetColorHighlightMode(KWEngine3.HighlightMode)">
+            <summary>
+            Setzt den Modus für das Hervorheben (Standard: Disabled)
+            </summary>
+            <remarks>
+            Wenn der Modus "Disabled" ist, hat die Eigenschaft ColorHighlight keine Wirkung
+            </remarks>
+            <param name="mode">gewünschter Modus</param>
+        </member>
         <member name="M:KWEngine3.GameObjects.GameObject.ResetColliderModel">
             <summary>
             Löscht ein ggf. verwendetes benutzerdefiniertes Collider-Modell für die aktuelle Instanz
@@ -2039,22 +2510,21 @@
             <param name="y">Position auf y-Achse</param>
             <param name="mode">Bestimmt, auf welchen Fixpunkt des Objekts sich die Positionsangaben beziehen sollen</param>
         </member>
-        <member name="M:KWEngine3.GameObjects.GameObject.RaytraceTerrainBelowPosition(OpenTK.Mathematics.Vector3,System.Boolean)">
+        <member name="M:KWEngine3.GameObjects.GameObject.RaytraceTerrainBelowPosition(OpenTK.Mathematics.Vector3)">
             <summary>
             Prüft auf eine Strahlenkollision mit einem Terrain-Objekt direkt unterhalb der angegebenen Position
             </summary>
             <param name="position">Startposition des nach unten gerichteten Teststrahls</param>
-            <param name="scanBothDirections">Soll ein weiterer Teststrahl nach oben geschossen werden, falls ein nach unten gerichteter Strahl keinen Treffer findet? (Standard: false)</param>
             <returns>Ergebnis der Strahlenkollisionsmessung</returns>
         </member>
-        <member name="M:KWEngine3.GameObjects.GameObject.RaytraceTerrainBelowPositionExt(OpenTK.Mathematics.Vector3,KWEngine3.RayMode,System.Single,System.Boolean)">
+        <member name="M:KWEngine3.GameObjects.GameObject.RaytraceTerrainBelowPositionExt(OpenTK.Mathematics.Vector3,KWEngine3.RayMode,System.Single)">
             <summary>
             Prüft auf eine Strahlenkollision mit einem Terrain-Objekt direkt unterhalb der angegebenen Position
             </summary>
+            <remarks>Die TerrainObject-Instanzen müssen als Kollisionsobjekte markiert sein, damit sie für die Messung berücksichtigt werden</remarks>
             <param name="position">Startposition des nach unten gerichteten Teststrahls</param>
             <param name="rayMode">Art der Messung (Standard: SingleY)</param>
             <param name="sizeFactor">Skalierungsfaktor der Strahlen (falls mehrere Strahlen verwendet werden)</param>
-            <param name="scanBothDirections">Soll ein weiterer Teststrahl nach oben geschossen werden, falls ein nach unten gerichteter Strahl keinen Treffer findet? (Standard: false)</param>
             <returns>Ergebnis der Strahlenkollisionsmessung</returns>
         </member>
         <member name="M:KWEngine3.GameObjects.GameObject.GetIntersection(KWEngine3.IntersectionTestMode)">
@@ -2430,6 +2900,11 @@
             Entfernt die Verbindung zu allen am Instanzmodell anhaftenden GameObject-Instanzen (Bone-Attachments)
             </summary>
             <param name="deleteAttachments">wenn true, werden die anhaftenden Instanzen nicht nur abgekoppelt sondern auch aus der Welt gelöscht (Standard: false)</param>
+        </member>
+        <member name="P:KWEngine3.GameObjects.GameObject.Diameter">
+            <summary>
+            Gibt den groben Durchmesser der Hitbox an
+            </summary>
         </member>
         <member name="T:KWEngine3.GameObjects.HUDObject">
             <summary>
@@ -2957,17 +3432,23 @@
             Name des Objekts
             </summary>
         </member>
-        <member name="P:KWEngine3.GameObjects.LightObject.ShadowCasterType">
+        <member name="P:KWEngine3.GameObjects.LightObject.ShadowQualityLevel">
             <summary>
             Schattenqualität des Lichts (maximal 3 Schattenlichter pro Welt möglich)
             </summary>
         </member>
-        <member name="M:KWEngine3.GameObjects.LightObject.#ctor(KWEngine3.LightType,KWEngine3.ShadowQuality)">
+        <member name="P:KWEngine3.GameObjects.LightObject.ShadowType">
             <summary>
-            Standardkonstruktormethode für Lichtobjekte
+            Art der Schattenberechnung (Standard oder kaskadiert)
+            </summary>
+        </member>
+        <member name="M:KWEngine3.GameObjects.LightObject.Init(KWEngine3.LightType,KWEngine3.ShadowQuality,KWEngine3.SunShadowType)">
+            <summary>
+            Init-Methode für Lichtobjekte
             </summary>
             <param name="lightType">Art des Lichts (Sonne, Punktlicht oder gerichtetes Licht?)</param>
-            <param name="shadowType">Schattenqualität des Lichts</param>
+            <param name="shadowQuality">Schattenqualität des Lichts</param>
+            <param name="shadowType">Schattentyp</param>
         </member>
         <member name="M:KWEngine3.GameObjects.LightObject.SetShadowBias(System.Single)">
             <summary>
@@ -3078,6 +3559,46 @@
             Gibt die aktuelle Zielposition des Lichtobjekts zurück (nur für gerichtete Lichter gültig)
             </summary>
         </member>
+        <member name="T:KWEngine3.GameObjects.LightObjectDirectional">
+            <summary>
+            Klasse für Lichter mit gerichtetem Lichtkegel
+            </summary>
+        </member>
+        <member name="M:KWEngine3.GameObjects.LightObjectDirectional.#ctor(KWEngine3.ShadowQuality)">
+            <summary>
+            Konstruktormethode für die Erstellung einer Lichtinstanz mit gerichtetem Lichtkegel
+            </summary>
+            <param name="shadowQuality">Schattenqualitätslevel</param>
+        </member>
+        <member name="T:KWEngine3.GameObjects.LightObjectPoint">
+            <summary>
+            Klasse für Punktlichter
+            </summary>
+        </member>
+        <member name="M:KWEngine3.GameObjects.LightObjectPoint.#ctor(KWEngine3.ShadowQuality)">
+            <summary>
+            Konstruktormethode für die Erstellung einer Punktlichtinstanz
+            </summary>
+            <param name="shadowQuality">Schattenqualitätslevel</param>
+        </member>
+        <member name="T:KWEngine3.GameObjects.LightObjectSun">
+            <summary>
+            Klasse für das Sonnenlicht
+            </summary>
+        </member>
+        <member name="M:KWEngine3.GameObjects.LightObjectSun.#ctor(KWEngine3.ShadowQuality,KWEngine3.SunShadowType)">
+            <summary>
+            Konstruktormethode für die Erstellung einer Sonnenlichtinstanz
+            </summary>
+            <param name="shadowQuality">Schattenqualitätslevel</param>
+            <param name="shadowType">Gibt die Art des Schattens an</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.LightObjectSun.SetCSMFactor(KWEngine3.CSMFactor)">
+            <summary>
+            Gibt an, wie viel größer die äußere Shadow Map für eine schattenwerfende Sonne ist
+            </summary>
+            <param name="factor">Vergrößerungsfaktor</param>
+        </member>
         <member name="T:KWEngine3.GameObjects.ParticleObject">
             <summary>
             Partikelklasse
@@ -3093,6 +3614,18 @@
             Setzt die Dauer der Loop-Partikel
             </summary>
             <param name="durationInSeconds">Dauer (in Sekunden)</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.ParticleObject.SetHue(System.Single)">
+            <summary>
+            Setzt die Farbverschiebung (Hue) in Grad
+            </summary>
+            <param name="hue">Farbverschiebung (in Grad)</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.ParticleObject.GetHue">
+            <summary>
+            Erfragt die aktuelle Farbverschiebung (Hue) in Grad
+            </summary>
+            <returns>Aktuelle Farbverschiebung (in Grad)</returns>
         </member>
         <member name="M:KWEngine3.GameObjects.ParticleObject.SetPosition(OpenTK.Mathematics.Vector3)">
             <summary>
@@ -3237,9 +3770,26 @@
             Gibt an oder setzt fest, ob die Instanz sichtbar ist (Standard: true)
             </summary>
         </member>
+        <member name="M:KWEngine3.GameObjects.TerrainObject.SetTextureSlopeBlendFactor(System.Single)">
+            <summary>
+            Gibt an, ab welchem Steigungsfaktor (zwischen 0 und 1) die Slope-Textur statt der regulären Terrain-Textur verwendet wird
+            </summary>
+            <param name="factor">Steigungsfaktor (zwischen 0 und 1, Standardwert: 0.5f)</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.TerrainObject.SetTextureSlopeBlendSmoothingFactor(System.Single)">
+            <summary>
+            Gibt an, wie weich die Übergänge zwischen den beiden Texturen (reguläre und Slope-Textur) verlaufen sollen (Standard: 0.05f)
+            </summary>
+            <param name="factor">Glättungsfaktor (zwischen 0f und 1.0f)</param>
+        </member>
         <member name="P:KWEngine3.GameObjects.TerrainObject.Name">
             <summary>
             Name des Objekts
+            </summary>
+        </member>
+        <member name="P:KWEngine3.GameObjects.TerrainObject.TessellationThreshold">
+            <summary>
+            Gibt an, ab welcher Entfernung dieses Terrain weniger detailliert dargestellt werden soll (Standard: 64 Längeneinheiten)
             </summary>
         </member>
         <member name="P:KWEngine3.GameObjects.TerrainObject.Width">
@@ -3300,7 +3850,14 @@
         </member>
         <member name="M:KWEngine3.GameObjects.TerrainObject.SetTexture(System.String,KWEngine3.TextureType)">
             <summary>
-            Setzt die Textur des Objekts
+            Setzt die Haupttextur des Terrains
+            </summary>
+            <param name="filename">Dateiname (inkl. relativem Pfad)</param>
+            <param name="type">Texturtyp (Standard: Albedo)</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.TerrainObject.SetTextureForSlope(System.String,KWEngine3.TextureType)">
+            <summary>
+            Setzt die Textur des Terrains für Anstiege und Gefälle
             </summary>
             <param name="filename">Dateiname (inkl. relativem Pfad)</param>
             <param name="type">Texturtyp (Standard: Albedo)</param>
@@ -3315,6 +3872,20 @@
         <member name="M:KWEngine3.GameObjects.TerrainObject.SetTextureRepeat(System.Single,System.Single)">
             <summary>
             Setzt die Texturwiederholung in x-/y-Richtung (Standard: 1)
+            </summary>
+            <param name="x">x</param>
+            <param name="y">y</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.TerrainObject.SetTextureOffsetForSlope(System.Single,System.Single)">
+            <summary>
+            Setzt die Texturverschiebung für starke Steigungen / Gefälle
+            </summary>
+            <param name="x">x</param>
+            <param name="y">y</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.TerrainObject.SetTextureRepeatForSlope(System.Single,System.Single)">
+            <summary>
+            Setzt die Texturwiederholung in x-/y-Richtung (Standard: 1) für starke Steigungen / Gefälle
             </summary>
             <param name="x">x</param>
             <param name="y">y</param>
@@ -3346,6 +3917,13 @@
             Bewegt das Objekt relativ zur ursprünglichen Position
             </summary>
             <param name="offset">Verschiebung</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.TerrainObject.SetParallaxOcclusionMappingScale(System.Single)">
+            <summary>
+            Setzt die Skalierung für das Parallax-Occlusion-Mapping (falls eine Height-Textur für das Objekt verwendet wird)
+            </summary>
+            <remarks>RenderQuality muss auf 'Default' oder höher eingestellt sein, damit dieser Effekt eintritt</remarks>
+            <param name="scale">Skalierungsfaktor (Standardwert: 0.0f, Wertebereich: 0.0f bis 1.0f)</param>
         </member>
         <member name="T:KWEngine3.GameObjects.TextObject">
             <summary>
@@ -3723,12 +4301,12 @@
             Basisklasse für das Programmfenster
             </summary>
         </member>
-        <member name="M:KWEngine3.GLWindow.#ctor(System.Boolean,KWEngine3.PostProcessingQuality,OpenTK.Windowing.Common.Input.WindowIcon)">
+        <member name="M:KWEngine3.GLWindow.#ctor(System.Boolean,KWEngine3.RenderQualityLevel,OpenTK.Windowing.Common.Input.WindowIcon)">
             <summary>
             Standardkonstruktor für den exklusiven Fullscreen-Modus
             </summary>
             <param name="vSync">Begrenzung der FPS an die Bildwiederholrate des Monitors?</param>
-            <param name="ppQuality">Qualität der Post-Processing-Pipeline (Standard: hohe Qualität)</param>
+            <param name="quality">Qualität der Render-Pipeline (Standard: ausbalancierte Qualität)</param>
             <param name="icon">Fenstersymbol</param>
         </member>
         <member name="M:KWEngine3.GLWindow.#ctor(System.Int32,System.Int32,System.Boolean,OpenTK.Windowing.Common.Input.WindowIcon)">
@@ -3740,25 +4318,25 @@
             <param name="vSync">Begrenzung der FPS an die Bildwiederholrate des Monitors?</param>
             <param name="icon">Fenstersymbol</param>
         </member>
-        <member name="M:KWEngine3.GLWindow.#ctor(System.Int32,System.Int32,System.Boolean,KWEngine3.PostProcessingQuality,KWEngine3.WindowMode,OpenTK.Windowing.Common.Input.WindowIcon)">
+        <member name="M:KWEngine3.GLWindow.#ctor(System.Int32,System.Int32,System.Boolean,KWEngine3.RenderQualityLevel,KWEngine3.WindowMode,OpenTK.Windowing.Common.Input.WindowIcon)">
             <summary>
             Standardkonstruktor für den Fenstermodus
             </summary>
             <param name="width">Breite des Fensterinhalts in Pixeln</param>
             <param name="height">Höhe des Fenterinhalts in Pixeln</param>
             <param name="vSync">Begrenzung der FPS an die Bildwiederholrate des Monitors?</param>
-            <param name="ppQuality">Qualität der Post-Processing-Pipeline (Standard: hohe Qualität)</param>
+            <param name="quality">Qualität der Render-Pipeline (Standard: ausbalancierte Qualität)</param>
             <param name="windowMode">Art des Fensters (Standard oder rahmenlos)</param>
             <param name="icon">Fenstersymbol</param>
         </member>
-        <member name="M:KWEngine3.GLWindow.#ctor(System.Int32,System.Int32,System.Boolean,KWEngine3.PostProcessingQuality,KWEngine3.WindowMode,System.IntPtr,OpenTK.Windowing.Common.Input.WindowIcon)">
+        <member name="M:KWEngine3.GLWindow.#ctor(System.Int32,System.Int32,System.Boolean,KWEngine3.RenderQualityLevel,KWEngine3.WindowMode,System.IntPtr,OpenTK.Windowing.Common.Input.WindowIcon)">
             <summary>
             Standardkonstruktor für den Fenstermodus
             </summary>
             <param name="width">Breite des Fensterinhalts in Pixeln</param>
             <param name="height">Höhe des Fenterinhalts in Pixeln</param>
             <param name="vSync">Begrenzung der FPS an die Bildwiederholrate des Monitors?</param>
-            <param name="ppQuality">Qualität der Post-Processing-Pipeline (Standard: hohe Qualität)</param>
+            <param name="quality">Qualität der Render-Pipeline (Standard: ausbalancierte Qualität)</param>
             <param name="windowMode">Art des Fensters (Standard oder rahmenlos)</param>
             <param name="monitorHandle">Handle des Monitors, auf dem das Fenster geöffnet werden soll</param>
             <param name="icon">Fenstersymbol</param>
@@ -3918,13 +4496,13 @@
             <summary>
             Konvertiert eine Grafikdatei in das WindowIcon-Format
             </summary>
-            <remarks>Method output may be null if file is invalid</remarks>
+            <remarks>Rückgabewert ist null, wenn die zu ladende Datei ungültig oder ungeeignet ist</remarks>
             <param name="iconFile">Dateiname</param>
             <returns>WindowIcon-Instanz</returns>
         </member>
-        <member name="P:KWEngine3.GLWindow.Quality">
+        <member name="P:KWEngine3.GLWindow.RenderQuality">
             <summary>
-            Gibt die bei Programmstart gewählte Qualität für Post-Processing-Effekte zurück
+            Gibt die bei Programmstart gewählte Render-Qualität zurück
             </summary>
         </member>
         <member name="T:KWEngine3.Helper.FlowField">
@@ -4502,6 +5080,7 @@
             <summary>
             Berechnet den ungefähren Schnittpunkt des Mauszeigers mit einem Terrain-Objekt.
             </summary>
+            <remarks>Terrain-Instanz MUSS dafür als Kollisionsobjekt markiert sein!</remarks>
             <param name="intersectionPoint">Ausgabe des Schnittpunkts (wenn der Mauszeiger über einem Terrain-Objekt liegt - sonst (0|0|0))</param>
             <returns>true, wenn der Mauszeiger über einem Terrain-Objekt liegt</returns>
         </member>
@@ -4906,6 +5485,33 @@
             Gibt die Rotation für ein Objekt an, die es benötigt, um in Richtung der Kamera ausgerichtet zu sein (Billboarding)
             </summary>
             <returns>Rotation</returns>
+        </member>
+        <member name="T:KWEngine3.Helper.HelperTexture">
+            <summary>
+            Helferklasse für Texturen
+            </summary>
+        </member>
+        <member name="M:KWEngine3.Helper.HelperTexture.RoundUpToPowerOf2(System.Int32)">
+            <summary>
+            Rundet eine Ganzzahl auf, so dass sie der nächsthöheren Zweierpotenz entspricht
+            </summary>
+            <param name="value">aufzurundende Zahl</param>
+            <returns>nächsthöhere Zweierpotenz</returns>
+        </member>
+        <member name="M:KWEngine3.Helper.HelperTexture.GetResolutionFromImage(System.String)">
+            <summary>
+            Erfragt die Auflösung einer Bilddatei in Pixeln
+            </summary>
+            <remarks>Ist das Bild ungültig, wird eine Auflösung von 0 Pixeln zurückgegeben</remarks>
+            <param name="filename">Bilddateiname</param>
+            <returns>Auflösung in Pixeln</returns>
+        </member>
+        <member name="M:KWEngine3.Helper.HelperTexture.RoundDownToPowerOf2(System.Int32)">
+            <summary>
+            Rundet eine Ganzzahl ab, so dass sie der nächstniedrigeren Zweierpotenz entspricht
+            </summary>
+            <param name="value">abzurundende Zahl</param>
+            <returns>nächstniedrigere Zweierpotenz</returns>
         </member>
         <member name="T:KWEngine3.Helper.HelperVector">
             <summary>
@@ -5571,6 +6177,18 @@
             Kernbibliothek der Engine
             </summary>
         </member>
+        <member name="P:KWEngine3.KWEngine.AudioBuffersPerChannel">
+            <summary>
+            Gibt an, wie viele Puffer pro Audiokanal verwendet werden sollen (Minimum: 2, Standardwert: 2, Maximum: 4)
+            </summary>
+            <remarks>Je mehr Puffer, desto verlässlicher ist die Wiedergabe auf langsamen CPUs, aber die Auswertung der Audiodaten kann dadurch leicht verzögert werden</remarks>
+        </member>
+        <member name="P:KWEngine3.KWEngine.GBufferLighting">
+            <summary>
+            Gibt an, wie der Beleuchtungsschritt in der Engine ablaufen soll
+            </summary>
+            <remarks>Kann die Performance auf schwachen GPUs verbessern, muss aber vor Erstellung des Fensters gesetzt werden</remarks>
+        </member>
         <member name="P:KWEngine3.KWEngine.MouseSensitivity">
             <summary>
             Empfindlichkeit des Mauszeigers im First-Person-Modus (Standard: 0.05f, negative Werte für die Invertierung der y-Achse)
@@ -5599,11 +6217,6 @@
         <member name="P:KWEngine3.KWEngine.ViewSpaceGameObjectShakeFactor">
             <summary>
             Gibt an oder setzt den Faktor, der bei der Berechnung des Kameraschüttelns einer ViewSpaceGameObject-Instanz zugerechnet wird (Standard: 0.1f, gültiger Wertebereich liegt zwischen 0f und 1f)
-            </summary>
-        </member>
-        <member name="P:KWEngine3.KWEngine.TerrainTessellationThreshold">
-            <summary>
-            Gibt an, ab welcher Entfernung Terrain-Geometrie weniger detailliert dargestellt werden soll (Standard: 32 Einheiten)
             </summary>
         </member>
         <member name="F:KWEngine3.KWEngine.MAXADDITIONALINSTANCECOUNT">
@@ -5741,13 +6354,17 @@
             Welt-Vektor, der angibt, wo 'oben' ist
             </summary>
         </member>
-        <member name="M:KWEngine3.KWEngine.BuildTerrainModel(System.String,System.String,System.Int32)">
+        <member name="M:KWEngine3.KWEngine.BuildTerrainModel(System.String,System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
             Baut ein Terrain-Modell
             </summary>
             <param name="name">Name des Modells</param>
             <param name="heightmap">Heightmap Textur (maximal: 1024x1024px)</param>
             <param name="height">Höhe (y-Achse, gültige Werte von 0 bis 128)</param>
+            <param name="imageOffsetX">(optional) gibt an, ab welchem horizontalen Pixel die Heightmap gelesen werden soll (nullbasiert)</param>
+            <param name="imageOffsetY">(optional) gibt an, ab welchem vertikalen Pixel die Heightmap gelesen werden soll (nullbasiert)</param>
+            <param name="imageSliceWidth">(optional) gibt an, wie viele Pixel horizontal ab x-Offset gelesen werden sollen (-1, falls alle Pixel gelesen werden sollen)</param>
+            <param name="imageSliceHeight">(optional) gibt an, wie viele Pixel vertikal ab y-Offset gelesen werden sollen (-1, falls alle Pixel gelesen werden sollen)</param>
         </member>
         <member name="M:KWEngine3.KWEngine.LoadAnimationIntoModel(System.String,System.String)">
             <summary>

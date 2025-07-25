@@ -27,7 +27,7 @@ namespace Gruppenprojekt.App
             Globals.fensterBreite,                                  // Fensterbreite
             Globals.fensterHoehe,                                   // Fensterhöhe
             true,                                                   // VSync?
-            PostProcessingQuality.Standard,                         // Qualität der PP-Effekte (Standard für iGPUs)
+            RenderQualityLevel.Default,                         
             WindowMode.BorderlessWindow,
             CreateWindowIconFromFile("./App/data/GameIcon.png")     
             )                 // Fensterdekorationsmodus

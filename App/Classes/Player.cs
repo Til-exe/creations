@@ -67,7 +67,7 @@ namespace Gruppenprojekt.App.Classes
             countdown = new HUDObjectText(NegativeCountdown.ToString("0.00"));
 
             //Taschenlampe
-            _flashlight = new LightObject(LightType.Directional, ShadowQuality.Low);
+            _flashlight = new LightObjectDirectional(ShadowQuality.Low);
             _flashlight.Name = "flashlight";
             _flashlight.SetNearFar(0.1f, 18f);
             _flashlight.SetColor(0, 0, 0, 0);
