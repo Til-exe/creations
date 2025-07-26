@@ -1815,14 +1815,20 @@
             <param name="r">Rotanteil (zwischen 0 und 1)</param>
             <param name="g">Grünanteil (zwischen 0 und 1)</param>
             <param name="b">Blauanteil (zwischen 0 und 1)</param>
-            <param name="intensity">Helligkeit (zwischen 0 und 2)</param>
+            <param name="intensity">Helligkeit (zwischen 0 und 10)</param>
         </member>
         <member name="M:KWEngine3.GameObjects.EngineObject.SetColorEmissive(OpenTK.Mathematics.Vector3,System.Single)">
             <summary>
             Setzt die selbstleuchtende Farbtönung des Objekts
             </summary>
             <param name="color">Rot-/Grün-/Blauanteil (zwischen 0 und 1)</param>
-            <param name="intensity">Helligkeit (zwischen 0 und 2)</param>
+            <param name="intensity">Helligkeit (zwischen 0 und 10)</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.EngineObject.SetColorEmissive(OpenTK.Mathematics.Vector4)">
+            <summary>
+            Setzt die selbstleuchtende Farbtönung des Objekts
+            </summary>
+            <param name="ce">RGB- und Intensitätsanteil (Intensität von 0 bis 10)</param>
         </member>
         <member name="M:KWEngine3.GameObjects.EngineObject.SetMetallic(System.Single,System.Int32)">
             <summary>
@@ -2192,7 +2198,7 @@
             <param name="red">Rot (0 bis 1)</param>
             <param name="green">Grün (0 bis 1)</param>
             <param name="blue">Blau (0 bis 1)</param>
-            <param name="intensity">Helligkeit (0 bis 2)</param>
+            <param name="intensity">Helligkeit (0 bis 10)</param>
         </member>
         <member name="M:KWEngine3.GameObjects.ExplosionObject.SetPosition(System.Single,System.Single,System.Single)">
             <summary>
