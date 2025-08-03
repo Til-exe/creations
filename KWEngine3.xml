@@ -2400,6 +2400,141 @@
             Löst die Bindung zum aktuell festgelegten Terrain-Objekt
             </summary>
         </member>
+        <member name="T:KWEngine3.GameObjects.FoliageObjectCustom">
+            <summary>
+            Klasse für benutzerdefinierte Bodengewächse (maximal 1024 pro Instanz)
+            </summary>
+        </member>
+        <member name="M:KWEngine3.GameObjects.FoliageObjectCustom.#ctor(System.Int32)">
+            <summary>
+            Konstruktormethode für ein Custom-Bodengewächs mit mehreren Instanzen
+            </summary>
+            <param name="instanceCount">Anzahl der Instanzen (Werte zwischen 1 und 256)</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.FoliageObjectCustom.SetTexture(System.String)">
+            <summary>
+            Setzt die (Albedo-)Textur
+            </summary>
+            <param name="filename">Dateiname der Textur (inkl. relativem oder absolutem Pfad)</param>
+        </member>
+        <member name="P:KWEngine3.GameObjects.FoliageObjectCustom.Name">
+            <summary>
+            Name des Objekts
+            </summary>
+        </member>
+        <member name="P:KWEngine3.GameObjects.FoliageObjectCustom.Color">
+            <summary>
+            Gibt die Tönung und Leuchtkraft des Bodengewächses an
+            </summary>
+        </member>
+        <member name="P:KWEngine3.GameObjects.FoliageObjectCustom.Roughness">
+            <summary>
+            Gibt die aktuelle Rauheit der Gewächsoberfläche an
+            </summary>
+        </member>
+        <member name="P:KWEngine3.GameObjects.FoliageObjectCustom.FoliageCount">
+            <summary>
+            Gibt die Anzahl der für das Gewächs gerenderten Instanzen zurück
+            </summary>
+        </member>
+        <member name="P:KWEngine3.GameObjects.FoliageObjectCustom.IsShadowReceiver">
+            <summary>
+            Gibt an, ob Schatten auf das Objekt geworfen werden können (Standard: true)
+            </summary>
+        </member>
+        <member name="P:KWEngine3.GameObjects.FoliageObjectCustom.IsAffectedByLight">
+            <summary>
+            Gibt an, ob dieses Objekt auf Licht reagiert (Standard: true)
+            </summary>
+        </member>
+        <member name="M:KWEngine3.GameObjects.FoliageObjectCustom.SetSwayFactor(System.Single)">
+            <summary>
+            Gibt an, wie stark das Gras sich im Wind wiegt
+            </summary>
+            <param name="swayFactor">Verstärkungsfaktor (Werte zwischen 0 und 1, Standard: 0.05f)</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.FoliageObjectCustom.SetRoughness(System.Single)">
+            <summary>
+            Gibt an, wie rau die Oberfläche des Gewächses ist (0f = glatt, 1f = rau)
+            </summary>
+            <param name="r">Grad der Rauheit</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.FoliageObjectCustom.SetColor(OpenTK.Mathematics.Vector4)">
+            <summary>
+            Setzt die Tönung und Leuchtkraft des Bodengewächses
+            </summary>
+            <param name="color">Tönung (RGB zwischen 0 und 1) und Leuchtkraft (zwischen 0 und 8, Standardwert: 0)</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.FoliageObjectCustom.SetColor(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Setzt die Tönung und Leuchtkraft des Bodengewächses
+            </summary>
+            <param name="r">Rotanteil (zwischen 0 und 1)</param>
+            <param name="g">Rotanteil (zwischen 0 und 1)</param>
+            <param name="b">Rotanteil (zwischen 0 und 1)</param>
+            <param name="intensity">Leuchtkraft (zwischen 0 und 8, Standardwert: 0)</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.FoliageObjectCustom.SetPosition(System.Int32,OpenTK.Mathematics.Vector3)">
+            <summary>
+            Setzt die Position des Gewächsmittelpunkts
+            </summary>
+            <param name="instanceIndex">Nullbasierter Index der zu positionierenden Instanz</param>
+            <param name="position">neue Position</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.FoliageObjectCustom.SetPosition(System.Int32,System.Single,System.Single,System.Single)">
+            <summary>
+            Setzt die Position des Gewächsmittelpunkts
+            </summary>
+            <param name="instanceIndex">Nullbasierter Index der zu positionierenden Instanz</param>
+            <param name="x">neue X-Position</param>
+            <param name="y">neue Y-Position</param>
+            <param name="z">neue Z-Position</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.FoliageObjectCustom.SetScale(System.Int32,System.Single)">
+            <summary>
+            Gibt die Größe für ein bestimmtes Gewächsteil an (Standardwert: 1)
+            </summary>
+            <param name="instanceIndex">Nullbasierter Index der zu skalierenden Instanz</param>
+            <param name="scale">Achsengleiche Skalierung (muss positiv sein)</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.FoliageObjectCustom.SetScale(System.Int32,System.Single,System.Single,System.Single)">
+            <summary>
+            Gibt die Größe für ein bestimmtes Gewächsteil an (Standardwert: 1)
+            </summary>
+            <param name="instanceIndex">Nullbasierter Index der zu skalierenden Instanz</param>
+            <param name="scaleX">Skalierung der x-Achse (muss positiv sein)</param>
+            <param name="scaleY">Skalierung der y-Achse (muss positiv sein)</param>
+            <param name="scaleZ">Skalierung der z-Achse (muss positiv sein)</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.FoliageObjectCustom.SetScale(System.Int32,OpenTK.Mathematics.Vector3)">
+            <summary>
+            Gibt die Größe für ein bestimmtes Gewächsteil an (Standardwert: 1)
+            </summary>
+            <param name="instanceIndex">Nullbasierter Index der zu skalierenden Instanz</param>
+            <param name="scale">Skalierung der drei Achsen (muss positiv sein)</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.FoliageObjectCustom.AttachToTerrain(KWEngine3.GameObjects.TerrainObject)">
+            <summary>
+            Richtet das Gewächs bzgl. seiner Höhe am übergebenen Terrain aus
+            </summary>
+            <param name="t">Terrain-Objekt, an dem sich das Gewächs orientieren soll</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.FoliageObjectCustom.DetachFromTerrain">
+            <summary>
+            Löst die Bindung zum aktuell festgelegten Terrain-Objekt
+            </summary>
+        </member>
+        <member name="M:KWEngine3.GameObjects.FoliageObjectCustom.SetCameraDrawDistance(System.Single)">
+            <summary>
+            Gibt an, wie weit die Entfernung der Kamera zum Mittelpunkt des Objekts sein darf bevor das Objekt nicht mehr gezeichnet wird (Standardwert: 20 Einheiten)
+            </summary>
+            <param name="distance">Renderdistanz (positive Werte ab 1.0f)</param>
+        </member>
+        <member name="P:KWEngine3.GameObjects.FoliageObjectCustom.IsInsideScreenSpace">
+            <summary>
+            Gibt an, ob das Objekt gerade in auf dem Bild zu sehen ist
+            </summary>
+        </member>
         <member name="T:KWEngine3.GameObjects.GameObject">
             <summary>
             GameObject-Klasse
@@ -3693,6 +3828,11 @@
             Konstruktormethode, der der 3D-Modellname mitgegeben werden kann
             </summary>
             <param name="modelname">Name des zu verwendenden 3D-Modells</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.RenderObject.Finalize">
+            <summary>
+            Destruktor
+            </summary>
         </member>
         <member name="M:KWEngine3.GameObjects.RenderObject.SetAdditionalInstanceCount(System.Int32,KWEngine3.InstanceMode)">
             <summary>
@@ -6824,9 +6964,21 @@
             </summary>
             <param name="f">hinzuzufügendes Objekt</param>
         </member>
+        <member name="M:KWEngine3.World.AddFoliageObject(KWEngine3.GameObjects.FoliageObjectCustom)">
+            <summary>
+            Fügt ein Gewächsobjekt (Custom) hinzu
+            </summary>
+            <param name="f">hinzuzufügendes Objekt</param>
+        </member>
         <member name="M:KWEngine3.World.RemoveFoliageObject(KWEngine3.GameObjects.FoliageObject)">
             <summary>
             Löscht ein Gewächsobjekt (z.B. Gras) aus der Welt
+            </summary>
+            <param name="f">zu entfernendes Objekt</param>
+        </member>
+        <member name="M:KWEngine3.World.RemoveFoliageObject(KWEngine3.GameObjects.FoliageObjectCustom)">
+            <summary>
+            Löscht ein Gewächsobjekt (Custom) aus der Welt
             </summary>
             <param name="f">zu entfernendes Objekt</param>
         </member>
