@@ -6486,7 +6486,7 @@
         </member>
         <member name="P:KWEngine3.KWEngine.GlowStyleFactor2">
             <summary>
-            Steuert den Stil des Glühens (Faktor 2, erlaubte Werte zwischen 0 und 1, Standard: 0.75)
+            Steuert den Stil des Glühens (Faktor 2, erlaubte Werte zwischen 0 und 1, Standard: 0.70)
             </summary>
         </member>
         <member name="P:KWEngine3.KWEngine.ScreenInformation">
