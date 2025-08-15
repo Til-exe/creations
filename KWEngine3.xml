@@ -9,6 +9,11 @@
             Helfer-Klasse für Audioeffekte
             </summary>
         </member>
+        <member name="P:KWEngine3.Audio.Audio.AnalyserActive">
+            <summary>
+            Gibt an, ob beim Abspielen von Tönen auch die Lautstärke und Frequenzen analysiert werden
+            </summary>
+        </member>
         <member name="P:KWEngine3.Audio.Audio.BufferSizeMs">
             <summary>
             Gibt die Puffergröße in Millisekunden für alle Audiokanäle an (Minimum: 20ms, Standardwert: 50ms)
@@ -3829,11 +3834,6 @@
             </summary>
             <param name="modelname">Name des zu verwendenden 3D-Modells</param>
         </member>
-        <member name="M:KWEngine3.GameObjects.RenderObject.Finalize">
-            <summary>
-            Destruktor
-            </summary>
-        </member>
         <member name="M:KWEngine3.GameObjects.RenderObject.SetAdditionalInstanceCount(System.Int32,KWEngine3.InstanceMode)">
             <summary>
             Konfiguriert die Anzahl der gewünschten Instanzen (Kopien) für das Objekt. 
@@ -3855,6 +3855,26 @@
             </summary>
             <param name="modelname">Name des 3D-Modells</param>
             <returns>true, wenn das Modell gesetzt werden konnte</returns>
+        </member>
+        <member name="M:KWEngine3.GameObjects.RenderObject.SetPosition(OpenTK.Mathematics.Vector3)">
+            <summary>
+            Setzt die Position des Objekts
+            </summary>
+            <param name="position">Position in 3D</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.RenderObject.SetScale(System.Single,System.Single,System.Single)">
+            <summary>
+            Setzt die Größenskalierung des Objekts entlang seiner lokalen drei Achsen
+            </summary>
+            <param name="x">Skalierung in x-Richtung</param>
+            <param name="y">Skalierung in y-Richtung</param>
+            <param name="z">Skalierung in z-Richtung</param>
+        </member>
+        <member name="M:KWEngine3.GameObjects.RenderObject.SetRotation(OpenTK.Mathematics.Quaternion)">
+            <summary>
+            Setzt die Rotation mit Hilfe eines Quaternion-Objekts
+            </summary>
+            <param name="rotation">Rotation</param>
         </member>
         <member name="M:KWEngine3.GameObjects.RenderObject.SetPositionForInstance(System.Int32,OpenTK.Mathematics.Vector3)">
             <summary>
