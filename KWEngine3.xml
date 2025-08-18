@@ -4594,16 +4594,16 @@
             </summary>
             <param name="e">Parameter</param>
         </member>
-        <member name="M:KWEngine3.GLWindow.OnClosing(System.ComponentModel.CancelEventArgs)">
-            <summary>
-            Wird ausgelöst, wenn das aktuelle Fenster geschlossen wird
-            </summary>
-        </member>
         <member name="M:KWEngine3.GLWindow.OnKeyDown(OpenTK.Windowing.Common.KeyboardKeyEventArgs)">
             <summary>
             Event-Handler, der ausgelöst wird, wenn eine Taste im Fenster gedrückt wird
             </summary>
             <param name="e">Event-Infos</param>
+        </member>
+        <member name="M:KWEngine3.GLWindow.Close">
+            <summary>
+            Schließt das Anwendungsfenster
+            </summary>
         </member>
         <member name="M:KWEngine3.GLWindow.OnKeyUp(OpenTK.Windowing.Common.KeyboardKeyEventArgs)">
             <summary>
